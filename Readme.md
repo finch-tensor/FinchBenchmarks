@@ -76,14 +76,14 @@ in Digital Libraries.*
 
 -   **Workflow framework used?:** SLURM, Shell
 
--   **Archived (provide DOI)?:** 10.5281/zenodo.14597755
+-   **Archived (provide DOI)?:** 10.5281/zenodo.14721701
 
 ## Description
 
 ### How delivered
 
 The artifact may be downloaded from zeonodo at
-[doi.org/10.5281/zenodo.14597755](doi.org/10.5281/zenodo.14597755){.uri},
+[doi.org/10.5281/zenodo.14721701](doi.org/10.5281/zenodo.14721701){.uri},
 or cloned from the `oopsla-25-artifact` branch of the FinchBenchmarks
 repository on GitHub at
 <https://github.com/finch-tensor/FinchBenchmarks>. The artifact contains
