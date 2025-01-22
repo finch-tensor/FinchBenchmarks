@@ -21,8 +21,9 @@ int main(int argc, char **argv)
 {
 	auto params = parse(argc, argv);
 
-	GrB_Vector distances = NULL, parents = NULL, hops = NULL;
-	GrB_Matrix A = NULL, A_orig = NULL ;
+	GrB_Vector parents = NULL;
+	GrB_Matrix A = NULL;
+	LAGraph_Graph G = NULL;
 
 	GrB_Info info ;
 
@@ -34,54 +35,28 @@ int main(int argc, char **argv)
 
 	auto filename = params.input + "/A.ttx";
 	FILE *f = fopen (filename.c_str(), "r") ;
-	LAGraph_MMRead (&A_orig, f, msg) ;
+	LAGraph_MMRead (&A, f, msg) ;
 	fclose (f) ;
-	LAGraph_Matrix_Print (A_orig, LAGraph_SHORT, stdout, NULL) ;
-
-	//----------------------------------------------------------------------
-	// get the size of the problem
-	//----------------------------------------------------------------------
-
 	GrB_Index nvals ;
-	GrB_Matrix_nvals (&nvals, A_orig) ;
+	GrB_Matrix_nvals (&nvals, A) ;
 	GrB_Index nrows, ncols ;
-	GrB_Matrix_nrows (&nrows, A_orig) ;
-	GrB_Matrix_ncols (&ncols, A_orig) ;
+	GrB_Matrix_nrows (&nrows, A) ;
+	GrB_Matrix_ncols (&ncols, A) ;
 	GrB_Index n = nrows ;
-
-	//----------------------------------------------------------------------
-	// copy the matrix and set its diagonal to 0
-	//----------------------------------------------------------------------
-
-	GrB_Matrix_dup (&A, A_orig) ;
-	for (GrB_Index i = 0; i < n; i++)
-	{
-		GrB_Matrix_setElement_FP64 (A, 0, i, i) ;
-	}
 	GrB_Index s = 0 ;
 
+	LAGraph_New(&G, &A, LAGraph_ADJACENCY_DIRECTED, msg);
+	LAGraph_Cached_AT(G, msg);
+	LAGraph_Cached_OutDegree(G, msg);
+
 	auto time = benchmark(
-		[&distances, &parents, &hops]() {
-			GrB_Vector_free(&distances) ;
+		[&parents, &n]() {
 			GrB_Vector_free(&parents) ;
-			GrB_Vector_free(&hops) ;
 		},
-		[&distances, &parents, &hops, &A_orig, &s]() {
-			LAGraph_BF_full1a (&distances, &parents, &hops, A_orig, s);
+		[&parents, &G, &s]() {
+			LAGr_BreadthFirstSearch (NULL, &parents, G, s, msg);
 		}
 	);
-
-	GrB_Matrix D;
-	GrB_Matrix_new(&D, GrB_FP64, n, 1);
-	for (GrB_Index i = 0; i < n; i++) {
-		double val;
-		GrB_Vector_extractElement_FP64(&val, distances, i);
-		GrB_Matrix_setElement_FP64(D, val, i, 0);
-	}
-	FILE *distances_file = fopen((params.output + "/distances.mtx").c_str(), "w");
-	LAGraph_MMWrite(D, distances_file, NULL, msg);
-	fclose(distances_file);
-	GrB_Matrix_free(&D);
 
 	GrB_Matrix P;
 	GrB_Matrix_new(&P, GrB_INT64, n, 1);

@@ -12,10 +12,10 @@ function bellmanford_lagraph(A)
     graphblas_path = joinpath(@__DIR__, "../deps/GraphBLAS/build")
     withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$lagraph_path:$lagraphx_path:$graphblas_path", "LD_LIBRARY_PATH" => "$lagraph_path:$lagraphx_path:$graphblas_path", "OMP_NUM_THREADS"=>"1") do
         bellmanford_path = joinpath(@__DIR__, "bellmanford_lagraph")
-        run(`$bellmanford_path -i $tmpdir -o $tmpdir`)
+        run(pipeline(`$bellmanford_path -i $tmpdir -o $tmpdir`, stdout=devnull))
     end
-    distances = fread(distances_path)[:,1]
-    parents = fread(parents_path)[:,1]
+    distances = Array(fread(distances_path)[:,1])
+    parents = Array(fread(parents_path)[:,1])
     time = JSON.parsefile(joinpath(tmpdir, "measurements.json"))["time"]
     return (;time=time*10^-9, mem = Base.summarysize(A), output=(;dists=distances, parents=parents))
 end

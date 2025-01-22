@@ -57,7 +57,7 @@ CORA_LLVM = $(CORA_DIR)/llvm/hello
 CORA_CLONE = $(CORA_DIR)/.git
 CORA = deps/cora/build/libtvm.so
 
-ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(GRAPHBLAS) $(LAGRAPH) graphs/rmat_gen $(BELLMAN_FORD_LAGRAPH)
+ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(GRAPHBLAS) $(LAGRAPH) graphs/rmat_gen $(BFS_LAGRAPH) $(BELLMAN_FORD_LAGRAPH)
 
 ifeq ($(shell uname -m), x86_64)
 	ALL_TARGETS += $(SPMV_MKL) $(SPGEMM_MKL) $(CORA)
@@ -163,3 +163,6 @@ graphs/rmat_gen: graphs/rmat_gen.cpp
 
 graphs/bellmanford_lagraph: graphs/bellmanford_lagraph.cpp
 	$(CXX) $(CXXFLAGS) $(GRAPHBLAS_CXXFLAGS) $(LAGRAPH_CXXFLAGS) -o graphs/bellmanford_lagraph graphs/bellmanford_lagraph.cpp $(GRAPHBLAS_LDLIBS) $(LAGRAPH_LDLIBS)
+
+graphs/bfs_lagraph: graphs/bfs_lagraph.cpp
+	$(CXX) $(CXXFLAGS) $(GRAPHBLAS_CXXFLAGS) $(LAGRAPH_CXXFLAGS) -o graphs/bfs_lagraph graphs/bfs_lagraph.cpp $(GRAPHBLAS_LDLIBS) $(LAGRAPH_LDLIBS)
