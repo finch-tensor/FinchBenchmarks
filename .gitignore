@@ -7,6 +7,9 @@ spmv/spmv_taco
 spgemm/spgemm_eigen
 spgemm/spgemm_mkl
 spgemm/spgemm_taco
+graphs/rmat_gen
+graphs/bellmanford_lagraph
+graphs/bfs_lagraph
 deps/SparseRooflineBenchmark/build
 .vscode/settings.json
 cache/*

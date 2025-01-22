@@ -18,27 +18,30 @@ SPGEMM_TACO = spgemm/spgemm_taco
 SPGEMM_EIGEN = spgemm/spgemm_eigen
 SPGEMM_MKL = spgemm/spgemm_mkl
 
+BFS_LAGRAPH = graphs/bfs_lagraph
+BELLMAN_FORD_LAGRAPH = graphs/bellmanford_lagraph
+
 SPARSE_BENCH_DIR = deps/SparseRooflineBenchmark
 SPARSE_BENCH_CLONE = $(SPARSE_BENCH_DIR)/.git
-SPARSE_BENCH = deps/SparseRooflineBenchmark/build/hello
+SPARSE_BENCH = $(SPARSE_BENCH_DIR)/build/hello
 
 TACO_DIR = deps/taco
 TACO_CLONE = $(TACO_DIR)/.git
-TACO = deps/taco/build/lib/libtaco.so
+TACO = $(TACO_DIR)/build/hello
 TACO_CXXFLAGS = -I$(TACO_DIR)/include -I$(TACO_DIR)/src
 TACO_LDLIBS = -L$(TACO_DIR)/build/lib -ltaco -ldl
 
 GRAPHBLAS_DIR = deps/GraphBLAS
 GRAPHBLAS_CLONE = $(GRAPHBLAS_DIR)/.git
-GRAPHBLAS = deps/GraphBLAS/build/libgraphblas.so
-GRAPHBLAS_CXXFLAGS = -I$(GRAPHBLAS_DIR)/include -I$(GRAPHBLAS_DIR)/src
-GRAPHBLAS_LDLIBS = -L$(GRAPHBLAS_DIR)/build/lib -lGraphBLAS -ldl
+GRAPHBLAS = deps/GraphBLAS/build/hello
+GRAPHBLAS_CXXFLAGS = -I$(GRAPHBLAS_DIR)/Include
+GRAPHBLAS_LDLIBS = -L$(GRAPHBLAS_DIR)/build -lgraphblas
 
 LAGRAPH_DIR = deps/LAGraph
 LAGRAPH_CLONE = $(LAGRAPH_DIR)/.git
-LAGRAPH = deps/LAGraph/build/src/benchmark/bfs_demo
-LAGRAPH_CXXFLAGS = -I$(LAGRAPH_DIR)/include -I$(LAGRAPH_DIR)/src
-LAGRAPH_LDLIBS = -L$(LAGRAPH_DIR)/build/lib -lLAGraph -ldl
+LAGRAPH = deps/LAGraph/build/hello
+LAGRAPH_CXXFLAGS = -I$(LAGRAPH_DIR)/include
+LAGRAPH_LDLIBS = -L$(LAGRAPH_DIR)/build/src -llagraph -L$(LAGRAPH_DIR)/build/experimental -llagraphx
 
 EIGEN_DIR = deps/eigen
 EIGEN_CLONE = $(EIGEN_DIR)/.git
@@ -54,7 +57,7 @@ CORA_LLVM = $(CORA_DIR)/llvm/hello
 CORA_CLONE = $(CORA_DIR)/.git
 CORA = deps/cora/build/libtvm.so
 
-ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(GRAPHBLAS) $(LAGRAPH) graphs/rmat_gen
+ALL_TARGETS = $(SPMV_TACO) $(SPGEMM_TACO) $(SPMV_EIGEN) $(SPGEMM_EIGEN) $(GRAPHBLAS) $(LAGRAPH) graphs/rmat_gen $(BELLMAN_FORD_LAGRAPH)
 
 ifeq ($(shell uname -m), x86_64)
 	ALL_TARGETS += $(SPMV_MKL) $(SPGEMM_MKL) $(CORA)
@@ -81,22 +84,24 @@ $(TACO): $(TACO_CLONE)
 	mkdir -p build ;\
 	cd build ;\
 	cmake -DPYTHON=false -DCMAKE_BUILD_TYPE=Release .. ;\
-	make taco -j$(NPROC_VAL)
+	make taco -j$(NPROC_VAL) ;\
+	touch hello
 
 $(GRAPHBLAS_CLONE): 
 	git submodule update --init $(GRAPHBLAS_DIR)
 
 $(GRAPHBLAS): $(GRAPHBLAS_CLONE)
 	cd $(GRAPHBLAS_DIR) ;\
-	make JOBS=32
+	make JOBS=32 ;\
+	touch build/hello
 
 $(LAGRAPH_CLONE): 
 	git submodule update --init $(LAGRAPH_DIR)
 
 $(LAGRAPH): $(LAGRAPH_CLONE)
 	cd $(LAGRAPH_DIR) ;\
-	cp ../lagraph_BF.c experimental/test/test_BF.c ;\
-	GRAPHBLAS_ROOT=$(GRAPHBLAS_DIR) make
+	GRAPHBLAS_ROOT=$(GRAPHBLAS_DIR) make ;\
+	touch build/hello
 
 $(EIGEN_CLONE): 
 	git submodule update --init $(EIGEN_DIR)
@@ -155,3 +160,6 @@ spgemm/spgemm_mkl: $(SPARSE_BENCH) spgemm/spgemm_mkl.cpp
 
 graphs/rmat_gen: graphs/rmat_gen.cpp
 	$(CXX) $(CXXFLAGS) -o graphs/rmat_gen graphs/rmat_gen.cpp
+
+graphs/bellmanford_lagraph: graphs/bellmanford_lagraph.cpp
+	$(CXX) $(CXXFLAGS) $(GRAPHBLAS_CXXFLAGS) $(LAGRAPH_CXXFLAGS) -o graphs/bellmanford_lagraph graphs/bellmanford_lagraph.cpp $(GRAPHBLAS_LDLIBS) $(LAGRAPH_LDLIBS)
