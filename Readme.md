@@ -165,7 +165,8 @@ using the following dependencies:
 3.  Python 3.10.12
 
 4.  We used poetry 1.8.5 to manage python dependencies, which can be
-    installed with `pip`.
+    installed with `pip` or following
+    <https://python-poetry.org/docs/#installation>.
 
 5.  jq 1.6, git 2.34.1, curl 7.81.0, GNU tar 1.34, and UnZip 6.00
 
@@ -222,7 +223,12 @@ these can be installed via
 
       git submodule update --init --recursive
 
-But MKL must be manually installed to the `deps/intel` folder.
+MKL must be manually installed to the `deps/intel` folder.
+[Install Intel MKL version 2024.2, available from https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html](Install Intel MKL version 2024.2, available from https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html){.uri}.
+You'll need to request an academic license on the website, then download
+an offline installer. There should be instructions on the website for
+how to run the install script. When asked, you can install to the
+`deps/intel` folder.
 
 The makefile also contains instructions to clone the submodules.
 
