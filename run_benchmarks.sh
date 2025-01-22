@@ -1,5 +1,5 @@
 #!/bin/bash
-bash spmv/run_spmv.sh
-bash spgemm/run_spgemm.sh
-bash graphs/run_graphs.sh
-bash images/run_morphology.sh
+cd spmv; bash run_spmv.sh; cd -
+cd spgemm; bash run_spgemm.sh; cd -
+cd graphs; bash run_graphs.sh; cd -
+cd images; bash run_morphology.sh; cd -
