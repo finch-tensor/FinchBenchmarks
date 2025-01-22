@@ -6,7 +6,6 @@ const datasets = Dict(
         "SNAP/soc-Epinions1",
     ],
     "yang_small" => [
-        "SNAP/com-LiveJournal",
         "SNAP/soc-LiveJournal1",
         "LAW/hollywood-2009",
         "SNAP/roadNet-CA",

@@ -67,8 +67,6 @@ function bellmanford_graphs(mtx)
 end
 
 function check_bfs(A, src, res_parent, ref_parent)
-    println(res_parent)
-    println(ref_parent)
     g = SimpleDiGraph(transpose(A))
     ref_levels = gdistances(g, src)
     for i in 1:nv(g)
