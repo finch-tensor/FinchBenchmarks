@@ -93,11 +93,11 @@ int main(int argc, char **argv)
 	GrB_Matrix_free(&D);
 
 	GrB_Matrix P;
-	GrB_Matrix_new(&P, GrB_FP64, n, 1);
+	GrB_Matrix_new(&P, GrB_INT64, n, 1);
 	for (GrB_Index i = 0; i < n; i++) {
-		double val;
-		GrB_Vector_extractElement_FP64(&val, parents, i);
-		GrB_Matrix_setElement_FP64(P, val, i, 0);
+		int64_t val;
+		GrB_Vector_extractElement_INT64(&val, parents, i);
+		GrB_Matrix_setElement_INT64(P, val, i, 0);
 	}
 	FILE *parents_file = fopen((params.output + "/parents.mtx").c_str(), "w");
 	LAGraph_MMWrite(P, parents_file, NULL, msg);
