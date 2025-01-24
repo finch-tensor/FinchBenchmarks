@@ -11,7 +11,7 @@ const datasets = Dict(
         "SNAP/roadNet-CA",
     ],
     "yang" => [
-        "file:./soc-orkut",
+        "file:./soc-orkut.mtx",
         "SNAP/soc-LiveJournal1",
         "LAW/hollywood-2009",
         "LAW/indochina-2004",
