@@ -17,7 +17,7 @@ using Printf
 using LinearAlgebra
 using BenchmarkTools
 using SparseArrays
-using MatrixDepot
+using MatrixMarket
 using Finch
 using Graphs
 using SimpleWeightedGraphs
@@ -109,7 +109,7 @@ end
 
 for mtx in batch
     if mtx[1:5] == "file:"
-        A = SparseMatrixCSC(fread(mtx[6:end]))
+        A = SparseMatrixCSC(mmread(mtx[6:end]))
     else
         A = SparseMatrixCSC(matrixdepot(mtx))
     end
