@@ -1,132 +1,62 @@
 [
     {
-        "time": 0.00048947,
+        "time": 0.000478179,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.001766232,
+        "time": 0.000158477,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_atomics",
+        "method": "finch_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.005493344,
+        "time": 0.000175047,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_mutex",
+        "method": "finch_kernel_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000468421,
+        "time": 9.7851e-5,
         "n_threads": 6,
-        "method": "split_cols_static_scratchspace",
+        "method": "split_nonzeros",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000348948,
-        "n_threads": 6,
-        "method": "split_cols_dynamic_grain_50_scratchspace",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Da"
-    },
-    {
-        "time": 0.000333119,
-        "n_threads": 6,
-        "method": "split_nonzeros_static_scratchspace",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Da"
-    },
-    {
-        "time": 0.000281858,
-        "n_threads": 6,
-        "method": "split_nonzeros_dynamic_grain_500_scratchspace",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Da"
-    },
-    {
-        "time": 0.000155574,
-        "n_threads": 6,
-        "method": "permute_split_rows_finch_parallel",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Da"
-    },
-    {
-        "time": 0.000425059,
-        "n_threads": 6,
-        "method": "permute_split_rows_dynamic_grain_50",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Da"
-    },
-    {
-        "time": 0.008014909,
+        "time": 0.008043119,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.010099107,
+        "time": 0.002640258,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_atomics",
+        "method": "finch_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.029728523,
+        "time": 0.002462374,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_mutex",
+        "method": "finch_kernel_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.006068,
+        "time": 0.001628108,
         "n_threads": 6,
-        "method": "split_cols_static_scratchspace",
+        "method": "split_nonzeros",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.00507917,
-        "n_threads": 6,
-        "method": "split_cols_dynamic_grain_50_scratchspace",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Db"
-    },
-    {
-        "time": 0.004484515,
-        "n_threads": 6,
-        "method": "split_nonzeros_static_scratchspace",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Db"
-    },
-    {
-        "time": 0.005044086,
-        "n_threads": 6,
-        "method": "split_nonzeros_dynamic_grain_500_scratchspace",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Db"
-    },
-    {
-        "time": 0.002699499,
-        "n_threads": 6,
-        "method": "permute_split_rows_finch_parallel",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Db"
-    },
-    {
-        "time": 0.006276574,
-        "n_threads": 6,
-        "method": "permute_split_rows_dynamic_grain_50",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Db"
-    },
-    {
-        "time": 9.5958e-5,
+        "time": 9.4975e-5,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -136,9 +66,9 @@
         }
     },
     {
-        "time": 0.000894212,
+        "time": 3.4545e-5,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_atomics",
+        "method": "finch_parallel",
         "dataset": "uniform",
         "matrix": {
             "size": 1024,
@@ -146,9 +76,9 @@
         }
     },
     {
-        "time": 0.001271962,
+        "time": 3.7645e-5,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_mutex",
+        "method": "finch_kernel_parallel",
         "dataset": "uniform",
         "matrix": {
             "size": 1024,
@@ -156,9 +86,9 @@
         }
     },
     {
-        "time": 7.9736e-5,
+        "time": 2.771e-5,
         "n_threads": 6,
-        "method": "split_cols_static_scratchspace",
+        "method": "split_nonzeros",
         "dataset": "uniform",
         "matrix": {
             "size": 1024,
@@ -166,57 +96,7 @@
         }
     },
     {
-        "time": 6.9437e-5,
-        "n_threads": 6,
-        "method": "split_cols_dynamic_grain_50_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1024,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 7.9681e-5,
-        "n_threads": 6,
-        "method": "split_nonzeros_static_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1024,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 6.3508e-5,
-        "n_threads": 6,
-        "method": "split_nonzeros_dynamic_grain_500_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1024,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 3.4639e-5,
-        "n_threads": 6,
-        "method": "permute_split_rows_finch_parallel",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1024,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 7.3359e-5,
-        "n_threads": 6,
-        "method": "permute_split_rows_dynamic_grain_50",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1024,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 0.017463302,
+        "time": 0.017388097,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -226,9 +106,9 @@
         }
     },
     {
-        "time": 0.020474131,
+        "time": 0.002783489,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_atomics",
+        "method": "finch_parallel",
         "dataset": "uniform",
         "matrix": {
             "size": 8192,
@@ -236,9 +116,9 @@
         }
     },
     {
-        "time": 0.054890211,
+        "time": 0.002895723,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_mutex",
+        "method": "finch_kernel_parallel",
         "dataset": "uniform",
         "matrix": {
             "size": 8192,
@@ -246,9 +126,9 @@
         }
     },
     {
-        "time": 0.004328945,
+        "time": 0.001990064,
         "n_threads": 6,
-        "method": "split_cols_static_scratchspace",
+        "method": "split_nonzeros",
         "dataset": "uniform",
         "matrix": {
             "size": 8192,
@@ -256,57 +136,7 @@
         }
     },
     {
-        "time": 0.003445972,
-        "n_threads": 6,
-        "method": "split_cols_dynamic_grain_50_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 8192,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 0.004307836,
-        "n_threads": 6,
-        "method": "split_nonzeros_static_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 8192,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 0.003149202,
-        "n_threads": 6,
-        "method": "split_nonzeros_dynamic_grain_500_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 8192,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 0.003848119,
-        "n_threads": 6,
-        "method": "permute_split_rows_finch_parallel",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 8192,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 0.004013122,
-        "n_threads": 6,
-        "method": "permute_split_rows_dynamic_grain_50",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 8192,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 0.024151516,
+        "time": 0.02534821,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -316,9 +146,9 @@
         }
     },
     {
-        "time": 0.009441672,
+        "time": 0.008720066,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_atomics",
+        "method": "finch_parallel",
         "dataset": "uniform",
         "matrix": {
             "size": 1048576,
@@ -326,9 +156,9 @@
         }
     },
     {
-        "time": 0.110409235,
+        "time": 0.008796781,
         "n_threads": 6,
-        "method": "split_rows_finch_parallel_mutex",
+        "method": "finch_kernel_parallel",
         "dataset": "uniform",
         "matrix": {
             "size": 1048576,
@@ -336,59 +166,9 @@
         }
     },
     {
-        "time": 0.028796966,
+        "time": 0.006751475,
         "n_threads": 6,
-        "method": "split_cols_static_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1048576,
-            "sparsity": 3000000
-        }
-    },
-    {
-        "time": 0.027306381,
-        "n_threads": 6,
-        "method": "split_cols_dynamic_grain_50_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1048576,
-            "sparsity": 3000000
-        }
-    },
-    {
-        "time": 0.030637836,
-        "n_threads": 6,
-        "method": "split_nonzeros_static_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1048576,
-            "sparsity": 3000000
-        }
-    },
-    {
-        "time": 0.029807109,
-        "n_threads": 6,
-        "method": "split_nonzeros_dynamic_grain_500_scratchspace",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1048576,
-            "sparsity": 3000000
-        }
-    },
-    {
-        "time": 0.006219737,
-        "n_threads": 6,
-        "method": "permute_split_rows_finch_parallel",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1048576,
-            "sparsity": 3000000
-        }
-    },
-    {
-        "time": 0.006311193,
-        "n_threads": 6,
-        "method": "permute_split_rows_dynamic_grain_50",
+        "method": "split_nonzeros",
         "dataset": "uniform",
         "matrix": {
             "size": 1048576,
