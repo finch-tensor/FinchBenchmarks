@@ -13,14 +13,9 @@ NTHREADS = [i + 1 for i in range(12)]
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
-    "permute_split_rows_dynamic_grain_50",
-    "permute_split_rows_finch_parallel",
-    "split_cols_dynamic_grain_50_scratchspace",
-    "split_cols_static_scratchspace",
-    "split_nonzeros_dynamic_grain_500_scratchspace",
-    "split_nonzeros_static_scratchspace",
-    "split_cols_finch_parallel_atomics",
-    "split_cols_finch_parallel_mutex",
+    "finch_parallel",
+    "finch_kernel_parallel",
+    "split_nonzeros"
 ]
 
 DATASETS = [

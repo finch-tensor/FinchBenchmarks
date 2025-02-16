@@ -51,27 +51,15 @@ datasets = Dict(
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-include("split_cols_finch_parallel_atomics.jl")
-include("split_cols_finch_parallel_mutex.jl")
-include("split_cols_static_scratchspace.jl")
-include("split_nonzeros_static_scratchspace.jl")
-include("split_cols_dynamic_grain_scratchspace.jl")
-include("split_nonzeros_dynamic_grain_scratchspace.jl")
-include("transpose_split_rows_finch_parallel.jl")
-include("transpose_split_rows_dynamic_grain.jl")
-include("spmv_taco.jl")
+include("finch_parallel.jl")
+include("finch_kernel_parallel.jl")
+include("split_nonzeros.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
-    "split_cols_finch_parallel_atomics" => split_cols_finch_parallel_atomics_mul,
-    "split_cols_finch_parallel_mutex" => split_cols_finch_parallel_mutex_mul,
-    "split_cols_static_scratchspace" => split_cols_static_scratchspace_mul,
-    "split_cols_dynamic_grain_50_scratchspace" => split_cols_dynamic_grain_scratchspace_mul(50),
-    "split_nonzeros_static_scratchspace" => split_nonzeros_static_scratchspace_mul,
-    "split_nonzeros_dynamic_grain_500_scratchspace" => split_nonzeros_dynamic_grain_scratchspace_mul(500),
-    "transpose_split_rows_finch_parallel" => transpose_split_rows_finch_parallel_mul,
-    "transpose_split_rows_dynamic_grain_50" => transpose_split_rows_dynamic_grain_mul(50),
-    "spmv_taco" => spmv_taco,
+    "finch_parallel" => finch_parallel,
+    "finch_kernel_parallel" => finch_kernel_parallel,
+    "split_nonzeros" => split_nonzeros,
 )
 
 if !isnothing(parsed_args["method"])

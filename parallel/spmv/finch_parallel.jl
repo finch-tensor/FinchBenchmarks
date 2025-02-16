@@ -2,7 +2,7 @@ using Finch
 using BenchmarkTools
 
 
-function transpose_split_rows_finch_parallel_mul(y, A, x)
+function finch_parallel(y, A, x)
         _y = Tensor(Dense(Element(0.0)), y)
         _A = swizzle(Tensor(Dense(SparseList(Element(0.0))), permutedims(A)), 2, 1)
         _x = Tensor(Dense(Element(0.0)), x)
