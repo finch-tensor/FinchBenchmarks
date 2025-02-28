@@ -37,9 +37,6 @@ function bellmanford_finch_kernel(edges, source=1)
             end
         end
 
-        iter_max = iter
-
-
         @finch begin
             any_active .= false
             for i = _
