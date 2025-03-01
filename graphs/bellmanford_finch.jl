@@ -21,7 +21,11 @@ function bellmanford_finch_kernel(edges, source=1)
     any_active = Scalar(false)
 
     for iter = 1:n  
-        @finch for j=_; if active_prev[j] dists[j] <<min>>= dists_prev[j] end end
+        @finch for j=_
+            if active_prev[j]
+                dists[j] <<min>>= dists_prev[j]
+            end
+        end
 
         @finch begin
             active .= false
