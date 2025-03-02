@@ -14,10 +14,10 @@ DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
     DEFAULT_METHOD,
     "finch_parallel",
-    "finch_kernel_parallel",
+    # "finch_kernel_parallel",
     "merge",
     "graph_partition",
-    "graph_partition_reorder_merge"
+    "graph_partition_reorder_merge",
 ]
 
 DATASETS = [

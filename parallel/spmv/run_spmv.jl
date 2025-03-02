@@ -50,6 +50,10 @@ datasets = Dict(
         "FEMLAB/poisson3Da",
         "FEMLAB/poisson3Db",
     ],
+    "Goodwin" => [
+        "Goodwin/Goodwin_071",
+        "Goodwin/Goodwin_127",
+    ]
 )
 
 # Mapping from method keywords to methods
@@ -82,10 +86,8 @@ function calculate_results(dataset, mtxs, results)
         # Get relevant matrix
         if dataset == "uniform"
             A = fsprand(mtx["size"], mtx["size"], mtx["sparsity"])
-        elseif dataset == "FEMLAB"
-            A = matrixdepot(mtx)
         else
-            throw(ArgumentError("Cannot recognize dataset: $dataset"))
+            A = matrixdepot(mtx)
         end
 
         (num_rows, num_cols) = size(A)
