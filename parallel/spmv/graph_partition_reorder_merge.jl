@@ -75,7 +75,7 @@ function merge_path_search(diagonal::Int64, num_rows::Int64, num_nzs::Int64, row
     return (min(x_min, num_rows + 1), diagonal - x_min)
 end
 
-function graph_partition_merge_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function graph_partition_reorder_merge_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
     @inbounds @fastmath(begin
         y_lvl = y.lvl
         y_lvl_val = y_lvl.lvl.val
@@ -147,14 +147,14 @@ function graph_partition_merge_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.
     end)
 end
 
-function graph_partition_merge(y, A, x)
+function graph_partition_reorder_merge(y, A, x)
     _y = Tensor(Dense(Element(0.0)), y)
     _A = swizzle(Tensor(Dense(SparseList(Element(0.0))), permutedims(A)), 2, 1)
     _x = Tensor(Dense(Element(0.0)), x)
 
     perm = create_permutation(_A)
     _A = matrix_col_permutation(_A, perm)
-    time = @belapsed graph_partition_merge_helper($_y, $_A, $_x)
+    time = @belapsed graph_partition_reorder_merge_helper($_y, $_A, $_x)
     _y = vector_permutation(_y, invperm(perm))
     return (; time=time, y=_y)
 end

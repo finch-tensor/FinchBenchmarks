@@ -37,7 +37,7 @@
     {
         "time": 6.6556e-5,
         "n_threads": 11,
-        "method": "graph_partition_merge",
+        "method": "graph_partition_reorder_merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
@@ -79,7 +79,7 @@
     {
         "time": 0.000687788,
         "n_threads": 11,
-        "method": "graph_partition_merge",
+        "method": "graph_partition_reorder_merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
@@ -136,7 +136,7 @@
     {
         "time": 2.3388e-5,
         "n_threads": 11,
-        "method": "graph_partition_merge",
+        "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
         "matrix": {
             "size": 1024,
@@ -196,7 +196,7 @@
     {
         "time": 0.001805486,
         "n_threads": 11,
-        "method": "graph_partition_merge",
+        "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
         "matrix": {
             "size": 8192,
@@ -256,7 +256,7 @@
     {
         "time": 0.004297448,
         "n_threads": 11,
-        "method": "graph_partition_merge",
+        "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
         "matrix": {
             "size": 1048576,
