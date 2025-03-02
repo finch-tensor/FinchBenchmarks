@@ -19,13 +19,16 @@ function create_permutation(A::Finch.SwizzleArray{(2, 1),Tensor{DenseLevel{Int64
         end
     end
 
+    # Partition the graph
+    positions = Metis.partition(graph, Threads.nthreads(); alg=:KWAY)
+
     # create permutation for the graph 
-    perm, iperm = Metis.permutation(graph)
-    return perm, iperm
+    perm = sortperm(positions)
+    return perm
 end
 
 # permute the vector v
-function vector_permutation(v::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, perm::Vector{Int32})
+function vector_permutation(v::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, perm::Vector{Int64})
     v_lvl = v.lvl
     v_lvl_val = v_lvl.lvl.val
     v_perm = v_lvl_val[perm]
@@ -33,7 +36,7 @@ function vector_permutation(v::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,
 end
 
 # permute columns of matrix A
-function matrix_col_permutation(A::Finch.SwizzleArray{(2, 1),Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}, perm::Vector{Int32})
+function matrix_col_permutation(A::Finch.SwizzleArray{(2, 1),Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}, perm::Vector{Int64})
     tns_lvl = A.body.lvl
     tns_lvl_2 = tns_lvl.lvl
     tns_lvl_ptr = tns_lvl_2.ptr
@@ -72,7 +75,7 @@ function merge_path_search(diagonal::Int64, num_rows::Int64, num_nzs::Int64, row
     return (min(x_min, num_rows + 1), diagonal - x_min)
 end
 
-function graph_permutation_merge_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function graph_partition_merge_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
     @inbounds @fastmath(begin
         y_lvl = y.lvl
         y_lvl_val = y_lvl.lvl.val
@@ -144,15 +147,15 @@ function graph_permutation_merge_helper(y::Tensor{DenseLevel{Int64,ElementLevel{
     end)
 end
 
-function graph_permutation_merge(y, A, x)
+function graph_partition_merge(y, A, x)
     _y = Tensor(Dense(Element(0.0)), y)
     _A = swizzle(Tensor(Dense(SparseList(Element(0.0))), permutedims(A)), 2, 1)
     _x = Tensor(Dense(Element(0.0)), x)
 
-    perm, iperm = create_permutation(_A)
+    perm = create_permutation(_A)
     _A = matrix_col_permutation(_A, perm)
-    time = @belapsed graph_permutation_merge_helper($_y, $_A, $_x)
-    _y = vector_permutation(_y, iperm)
+    time = @belapsed graph_partition_merge_helper($_y, $_A, $_x)
+    _y = vector_permutation(_y, invperm(perm))
     return (; time=time, y=_y)
 end
 

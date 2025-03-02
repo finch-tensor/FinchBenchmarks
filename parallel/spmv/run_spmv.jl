@@ -58,7 +58,7 @@ include("finch_parallel.jl")
 include("finch_kernel_parallel.jl")
 include("merge.jl")
 include("graph_partition.jl")
-include("graph_permutation_merge.jl")
+include("graph_partition_merge.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
@@ -66,7 +66,7 @@ methods = OrderedDict(
     "finch_kernel_parallel" => finch_kernel_parallel,
     "merge" => merge,
     "graph_partition" => graph_partition,
-    "graph_permutation_merge" => graph_permutation_merge,
+    "graph_partition_merge" => graph_partition_merge,
 )
 
 if !isnothing(parsed_args["method"])
