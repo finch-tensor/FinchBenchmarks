@@ -23,6 +23,7 @@ METHODS = [
 DATASETS = [
     {"uniform": ["1024-0.1", "8192-0.1", "1048576-3000000"]},
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
+    {"HB": ["HB-494_bus", "HB-662_bus", "HB-685_bus", "HB-1138_bus"]},
 ]
 
 COLORS = [

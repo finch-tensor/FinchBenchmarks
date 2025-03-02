@@ -50,10 +50,12 @@ datasets = Dict(
         "FEMLAB/poisson3Da",
         "FEMLAB/poisson3Db",
     ],
-    "Goodwin" => [
-        "Goodwin/Goodwin_071",
-        "Goodwin/Goodwin_127",
-    ]
+    "HB" => [
+        "HB/494_bus",
+        "HB/662_bus",
+        "HB/685_bus",
+        "HB/1138_bus",
+    ],
 )
 
 # Mapping from method keywords to methods
