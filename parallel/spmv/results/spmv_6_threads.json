@@ -1,90 +1,174 @@
 [
     {
-        "time": 0.000482602,
+        "time": 0.002164693,
+        "n_threads": 6,
+        "method": "serial_default_implementation",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_071"
+    },
+    {
+        "time": 0.000490622,
+        "n_threads": 6,
+        "method": "finch_parallel",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_071"
+    },
+    {
+        "time": 0.000501384,
+        "n_threads": 6,
+        "method": "finch_kernel_parallel",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_071"
+    },
+    {
+        "time": 0.000393559,
+        "n_threads": 6,
+        "method": "merge",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_071"
+    },
+    {
+        "time": 0.000405493,
+        "n_threads": 6,
+        "method": "graph_partition",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_071"
+    },
+    {
+        "time": 0.000397993,
+        "n_threads": 6,
+        "method": "graph_partition_reorder_merge",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_071"
+    },
+    {
+        "time": 0.009373094,
+        "n_threads": 6,
+        "method": "serial_default_implementation",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_127"
+    },
+    {
+        "time": 0.002522922,
+        "n_threads": 6,
+        "method": "finch_parallel",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_127"
+    },
+    {
+        "time": 0.002090648,
+        "n_threads": 6,
+        "method": "finch_kernel_parallel",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_127"
+    },
+    {
+        "time": 0.001896114,
+        "n_threads": 6,
+        "method": "merge",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_127"
+    },
+    {
+        "time": 0.001967164,
+        "n_threads": 6,
+        "method": "graph_partition",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_127"
+    },
+    {
+        "time": 0.001902003,
+        "n_threads": 6,
+        "method": "graph_partition_reorder_merge",
+        "dataset": "Goodwin",
+        "matrix": "Goodwin/Goodwin_127"
+    },
+    {
+        "time": 0.000473565,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000156116,
+        "time": 0.000152712,
         "n_threads": 6,
         "method": "finch_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000177102,
+        "time": 0.00017384,
         "n_threads": 6,
         "method": "finch_kernel_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000101327,
+        "time": 9.3735e-5,
         "n_threads": 6,
         "method": "merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000134873,
+        "time": 0.000126314,
         "n_threads": 6,
         "method": "graph_partition",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 9.407e-5,
+        "time": 9.5091e-5,
         "n_threads": 6,
         "method": "graph_partition_reorder_merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.008562605,
+        "time": 0.008552826,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.002799506,
+        "time": 0.002606444,
         "n_threads": 6,
         "method": "finch_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.00267097,
+        "time": 0.002635971,
         "n_threads": 6,
         "method": "finch_kernel_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.001910334,
+        "time": 0.001773972,
         "n_threads": 6,
         "method": "merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.001663844,
+        "time": 0.001933608,
         "n_threads": 6,
         "method": "graph_partition",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.001177964,
+        "time": 0.001200555,
         "n_threads": 6,
         "method": "graph_partition_reorder_merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 9.5555e-5,
+        "time": 9.5899e-5,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -94,7 +178,7 @@
         }
     },
     {
-        "time": 3.4472e-5,
+        "time": 3.1035e-5,
         "n_threads": 6,
         "method": "finch_parallel",
         "dataset": "uniform",
@@ -104,7 +188,7 @@
         }
     },
     {
-        "time": 3.6224e-5,
+        "time": 3.7434e-5,
         "n_threads": 6,
         "method": "finch_kernel_parallel",
         "dataset": "uniform",
@@ -114,7 +198,7 @@
         }
     },
     {
-        "time": 2.8161e-5,
+        "time": 2.8488e-5,
         "n_threads": 6,
         "method": "merge",
         "dataset": "uniform",
@@ -124,7 +208,7 @@
         }
     },
     {
-        "time": 3.2998e-5,
+        "time": 3.3342e-5,
         "n_threads": 6,
         "method": "graph_partition",
         "dataset": "uniform",
@@ -134,7 +218,7 @@
         }
     },
     {
-        "time": 2.581e-5,
+        "time": 2.6135e-5,
         "n_threads": 6,
         "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
@@ -144,7 +228,7 @@
         }
     },
     {
-        "time": 0.017282584,
+        "time": 0.017859105,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -154,7 +238,7 @@
         }
     },
     {
-        "time": 0.002705489,
+        "time": 0.003874015,
         "n_threads": 6,
         "method": "finch_parallel",
         "dataset": "uniform",
@@ -164,7 +248,7 @@
         }
     },
     {
-        "time": 0.003699588,
+        "time": 0.003732767,
         "n_threads": 6,
         "method": "finch_kernel_parallel",
         "dataset": "uniform",
@@ -174,7 +258,7 @@
         }
     },
     {
-        "time": 0.002005618,
+        "time": 0.002083173,
         "n_threads": 6,
         "method": "merge",
         "dataset": "uniform",
@@ -184,7 +268,7 @@
         }
     },
     {
-        "time": 0.002311427,
+        "time": 0.002329418,
         "n_threads": 6,
         "method": "graph_partition",
         "dataset": "uniform",
@@ -194,7 +278,7 @@
         }
     },
     {
-        "time": 0.001970743,
+        "time": 0.002041493,
         "n_threads": 6,
         "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
@@ -204,7 +288,7 @@
         }
     },
     {
-        "time": 0.023884943,
+        "time": 0.024276531,
         "n_threads": 6,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -214,7 +298,7 @@
         }
     },
     {
-        "time": 0.008266042,
+        "time": 0.005616351,
         "n_threads": 6,
         "method": "finch_parallel",
         "dataset": "uniform",
@@ -224,7 +308,7 @@
         }
     },
     {
-        "time": 0.006910902,
+        "time": 0.008742593,
         "n_threads": 6,
         "method": "finch_kernel_parallel",
         "dataset": "uniform",
@@ -234,7 +318,7 @@
         }
     },
     {
-        "time": 0.006310096,
+        "time": 0.006741719,
         "n_threads": 6,
         "method": "merge",
         "dataset": "uniform",
@@ -244,7 +328,7 @@
         }
     },
     {
-        "time": 0.009703031,
+        "time": 0.009797892,
         "n_threads": 6,
         "method": "graph_partition",
         "dataset": "uniform",
@@ -254,7 +338,7 @@
         }
     },
     {
-        "time": 0.006890552,
+        "time": 0.00675534,
         "n_threads": 6,
         "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
