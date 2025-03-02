@@ -50,27 +50,20 @@ datasets = Dict(
         "FEMLAB/poisson3Da",
         "FEMLAB/poisson3Db",
     ],
-	"vanHeukelum" => [
-		"vanHeukelum/cage15",
-	],
-	"Williams" => [
-		"Williams/webbase-1M",
-	],
-	"Schmid" => [
-		"Schmid/thermal2",
-	],
-	"McRae" => [
-		"McRae/ecology2",
-	],
-	"SNAP" => [
-		"SNAP/roadNet-CA",
-	],
+    "vanHeukelum" => [
+        "vanHeukelum/cage10",
+        "vanHeukelum/cage11",
+        "vanHeukelum/cage12",
+    ],
+    "Williams" => [
+        "Williams/webbase-1M",
+    ],
 )
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 include("finch_parallel.jl")
-include("finch_kernel_parallel.jl")
+# include("finch_kernel_parallel.jl")
 include("merge.jl")
 include("graph_partition.jl")
 include("graph_partition_reorder_merge.jl")
@@ -78,7 +71,7 @@ include("graph_partition_reorder_merge.jl")
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
     "finch_parallel" => finch_parallel,
-    "finch_kernel_parallel" => finch_kernel_parallel,
+    # "finch_kernel_parallel" => finch_kernel_parallel,
     "merge" => merge,
     "graph_partition" => graph_partition,
     "graph_partition_reorder_merge" => graph_partition_reorder_merge,

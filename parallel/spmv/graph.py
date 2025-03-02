@@ -23,11 +23,8 @@ METHODS = [
 DATASETS = [
     {"uniform": ["1024-0.1", "8192-0.1", "1048576-3000000"]},
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
-	{"vanHeukelum": ["vanHeukelum-cage15"]},
-	{"Williams" : ["Williams-webbase-1M"]},
-	{"Schmid" : ["Schmid-thermal2"]},
-	{"McRae" : ["McRae-ecology2"]},
-	{"SNAP" : ["SNAP-roadNet-CA"]},
+    {"vanHeukelum": ["vanHeukelum-cage10", "vanHeukelum-cage11", "vanHeukelum-cage12"]},
+    {"Williams": ["Williams-webbase-1M"]},
 ]
 
 COLORS = [
