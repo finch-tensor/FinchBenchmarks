@@ -28,7 +28,7 @@ function merge_path_search(diagonal::Int64, num_rows::Int64, num_nzs::Int64, row
     return (min(x_min, num_rows + 1), diagonal - x_min)
 end
 
-function split_nonzeros_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Finch.SwizzleArray{(2, 1),Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
+function merge_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}, A::Finch.SwizzleArray{(2, 1),Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}}, x::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float64,Int64,Vector{Float64}}}})
     @inbounds @fastmath(begin
         y_lvl = y.lvl
         y_lvl_val = y_lvl.lvl.val
@@ -100,12 +100,12 @@ function split_nonzeros_helper(y::Tensor{DenseLevel{Int64,ElementLevel{0.0,Float
     end)
 end
 
-function split_nonzeros(y, A, x)
+function merge(y, A, x)
     _y = Tensor(Dense(Element(0.0)), y)
     _A = swizzle(Tensor(Dense(SparseList(Element(0.0))), permutedims(A)), 2, 1)
     _x = Tensor(Dense(Element(0.0)), x)
 
-    time = @belapsed split_nonzeros_helper($_y, $_A, $_x)
+    time = @belapsed merge_helper($_y, $_A, $_x)
     return (; time=time, y=_y)
 end
 

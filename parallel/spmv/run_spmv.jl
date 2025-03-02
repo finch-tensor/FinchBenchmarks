@@ -14,6 +14,9 @@ using ArgParse
 using DataStructures
 using JSON
 using LinearAlgebra
+using Random
+
+Random.seed!(1234)
 
 using ThreadPinning
 pinthreads(numa(1))
@@ -53,13 +56,17 @@ datasets = Dict(
 include("serial_default_implementation.jl")
 include("finch_parallel.jl")
 include("finch_kernel_parallel.jl")
-include("split_nonzeros.jl")
+include("merge.jl")
+include("graph_partition.jl")
+include("graph_permutation_merge.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
     "finch_parallel" => finch_parallel,
     "finch_kernel_parallel" => finch_kernel_parallel,
-    "split_nonzeros" => split_nonzeros,
+    "merge" => merge,
+    "graph_partition" => graph_partition,
+    "graph_permutation_merge" => graph_permutation_merge,
 )
 
 if !isnothing(parsed_args["method"])

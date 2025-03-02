@@ -15,7 +15,9 @@ METHODS = [
     DEFAULT_METHOD,
     "finch_parallel",
     "finch_kernel_parallel",
-    "split_nonzeros"
+    "merge",
+    "graph_partition",
+    "graph_permutation_merge"
 ]
 
 DATASETS = [
