@@ -1,174 +1,216 @@
 [
     {
-        "time": 0.002220618,
+        "time": 0.009550507,
         "n_threads": 11,
         "method": "serial_default_implementation",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_071"
+        "dataset": "Williams",
+        "matrix": "Williams/webbase-1M"
     },
     {
-        "time": 0.000286175,
+        "time": 0.004059146,
         "n_threads": 11,
         "method": "finch_parallel",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_071"
+        "dataset": "Williams",
+        "matrix": "Williams/webbase-1M"
     },
     {
-        "time": 0.000309035,
-        "n_threads": 11,
-        "method": "finch_kernel_parallel",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_071"
-    },
-    {
-        "time": 0.000270946,
+        "time": 0.002582383,
         "n_threads": 11,
         "method": "merge",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_071"
+        "dataset": "Williams",
+        "matrix": "Williams/webbase-1M"
     },
     {
-        "time": 0.00025853,
+        "time": 0.003693634,
         "n_threads": 11,
         "method": "graph_partition",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_071"
+        "dataset": "Williams",
+        "matrix": "Williams/webbase-1M"
     },
     {
-        "time": 0.000246864,
+        "time": 0.002783797,
         "n_threads": 11,
         "method": "graph_partition_reorder_merge",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_071"
+        "dataset": "Williams",
+        "matrix": "Williams/webbase-1M"
     },
     {
-        "time": 0.009425715,
+        "time": 0.000168729,
         "n_threads": 11,
         "method": "serial_default_implementation",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_127"
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage10"
     },
     {
-        "time": 0.001792372,
+        "time": 4.6196e-5,
         "n_threads": 11,
         "method": "finch_parallel",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_127"
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage10"
     },
     {
-        "time": 0.001789445,
-        "n_threads": 11,
-        "method": "finch_kernel_parallel",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_127"
-    },
-    {
-        "time": 0.001788249,
+        "time": 4.1603e-5,
         "n_threads": 11,
         "method": "merge",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_127"
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage10"
     },
     {
-        "time": 0.001850046,
+        "time": 5.0473e-5,
         "n_threads": 11,
         "method": "graph_partition",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_127"
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage10"
     },
     {
-        "time": 0.001798503,
+        "time": 4.1283e-5,
         "n_threads": 11,
         "method": "graph_partition_reorder_merge",
-        "dataset": "Goodwin",
-        "matrix": "Goodwin/Goodwin_127"
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage10"
     },
     {
-        "time": 0.000480917,
+        "time": 0.000638918,
+        "n_threads": 11,
+        "method": "serial_default_implementation",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage11"
+    },
+    {
+        "time": 0.000128824,
+        "n_threads": 11,
+        "method": "finch_parallel",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage11"
+    },
+    {
+        "time": 9.5097e-5,
+        "n_threads": 11,
+        "method": "merge",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage11"
+    },
+    {
+        "time": 0.000142795,
+        "n_threads": 11,
+        "method": "graph_partition",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage11"
+    },
+    {
+        "time": 0.000100216,
+        "n_threads": 11,
+        "method": "graph_partition_reorder_merge",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage11"
+    },
+    {
+        "time": 0.002837604,
+        "n_threads": 11,
+        "method": "serial_default_implementation",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage12"
+    },
+    {
+        "time": 0.000566526,
+        "n_threads": 11,
+        "method": "finch_parallel",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage12"
+    },
+    {
+        "time": 0.00042656,
+        "n_threads": 11,
+        "method": "merge",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage12"
+    },
+    {
+        "time": 0.000771114,
+        "n_threads": 11,
+        "method": "graph_partition",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage12"
+    },
+    {
+        "time": 0.000425331,
+        "n_threads": 11,
+        "method": "graph_partition_reorder_merge",
+        "dataset": "vanHeukelum",
+        "matrix": "vanHeukelum/cage12"
+    },
+    {
+        "time": 0.00047331,
         "n_threads": 11,
         "method": "serial_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000108727,
+        "time": 0.00011108,
         "n_threads": 11,
         "method": "finch_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.000125781,
-        "n_threads": 11,
-        "method": "finch_kernel_parallel",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Da"
-    },
-    {
-        "time": 6.6481e-5,
+        "time": 6.734e-5,
         "n_threads": 11,
         "method": "merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 9.0697e-5,
+        "time": 9.1309e-5,
         "n_threads": 11,
         "method": "graph_partition",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 6.2324e-5,
+        "time": 6.182e-5,
         "n_threads": 11,
         "method": "graph_partition_reorder_merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Da"
     },
     {
-        "time": 0.007980778,
+        "time": 0.007750541,
         "n_threads": 11,
         "method": "serial_default_implementation",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.001851601,
+        "time": 0.001801017,
         "n_threads": 11,
         "method": "finch_parallel",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.001915991,
-        "n_threads": 11,
-        "method": "finch_kernel_parallel",
-        "dataset": "FEMLAB",
-        "matrix": "FEMLAB/poisson3Db"
-    },
-    {
-        "time": 0.001102003,
+        "time": 0.001098437,
         "n_threads": 11,
         "method": "merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.001023052,
+        "time": 0.000998159,
         "n_threads": 11,
         "method": "graph_partition",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 0.000692767,
+        "time": 0.000733109,
         "n_threads": 11,
         "method": "graph_partition_reorder_merge",
         "dataset": "FEMLAB",
         "matrix": "FEMLAB/poisson3Db"
     },
     {
-        "time": 9.6983e-5,
+        "time": 9.5838e-5,
         "n_threads": 11,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -178,7 +220,7 @@
         }
     },
     {
-        "time": 2.4111e-5,
+        "time": 2.6136e-5,
         "n_threads": 11,
         "method": "finch_parallel",
         "dataset": "uniform",
@@ -188,17 +230,7 @@
         }
     },
     {
-        "time": 2.7879e-5,
-        "n_threads": 11,
-        "method": "finch_kernel_parallel",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1024,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 2.5253e-5,
+        "time": 2.5271e-5,
         "n_threads": 11,
         "method": "merge",
         "dataset": "uniform",
@@ -208,7 +240,7 @@
         }
     },
     {
-        "time": 2.4595e-5,
+        "time": 2.556e-5,
         "n_threads": 11,
         "method": "graph_partition",
         "dataset": "uniform",
@@ -218,7 +250,7 @@
         }
     },
     {
-        "time": 2.3433e-5,
+        "time": 2.5167e-5,
         "n_threads": 11,
         "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
@@ -228,7 +260,7 @@
         }
     },
     {
-        "time": 0.017436129,
+        "time": 0.016701161,
         "n_threads": 11,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -238,7 +270,7 @@
         }
     },
     {
-        "time": 0.002269346,
+        "time": 0.001876671,
         "n_threads": 11,
         "method": "finch_parallel",
         "dataset": "uniform",
@@ -248,17 +280,7 @@
         }
     },
     {
-        "time": 0.002235871,
-        "n_threads": 11,
-        "method": "finch_kernel_parallel",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 8192,
-            "sparsity": 0.1
-        }
-    },
-    {
-        "time": 0.001812817,
+        "time": 0.001784715,
         "n_threads": 11,
         "method": "merge",
         "dataset": "uniform",
@@ -268,7 +290,7 @@
         }
     },
     {
-        "time": 0.00183019,
+        "time": 0.00179103,
         "n_threads": 11,
         "method": "graph_partition",
         "dataset": "uniform",
@@ -278,7 +300,7 @@
         }
     },
     {
-        "time": 0.001802172,
+        "time": 0.001767265,
         "n_threads": 11,
         "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
@@ -288,7 +310,7 @@
         }
     },
     {
-        "time": 0.024168743,
+        "time": 0.022692604,
         "n_threads": 11,
         "method": "serial_default_implementation",
         "dataset": "uniform",
@@ -298,7 +320,7 @@
         }
     },
     {
-        "time": 0.005371469,
+        "time": 0.00518968,
         "n_threads": 11,
         "method": "finch_parallel",
         "dataset": "uniform",
@@ -308,17 +330,7 @@
         }
     },
     {
-        "time": 0.004044549,
-        "n_threads": 11,
-        "method": "finch_kernel_parallel",
-        "dataset": "uniform",
-        "matrix": {
-            "size": 1048576,
-            "sparsity": 3000000
-        }
-    },
-    {
-        "time": 0.004320427,
+        "time": 0.004214812,
         "n_threads": 11,
         "method": "merge",
         "dataset": "uniform",
@@ -328,7 +340,7 @@
         }
     },
     {
-        "time": 0.007007325,
+        "time": 0.00669442,
         "n_threads": 11,
         "method": "graph_partition",
         "dataset": "uniform",
@@ -338,7 +350,7 @@
         }
     },
     {
-        "time": 0.00422369,
+        "time": 0.004089956,
         "n_threads": 11,
         "method": "graph_partition_reorder_merge",
         "dataset": "uniform",
