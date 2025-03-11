@@ -52,8 +52,8 @@ datasets = Dict(
     ],
     "vanHeukelum" => [
         "vanHeukelum/cage10",
-        "vanHeukelum/cage11",
-        "vanHeukelum/cage12",
+        # "vanHeukelum/cage11",
+        # "vanHeukelum/cage12",
     ],
     "Williams" => [
         "Williams/webbase-1M",
@@ -63,18 +63,21 @@ datasets = Dict(
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 include("finch_parallel.jl")
-# include("finch_kernel_parallel.jl")
+include("static_rows_equal.jl")
+include("dynamic_rows_grain.jl")
 include("merge.jl")
-include("graph_partition.jl")
 include("graph_partition_reorder_merge.jl")
+include("graph_partition_weighted_reorder_merge.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_mul,
     "finch_parallel" => finch_parallel,
-    # "finch_kernel_parallel" => finch_kernel_parallel,
+    "static_rows_equal" => static_rows_equal,
+    "dynamic_rows_grain_1" => dynamic_rows_grain_generator(1),
+    "dynamic_rows_grain_10" => dynamic_rows_grain_generator(10),
     "merge" => merge,
-    "graph_partition" => graph_partition,
     "graph_partition_reorder_merge" => graph_partition_reorder_merge,
+    "graph_partition_weighted_reorder_merge" => graph_partition_weighted_reorder_merge,
 )
 
 if !isnothing(parsed_args["method"])
