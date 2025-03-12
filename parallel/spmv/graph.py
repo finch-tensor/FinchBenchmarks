@@ -24,14 +24,17 @@ METHODS = [
     "graph_partition_weighted_reorder_merge",
 ]
 
-DATASETS = [
-    {"uniform": ["1024-0.1", "8192-0.1", "1048576-3000000"]},
-    {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
-    {
-        "vanHeukelum": ["vanHeukelum-cage10"]
-    },  # , "vanHeukelum-cage11", "vanHeukelum-cage12"]},
-    {"Williams": ["Williams-webbase-1M"]},
-]
+DATASETS = {
+    "uniform": ["1024-0.1", "8192-0.1", "1048576-3000000"],
+    "FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"],
+    "vanHeukelum": [
+        "vanHeukelum-cage10",
+        # "vanHeukelum-cage11",
+        # "vanHeukelum-cage12"
+    ],
+    "Williams": ["Williams-webbase-1M"],
+}
+NUM_MATRICES = sum([len(matrices) for matrices in DATASETS.values()])
 
 COLORS = [
     "gray",
@@ -91,6 +94,7 @@ def plot_speedup_result(results, dataset, matrix, save_location):
 
     plt.legend()
     plt.savefig(save_location)
+    plt.close()
 
 
 def plot_runtime_result(results, dataset, matrix, save_location):
@@ -114,22 +118,25 @@ def plot_runtime_result(results, dataset, matrix, save_location):
 
     plt.legend()
     plt.savefig(save_location)
+    plt.close()
 
 
-def plot_mean_speedup_result(results, datasets, save_location):
+def plot_mean_speedup_result(results, save_location):
     plt.figure(figsize=(10, 10))
     for method, color in zip(METHODS, COLORS):
-        speedup = [1] * len(NTHREADS)
-        for dataset, matrices in datasets.items():
+        speedups = [1] * len(NTHREADS)
+        for dataset, matrices in DATASETS.items():
             for matrix in matrices:
                 for i, n_thread in enumerate(NTHREADS):
-                    speedup[i] *= (
+                    speedups[i] *= (
                         results[dataset][matrix][DEFAULT_METHOD][n_thread]
                         / results[dataset][matrix][method][n_thread]
                     )
+
+        mean_speedups = [speedup ** (1 / NUM_MATRICES) for speedup in speedups]
         plt.plot(
             NTHREADS,
-            speedup,
+            mean_speedups,
             label=method,
             color=color,
             marker="o",
@@ -145,22 +152,25 @@ def plot_mean_speedup_result(results, datasets, save_location):
 
     plt.legend()
     plt.savefig(save_location)
+    plt.close()
 
 
-def plot_mean_speedup_separate_result(results, datasets, save_folder):
+def plot_mean_speedup_separate_result(results, save_folder):
     for method, color in zip(METHODS, COLORS):
         plt.figure(figsize=(10, 10))
-        speedup = [1] * len(NTHREADS)
-        for dataset, matrices in datasets.items():
+        speedups = [1] * len(NTHREADS)
+        for dataset, matrices in DATASETS.items():
             for matrix in matrices:
                 for i, n_thread in enumerate(NTHREADS):
-                    speedup[i] *= (
+                    speedups[i] *= (
                         results[dataset][matrix][DEFAULT_METHOD][n_thread]
                         / results[dataset][matrix][method][n_thread]
                     )
+
+        mean_speedups = [speedup ** (1 / NUM_MATRICES) for speedup in speedups]
         plt.plot(
             NTHREADS,
-            speedup,
+            mean_speedups,
             label=method,
             color=color,
             marker="o",
@@ -187,30 +197,23 @@ if __name__ == "__main__":
     os.makedirs(os.path.join(GRAPH_FOLDER, MEAN_SPEEDUP_FOLDER), exist_ok=True)
 
     results = load_json()
-    for datasets in DATASETS:
-        for dataset, matrices in datasets.items():
-            for matrix in matrices:
-                plot_speedup_result(
-                    results,
-                    dataset,
-                    matrix,
-                    os.path.join(
-                        GRAPH_FOLDER, SPEEDUP_FOLDER, f"{dataset}-{matrix}.png"
-                    ),
-                )
-                plot_runtime_result(
-                    results,
-                    dataset,
-                    matrix,
-                    os.path.join(
-                        GRAPH_FOLDER, RUNTIME_FOLDER, f"{dataset}-{matrix}.png"
-                    ),
-                )
-
-            plot_mean_speedup_result(
-                results, datasets, os.path.join(GRAPH_FOLDER, "mean-speedup.png")
+    for dataset, matrices in DATASETS.items():
+        for matrix in matrices:
+            plot_speedup_result(
+                results,
+                dataset,
+                matrix,
+                os.path.join(GRAPH_FOLDER, SPEEDUP_FOLDER, f"{dataset}-{matrix}.png"),
+            )
+            plot_runtime_result(
+                results,
+                dataset,
+                matrix,
+                os.path.join(GRAPH_FOLDER, RUNTIME_FOLDER, f"{dataset}-{matrix}.png"),
             )
 
-            plot_mean_speedup_separate_result(
-                results, datasets, os.path.join(GRAPH_FOLDER, MEAN_SPEEDUP_FOLDER)
-            )
+    plot_mean_speedup_result(results, os.path.join(GRAPH_FOLDER, "mean-speedup.png"))
+
+    plot_mean_speedup_separate_result(
+        results, os.path.join(GRAPH_FOLDER, MEAN_SPEEDUP_FOLDER)
+    )
