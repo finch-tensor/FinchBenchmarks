@@ -1,4 +1,5 @@
 import json
+import os
 from collections import defaultdict
 
 import matplotlib.pyplot as plt
@@ -7,23 +8,28 @@ GRAPH_FOLDER = "graph"
 SPEEDUP_FOLDER = "speedup"
 RUNTIME_FOLDER = "runtime"
 RESULTS_FOLDER = "results"
+MEAN_SPEEDUP_FOLDER = "mean-speedup"
 
 NTHREADS = [i + 1 for i in range(12)]
 
 DEFAULT_METHOD = "serial_default_implementation"
 METHODS = [
-    DEFAULT_METHOD,
-    "finch_parallel",
-    # "finch_kernel_parallel",
+    # DEFAULT_METHOD,
+    # "finch_parallel",
+    "static_rows_equal",
+    "dynamic_rows_grain_1",
+    "dynamic_rows_grain_10",
     "merge",
-    "graph_partition",
-    "graph_partition_reorder_merge",
+    # "graph_partition_reorder_merge",
+    "graph_partition_weighted_reorder_merge",
 ]
 
 DATASETS = [
     {"uniform": ["1024-0.1", "8192-0.1", "1048576-3000000"]},
     {"FEMLAB": ["FEMLAB-poisson3Da", "FEMLAB-poisson3Db"]},
-    {"vanHeukelum": ["vanHeukelum-cage10", "vanHeukelum-cage11", "vanHeukelum-cage12"]},
+    {
+        "vanHeukelum": ["vanHeukelum-cage10"]
+    },  # , "vanHeukelum-cage11", "vanHeukelum-cage12"]},
     {"Williams": ["Williams-webbase-1M"]},
 ]
 
@@ -61,7 +67,7 @@ def load_json():
 
 
 def plot_speedup_result(results, dataset, matrix, save_location):
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 10))
     for method, color in zip(METHODS, COLORS):
         plt.plot(
             NTHREADS,
@@ -77,9 +83,7 @@ def plot_speedup_result(results, dataset, matrix, save_location):
             linewidth=1,
         )
 
-    plt.title(
-        f"SpMV - Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})"
-    )
+    plt.title(f"Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})")
     # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
@@ -90,7 +94,7 @@ def plot_speedup_result(results, dataset, matrix, save_location):
 
 
 def plot_runtime_result(results, dataset, matrix, save_location):
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 10))
     for method, color in zip(METHODS, COLORS):
         plt.plot(
             NTHREADS,
@@ -102,7 +106,7 @@ def plot_runtime_result(results, dataset, matrix, save_location):
             linewidth=1,
         )
 
-    plt.title(f"SpMV - Runtime for {dataset}: {matrix}")
+    plt.title(f"Runtime for {dataset}: {matrix}")
     # plt.yscale("log", base=10)
     plt.xticks(NTHREADS)
     plt.xlabel("Number of Threads")
@@ -112,7 +116,76 @@ def plot_runtime_result(results, dataset, matrix, save_location):
     plt.savefig(save_location)
 
 
+def plot_mean_speedup_result(results, datasets, save_location):
+    plt.figure(figsize=(10, 10))
+    for method, color in zip(METHODS, COLORS):
+        speedup = [1] * len(NTHREADS)
+        for dataset, matrices in datasets.items():
+            for matrix in matrices:
+                for i, n_thread in enumerate(NTHREADS):
+                    speedup[i] *= (
+                        results[dataset][matrix][DEFAULT_METHOD][n_thread]
+                        / results[dataset][matrix][method][n_thread]
+                    )
+        plt.plot(
+            NTHREADS,
+            speedup,
+            label=method,
+            color=color,
+            marker="o",
+            linestyle="-",
+            linewidth=1,
+        )
+
+    plt.title(f"Geometric Mean Speedup (with respect to {DEFAULT_METHOD})")
+    # plt.yscale("log", base=10)
+    plt.xticks(NTHREADS)
+    plt.xlabel("Number of Threads")
+    plt.ylabel(f"Speedup")
+
+    plt.legend()
+    plt.savefig(save_location)
+
+
+def plot_mean_speedup_separate_result(results, datasets, save_folder):
+    for method, color in zip(METHODS, COLORS):
+        plt.figure(figsize=(10, 10))
+        speedup = [1] * len(NTHREADS)
+        for dataset, matrices in datasets.items():
+            for matrix in matrices:
+                for i, n_thread in enumerate(NTHREADS):
+                    speedup[i] *= (
+                        results[dataset][matrix][DEFAULT_METHOD][n_thread]
+                        / results[dataset][matrix][method][n_thread]
+                    )
+        plt.plot(
+            NTHREADS,
+            speedup,
+            label=method,
+            color=color,
+            marker="o",
+            linestyle="-",
+            linewidth=1,
+        )
+
+        plt.title(
+            f"Geometric Mean Speedup for {method} (with respect to {DEFAULT_METHOD})"
+        )
+        # plt.yscale("log", base=10)
+        plt.xticks(NTHREADS)
+        plt.xlabel("Number of Threads")
+        plt.ylabel(f"Speedup")
+
+        plt.legend()
+        plt.savefig(os.path.join(save_folder, f"{method}-mean-speedup.png"))
+        plt.close()
+
+
 if __name__ == "__main__":
+    os.makedirs(os.path.join(GRAPH_FOLDER, SPEEDUP_FOLDER), exist_ok=True)
+    os.makedirs(os.path.join(GRAPH_FOLDER, RUNTIME_FOLDER), exist_ok=True)
+    os.makedirs(os.path.join(GRAPH_FOLDER, MEAN_SPEEDUP_FOLDER), exist_ok=True)
+
     results = load_json()
     for datasets in DATASETS:
         for dataset, matrices in datasets.items():
@@ -121,11 +194,23 @@ if __name__ == "__main__":
                     results,
                     dataset,
                     matrix,
-                    f"{GRAPH_FOLDER}/{SPEEDUP_FOLDER}/{dataset}-{matrix}.png",
+                    os.path.join(
+                        GRAPH_FOLDER, SPEEDUP_FOLDER, f"{dataset}-{matrix}.png"
+                    ),
                 )
                 plot_runtime_result(
                     results,
                     dataset,
                     matrix,
-                    f"{GRAPH_FOLDER}/{RUNTIME_FOLDER}/{dataset}-{matrix}.png",
+                    os.path.join(
+                        GRAPH_FOLDER, RUNTIME_FOLDER, f"{dataset}-{matrix}.png"
+                    ),
                 )
+
+            plot_mean_speedup_result(
+                results, datasets, os.path.join(GRAPH_FOLDER, "mean-speedup.png")
+            )
+
+            plot_mean_speedup_separate_result(
+                results, datasets, os.path.join(GRAPH_FOLDER, MEAN_SPEEDUP_FOLDER)
+            )
