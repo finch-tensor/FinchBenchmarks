@@ -15,6 +15,9 @@ using SparseArrays
 using Printf
 using LinearAlgebra
 
+using ThreadPinning
+pinthreads(numa(1))
+
 s = ArgParseSettings("Run SPMV experiments.")
 
 @add_arg_table! s begin
