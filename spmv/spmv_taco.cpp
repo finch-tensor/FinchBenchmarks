@@ -1,8 +1,9 @@
-#include "taco.h"
 #include <chrono>
 #include <sys/stat.h>
 #include <iostream>
-#include <cstdint>
+#include <cstdlib>
+#include <string>
+#include "taco.h"
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 
 namespace fs = std::filesystem;
@@ -63,17 +64,15 @@ int main(int argc, char **argv){
     exit(1);
   }
 
+  const char* num_threads = std::getenv("OMP_NUM_THREADS");
+  taco_set_num_threads(std::stoi(std::string(num_threads)));
   IndexVar i, j;
 
-  if (schedule == "row-major") {
-    y(i) += A(i, j) * x(j);
-	IndexStmt stmt = y.getAssignment().concretize();
-	stmt = stmt.parallelize(i, ParallelUnit::CPUThread, OutputRaceStrategy::NoRaces);
-  } else if (schedule == "column-major") {
-    y(j) += A(i, j) * x(i);
-	IndexStmt stmt = y.getAssignment().concretize();
-	stmt = stmt.parallelize(j, ParallelUnit::CPUThread, OutputRaceStrategy::NoRaces);
-  } else {
+  if (schedule == "row-major")
+    y(i) = A(i, j) * x(j);
+  else if (schedule == "column-major")
+    y(j) = A(i, j) * x(i);
+  else {
     std::cerr << "Invalid schedule" << std::endl;
     exit(1);
   }

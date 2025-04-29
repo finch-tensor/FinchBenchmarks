@@ -9,7 +9,7 @@ function spmv_taco_helper(args, A, x)
     fwrite(A_path, Tensor(Dense(SparseList(Element(0.0))), A))
     fwrite(x_path, Tensor(Dense(Element(0.0)), x))
     taco_path = joinpath(@__DIR__, "../deps/taco/build/lib")
-    withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path", "LD_LIBRARY_PATH" => "$taco_path", "TACO_CFLAGS" => "-O3 -ffast-math -std=c99 -march=native -ggdb -fopenmp", "OMP_NUM_THREADS" => "12") do
+    withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path", "LD_LIBRARY_PATH" => "$taco_path", "TACO_CC" => "gcc-14", "OMP_NUM_THREADS" => "$(Threads.nthreads())") do
         spmv_path = joinpath(@__DIR__, "spmv_taco")
         # run(`numactl --cpunodebind=1 --membind=1 $spmv_path -i $tmpdir -o $tmpdir -- $args`)
         run(`$spmv_path -i $tmpdir -o $tmpdir -- $args`)
