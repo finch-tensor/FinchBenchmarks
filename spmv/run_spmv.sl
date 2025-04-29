@@ -5,8 +5,9 @@
 #SBATCH --partition=lanka-v3
 #SBATCH --qos=commit-main
 #SBATCH --mem 102400
-#SBATCH --array=0-8%9
 
-cd /data/scratch/paramuth/FinchBenchmarks/spmv
+cd /data/scratch/paramuth/FinchBenchmarks/
+bash instantiate_environments.sh
 
+cd spmv
 bash run_spmv.sh 12

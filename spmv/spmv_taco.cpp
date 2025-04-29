@@ -65,11 +65,15 @@ int main(int argc, char **argv){
 
   IndexVar i, j;
 
-  if (schedule == "row-major")
+  if (schedule == "row-major") {
     y(i) += A(i, j) * x(j);
-  else if (schedule == "column-major")
+	IndexStmt stmt = y.getAssignment().concretize();
+	stmt = stmt.parallelize(i, ParallelUnit::CPUThread, OutputRaceStrategy::NoRaces);
+  } else if (schedule == "column-major") {
     y(j) += A(i, j) * x(i);
-  else {
+	IndexStmt stmt = y.getAssignment().concretize();
+	stmt = stmt.parallelize(j, ParallelUnit::CPUThread, OutputRaceStrategy::NoRaces);
+  } else {
     std::cerr << "Invalid schedule" << std::endl;
     exit(1);
   }
