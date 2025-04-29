@@ -1,13 +1,15 @@
-CC = gcc-14
-CXX = g++-14
 LD = ld
 CXXFLAGS += -std=c++17 -O3 -march=native
 LDLIBS +=
 
 ifeq ("$(shell uname)","Darwin")
-export NPROC_VAL := $(shell sysctl -n hw.logicalcpu_max )
+	export NPROC_VAL := $(shell sysctl -n hw.logicalcpu_max )
+	CC = gcc-14
+	CXX = g++-14
 else
-export NPROC_VAL := $(shell lscpu -p | egrep -v '^\#' | wc -l)
+	export NPROC_VAL := $(shell lscpu -p | egrep -v '^\#' | wc -l)
+	CC = gcc
+	CXX = g++
 endif
 
 SPADD_TACO = spadd/spadd_taco

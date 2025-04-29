@@ -1,0 +1,74 @@
+[
+    {
+        "time": 0.0005325,
+        "method": "finch_static_schedule",
+        "kernel": "spadd",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 2
+    },
+    {
+        "time": 0.000535417,
+        "method": "finch_greedy_schedule",
+        "kernel": "spadd",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 2
+    },
+    {
+        "time": 0.000808791,
+        "method": "finch_julia_schedule",
+        "kernel": "spadd",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 2
+    },
+    {
+        "time": 0.000131291,
+        "method": "finch_static_schedule",
+        "kernel": "spadd",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 2
+    },
+    {
+        "time": 0.00011925,
+        "method": "finch_greedy_schedule",
+        "kernel": "spadd",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 2
+    },
+    {
+        "time": 0.000271458,
+        "method": "finch_julia_schedule",
+        "kernel": "spadd",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 2
+    },
+    {
+        "time": 0.024139125,
+        "method": "finch_static_schedule",
+        "kernel": "spadd",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 2
+    },
+    {
+        "time": 0.024057084,
+        "method": "finch_greedy_schedule",
+        "kernel": "spadd",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 2
+    },
+    {
+        "time": 0.02631225,
+        "method": "finch_julia_schedule",
+        "kernel": "spadd",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 2
+    }
+]

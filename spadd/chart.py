@@ -8,7 +8,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-RESULTS_FILE_PATH = "spmv_results.json"
+RESULTS_FILE_PATH = "spadd_results.json"
 CHARTS_DIRECTORY = "charts"
 
 
@@ -82,7 +82,7 @@ def all_formats_chart():
             short_mtxs,
             all_data,
             colors=colors,
-            title=f"SpMV Performance (Speedup Over Taco) with {num_threads} threads",
+            title=f"spadd Performance (Speedup Over Taco) with {num_threads} threads",
             legend_labels=legend_labels,
         )
 

@@ -7,4 +7,4 @@ do
 	julia -t "$t" run_spmv.jl -o "results/spmv_threads_${t}.json"
 done
 
-jq -s 'add' "results/spmv_threads_*.json" > "results/spmv_results.json"
+jq -s add results/spmv_threads_*.json > results/spmv_results.json

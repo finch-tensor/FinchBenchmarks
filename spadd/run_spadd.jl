@@ -18,13 +18,13 @@ using LinearAlgebra
 # using ThreadPinning
 # pinthreads(numa(1))
 
-s = ArgParseSettings("Run SPMV experiments.")
+s = ArgParseSettings("Run spadd experiments.")
 
 @add_arg_table! s begin
     "--output", "-o"
     arg_type = String
     help = "output file path"
-    default = "spmv_results.json"
+    default = "spadd_results.json"
     "--dataset", "-d"
     arg_type = String
     help = "dataset keyword"
@@ -44,14 +44,14 @@ datasets = OrderedDict(
     ],
 )
 
-include("spmv_finch.jl")
-include("spmv_taco.jl")
+include("spadd_finch.jl")
+include("spadd_taco.jl")
 
 methods = OrderedDict(
-    "finch_static_schedule" => spmv_finch_static,
-    "finch_greedy_schedule" => spmv_finch_greedy,
-    "finch_julia_schedule" => spmv_finch_julia,
-    (has_taco() ? ["taco" => spmv_taco] : [])...,
+    "finch_static_schedule" => spadd_finch_static,
+    "finch_greedy_schedule" => spadd_finch_greedy,
+    "finch_julia_schedule" => spadd_finch_julia,
+    (has_taco() ? ["taco" => spadd_taco] : [])...,
 )
 
 results = []
@@ -66,31 +66,33 @@ for (dataset, mtxs) in datasets
     for mtx in mtxs
         if dataset == "uniform"
             if mtx == "uniform_dense"
-                A = SparseMatrixCSC(fsprand(10_000, 10_000, 1_000_000))
+                A = SparseMatrixCSC(fsprand(1_000, 1_000, 100_000))
+                B = SparseMatrixCSC(fsprand(1_000, 1_000, 100_000))
             elseif mtx == "uniform_sparse"
-                A = SparseMatrixCSC(fsprand(10_000, 10_000, 30_000))
+                A = SparseMatrixCSC(fsprand(1_000, 1_000, 3_000))
+                B = SparseMatrixCSC(fsprand(1_000, 1_000, 3_000))
             end
         else
             A = SparseMatrixCSC(matrixdepot(mtx))
+            B = SparseMatrixCSC(matrixdepot(mtx))
         end
 
         (m, n) = size(A)
-        x = rand(n)
-        y = zeros(m)
-        y_ref = nothing
+        C = zeros(m, n)
+        C_ref = nothing
         for (key, method) in methods
             @info "testing" key mtx
-            res = method(y, A, x)
+            res = method(C, A, B)
             time = res.time
-            y_ref = something(y_ref, res.y)
+            C_ref = something(C_ref, res.C)
 
-            norm(res.y - y_ref) / norm(y_ref) < 0.1 || @warn("incorrect result via norm")
+            norm(res.C - C_ref) / norm(C_ref) < 0.1 || @warn("incorrect result via norm")
 
             @info "results" time
             push!(results, OrderedDict(
                 "time" => time,
                 "method" => key,
-                "kernel" => "spmv",
+                "kernel" => "spadd",
                 "matrix" => mtx,
                 "dataset" => dataset,
                 "num_threads" => Threads.nthreads(),

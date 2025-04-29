@@ -9,7 +9,9 @@ function spmv_taco_helper(args, A, x)
     fwrite(A_path, Tensor(Dense(SparseList(Element(0.0))), A))
     fwrite(x_path, Tensor(Dense(Element(0.0)), x))
     taco_path = joinpath(@__DIR__, "../deps/taco/build/lib")
-    withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path", "LD_LIBRARY_PATH" => "$taco_path", "TACO_CC" => "gcc-14", "OMP_NUM_THREADS" => "$(Threads.nthreads())") do
+    compiler = Sys.isapple() ? "gcc-14" : "gcc"
+    num_threads = Threads.nthreads()
+    withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path", "LD_LIBRARY_PATH" => "$taco_path", "TACO_CC" => "$compiler", "OMP_NUM_THREADS" => "$num_threads") do
         spmv_path = joinpath(@__DIR__, "spmv_taco")
         # run(`numactl --cpunodebind=1 --membind=1 $spmv_path -i $tmpdir -o $tmpdir -- $args`)
         run(`$spmv_path -i $tmpdir -o $tmpdir -- $args`)
