@@ -1,130 +1,130 @@
 [
     {
-        "time": 0.001076633,
+        "time": 0.000227528,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "uniform_dense",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.001092347,
+        "time": 0.000230376,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "uniform_dense",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.00146594,
+        "time": 0.000379749,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "uniform_dense",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000898343,
+        "time": 0.000187657,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "uniform_dense",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000119098,
+        "time": 3.3657e-5,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000118553,
+        "time": 3.3168e-5,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000374413,
+        "time": 0.000217021,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 9.6772e-5,
+        "time": 3.2777e-5,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
         "dataset": "uniform",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000465769,
+        "time": 0.000147821,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000466507,
+        "time": 0.000103125,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000843029,
+        "time": 0.000398631,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.000363201,
+        "time": 0.000127033,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.007669548,
+        "time": 0.002297644,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.007744487,
+        "time": 0.001242265,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.01016612,
+        "time": 0.002378655,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     },
     {
-        "time": 0.004803889,
+        "time": 0.001739263,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
         "dataset": "poisson",
-        "num_threads": 1
+        "num_threads": 6
     }
 ]

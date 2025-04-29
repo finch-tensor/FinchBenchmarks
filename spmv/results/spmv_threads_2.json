@@ -1,6 +1,6 @@
 [
     {
-        "time": 0.000424375,
+        "time": 0.00056277,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "uniform_dense",
@@ -8,7 +8,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.000427709,
+        "time": 0.000569012,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "uniform_dense",
@@ -16,7 +16,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.001189416,
+        "time": 0.000824043,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "uniform_dense",
@@ -24,7 +24,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.00041200000000000004,
+        "time": 0.00045999800000000004,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "uniform_dense",
@@ -32,7 +32,7 @@
         "num_threads": 2
     },
     {
-        "time": 3.1125e-5,
+        "time": 6.6647e-5,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
@@ -40,7 +40,7 @@
         "num_threads": 2
     },
     {
-        "time": 3.0334e-5,
+        "time": 6.7132e-5,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
@@ -48,7 +48,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.000229042,
+        "time": 0.000291747,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
@@ -56,7 +56,7 @@
         "num_threads": 2
     },
     {
-        "time": 4.0e-5,
+        "time": 5.411e-5,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "uniform_sparse",
@@ -64,7 +64,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.000164625,
+        "time": 0.000265144,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
@@ -72,7 +72,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.000155625,
+        "time": 0.000255338,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
@@ -80,7 +80,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.00074325,
+        "time": 0.000545982,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
@@ -88,7 +88,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.00014800000000000002,
+        "time": 0.00021482,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Da",
@@ -96,7 +96,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.00131075,
+        "time": 0.004826472,
         "method": "finch_static_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
@@ -104,7 +104,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.0013055,
+        "time": 0.003968768,
         "method": "finch_greedy_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
@@ -112,7 +112,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.005065208,
+        "time": 0.005738579,
         "method": "finch_julia_schedule",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
@@ -120,7 +120,7 @@
         "num_threads": 2
     },
     {
-        "time": 0.001061,
+        "time": 0.0033436250000000002,
         "method": "taco",
         "kernel": "spmv",
         "matrix": "FEMLAB/poisson3Db",
