@@ -1,140 +1,100 @@
 using Finch
 using BenchmarkTools
 
-for z0 = (0, 0.0, false)
-    A = Tensor(Dense(SparseList(Element(z0))))
-    B = Tensor(Dense(SparseList(Element(z0))))
-    z = default(A) * default(B) + false
-    C = Tensor(Dense(SparseList(Element(z))))
+function spgemm_finch_custom_gustavson_dense_helper(A::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}}, B::Tensor{DenseLevel{Int64,SparseListLevel{Int64,Vector{Int64},Vector{Int64},ElementLevel{0.0,Float64,Int64,Vector{Float64}}}}})
+    @inbounds @fastmath(begin
+        A_lvl = A.lvl
+        A_lvl_stop = A_lvl.shape
+        A_lvl_2 = A_lvl.lvl
+        A_lvl_2_ptr = A_lvl_2.ptr
+        A_lvl_2_idx = A_lvl_2.idx
+        A_lvl_2_stop = A_lvl_2.shape
+        A_lvl_3 = A_lvl_2.lvl
+        A_lvl_3_val = A_lvl_3.val
+        B_lvl = B.lvl
+        B_lvl_stop = B_lvl.shape
+        B_lvl_2 = B_lvl.lvl
+        B_lvl_2_ptr = B_lvl_2.ptr
+        B_lvl_2_idx = B_lvl_2.idx
+        B_lvl_2_stop = B_lvl_2.shape
+        B_lvl_3 = B_lvl_2.lvl
+        B_lvl_3_val = B_lvl_3.val
+        B_lvl_2_stop == A_lvl_stop || throw(DimensionMismatch("mismatched dimension limits ($(B_lvl_2_stop) != $(A_lvl_stop))"))
 
-    AT = Tensor(Dense(SparseList(Element(z))))
-    BT = Tensor(Dense(SparseList(Element(z))))
+        pos_stop = A_lvl_2_stop * B_lvl_stop
+        C_lvl_3_val = zeros(Float64, pos_stop)
 
-    eval(@finch_kernel function spgemm_finch_inner_kernel(C, AT, B)
-        C .= 0
-        for j=_, i=_, k=_
-            C[i, j] += AT[k, i] * B[k, j]
+        n_threads = Threads.nthreads()
+        C_js = [zeros(Float64, A_lvl_2_stop) for _ = 1:n_threads]
+        C_idxs = [Int64[] for _ = 1:n_threads]
+        C_nfills = [falses(A_lvl_2_stop) for _ = 1:n_threads]
+
+        A_lvl_2_ptr_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), A_lvl_2_ptr)
+        A_lvl_2_idx_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), A_lvl_2_idx)
+        A_lvl_3_val_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), A_lvl_3_val)
+        B_lvl_2_ptr_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), B_lvl_2_ptr)
+        B_lvl_2_idx_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), B_lvl_2_idx)
+        B_lvl_3_val_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), B_lvl_3_val)
+        C_lvl_3_val_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), C_lvl_3_val)
+        C_js_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), C_js)
+        C_idxs_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), C_idxs)
+        C_nfills_2 = (Finch).transfer(Finch.CPUSharedMemory(Finch.CPU(n_threads)), C_nfills)
+        Threads.@threads for tid = 1:n_threads
+            Finch.@barrier begin
+                @inbounds @fastmath(begin
+                    A_lvl_2_ptr_3 = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), A_lvl_2_ptr_2)
+                    A_lvl_2_idx_3 = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), A_lvl_2_idx_2)
+                    A_lvl_3_val_3 = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), A_lvl_3_val_2)
+                    B_lvl_2_ptr_3 = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), B_lvl_2_ptr_2)
+                    B_lvl_2_idx_3 = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), B_lvl_2_idx_2)
+                    B_lvl_3_val_3 = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), B_lvl_3_val_2)
+                    C_lvl_3_val_3 = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), C_lvl_3_val_2)
+                    C_j = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), C_js_2[tid])
+                    C_idx = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), C_idxs_2[tid])
+                    C_nfill = (Finch).transfer(Finch.CPUThread(tid, Finch.CPU(n_threads), Finch.Serial()), C_nfills_2[tid])
+
+                    for j in cld(B_lvl_stop, n_threads)*(tid-1)+1:min(B_lvl_stop, cld(B_lvl_stop, n_threads) * tid)
+                        for i in C_idx
+                            C_nfill[i] = false
+                            C_j[i] = 0.0
+                        end
+                        empty!(C_idx)
+
+                        B_start = B_lvl_2_ptr_3[j]
+                        B_stop = B_lvl_2_ptr_3[j+1] - 1
+                        for B_ptr in B_start:B_stop
+                            k = B_lvl_2_idx_3[B_ptr]
+                            B_val = B_lvl_3_val_3[B_ptr]
+
+                            A_start = A_lvl_2_ptr_3[k]
+                            A_stop = A_lvl_2_ptr_3[k+1] - 1
+                            for A_ptr in A_start:A_stop
+                                i = A_lvl_2_idx_3[A_ptr]
+                                A_val = A_lvl_3_val_3[A_ptr]
+                                C_j[i] += A_val * B_val
+                                if !C_nfill[i]
+                                    C_nfill[i] = true
+                                    push!(C_idx, i)
+                                end
+                            end
+                        end
+
+                        # sort!(C_idx) - only need for SparseList
+                        for i in C_idx
+                            C_lvl_3_val_3[(j-1)*A_lvl_2_stop+i] = C_j[i]
+                        end
+                    end
+                end)
+            end
         end
-        return C
+        Tensor((DenseLevel){Int64}((DenseLevel){Int64}(ElementLevel{0.0,Float64,Int64}(C_lvl_3_val), A_lvl_2_stop), B_lvl_stop))
     end)
-
-    w = Tensor(SparseByteMap(Element(z)))
-    eval(@finch_kernel function spgemm_finch_gustavson_kernel(C, w, A, B)
-        C .= 0
-        for j=_
-            w .= 0
-            for k=_, i=_; w[i] += A[i, k] * B[k, j] end
-            for i=_; C[i, j] = w[i] end
-        end
-        return C
-    end)
-
-    #w = Tensor(SparseHash{2}(Element(z)))
-    w = Tensor(SparseDict(SparseDict(Element(z))))
-    eval(@finch_kernel function spgemm_finch_outer_kernel(C, w, A, BT)
-        w .= 0
-        for k=_, j=_, i=_
-            w[i, j] += A[i, k] * BT[j, k]
-        end
-        C .= 0
-        for j=_, i=_
-            C[i, j] = w[i, j]
-        end
-        return C
-    end)
-
-    w = Tensor(Dense(SparseByteMap(Element(z))))
-    eval(@finch_kernel function spgemm_finch_outer_kernel(C, w, A, BT)
-        w .= 0
-        for k=_, j=_, i=_
-            w[i, j] += A[i, k] * BT[j, k]
-        end
-        C .= 0
-        for j=_, i=_
-            C[i, j] = w[i, j]
-        end
-        return C
-    end)
-
-    w = Tensor(Dense(Dense(Element(z))))
-    eval(@finch_kernel function spgemm_finch_outer_kernel(C, w, A, BT)
-        w .= 0
-        for k=_, j=_, i=_
-            w[i, j] += A[i, k] * BT[j, k]
-        end
-        C .= 0
-        for j=_, i=_
-            C[i, j] = w[i, j]
-        end
-        return C
-    end)
 end
 
-function spgemm_finch_inner_measure(A, B)
-    z = default(A) * default(B) + false
-    C = Tensor(Dense(SparseList(Element(z))))
-    #w2D = Tensor(SparseHash{2}(Element(z)))
-    w2D = Tensor(SparseDict(SparseDict(Element(z))))
-    AT = Tensor(Dense(SparseList(Element(z))))
-    AT = copyto!(AT, swizzle(A, 2, 1))
-    time = @belapsed spgemm_finch_inner_kernel($C, $AT, $B)
-    C = spgemm_finch_inner_kernel(C, AT, B).C
-    return (time = time, C = C)
+function spgemm_finch_custom_gustavson_dense(A, B)
+    _A = Tensor(Dense(SparseList(Element(0.0))), A)
+    _B = Tensor(Dense(SparseList(Element(0.0))), B)
+    result = @btimed spgemm_finch_custom_gustavson_dense_helper($_A, $_B)
+    return (; time=result.time, C=result.value)
 end
 
-function spgemm_finch_gustavson_measure(A, B)
-    z = default(A) * default(B) + false
-    C = Tensor(Dense(SparseList(Element(z))))
-    w = Tensor(SparseByteMap(Element(z)))
-    time = @belapsed spgemm_finch_gustavson_kernel($C, $w, $A, $B)
-    C = spgemm_finch_gustavson_kernel(C, w, A, B).C
-    return (time = time, C = C)
-end
-
-function spgemm_finch_outer_measure(A, B)
-    z = default(A) * default(B) + false
-    C = Tensor(Dense(SparseList(Element(z))))
-    #w = Tensor(SparseHash{2}(Element(z)))
-    w = Tensor(SparseDict(SparseDict(Element(z))))
-    BT = Tensor(Dense(SparseList(Element(z))))
-    BT = copyto!(BT, swizzle(B, 2, 1))
-    time = @belapsed spgemm_finch_outer_kernel($C, $w, $A, $BT)
-    C = spgemm_finch_outer_kernel(C, w, A, BT).C
-    return (time = time, C = C)
-end
-
-function spgemm_finch_outer_bytemap_measure(A, B)
-    z = default(A) * default(B) + false
-    C = Tensor(Dense(SparseList(Element(z))))
-    w = Tensor(Dense(SparseByteMap(Element(z))))
-    BT = Tensor(Dense(SparseList(Element(z))))
-    BT = copyto!(BT, swizzle(B, 2, 1))
-    time = @belapsed spgemm_finch_outer_kernel($C, $w, $A, $BT)
-    C = spgemm_finch_outer_kernel(C, w, A, BT).C
-    return (time = time, C = C)
-end
-
-function spgemm_finch_outer_dense_measure(A, B)
-    z = default(A) * default(B) + false
-    C = Tensor(Dense(SparseList(Element(z))))
-    w = Tensor(Dense(Dense(Element(z))))
-    BT = Tensor(Dense(SparseList(Element(z))))
-    BT = copyto!(BT, swizzle(B, 2, 1))
-    time = @belapsed spgemm_finch_outer_kernel($C, $w, $A, $BT)
-    C = spgemm_finch_outer_kernel(C, w, A, BT).C
-    return (time = time, C = C)
-end
-
-function spgemm_finch(f, A, B)
-    _A = Tensor(A)
-    _B = Tensor(B)
-    C = Ref{Any}()
-    (time, C[]) = f(_A, _B)
-    return (;time = time, C = C[])
-end
-
-spgemm_finch_inner(A, B) = spgemm_finch(spgemm_finch_inner_measure, A, B)
-spgemm_finch_gustavson(A, B) = spgemm_finch(spgemm_finch_gustavson_measure, A, B)
-spgemm_finch_outer(A, B) = spgemm_finch(spgemm_finch_outer_measure, A, B)
-spgemm_finch_outer_bytemap(A, B) = spgemm_finch(spgemm_finch_outer_bytemap_measure, A, B)
-spgemm_finch_outer_dense(A, B) = spgemm_finch(spgemm_finch_outer_dense_measure, A, B)

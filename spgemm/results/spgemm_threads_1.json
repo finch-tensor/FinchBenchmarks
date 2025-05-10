@@ -1,0 +1,10 @@
+[
+    {
+        "time": 0.672385334,
+        "method": "finch_custom_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 1
+    }
+]

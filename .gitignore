@@ -4,7 +4,7 @@ cache/*
 spmv/spmv_taco
 spgemm/spgemm_taco
 deps/SparseRooflineBenchmark/build
-deps/taco
+deps/taco/build
 spadd/spadd_taco
 .vscode/settings.json
 cache/*

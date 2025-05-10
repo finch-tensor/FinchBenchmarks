@@ -1,7 +1,7 @@
 using Finch
 using TensorMarket
 using JSON
-function spmv_taco_helper(args, A, x)
+function spmv_taco(args, A, x)
     tmpdir = mktempdir(@__DIR__, prefix="experiment_")
     A_path = joinpath(tmpdir, "A.ttx")
     x_path = joinpath(tmpdir, "x.ttx")
@@ -21,7 +21,6 @@ function spmv_taco_helper(args, A, x)
     return (;time=time*10^-9, y=y)
 end
 
-spmv_taco(y, A, x) = spmv_taco_helper(`--schedule row-major`, A, x)
-# spmv_taco_col_maj(y, A, x) = spmv_taco_helper(`--schedule column-major`, permutedims(A), x)
-
+spmv_taco_row_major(y, A, x) = spmv_taco(`--schedule row-major`, A, x)
+# spmv_taco_col_major(y, A, x) = spmv_taco(`--schedule column-major`, permutedims(A), x)
 has_taco() = isfile(joinpath(@__DIR__, "spmv_taco"))

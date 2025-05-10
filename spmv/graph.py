@@ -12,7 +12,7 @@ MEAN_SPEEDUP_FOLDER = "mean-speedup"
 
 NTHREADS = []
 
-DEFAULT_METHOD = "taco"
+DEFAULT_METHOD = "taco_row_major"
 
 COLORS = [
     "gray",

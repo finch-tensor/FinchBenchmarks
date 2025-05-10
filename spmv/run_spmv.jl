@@ -14,11 +14,11 @@ using JSON
 using SparseArrays
 using Printf
 using LinearAlgebra
+using Random
 
-# using ThreadPinning
-# pinthreads(numa(1))
+Random.seed!(1234)
 
-s = ArgParseSettings("Run SPMV experiments.")
+s = ArgParseSettings("Run spmv experiments.")
 
 @add_arg_table! s begin
     "--output", "-o"
@@ -51,12 +51,10 @@ methods = OrderedDict(
     "finch_static_schedule" => spmv_finch_static,
     "finch_greedy_schedule" => spmv_finch_greedy,
     "finch_julia_schedule" => spmv_finch_julia,
-    (has_taco() ? ["taco" => spmv_taco] : [])...,
+    (has_taco() ? ["taco_row_major" => spmv_taco_row_major] : [])...,
 )
 
 results = []
-
-int(val) = mod(floor(Int, val), Int8)
 
 if parsed_args["dataset"] != "all"
     datasets = [(parsed_args["dataset"], datasets[parsed_args["dataset"]])]
