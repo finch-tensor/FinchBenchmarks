@@ -12,8 +12,8 @@ MEAN_SPEEDUP_FOLDER = "mean-speedup"
 
 NTHREADS = []
 
-DEFAULT_METHOD = "taco_row_major"
-RESULT_FILE = "spmv_results.json"
+DEFAULT_METHOD = "taco_gustavson"
+RESULT_FILE = "spgemm_results.json"
 
 COLORS = [
     "gray",
