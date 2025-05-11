@@ -41,7 +41,7 @@ datasets = OrderedDict(
     ],
     "poisson" => [
         "FEMLAB/poisson3Da",
-        "FEMLAB/poisson3Db",
+        # "FEMLAB/poisson3Db",
     ],
 )
 
@@ -51,6 +51,7 @@ include("spgemm_taco.jl")
 methods = OrderedDict(
     "finch_custom_gustavson_dense" => spgemm_finch_custom_gustavson_dense,
     (has_taco() ? ["taco_gustavson" => spgemm_taco_gustavson] : [])...,
+    # (has_taco() ? ["taco_gustavson_dense" => spgemm_taco_gustavson_dense] : [])...,
 )
 
 results = []
@@ -63,8 +64,8 @@ for (dataset, mtxs) in datasets
     for mtx in mtxs
         if dataset == "uniform"
             if mtx == "uniform_dense"
-                size = 10_000
-                nnz = 1_000_000
+                size = 5_000
+                nnz = 100_000
                 A = SparseMatrixCSC(fsprand(size, size, nnz))
                 B = SparseMatrixCSC(fsprand(size, size, nnz))
             elseif mtx == "uniform_sparse"

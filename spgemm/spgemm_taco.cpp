@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
       case 'h':
         std::cout << "Options:" << std::endl;
         std::cout << "  -h, --help      Print this help message" << std::endl;
-        std::cout << "  -s, --schedule  Execution schedule, from [gustavson, inner, outer]" << std::endl;
+        std::cout << "  -s, --schedule  Execution schedule, from [gustavson, gustavson_dense, inner, outer]" << std::endl;
         std::cout << "  -a, --format_a  Format of A, from [csr, dcsr, dense]" << std::endl;
         std::cout << "  -b, --format_b  Format of B, from [csr, dcsr, dense]" << std::endl;
         exit(0);
@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
 
   if (schedule == "inner" || schedule == "gustavson") {
     C = Tensor<double>("C", {m, n}, Format({Dense, Sparse}));
-  } else if (schedule == "outer") {
+  } else if (schedule == "outer" || schedule == "gustavson_dense") {
     C = Tensor<double>("C", {m, n}, Format({Dense, Dense}));
   } else {
     std::cerr << "Invalid schedule" << std::endl;
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
     C(i, j) += A(i, k) * B(j, k);
     stmt= C.getAssignment().concretize();
     stmt = stmt.reorder({i,j,k}); 
-  } else if (schedule == "gustavson") {
+  } else if (schedule == "gustavson" || schedule == "gustavson_dense") {
     C(i, j) += A(i, k) * B(k, j);
   } else if (schedule == "outer") {
     C(i, j) += A(k, i) * B(k, j);

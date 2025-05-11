@@ -22,6 +22,7 @@ end
 
 # spgemm_taco_inner(A, B) = spgemm_taco(`--schedule inner`, A, permutedims(B))
 spgemm_taco_gustavson(A, B) = spgemm_taco(`--schedule gustavson`, A, B)
+spgemm_taco_gustavson_dense(A, B) = spgemm_taco(`--schedule gustavson_dense`, A, B)
 # spgemm_taco_outer(A, B) = spgemm_taco(`--schedule outer`, permutedims(A), B)
 
 has_taco() = isfile(joinpath(@__DIR__, "spgemm_taco"))

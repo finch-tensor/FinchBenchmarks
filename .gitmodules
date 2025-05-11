@@ -1,9 +1,9 @@
 [submodule "deps/SparseRooflineBenchmark"]
 	path = deps/SparseRooflineBenchmark
-	url = https://github.com:SparseRooflineBenchmark/SparseRooflineBenchmark.git
+	url = https://github.com/SparseRooflineBenchmark/SparseRooflineBenchmark.git
 [submodule "deps/taco"]
 	path = deps/taco
-	url = https://github.com:tensor-compiler/taco.git
+	url = https://github.com/tensor-compiler/taco.git
 [submodule "deps/eigen"]
 	path = deps/eigen
 	url = https://gitlab.com/libeigen/eigen.git
