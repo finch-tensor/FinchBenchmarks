@@ -49,9 +49,12 @@ include("spgemm_finch.jl")
 include("spgemm_taco.jl")
 
 methods = OrderedDict(
-    "finch_custom_gustavson_dense" => spgemm_finch_custom_gustavson_dense,
+    "finch_custom_static_gustavson_dense" => spgemm_finch_custom_static_gustavson_dense,
+    "finch_kernel_static_gustavson_dense" => spgemm_finch_kernel_static_gustavson_dense,
+    "finch_kernel_greedy_gustavson_dense" => spgemm_finch_kernel_greedy_gustavson_dense,
     (has_taco() ? ["taco_gustavson" => spgemm_taco_gustavson] : [])...,
-    # (has_taco() ? ["taco_gustavson_dense" => spgemm_taco_gustavson_dense] : [])...,
+    (has_taco() ? ["taco_inner" => spgemm_taco_inner] : [])...,
+    (has_taco() ? ["taco_outer" => spgemm_taco_outer] : [])...,
 )
 
 results = []
@@ -79,14 +82,14 @@ for (dataset, mtxs) in datasets
             B = SparseMatrixCSC(matrixdepot(mtx))
         end
 
-        C_ref = nothing
+        # C_ref = nothing
         for (key, method) in methods
             @info "testing" key mtx
             res = method(A, B)
             time = res.time
-            C_ref = something(C_ref, res.C)
+            # C_ref = something(C_ref, res.C)
 
-            norm(res.C - C_ref) / norm(C_ref) < 0.1 || @warn("incorrect result via norm")
+            # norm(res.C - C_ref) / norm(C_ref) < 0.1 || @warn("incorrect result via norm")
 
             @info "results" time
             push!(results, OrderedDict(

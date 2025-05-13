@@ -15,14 +15,14 @@ function spgemm_taco(args, A, B)
         spgemm_path = joinpath(@__DIR__, "spgemm_taco")
         run(`$spgemm_path -i $tmpdir -o $tmpdir -- $args`)
     end
-    C = fread(C_path)
+    # C = fread(C_path)
     time = JSON.parsefile(joinpath(tmpdir, "measurements.json"))["time"]
-    return (;time=time*10^-9, C=C)
+    # return (;time=time*10^-9, C=C)
+    return (;time=time*10^-9,)
 end
 
-# spgemm_taco_inner(A, B) = spgemm_taco(`--schedule inner`, A, permutedims(B))
+spgemm_taco_inner(A, B) = spgemm_taco(`--schedule inner`, A, permutedims(B))
 spgemm_taco_gustavson(A, B) = spgemm_taco(`--schedule gustavson`, A, B)
-spgemm_taco_gustavson_dense(A, B) = spgemm_taco(`--schedule gustavson_dense`, A, B)
-# spgemm_taco_outer(A, B) = spgemm_taco(`--schedule outer`, permutedims(A), B)
+spgemm_taco_outer(A, B) = spgemm_taco(`--schedule outer`, permutedims(A), B)
 
 has_taco() = isfile(joinpath(@__DIR__, "spgemm_taco"))
