@@ -1,14 +1,30 @@
 [
     {
-        "time": 0.131864107,
-        "method": "finch_custom_gustavson_dense",
+        "time": 0.13417346,
+        "method": "finch_custom_static_gustavson_dense",
         "kernel": "spgemm",
         "matrix": "uniform_dense",
         "dataset": "uniform",
         "num_threads": 7
     },
     {
-        "time": 0.173574789,
+        "time": 0.844491433,
+        "method": "finch_kernel_static_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.84035525,
+        "method": "finch_kernel_greedy_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.17264083400000002,
         "method": "taco_gustavson",
         "kernel": "spgemm",
         "matrix": "uniform_dense",
@@ -16,15 +32,47 @@
         "num_threads": 7
     },
     {
-        "time": 0.419253722,
-        "method": "finch_custom_gustavson_dense",
+        "time": 3.833097818,
+        "method": "taco_inner",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.13870770200000002,
+        "method": "taco_outer",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.420178546,
+        "method": "finch_custom_static_gustavson_dense",
         "kernel": "spgemm",
         "matrix": "uniform_sparse",
         "dataset": "uniform",
         "num_threads": 7
     },
     {
-        "time": 0.005581267,
+        "time": 0.13669079,
+        "method": "finch_kernel_static_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.135355608,
+        "method": "finch_kernel_greedy_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.005619146,
         "method": "taco_gustavson",
         "kernel": "spgemm",
         "matrix": "uniform_sparse",
@@ -32,16 +80,64 @@
         "num_threads": 7
     },
     {
-        "time": 0.823668935,
-        "method": "finch_custom_gustavson_dense",
+        "time": 2.8944387320000002,
+        "method": "taco_inner",
+        "kernel": "spgemm",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.449399068,
+        "method": "taco_outer",
+        "kernel": "spgemm",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 7
+    },
+    {
+        "time": 0.80742471,
+        "method": "finch_custom_static_gustavson_dense",
         "kernel": "spgemm",
         "matrix": "FEMLAB/poisson3Da",
         "dataset": "poisson",
         "num_threads": 7
     },
     {
-        "time": 0.280971735,
+        "time": 1.63492289,
+        "method": "finch_kernel_static_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 7
+    },
+    {
+        "time": 1.630009643,
+        "method": "finch_kernel_greedy_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 7
+    },
+    {
+        "time": 0.284408522,
         "method": "taco_gustavson",
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 7
+    },
+    {
+        "time": 35.663720081,
+        "method": "taco_inner",
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 7
+    },
+    {
+        "time": 0.900691612,
+        "method": "taco_outer",
         "kernel": "spgemm",
         "matrix": "FEMLAB/poisson3Da",
         "dataset": "poisson",
