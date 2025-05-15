@@ -1,0 +1,866 @@
+[
+  {
+    "time": 0.135865099,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 1
+  },
+  {
+    "time": 0.137862222,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 1
+  },
+  {
+    "time": 0.137770966,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 1
+  },
+  {
+    "time": 0.097757043,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 1
+  },
+  {
+    "time": 0.097687288,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 1
+  },
+  {
+    "time": 0.44202810600000003,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 1
+  },
+  {
+    "time": 0.37636984,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 1
+  },
+  {
+    "time": 0.381316583,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 1
+  },
+  {
+    "time": 0.8963255410000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 1
+  },
+  {
+    "time": 0.053814244,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 10
+  },
+  {
+    "time": 0.050252432,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 10
+  },
+  {
+    "time": 0.048749307000000006,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 10
+  },
+  {
+    "time": 0.089375776,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 10
+  },
+  {
+    "time": 0.088403468,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 10
+  },
+  {
+    "time": 0.08140024400000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 10
+  },
+  {
+    "time": 0.204984555,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 10
+  },
+  {
+    "time": 0.200678207,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 10
+  },
+  {
+    "time": 0.23937311300000003,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 10
+  },
+  {
+    "time": 0.05101278,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 11
+  },
+  {
+    "time": 0.046737773,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 11
+  },
+  {
+    "time": 0.049161879000000006,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 11
+  },
+  {
+    "time": 0.088915581,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 11
+  },
+  {
+    "time": 0.088437015,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 11
+  },
+  {
+    "time": 0.07438884800000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 11
+  },
+  {
+    "time": 0.204829283,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 11
+  },
+  {
+    "time": 0.198595446,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 11
+  },
+  {
+    "time": 0.232564455,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 11
+  },
+  {
+    "time": 0.04639915,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 12
+  },
+  {
+    "time": 0.045885304,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 12
+  },
+  {
+    "time": 0.04937297,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 12
+  },
+  {
+    "time": 0.090531015,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 12
+  },
+  {
+    "time": 0.090241364,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 12
+  },
+  {
+    "time": 0.07018590100000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 12
+  },
+  {
+    "time": 0.205644361,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 12
+  },
+  {
+    "time": 0.205352769,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 12
+  },
+  {
+    "time": 0.225866482,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 12
+  },
+  {
+    "time": 0.08171033,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 2
+  },
+  {
+    "time": 0.082197804,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 2
+  },
+  {
+    "time": 0.09162163300000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 2
+  },
+  {
+    "time": 0.096665323,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 2
+  },
+  {
+    "time": 0.095801467,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 2
+  },
+  {
+    "time": 0.23856731900000003,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 2
+  },
+  {
+    "time": 0.270656097,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 2
+  },
+  {
+    "time": 0.26048662,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 2
+  },
+  {
+    "time": 0.508878206,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 2
+  },
+  {
+    "time": 0.063973671,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 3
+  },
+  {
+    "time": 0.065398364,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 3
+  },
+  {
+    "time": 0.075081774,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 3
+  },
+  {
+    "time": 0.095926593,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 3
+  },
+  {
+    "time": 0.096726369,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 3
+  },
+  {
+    "time": 0.18647196600000002,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 3
+  },
+  {
+    "time": 0.252610853,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 3
+  },
+  {
+    "time": 0.247539224,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 3
+  },
+  {
+    "time": 0.437849017,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 3
+  },
+  {
+    "time": 0.058678644,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 4
+  },
+  {
+    "time": 0.05632669,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 4
+  },
+  {
+    "time": 0.06640950500000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 4
+  },
+  {
+    "time": 0.092968855,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 4
+  },
+  {
+    "time": 0.093780935,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 4
+  },
+  {
+    "time": 0.151909562,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 4
+  },
+  {
+    "time": 0.232822962,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 4
+  },
+  {
+    "time": 0.226751587,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 4
+  },
+  {
+    "time": 0.37563501000000005,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 4
+  },
+  {
+    "time": 0.052416564,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 5
+  },
+  {
+    "time": 0.052614052,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 5
+  },
+  {
+    "time": 0.060729622000000004,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 5
+  },
+  {
+    "time": 0.091331179,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 5
+  },
+  {
+    "time": 0.091258766,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 5
+  },
+  {
+    "time": 0.128796659,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 5
+  },
+  {
+    "time": 0.221486311,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 5
+  },
+  {
+    "time": 0.215251143,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 5
+  },
+  {
+    "time": 0.328193697,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 5
+  },
+  {
+    "time": 0.049568691,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 6
+  },
+  {
+    "time": 0.049405124,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 6
+  },
+  {
+    "time": 0.058157689000000005,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 6
+  },
+  {
+    "time": 0.08737868,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 6
+  },
+  {
+    "time": 0.087176496,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 6
+  },
+  {
+    "time": 0.11526546400000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 6
+  },
+  {
+    "time": 0.218354812,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 6
+  },
+  {
+    "time": 0.211068652,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 6
+  },
+  {
+    "time": 0.30102774600000004,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 6
+  },
+  {
+    "time": 0.049682152,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 7
+  },
+  {
+    "time": 0.050122644,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 7
+  },
+  {
+    "time": 0.055889239,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 7
+  },
+  {
+    "time": 0.092182328,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 7
+  },
+  {
+    "time": 0.093499266,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 7
+  },
+  {
+    "time": 0.09909058200000001,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 7
+  },
+  {
+    "time": 0.216723123,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 7
+  },
+  {
+    "time": 0.211733271,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 7
+  },
+  {
+    "time": 0.27886579100000003,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 7
+  },
+  {
+    "time": 0.049344766,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 8
+  },
+  {
+    "time": 0.050054958,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 8
+  },
+  {
+    "time": 0.053577314,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 8
+  },
+  {
+    "time": 0.09309035,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 8
+  },
+  {
+    "time": 0.094677025,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 8
+  },
+  {
+    "time": 0.090941912,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 8
+  },
+  {
+    "time": 0.213489783,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 8
+  },
+  {
+    "time": 0.210099888,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 8
+  },
+  {
+    "time": 0.264819878,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 8
+  },
+  {
+    "time": 0.049517906,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 9
+  },
+  {
+    "time": 0.048615881,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 9
+  },
+  {
+    "time": 0.051629635,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_dense",
+    "dataset": "uniform",
+    "num_threads": 9
+  },
+  {
+    "time": 0.089349204,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 9
+  },
+  {
+    "time": 0.088791071,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 9
+  },
+  {
+    "time": 0.084230996,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "uniform_sparse",
+    "dataset": "uniform",
+    "num_threads": 9
+  },
+  {
+    "time": 0.207556483,
+    "method": "finch_static_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 9
+  },
+  {
+    "time": 0.207109609,
+    "method": "finch_greedy_gustavson_dense",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 9
+  },
+  {
+    "time": 0.249636236,
+    "method": "taco_outer",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da",
+    "dataset": "poisson",
+    "num_threads": 9
+  }
+]

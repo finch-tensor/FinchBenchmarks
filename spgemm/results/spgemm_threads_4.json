@@ -1,0 +1,74 @@
+[
+    {
+        "time": 0.058678644,
+        "method": "finch_static_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 4
+    },
+    {
+        "time": 0.05632669,
+        "method": "finch_greedy_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 4
+    },
+    {
+        "time": 0.06640950500000001,
+        "method": "taco_outer",
+        "kernel": "spgemm",
+        "matrix": "uniform_dense",
+        "dataset": "uniform",
+        "num_threads": 4
+    },
+    {
+        "time": 0.092968855,
+        "method": "finch_static_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 4
+    },
+    {
+        "time": 0.093780935,
+        "method": "finch_greedy_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 4
+    },
+    {
+        "time": 0.151909562,
+        "method": "taco_outer",
+        "kernel": "spgemm",
+        "matrix": "uniform_sparse",
+        "dataset": "uniform",
+        "num_threads": 4
+    },
+    {
+        "time": 0.232822962,
+        "method": "finch_static_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 4
+    },
+    {
+        "time": 0.226751587,
+        "method": "finch_greedy_gustavson_dense",
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 4
+    },
+    {
+        "time": 0.37563501000000005,
+        "method": "taco_outer",
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "dataset": "poisson",
+        "num_threads": 4
+    }
+]
