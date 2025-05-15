@@ -49,9 +49,8 @@ include("spgemm_finch.jl")
 include("spgemm_taco.jl")
 
 methods = OrderedDict(
-    "finch_custom_static_gustavson_dense" => spgemm_finch_custom_static_gustavson_dense,
-    "finch_kernel_static_gustavson_dense" => spgemm_finch_kernel_static_gustavson_dense,
-    "finch_kernel_greedy_gustavson_dense" => spgemm_finch_kernel_greedy_gustavson_dense,
+    "finch_static_gustavson_dense" => spgemm_finch_static_gustavson_dense,
+    "finch_greedy_gustavson_dense" => spgemm_finch_greedy_gustavson_dense,
     (has_taco() ? ["taco_gustavson" => spgemm_taco_gustavson] : [])...,
     (has_taco() ? ["taco_inner" => spgemm_taco_inner] : [])...,
     (has_taco() ? ["taco_outer" => spgemm_taco_outer] : [])...,

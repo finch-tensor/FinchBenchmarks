@@ -1,8 +1,8 @@
 using Finch
 using BenchmarkTools
 
-function spmv_finch_static(y, A, x)
-    _y = Tensor(Dense(Element(0.0)), y)
+function spmv_finch_static(A, x)
+    _y = Tensor(Dense(Element(0.0)), zeros(size(A)[1]))
     _A = Tensor(Dense(SparseList(Element(0.0))), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
     time = @belapsed begin
@@ -17,8 +17,8 @@ function spmv_finch_static(y, A, x)
     return (; time=time, y=_y)
 end
 
-function spmv_finch_greedy(y, A, x)
-    _y = Tensor(Dense(Element(0.0)), y)
+function spmv_finch_greedy(A, x)
+    _y = Tensor(Dense(Element(0.0)), zeros(size(A)[1]))
     _A = Tensor(Dense(SparseList(Element(0.0))), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
     time = @belapsed begin
@@ -33,8 +33,8 @@ function spmv_finch_greedy(y, A, x)
     return (; time=time, y=_y)
 end
 
-function spmv_finch_julia(y, A, x)
-    _y = Tensor(Dense(Element(0.0)), y)
+function spmv_finch_julia(A, x)
+    _y = Tensor(Dense(Element(0.0)), zeros(size(A)[1]))
     _A = Tensor(Dense(SparseList(Element(0.0))), permutedims(A))
     _x = Tensor(Dense(Element(0.0)), x)
     time = @belapsed begin

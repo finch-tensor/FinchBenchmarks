@@ -11,8 +11,10 @@ RESULTS_FOLDER = "results"
 MEAN_SPEEDUP_FOLDER = "mean-speedup"
 
 NTHREADS = []
+METHODS = []
 
 DEFAULT_METHOD = "taco_row_major"
+UNUSED_METHODS = []
 RESULT_FILE = "spmv_results.json"
 
 COLORS = [
@@ -32,9 +34,14 @@ def load_json():
     results = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
     json_results = json.load(open(os.path.join(RESULTS_FOLDER, RESULT_FILE), "r"))
     num_threads = 1
+    methods = set()
     for r in json_results:
-        mtx = r["matrix"]
         method = r["method"]
+        if method in UNUSED_METHODS:
+            continue
+        else:
+            methods.add(method)
+        mtx = r["matrix"]
         time = r["time"]
         num_thread = r["num_threads"]
         results[mtx][method][num_thread] = time
@@ -42,13 +49,14 @@ def load_json():
 
     global NTHREADS
     NTHREADS = [i + 1 for i in range(num_threads)]
+    global METHODS
+    METHODS = sorted(list(methods))
     return results
 
 
 def plot_speedup_result(results, matrix, save_location):
     plt.figure(figsize=(10, 10))
-    methods = sorted(next(iter(results.values())).keys())
-    for method, color in zip(methods, COLORS):
+    for method, color in zip(METHODS, COLORS):
         plt.plot(
             NTHREADS,
             [
@@ -75,8 +83,7 @@ def plot_speedup_result(results, matrix, save_location):
 
 def plot_runtime_result(results, matrix, save_location):
     plt.figure(figsize=(10, 10))
-    methods = sorted(next(iter(results.values())).keys())
-    for method, color in zip(methods, COLORS):
+    for method, color in zip(METHODS, COLORS):
         plt.plot(
             NTHREADS,
             [results[matrix][method][n_thread] for n_thread in NTHREADS],
@@ -99,8 +106,7 @@ def plot_runtime_result(results, matrix, save_location):
 
 def plot_mean_speedup_result(results, save_location):
     plt.figure(figsize=(10, 10))
-    methods = sorted(next(iter(results.values())).keys())
-    for method, color in zip(methods, COLORS):
+    for method, color in zip(METHODS, COLORS):
         speedups = [1] * len(NTHREADS)
         for matrix in results.keys():
             for i, n_thread in enumerate(NTHREADS):
@@ -131,8 +137,7 @@ def plot_mean_speedup_result(results, save_location):
 
 
 def plot_mean_speedup_separate_result(results, save_folder):
-    methods = sorted(next(iter(results.values())).keys())
-    for method, color in zip(methods, COLORS):
+    for method, color in zip(METHODS, COLORS):
         plt.figure(figsize=(10, 10))
         speedups = [1] * len(NTHREADS)
         for matrix in results.keys():

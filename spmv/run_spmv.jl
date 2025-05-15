@@ -72,13 +72,11 @@ for (dataset, mtxs) in datasets
             A = SparseMatrixCSC(matrixdepot(mtx))
         end
 
-        (m, n) = size(A)
-        x = rand(n)
-        y = zeros(m)
+        x = rand(size(A)[2])
         y_ref = nothing
         for (key, method) in methods
             @info "testing" key mtx
-            res = method(y, A, x)
+            res = method(A, x)
             time = res.time
             y_ref = something(y_ref, res.y)
 
