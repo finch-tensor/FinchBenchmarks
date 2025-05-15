@@ -98,6 +98,8 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
+  const char* num_threads = std::getenv("OMP_NUM_THREADS");
+  taco_set_num_threads(std::stoi(std::string(num_threads)));
   IndexVar i, j, k;
   IndexStmt stmt;
 
