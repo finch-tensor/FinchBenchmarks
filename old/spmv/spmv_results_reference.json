@@ -1,0 +1,1970 @@
+[
+    {
+        "method": "julia_stdlib",
+        "time": 0.000130971,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000125401,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.000151879,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_col_maj_sparseband",
+        "time": 0.000144306,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_row_maj_sparseband",
+        "time": 0.0001433,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.000151661,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.00015291300000000002,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "eigen",
+        "time": 0.000128906,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "mkl",
+        "time": 0.000821676,
+        "kernel": "spmv",
+        "matrix": "toeplitz_small_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000581441,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000780141,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.001026706,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_col_maj_sparseband",
+        "time": 0.000326419,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_row_maj_sparseband",
+        "time": 0.000334736,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0006609560000000001,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0006924100000000001,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "eigen",
+        "time": 0.00062186,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "mkl",
+        "time": 0.0013921130000000002,
+        "kernel": "spmv",
+        "matrix": "toeplitz_medium_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.002448808,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.00390718,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.004577237,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_col_maj_sparseband",
+        "time": 0.000793203,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "finch_row_maj_sparseband",
+        "time": 0.000789352,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.001975765,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.002074156,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "eigen",
+        "time": 0.0018425700000000002,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "mkl",
+        "time": 0.003170467,
+        "kernel": "spmv",
+        "matrix": "toeplitz_large_band",
+        "dataset": "banded"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.008978783,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.007562825,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.012515653,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.011970599,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist_pattern",
+        "time": 0.007081835,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist_pattern",
+        "time": 0.007457596,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist_pattern",
+        "time": 0.007261396,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.014186662,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.022344148,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.022085012,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.009356646000000001,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.010145317000000001,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.009242639,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.030197941000000002,
+        "kernel": "spmv",
+        "matrix": "SNAP/com-DBLP",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000907833,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.000728324,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000885504,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.000954492,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist_pattern",
+        "time": 0.000736453,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist_pattern",
+        "time": 0.000772776,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist_pattern",
+        "time": 0.000785016,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.001495008,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.002265229,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.002150654,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.000747047,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.000914443,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.000742983,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.0032128710000000004,
+        "kernel": "spmv",
+        "matrix": "SNAP/email-Enron",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000963687,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.000753597,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000941224,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.000844166,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist_pattern",
+        "time": 0.000750899,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist_pattern",
+        "time": 0.000840993,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist_pattern",
+        "time": 0.000643115,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.001506102,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.002524954,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.002215624,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0008883080000000001,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0008798160000000001,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.000892031,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.0020749080000000003,
+        "kernel": "spmv",
+        "matrix": "SNAP/ca-AstroPh",
+        "dataset": "graph_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.001525878,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.001613432,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.001590774,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist_pattern",
+        "time": 0.001440847,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist_pattern",
+        "time": 0.001323496,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.003359516,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.003283522,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0013646350000000001,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.001427496,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.001405805,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.006166968,
+        "kernel": "spmv",
+        "matrix": "SNAP/soc-Epinions1",
+        "dataset": "graph_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.003608791,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.004296336,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.004167945,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "finch_col_maj_sparselist_pattern",
+        "time": 0.003893225,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "finch_row_maj_sparselist_pattern",
+        "time": 0.003817845,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "finch_col_maj_sparsepoint_pattern",
+        "time": 0.002414655,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "finch_row_maj_sparsepoint_pattern",
+        "time": 0.002181877,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.00349407,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0028413920000000003,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "eigen",
+        "time": 0.004164638,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "mkl",
+        "time": 0.064007829,
+        "kernel": "spmv",
+        "matrix": "permutation_synthetic",
+        "dataset": "permutation"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000446091,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.000364554,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000565359,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.000701526,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.000687662,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.000817486,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.000935426,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.000507734,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.000526044,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.00047471100000000006,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.001334862,
+        "kernel": "spmv",
+        "matrix": "HB/bcsstk17",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.007616704,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.004686116,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.013870397,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.013469188,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.006120273,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.007620169,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.008024318,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.006000634,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0065136510000000005,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.005667227,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.008840705,
+        "kernel": "spmv",
+        "matrix": "Williams/pdb1HYS",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.006873309,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.003715032,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.008608584,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.009067407,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.005213037,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.007153375,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.009212235,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.005703953,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.006097007000000001,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.0054917180000000005,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.010020167,
+        "kernel": "spmv",
+        "matrix": "Williams/cant",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.010520119,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.006410337,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.015056186,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.01585166,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.007735715,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.01040612,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.013407849,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.008797738000000001,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.00911433,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.008400975,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.014130099,
+        "kernel": "spmv",
+        "matrix": "Williams/consph",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.007266098,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.003646779,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.007081714,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.007029528,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.009103787,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.013839188,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.01358393,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0061784710000000005,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.006393472000000001,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.006192203,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.013367588000000001,
+        "kernel": "spmv",
+        "matrix": "Williams/cop20k_A",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.013812734,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.007942776,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.007504732,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.007501503,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.010671082,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.017741912,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.017309406,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.005771614,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.006581296,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.005489638000000001,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.015797925,
+        "kernel": "spmv",
+        "matrix": "DNVS/shipsec1",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.021252446,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.012375894,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.025326759,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.027128499,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.013528405,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.015002229,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.017228386,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.016943252000000002,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.018523404,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.016461795,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.035791644000000004,
+        "kernel": "spmv",
+        "matrix": "Boeing/pwtk",
+        "dataset": "taco_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.003527965,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.00440304,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.004782331,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.004769392,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.005244406,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0028172260000000004,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.002996944,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.0027169950000000003,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.006501008000000001,
+        "kernel": "spmv",
+        "matrix": "Bova/rma10",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.002041734,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.002053996,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.002219082,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.005935105,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.006106405,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.002195929,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.002097673,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.0017825690000000001,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.017055509,
+        "kernel": "spmv",
+        "matrix": "Williams/mac_econ_fwd500",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.011782973,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.01230099,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.011832234,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.01651012,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.022389587,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.009974261,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.009353052,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.010034981,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.071760789,
+        "kernel": "spmv",
+        "matrix": "Williams/webbase-1M",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.002509515,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.00252967,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.002551205,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.005703522,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.005717,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0020521800000000002,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0027321800000000003,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.002076704,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.013866265000000001,
+        "kernel": "spmv",
+        "matrix": "Hamm/scircuit",
+        "dataset": "taco_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000510599,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000668788,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.001034035,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "finch_col_maj_sparseband",
+        "time": 0.000170999,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "finch_row_maj_sparseband",
+        "time": 0.000188104,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0005200900000000001,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.000566055,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "eigen",
+        "time": 0.00047174,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "mkl",
+        "time": 0.0007365840000000001,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.003254985,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.002275864,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.003904675,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.004961297,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.002347639,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.00087242,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.000861006,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0023740560000000003,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.002477603,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.002242777,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.003303442,
+        "kernel": "spmv",
+        "matrix": "GHS_indef/exdata_1",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000861303,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_sym_sparselist",
+        "time": 0.00089977,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.001024716,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.001030106,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_sym_sparseblocklist",
+        "time": 0.00128167,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.001847908,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.001856327,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0007622610000000001,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0009673730000000001,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.0008151990000000001,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.0053456630000000005,
+        "kernel": "spmv",
+        "matrix": "TAMU_SmartGridCenter/ACTIVSg70K",
+        "dataset": "willow_symmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.002279514,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.002678859,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.003232228,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.003912655,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.004276455,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.002140267,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.002254734,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.002008915,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.006346876,
+        "kernel": "spmv",
+        "matrix": "Goodwin/Goodwin_071",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 2.6247e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 3.1937e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 3.5996e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 5.1071e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 8.0125e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 5.1383000000000006e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 4.7998000000000004e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 2.8867000000000003e-5,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.000206168,
+        "kernel": "spmv",
+        "matrix": "LPnetlib/lpi_gran",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000635881,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000831699,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.001318357,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.000566286,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.000773633,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.0006828450000000001,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0007315760000000001,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.000624643,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.001017293,
+        "kernel": "spmv",
+        "matrix": "Norris/heart3",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.000533472,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.000589977,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.000592801,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.001231541,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.0012565,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.000520983,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.000627567,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.000483539,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.003982179000000001,
+        "kernel": "spmv",
+        "matrix": "Rajat/rajat26",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "julia_stdlib",
+        "time": 0.007663189,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparselist",
+        "time": 0.011812248,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparselist",
+        "time": 0.010381698,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_col_maj_sparseblocklist",
+        "time": 0.003425,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "finch_row_maj_sparseblocklist",
+        "time": 0.00328255,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_col_maj",
+        "time": 0.005937714,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "taco_row_maj",
+        "time": 0.0063900350000000005,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "eigen",
+        "time": 0.00572042,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "mkl",
+        "time": 0.007468482,
+        "kernel": "spmv",
+        "matrix": "TSOPF/TSOPF_RS_b678_c1",
+        "dataset": "willow_unsymmetric"
+    },
+    {
+        "method": "cora",
+        "time": 0.00083562152,
+        "kernel": "spmv",
+        "matrix": "upper_triangle",
+        "dataset": "triangle"
+    }
+]
+

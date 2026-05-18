@@ -1,12 +1,11 @@
 *.o
 *.DS_Store
 cache/*
-spmv/spmv_eigen
-spmv/spmv_mkl
-spmv/spmv_taco
-spgemm/spgemm_eigen
-spgemm/spgemm_mkl
-spgemm/spgemm_taco
+sum/eigen_kernel
+sum/mkl_kernel
+sum/taco_kernel
+spadd/eigen_kernel
+spadd/mkl_kernel
 deps/SparseRooflineBenchmark/build
 .vscode/settings.json
 cache/*
@@ -19,7 +18,7 @@ graphs/pyvenv.cfg
 images/output/*
 */Manifest.toml
 Manifest.toml
-old/*
+# old/*
 morphology/output/*
 */manifest.toml
 opencv/*

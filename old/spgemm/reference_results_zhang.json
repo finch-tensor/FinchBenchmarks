@@ -1,0 +1,1178 @@
+[
+  {
+    "time": 0.21931471800000002,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.042254904,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.004569671,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.015628324000000002,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.024670169000000002,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.247619108,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.026147685,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.144258941,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.041705401,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 0.00967969,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Eu-core"
+  },
+  {
+    "time": 2.268194491,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.010509902000000002,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.435243564,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.007468194,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.007054645,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 2.194240283,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.008197372,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.023615296,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.022168868,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 0.578764424,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella06"
+  },
+  {
+    "time": 2.318400844,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.010841668,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.447074733,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.007756580000000001,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.007168636000000001,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 2.292294952,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.008257437,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.024432653,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.023036587,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 0.592868638,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella05"
+  },
+  {
+    "time": 5.49266506,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.042826207000000005,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.5440196930000001,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.030289687000000003,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.025784812,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 5.859317489,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.030461069,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.135812127,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.124971627,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.684576852,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-HepTh"
+  },
+  {
+    "time": 0.26921326,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.044293904,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.008275602,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.019019213,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.026009690000000002,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.301637858,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.027982668,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.133918483,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.055968085,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.027261049,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/CollegeMsg"
+  },
+  {
+    "time": 0.724225071,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.075590219,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.08343939900000001,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.056581841,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.044047389,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.69318927,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.049620659,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.319631846,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.131567059,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 0.107108013,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-alpha"
+  },
+  {
+    "time": 1.581958012,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.016080618,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.155305787,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.010017381,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.010172515,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 1.634920632,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.011426856,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.041650689,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.028323575,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 0.192851278,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-GrQc"
+  },
+  {
+    "time": 1.557046774,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.143775533,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.22373699600000002,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.141948612,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.085500117,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 1.382429655,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.097432541,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.852797922,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.291724748,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 0.283239534,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/soc-sign-bitcoin-otc"
+  },
+  {
+    "time": 1.064058018,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.007035605,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.23325256800000002,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.004112048,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.004744671000000001,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.995539384,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.005283367,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.013261768,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.012286789,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 0.295753761,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella08"
+  },
+  {
+    "time": 1.852437214,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 0.252407708,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 0.37432523700000003,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 0.402559865,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 0.159138674,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 1.667253257,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 0.212018578,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 2.025266627,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 0.584780448,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 0.439005113,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/as-735"
+  },
+  {
+    "time": 1.722347818,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.008240555,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.38448033000000004,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.005501046000000001,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.005539325,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 1.601079408,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.006317486,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.016568986,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.015657718,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 0.443226681,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella09"
+  },
+  {
+    "time": 3.920722731,
+    "method": "spgemm_taco_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.199866547,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.400754675,
+    "method": "spgemm_taco_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.174598455,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.11921178900000001,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 3.447775486,
+    "method": "spgemm_finch_inner",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.146975868,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 1.286059835,
+    "method": "spgemm_finch_outer",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.325848613,
+    "method": "spgemm_finch_outer_bytemap",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.571580552,
+    "method": "spgemm_finch_outer_dense",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.36900998500000004,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da"
+  },
+  {
+    "time": 0.353339548,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da"
+  },
+  {
+    "time": 0.22971502400000002,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da"
+  },
+  {
+    "time": 0.261255229,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "FEMLAB/poisson3Da"
+  },
+  {
+    "time": 1.638687991,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/amazon0312"
+  },
+  {
+    "time": 2.9015425390000003,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/amazon0312"
+  },
+  {
+    "time": 1.040933935,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/amazon0312"
+  },
+  {
+    "time": 1.444844967,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/amazon0312"
+  },
+  {
+    "time": 0.41864932000000005,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Hamm/scircuit"
+  },
+  {
+    "time": 0.434893801,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "Hamm/scircuit"
+  },
+  {
+    "time": 0.246446978,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "Hamm/scircuit"
+  },
+  {
+    "time": 0.324550406,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Hamm/scircuit"
+  },
+  {
+    "time": 4.629167994,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/web-Google"
+  },
+  {
+    "time": 10.605912088,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/web-Google"
+  },
+  {
+    "time": 3.207879901,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/web-Google"
+  },
+  {
+    "time": 4.025690812,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/web-Google"
+  },
+  {
+    "time": 0.518224735,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "GHS_indef/mario002"
+  },
+  {
+    "time": 1.111959149,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "GHS_indef/mario002"
+  },
+  {
+    "time": 0.29973449300000005,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "GHS_indef/mario002"
+  },
+  {
+    "time": 0.514325549,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "GHS_indef/mario002"
+  },
+  {
+    "time": 10.100199452,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/cit-Patents"
+  },
+  {
+    "time": 21.757997924,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/cit-Patents"
+  },
+  {
+    "time": 7.09559003,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/cit-Patents"
+  },
+  {
+    "time": 7.340533522,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/cit-Patents"
+  },
+  {
+    "time": 0.18445397200000002,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "JGD_Homology/m133-b3"
+  },
+  {
+    "time": 0.33778494600000003,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "JGD_Homology/m133-b3"
+  },
+  {
+    "time": 0.087008708,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "JGD_Homology/m133-b3"
+  },
+  {
+    "time": 0.196578681,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "JGD_Homology/m133-b3"
+  },
+  {
+    "time": 3.250571534,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Williams/webbase-1M"
+  },
+  {
+    "time": 8.151155485,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "Williams/webbase-1M"
+  },
+  {
+    "time": 1.210286978,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "Williams/webbase-1M"
+  },
+  {
+    "time": 3.624111334,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Williams/webbase-1M"
+  },
+  {
+    "time": 1.001487996,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/roadNet-CA"
+  },
+  {
+    "time": 0.976661718,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/roadNet-CA"
+  },
+  {
+    "time": 0.5835611390000001,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/roadNet-CA"
+  },
+  {
+    "time": 0.686914371,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/roadNet-CA"
+  },
+  {
+    "time": 0.047171167,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella31"
+  },
+  {
+    "time": 0.042193408,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella31"
+  },
+  {
+    "time": 0.028922073000000003,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella31"
+  },
+  {
+    "time": 0.032409732,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/p2p-Gnutella31"
+  },
+  {
+    "time": 0.231035122,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Pajek/patents_main"
+  },
+  {
+    "time": 0.320205964,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "Pajek/patents_main"
+  },
+  {
+    "time": 0.130742611,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "Pajek/patents_main"
+  },
+  {
+    "time": 0.189769012,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Pajek/patents_main"
+  },
+  {
+    "time": 0.200058594,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.17655793900000002,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.118549736,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 0.14686955,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/wiki-Vote"
+  },
+  {
+    "time": 2.683001887,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Enron"
+  },
+  {
+    "time": 4.572520664000001,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Enron"
+  },
+  {
+    "time": 1.5744074010000002,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Enron"
+  },
+  {
+    "time": 2.080983189,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/email-Enron"
+  },
+  {
+    "time": 0.275208402,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-CondMat"
+  },
+  {
+    "time": 0.29712723,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-CondMat"
+  },
+  {
+    "time": 0.16084165,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-CondMat"
+  },
+  {
+    "time": 0.195629732,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "SNAP/ca-CondMat"
+  },
+  {
+    "time": 2.017095224,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Oberwolfach/filter3D"
+  },
+  {
+    "time": 2.1299975520000003,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "Oberwolfach/filter3D"
+  },
+  {
+    "time": 1.284236535,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "Oberwolfach/filter3D"
+  },
+  {
+    "time": 1.656832525,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Oberwolfach/filter3D"
+  },
+  {
+    "time": 1.9851456740000002,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Williams/cop20k_A"
+  },
+  {
+    "time": 2.3925084930000002,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "Williams/cop20k_A"
+  },
+  {
+    "time": 1.237792634,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "Williams/cop20k_A"
+  },
+  {
+    "time": 1.546102296,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Williams/cop20k_A"
+  },
+  {
+    "time": 2.892694831,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Um/offshore"
+  },
+  {
+    "time": 3.0649763130000003,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "Um/offshore"
+  },
+  {
+    "time": 1.686455939,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "Um/offshore"
+  },
+  {
+    "time": 2.20561203,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Um/offshore"
+  },
+  {
+    "time": 1.083722273,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Um/2cubes_sphere"
+  },
+  {
+    "time": 0.9531932420000001,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "Um/2cubes_sphere"
+  },
+  {
+    "time": 0.618821232,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "Um/2cubes_sphere"
+  },
+  {
+    "time": 0.793531707,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "Um/2cubes_sphere"
+  },
+  {
+    "time": 1.404006596,
+    "method": "spgemm_taco_gustavson",
+    "kernel": "spgemm",
+    "matrix": "vanHeukelum/cage12"
+  },
+  {
+    "time": 1.8222495250000001,
+    "method": "spgemm_eigen",
+    "kernel": "spgemm",
+    "matrix": "vanHeukelum/cage12"
+  },
+  {
+    "time": 0.804825784,
+    "method": "spgemm_mkl",
+    "kernel": "spgemm",
+    "matrix": "vanHeukelum/cage12"
+  },
+  {
+    "time": 1.074761262,
+    "method": "spgemm_finch_gustavson",
+    "kernel": "spgemm",
+    "matrix": "vanHeukelum/cage12"
+  }
+]
