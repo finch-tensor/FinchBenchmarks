@@ -26,26 +26,36 @@ have unique index names.
 See also: [`virtual_size`](@ref), [`virtual_resize!`](@ref), [`combinedim`](@ref)
 """
 function dimensionalize!(prgm, ctx)
-    prgm = DeclareDimensions(ctx=ctx)(prgm)
+    prgm = DeclareDimensions(; ctx=ctx)(prgm)
     return prgm
 end
 
-struct FinchCompileError msg end
+struct FinchCompileError
+    msg
+end
 
 function (ctx::DeclareDimensions)(node::FinchNode)
     if node.kind === access
         @assert @capture node access(~tns, ~mode, ~idxs...)
-        if node.mode.val !== reader && haskey(ctx.hints, getroot(tns))
+        if node.mode.kind !== reader && haskey(ctx.hints, getroot(tns))
             shape = map(suggest, virtual_size(ctx.ctx, tns))
             push!(ctx.hints[getroot(tns)], node)
         else
             shape = virtual_size(ctx.ctx, tns)
         end
-        length(idxs) > length(shape) && throw(DimensionMismatch("more indices than dimensions in $(sprint(show, MIME("text/plain"), node))"))
-        length(idxs) < length(shape) && throw(DimensionMismatch("less indices than dimensions in $(sprint(show, MIME("text/plain"), node))"))
+        length(idxs) > length(shape) && throw(
+            DimensionMismatch(
+                "more indices than dimensions in $(sprint(show, MIME("text/plain"), node))"
+            ),
+        )
+        length(idxs) < length(shape) && throw(
+            DimensionMismatch(
+                "less indices than dimensions in $(sprint(show, MIME("text/plain"), node))"
+            ),
+        )
         idxs = map(zip(shape, idxs)) do (dim, idx)
             if isindex(idx)
-                ctx.dims[idx] = resultdim(ctx.ctx, dim, get(ctx.dims, idx, dimless))
+                ctx.dims[idx] = resultdim(ctx.ctx, dim, get(ctx.dims, idx, auto))
                 idx
             else
                 ctx(idx) #Probably not strictly necessary to preserve the result of this, since this expr can't contain a statement and so won't be modified
@@ -58,8 +68,13 @@ function (ctx::DeclareDimensions)(node::FinchNode)
         end
         ctx.dims[node.idx] = node.ext.val
         body = ctx(node.body)
-        ctx.dims[node.idx] != dimless || throw(FinchCompileError("could not resolve dimension of index $(node.idx)"))
-        return loop(node.idx, cache_dim!(ctx.ctx, getname(node.idx), resolvedim(ctx.dims[node.idx])), body)
+        ctx.dims[node.idx] != auto ||
+            throw(FinchCompileError("could not resolve dimension of index $(node.idx)"))
+        return loop(
+            node.idx,
+            cache_dim!(ctx.ctx, getname(node.idx), resolvedim(ctx.dims[node.idx])),
+            body,
+        )
     elseif node.kind === block
         block(map(ctx, node.bodies)...)
     elseif node.kind === declare
@@ -70,12 +85,12 @@ function (ctx::DeclareDimensions)(node::FinchNode)
             shape = virtual_size(ctx.ctx, node.tns)
             shape = map(suggest, shape)
             for hint in ctx.hints[node.tns]
-                @assert @capture hint access(~tns, updater, ~idxs...)
+                @assert @capture hint access(~tns, updater(~f), ~idxs...)
                 shape = map(zip(shape, idxs)) do (dim, idx)
                     if isindex(idx)
                         resultdim(ctx.ctx, dim, ctx.dims[idx])
                     else
-                        resultdim(ctx.ctx, dim, dimless) #TODO I can't think of a case where this doesn't equal `dim`
+                        resultdim(ctx.ctx, dim, auto) #TODO I can't think of a case where this doesn't equal `dim`
                     end
                 end
             end

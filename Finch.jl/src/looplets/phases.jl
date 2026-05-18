@@ -4,7 +4,12 @@ truncate(ctx, node, ext, ext_2) = node
     body
     start = (ctx, ext) -> nothing
     stop = (ctx, ext) -> nothing
-    range = (ctx, ext) -> similar_extent(ext, something(start(ctx, ext), getstart(ext)), something(stop(ctx, ext), getstop(ext)))
+    range =
+        (ctx, ext) -> similar_extent(
+            ext,
+            something(start(ctx, ext), getstart(ext)),
+            something(stop(ctx, ext), getstop(ext)),
+        )
 end
 FinchNotation.finch_leaf(x::Phase) = virtual(x)
 
@@ -17,11 +22,11 @@ function phase_range(ctx, node::FinchNode, ext)
     if @capture node access(~tns::isvirtual, ~i...)
         phase_range(ctx, tns.val, ext)
     else
-        return dimless
+        return auto
     end
 end
 
-phase_range(ctx, node, ext) = dimless
+phase_range(ctx, node, ext) = auto
 phase_range(ctx, node::Phase, ext) = node.range(ctx, ext)
 
 function phase_body(ctx, node::FinchNode, ext, ext_2)
@@ -58,30 +63,35 @@ combine_style(a::ThunkStyle, b::PhaseStyle) = a
 function lower(ctx::AbstractCompiler, root::FinchNode, style::PhaseStyle)
     if root.kind === loop
         i = getname(root.idx)
-        i0=freshen(ctx, i)
+        i0 = freshen(ctx, i)
 
         body = root.body
 
-        ext_2 = mapreduce((node)->phase_range(ctx, node, root.ext), (a, b) -> phase_op(style)(ctx, a, b), PostOrderDFS(body))
+        ext_2 = mapreduce(
+            (node) -> phase_range(ctx, node, root.ext),
+            (a, b) -> phase_op(style)(ctx, a, b),
+            PostOrderDFS(body),
+        )
 
         ext_3 = virtual_intersect(ctx, root.ext.val, ext_2)
 
         ext_4 = cache_dim!(ctx, :phase, ext_3)
 
-        body = Rewrite(Postwalk(node->phase_body(ctx, node, root.ext, ext_4)))(body)
+        body = Rewrite(Postwalk(node -> phase_body(ctx, node, root.ext, ext_4)))(body)
         body = quote
             $i0 = $i
-            $(contain(ctx) do ctx_4
-                (ctx_4)(loop(
-                    root.idx,
-                    ext_4,
-                    body
-                ))
-            end)
+            $(
+                contain(ctx) do ctx_4
+                    (ctx_4)(loop(
+                        root.idx,
+                        ext_4,
+                        body,
+                    ))
+                end
+            )
 
             $i = $(ctx(getstop(ext_4))) + $(ctx(getunit(ext_4)))
         end
-
 
         if prove(ctx, call(>=, measure(ext_4), 0))
             return body

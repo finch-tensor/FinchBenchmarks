@@ -18,8 +18,6 @@ virtual_eltype
 virtual_fill_value
 virtual_size
 virtual_resize!
-moveto
-virtual_moveto
 labelled_show
 labelled_children
 is_injective
@@ -107,7 +105,6 @@ julia> A_fbr[1, 3]
 
 julia> A_fbr(3)(1)
 4.4
-
 ```
 
 When we print the tree in text, positions are numbered from top to bottom.
@@ -137,7 +134,6 @@ julia> tensor_tree(A_fbr)
    └─ [:, 3]: SparseList (0.0) [1:4]
       ├─ [1]: 4.4
       └─ [3]: 5.5
-
 ```
 
 Our `Dense(SparseList(Element(0.0)))` format is also known as
@@ -168,7 +164,6 @@ julia> tensor_tree(A_fbr)
    └─ [:, 3]: SparseList (0.0) [1:4]
       ├─ [1]: 4.4
       └─ [3]: 5.5
-
 ```
 
 Here we see that the entirely zero column has also been compressed. The
@@ -200,7 +195,6 @@ julia> tensor_tree(A_fbr)
    ├─ ⋮
    ├─ [1, 3]: 4.4
    └─ [3, 3]: 5.5
-
 ```
 
 The COO format is compact and straightforward, but doesn't support random

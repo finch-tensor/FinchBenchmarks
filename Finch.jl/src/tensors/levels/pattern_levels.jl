@@ -24,8 +24,7 @@ similar_level(::PatternLevel, ::Any, ::Type, ::Vararg) = PatternLevel()
 
 countstored_level(lvl::PatternLevel, pos) = pos
 
-labelled_show(io::IO, ::SubFiber{<:PatternLevel}) =
-    print(io, true)
+labelled_show(io::IO, ::SubFiber{<:PatternLevel}) = print(io, true)
 
 Base.resize!(lvl::PatternLevel) = lvl
 
@@ -43,18 +42,19 @@ end
 (fbr::AbstractFiber{<:PatternLevel})() = true
 data_rep_level(::Type{<:PatternLevel}) = ElementData(false, Bool)
 
+isstructequal(a::T, b::T) where {T<:Pattern} = true
+
 postype(::Type{<:PatternLevel{Tp}}) where {Tp} = Tp
 
-function moveto(lvl::PatternLevel{Tp}, device) where {Tp}
+function transfer(device, lvl::PatternLevel{Tp}) where {Tp}
     return PatternLevel{Tp}()
 end
-
 
 """
     pattern!(fbr)
 
 Return the pattern of `fbr`. That is, return a tensor which is true wherever
-`fbr` is structurally unequal to its fill_value. May reuse memory and render the
+`fbr` is structurally unequal to its fill value. May reuse memory and render the
 original tensor unusable when modified.
 
 ```jldoctest
@@ -92,15 +92,19 @@ struct VirtualPatternLevel <: AbstractVirtualLevel
     Tp
 end
 
-function virtual_moveto_level(ctx::AbstractCompiler, lvl::VirtualPatternLevel, arch)
-end
-
 is_level_injective(ctx, ::VirtualPatternLevel) = []
 is_level_atomic(ctx, lvl::VirtualPatternLevel) = ([], false)
 is_level_concurrent(ctx, lvl::VirtualPatternLevel) = ([], true)
 
 lower(ctx::AbstractCompiler, lvl::VirtualPatternLevel, ::DefaultStyle) = :(PatternLevel())
 virtualize(ctx, ex, ::Type{PatternLevel{Tp}}) where {Tp} = VirtualPatternLevel(Tp)
+
+function distribute_level(
+    ctx::AbstractCompiler, lvl::VirtualPatternLevel, arch, diff, style
+)
+end
+
+redistribute(ctx::AbstractCompiler, lvl::VirtualPatternLevel, diff) = lvl
 
 virtual_level_resize!(ctx, lvl::VirtualPatternLevel) = lvl
 virtual_level_size(ctx, ::VirtualPatternLevel) = ()
@@ -110,7 +114,8 @@ virtual_level_eltype(::VirtualPatternLevel) = Bool
 postype(lvl::VirtualPatternLevel) = lvl.Tp
 
 function declare_level!(ctx, lvl::VirtualPatternLevel, pos, init)
-    init == literal(false) || throw(FinchProtocolError("Must initialize Pattern Levels to false"))
+    init == literal(false) ||
+        throw(FinchProtocolError("Must initialize Pattern Levels to false"))
     lvl
 end
 
@@ -121,14 +126,17 @@ thaw_level!(ctx, lvl::VirtualPatternLevel, pos) = lvl
 assemble_level!(ctx, lvl::VirtualPatternLevel, pos_start, pos_stop) = quote end
 reassemble_level!(ctx, lvl::VirtualPatternLevel, pos_start, pos_stop) = quote end
 
-instantiate(ctx, ::VirtualSubFiber{VirtualPatternLevel}, mode::Reader) = FillLeaf(true)
-
-function instantiate(ctx, fbr::VirtualSubFiber{VirtualPatternLevel}, mode::Updater)
-    val = freshen(ctx, :null)
-    push_preamble!(ctx, :($val = false))
-    VirtualScalar(nothing, Bool, false, gensym(), val)
+function instantiate(ctx, ::VirtualSubFiber{VirtualPatternLevel}, mode)
+    if mode.kind === reader
+        FillLeaf(true)
+    else
+        val = freshen(ctx, :null)
+        push_preamble!(ctx, :($val = false))
+        VirtualScalar(nothing, nothing, Bool, false, gensym(), val)
+    end
 end
 
-function instantiate(ctx, fbr::VirtualHollowSubFiber{VirtualPatternLevel}, mode::Updater)
-    VirtualScalar(nothing, Bool, false, gensym(), fbr.dirty)
+function instantiate(ctx, fbr::VirtualHollowSubFiber{VirtualPatternLevel}, mode)
+    @assert mode.kind === updater
+    VirtualScalar(nothing, nothing, Bool, false, gensym(), fbr.dirty)
 end

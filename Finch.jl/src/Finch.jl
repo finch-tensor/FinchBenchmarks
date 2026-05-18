@@ -14,6 +14,7 @@ using Random: AbstractRNG, default_rng, randexp, randperm
 using PrecompileTools
 using Compat
 using DataStructures
+using Statistics
 using JSON
 using Distributions: Binomial, Normal, Poisson
 using TOML
@@ -24,7 +25,8 @@ using UnsafeAtomics
 export @finch, @finch_program, @finch_code, @finch_kernel, value
 
 export Tensor
-export DenseFormat, CSFFormat, CSCFormat, DCSFFormat, DCSCFormat, HashFormat, ByteMapFormat, COOFormat
+export DenseFormat,
+    CSFFormat, CSCFormat, DCSFFormat, DCSCFormat, HashFormat, ByteMapFormat, COOFormat
 export SparseRunList, SparseRunListLevel
 export RunList, RunListLevel
 export SparseInterval, SparseIntervalLevel
@@ -40,12 +42,14 @@ export Dense, DenseLevel
 export Element, ElementLevel
 export AtomicElement, AtomicElementLevel
 export Separate, SeparateLevel
+export Shard, ShardLevel
+export Coalesce, CoalesceLevel
 export Mutex, MutexLevel
 export Pattern, PatternLevel
 export Scalar, SparseScalar, ShortCircuitScalar, SparseShortCircuitScalar
 export walk, gallop, follow, extrude, laminate
 export Tensor, pattern!, dropfills, dropfills!, set_fill_value!
-export diagmask, lotrimask, uptrimask, bandmask, chunkmask
+export diagmask, lotrimask, uptrimask, bandmask, splitmask, chunkmask
 export scale, products, offset, permissive, protocolize, swizzle, toeplitz, window
 export PlusOneVector
 
@@ -56,8 +60,10 @@ export choose, minby, maxby, overwrite, initwrite, filterop, d
 export fill_value, AsArray, expanddims, tensor_tree
 
 export parallelAnalysis, ParallelAnalysisResults
-export parallel, realextent, extent, dimless
-export CPU, CPULocalVector, CPULocalMemory
+export parallel, extent, auto
+export Serial, SerialMemory, CPU, CPULocalArray, CPULocalMemory
+export static_schedule, greedy_schedule, julia_schedule
+export serial, cpu
 
 export Limit, Eps
 
@@ -73,7 +79,9 @@ struct NotImplementedError <: Exception
     msg::String
 end
 
-const FINCH_VERSION = VersionNumber(TOML.parsefile(joinpath(dirname(@__DIR__), "Project.toml"))["version"])
+const FINCH_VERSION = VersionNumber(
+    TOML.parsefile(joinpath(dirname(@__DIR__), "Project.toml"))["version"]
+)
 
 include("util/convenience.jl")
 include("util/special_functions.jl")
@@ -82,6 +90,7 @@ include("util/limits.jl")
 include("util/staging.jl")
 include("util/style.jl")
 include("util/vectors.jl")
+include("util/merging.jl")
 
 include("environment.jl")
 
@@ -104,8 +113,6 @@ include("transforms/dimensionalize.jl")
 include("transforms/evaluate.jl")
 include("transforms/concurrent.jl")
 
-include("execute.jl")
-
 include("symbolic/symbolic.jl")
 
 include("looplets/thunks.jl")
@@ -123,7 +130,7 @@ include("looplets/fills.jl")
 
 include("tensors/scalars.jl")
 include("tensors/abstract_level.jl")
-include("tensors/fibers.jl")
+include("tensors/tensors.jl")
 include("tensors/levels/sparse_rle_levels.jl")
 include("tensors/levels/sparse_interval_levels.jl")
 include("tensors/levels/sparse_list_levels.jl")
@@ -137,7 +144,9 @@ include("tensors/levels/dense_levels.jl")
 include("tensors/levels/dense_rle_levels.jl")
 include("tensors/levels/element_levels.jl")
 include("tensors/levels/atomic_element_levels.jl")
+include("tensors/levels/coalesce_levels.jl")
 include("tensors/levels/separate_levels.jl")
+include("tensors/levels/shard_levels.jl")
 include("tensors/levels/mutex_levels.jl")
 include("tensors/levels/pattern_levels.jl")
 include("tensors/masks.jl")
@@ -161,8 +170,8 @@ const SparseLevel = SparseDictLevel
 
 A dense format with a fill value of `z`.
 """
-function DenseFormat(N, z = 0.0, T = typeof(z))
-    fmt = ElementLevel{z, T}()
+function DenseFormat(N, z=0.0, T=typeof(z))
+    fmt = ElementLevel{z,T}()
     for i in 1:N
         fmt = DenseLevel(fmt)
     end
@@ -176,9 +185,9 @@ An `N`-dimensional CSC format with a fill value of `z`.
 CSF supports random access in the rightmost index, and uses
 a tree structure to store the rest of the data.
 """
-function CSFFormat(N, z = 0.0, T = Float64)
-    fmt = ElementLevel{z, T}()
-    for i in 1:N-1
+function CSFFormat(N, z=0.0, T=Float64)
+    fmt = ElementLevel{z,T}()
+    for i in 1:(N - 1)
         fmt = SparseListLevel(fmt)
     end
     DenseLevel(fmt)
@@ -190,7 +199,7 @@ end
 A CSC format with a fill value of `z`. CSC stores a sparse matrix as a
 dense array of lists.
 """
-CSCFormat(z = 0.0, T = typeof(z)) = CSFFormat(2, z, T)
+CSCFormat(z=0.0, T=typeof(z)) = CSFFormat(2, z, T)
 
 """
     DCSFFormat(z = 0.0, T = typeof(z))
@@ -198,8 +207,8 @@ CSCFormat(z = 0.0, T = typeof(z)) = CSFFormat(2, z, T)
 A DCSF format with a fill value of `z`. DCSF stores a sparse tensor as a
 list of lists of lists.
 """
-function DCSFFormat(N, z = 0.0, T = typeof(z))
-    fmt = ElementLevel{z, T}()
+function DCSFFormat(N, z=0.0, T=typeof(z))
+    fmt = ElementLevel{z,T}()
     for i in 1:N
         fmt = SparseListLevel(fmt)
     end
@@ -212,16 +221,16 @@ end
 A DCSC format with a fill value of `z`. DCSC stores a sparse matrix as a
 list of lists.
 """
-DCSCFormat(z = 0.0, T = typeof(z)) = DCSFFormat(2, z, T)
+DCSCFormat(z=0.0, T=typeof(z)) = DCSFFormat(2, z, T)
 
 """
     HashFormat(N, z = 0.0, T = typeof(z))
 
 A hash-table based format with a fill value of `z`.
 """
-function HashFormat(N, z = 0.0, T = typeof(z))
-    fmt = ElementLevel{z, T}()
-    for i in 1:N-1
+function HashFormat(N, z=0.0, T=typeof(z))
+    fmt = ElementLevel{z,T}()
+    for i in 1:(N - 1)
         fmt = SparseDictLevel(fmt)
     end
     DenseLevel(fmt)
@@ -232,8 +241,8 @@ end
 
 A byte-map based format with a fill value of `z`.
 """
-function ByteMapFormat(N, z = 0.0, T = typeof(z))
-    fmt = ElementLevel{z, T}()
+function ByteMapFormat(N, z=0.0, T=typeof(z))
+    fmt = ElementLevel{z,T}()
     for i in 1:N
         fmt = SparseByteMapLevel(fmt)
     end
@@ -246,16 +255,17 @@ end
 An `N`-dimensional COO format with a fill value of `z`. COO stores a
 sparse tensor as a list of coordinates.
 """
-COOFormat(N, z = 0.0, T = typeof(z)) = SparseCOOLevel{N}(ElementLevel{z, T}())
+COOFormat(N, z=0.0, T=typeof(z)) = SparseCOOLevel{N}(ElementLevel{z,T}())
 
 include("postprocess.jl")
 
-export fsparse, fsparse!, fsprand, fspzeros, ffindnz, fread, fwrite, countstored
+export fsparse,
+    fsparse!, fsprand, fspzeros, fspeye, ffindnz, ffindnz!, fread, fwrite, countstored
 
 export bspread, bspwrite
 export ftnsread, ftnswrite, fttread, fttwrite
 
-export moveto, postype
+export transfer, postype
 
 include("FinchLogic/FinchLogic.jl")
 using .FinchLogic
@@ -277,10 +287,12 @@ include("interface/lazy.jl")
 include("interface/eager.jl")
 include("interface/einsum.jl")
 
+include("execute.jl")
+
 include("Galley/Galley.jl")
 using .Galley
 
-export galley_scheduler
+export galley_scheduler, GalleyOptimizer, AdaptiveExecutorCode, AdaptiveExecutor
 
 @deprecate default fill_value
 @deprecate redefault! set_fill_value!
@@ -296,31 +308,111 @@ export galley_scheduler
 
 @static if !isdefined(Base, :get_extension)
     function __init__()
-        @require SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf" include("../ext/SparseArraysExt.jl")
+        @require SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf" include(
+            "../ext/SparseArraysExt.jl"
+        )
         @require HDF5 = "f67ccb44-e63f-5c2f-98bd-6dc0ccc4ba2f" include("../ext/HDF5Ext.jl")
-        @require TensorMarket = "8b7d4fe7-0b45-4d0d-9dd8-5cc9b23b4b77" include("../ext/TensorMarketExt.jl")
+        @require TensorMarket = "8b7d4fe7-0b45-4d0d-9dd8-5cc9b23b4b77" include(
+            "../ext/TensorMarketExt.jl"
+        )
         @require NPZ = "15e1cf62-19b3-5cfa-8e77-841668bca605" include("../ext/NPZExt.jl")
     end
+end
+
+function workload()
+    @info "Running enhanced Finch.jl precompilation... (to disable, run `using Preferences; Preferences.set_preferences!(\"Finch\", \"precompile_workload\" => false; force=true)`). See https://julialang.github.io/PrecompileTools.jl/stable/#Package-developers:-reducing-the-cost-of-precompilation-during-development for more."
+    # all calls in this block will be precompiled, regardless of whether
+    # they belong to your package or not (on Julia 1.8 and higher)
+
+    y = Tensor(Dense(Element(0.0)))
+    A = Tensor(Dense(SparseList(Element(0.0))))
+    x = Tensor(SparseList(Element(0.0)))
+    @finch_code begin
+        for j in _, i in _
+            y[i] += A[i, j] * x[j]
+        end
+    end
+
+    formats = []
+    Ts = [Int, Float64]#, Bool]
+
+    tik = time()
+    for (n, T) in enumerate(Ts)
+        if n > 1
+            tok = time()
+            estimated = ceil(Int, (tok - tik) / (n - 1) * (length(Ts) - n + 1))
+            @info "Precompiling common tensor formats... (estimated: $(fld(estimated, 60)) minutes and $(mod(estimated, 60)) seconds)"
+        else
+            @info "Precompiling common tensor formats..."
+        end
+        f = zero(T)
+        append!(
+            formats,
+            [
+                Scalar(f, rand(T)),
+                Tensor(Dense(Element(f)), rand(T, 2)),
+                Tensor(SparseList(Element(f)), rand(T, 2)),
+                Tensor(Dense(Dense(Element(f))), rand(T, 2, 2)),
+                Tensor(Dense(SparseList(Element(f))), rand(T, 2, 2)),
+            ],
+        )
+    end
+
+    for (n, format) in enumerate(formats)
+        if n > 1
+            tok = time()
+            estimated = ceil(Int, (tok - tik) / (n - 1) * (length(formats) - n + 1))
+            @info "Precompiling common tensor operations... (estimated: $(fld(estimated, 60)) minutes and $(mod(estimated, 60)) seconds)"
+        else
+            @info "Precompiling common tensor operations..."
+        end
+        A = deepcopy(format)
+        B = deepcopy(format)
+
+        if ndims(format) > 0
+            dropfills(A)
+            copyto!(A, B)
+        end
+        A == B
+        i = rand(1:2, ndims(A))
+        A[i...]
+        #if eltype(format) == Bool
+        #    .!(A)
+        #    any(A)
+        #    all(A)
+        #end
+        if eltype(format) <: Integer
+            .~(A)
+            A .& B
+            A .| B
+        end
+        if eltype(format) <: Union{Integer,AbstractFloat} && eltype(format) != Bool
+            sum(A)
+            A .* B
+            A + A
+            A - A
+            maximum(A)
+            max.(A, B)
+            println("")
+            for T in Ts
+                A * rand(T)
+                A + rand(T)
+            end
+            if ndims(A) == 2
+                A * A
+                A * Tensor(Dense(Element(zero(eltype(A)))), rand(eltype(A), 2))
+            end
+        end
+    end
+
+    @info "Done!"
 end
 
 @setup_workload begin
     # Putting some things in `setup` can reduce the size of the
     # precompile file and potentially make loading faster.
     @compile_workload begin
-        # all calls in this block will be precompiled, regardless of whether
-        # they belong to your package or not (on Julia 1.8 and higher)
-        y = Tensor(Dense(Element(0.0)))
-        A = Tensor(Dense(SparseList(Element(0.0))))
-        x = Tensor(SparseList(Element(0.0)))
-        Finch.execute_code(:ex, typeof(Finch.@finch_program_instance begin
-                for j=_, i=_; y[i] += A[i, j] * x[j] end
-            end
-        ))
-
-        if @load_preference("precompile", true)
-            @info "Running enhanced precompilation... (to disable, run `using Preferences; Preferences.set_preferences!(\"Finch\", \"precompile\"=>false)`"
-            include("../test/precompile.jl")
-        end
+        Base.invokelatest(workload)
     end
 end
 

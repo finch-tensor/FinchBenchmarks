@@ -1,4 +1,4 @@
-function simple_map(::Type{T}, f::F, args) where {T, F}
+function simple_map(::Type{T}, f::F, args) where {T,F}
     res = Vector{T}(undef, length(args))
     for i in 1:length(args)
         res[i] = f(args[i])
@@ -16,8 +16,8 @@ type and their program structure is equivalent up to renaming.
 """
 function get_structure(
     node::LogicNode,
-    fields::Dict{Symbol, LogicNode}=Dict{Symbol, LogicNode}(),
-    aliases::Dict{Symbol, LogicNode}=Dict{Symbol, LogicNode}())
+    fields::Dict{Symbol,LogicNode}=Dict{Symbol,LogicNode}(),
+    aliases::Dict{Symbol,LogicNode}=Dict{Symbol,LogicNode}())
     if node.kind === field
         get!(fields, node.name, immediate(length(fields) + length(aliases)))
     elseif node.kind === alias
@@ -27,12 +27,24 @@ function get_structure(
             aliases[node.lhs.name]
         else
             #this will define the alias in aliases dict
-            subquery(get_structure(node.lhs, fields, aliases), get_structure(node.arg, fields, aliases))
+            subquery(
+                get_structure(node.lhs, fields, aliases),
+                get_structure(node.arg, fields, aliases),
+            )
         end
     elseif node.kind === table
-        table(immediate(typeof(node.tns.val)), simple_map(LogicNode, idx -> get_structure(idx, fields, aliases), node.idxs))
+        table(
+            immediate(typeof(node.tns.val)),
+            simple_map(LogicNode, idx -> get_structure(idx, fields, aliases), node.idxs),
+        )
     elseif istree(node)
-        similarterm(node, operation(node), simple_map(LogicNode, arg -> get_structure(arg, fields, aliases), arguments(node)))
+        similarterm(
+            node,
+            operation(node),
+            simple_map(
+                LogicNode, arg -> get_structure(arg, fields, aliases), arguments(node)
+            ),
+        )
     else
         node
     end
@@ -44,10 +56,11 @@ end
 
 @kwdef struct PointwiseLowerer
     bound_idxs = []
+    loop_idxs = []
 end
 
-function compile_pointwise_logic(ex)
-    ctx = PointwiseLowerer()
+function compile_pointwise_logic(ex, loop_idxs)
+    ctx = PointwiseLowerer(; loop_idxs=loop_idxs)
     code = ctx(ex)
     bound_idxs = ctx.bound_idxs
     (code, bound_idxs)
@@ -56,11 +69,13 @@ end
 function (ctx::PointwiseLowerer)(ex)
     if @capture ex mapjoin(~op, ~args...)
         :($(op.val)($(map(ctx, args)...)))
-    elseif (@capture ex reorder(relabel(~arg::isalias, ~idxs_1...), ~idxs_2...))
+    elseif (@capture ex relabel(~arg::isalias, ~idxs_1...))
         append!(ctx.bound_idxs, idxs_1)
-        :($(arg.name)[$(map(idx -> idx in idxs_2 ? idx.name : 1, idxs_1)...)]) #TODO need a trait for the first index
+        :($(arg.name)[$(map(idx -> idx in ctx.loop_idxs ? idx.name : 1, idxs_1)...)])
     elseif (@capture ex reorder(~arg::isimmediate, ~idxs...))
         arg.val
+    elseif (@capture ex reorder(~arg, ~idxs...))
+        ctx(arg)
     elseif ex.kind === immediate
         ex.val
     else
@@ -70,7 +85,12 @@ end
 
 function compile_logic_constant(node)
     if node.kind === immediate
-        node.val
+        val = node.val
+        if Base.isoperator(Symbol(val))
+            Symbol(val)
+        else
+            val
+        end
     elseif node.kind === deferred
         :($(node.ex)::$(node.type))
     else
@@ -91,20 +111,28 @@ end
 function (ctx::LogicLowerer)(ex)
     if @capture ex query(~lhs::isalias, table(~tns, ~idxs...))
         :($(lhs.name) = $(compile_logic_constant(tns)))
-    elseif @capture ex query(~lhs::isalias, reformat(~tns, reorder(relabel(~arg::isalias, ~idxs_1...), ~idxs_2...)))
-        loop_idxs = map(idx -> idx.name, withsubsequence(intersect(idxs_1, idxs_2), idxs_2))
+    elseif @capture ex query(
+        ~lhs::isalias,
+        reformat(~tns, reorder(relabel(~arg::isalias, ~idxs_1...), ~idxs_2...)),
+    )
+        loop_idxs = withsubsequence(intersect(idxs_1, idxs_2), idxs_2)
+        (rhs, rhs_idxs) = compile_pointwise_logic(relabel(arg, idxs_1...), loop_idxs)
+        loop_idxs = map(idx -> idx.name, loop_idxs)
         lhs_idxs = map(idx -> idx.name, idxs_2)
-        (rhs, rhs_idxs) = compile_pointwise_logic(reorder(relabel(arg, idxs_1...), idxs_2...))
         body = :($(lhs.name)[$(lhs_idxs...)] = $rhs)
         for idx in loop_idxs
             if field(idx) in rhs_idxs
-                body = :(for $idx = _
-                    $body
-                end)
+                body = :(
+                    for $idx in _
+                        $body
+                    end
+                )
             elseif idx in lhs_idxs
-                body = :(for $idx = 1:1
-                    $body
-                end)
+                body = :(
+                    for $idx in 1:1
+                        $body
+                    end
+                )
             end
         end
         quote
@@ -115,23 +143,41 @@ function (ctx::LogicLowerer)(ex)
                 return $(lhs.name)
             end
         end
-    elseif @capture ex query(~lhs::isalias, reformat(~tns, mapjoin(~args...)))
+    elseif @capture ex query(
+        ~lhs::isalias, reformat(~tns, reorder(mapjoin(~args...), ~idxs...))
+    )
         z = fill_value(logic_constant_type(tns))
-        ctx(query(lhs, reformat(tns, aggregate(initwrite(z), immediate(z), mapjoin(args...)))))
-    elseif @capture ex query(~lhs, reformat(~tns, aggregate(~op, ~init, ~arg, ~idxs_1...)))
-        idxs_2 = map(idx -> idx.name, getfields(arg))
-        lhs_idxs = map(idx -> idx.name, setdiff(getfields(arg), idxs_1))
-        (rhs, rhs_idxs) = compile_pointwise_logic(arg)
-        body = :($(lhs.name)[$(lhs_idxs...)] <<$(compile_logic_constant(op))>>= $rhs)
+        ctx(
+            query(
+                lhs,
+                reformat(
+                    tns,
+                    aggregate(
+                        initwrite(z), immediate(z), reorder(mapjoin(args...), idxs...)
+                    ),
+                ),
+            ),
+        )
+    elseif @capture ex query(
+        ~lhs, reformat(~tns, aggregate(~op, ~init, reorder(~arg, ~idxs_2...), ~idxs_1...))
+    )
+        (rhs, rhs_idxs) = compile_pointwise_logic(arg, idxs_2)
+        lhs_idxs = map(idx -> idx.name, setdiff(idxs_2, idxs_1))
+        idxs_2 = map(idx -> idx.name, idxs_2)
+        body = :($(lhs.name)[$(lhs_idxs...)] << $(compile_logic_constant(op)) >>= $rhs)
         for idx in idxs_2
             if field(idx) in rhs_idxs
-                body = :(for $idx = _
-                    $body
-                end)
+                body = :(
+                    for $idx in _
+                        $body
+                    end
+                )
             elseif idx in lhs_idxs
-                body = :(for $idx = 1:1
-                    $body
-                end)
+                body = :(
+                    for $idx in 1:1
+                        $body
+                    end
+                )
             end
         end
         quote
@@ -143,24 +189,36 @@ function (ctx::LogicLowerer)(ex)
             end
         end
     elseif @capture ex produces(~args...)
-        return :(return ($(map(args) do arg
-            if @capture(arg, reorder(relabel(~tns::isalias, ~idxs_1...), ~idxs_2...)) && Set(idxs_1) == Set(idxs_2)
-                :(swizzle($(tns.name), $([findfirst(isequal(idx), idxs_1) for idx in idxs_2]...)))
-            elseif @capture(arg, reorder(~tns::isalias, ~idxs...))
-                tns.name
-            elseif isalias(arg)
-                arg.name
-            else
-                error("Unrecognized logic: $(arg)")
-            end
-        end...),))
+        return :(
+            return (
+                $(
+                    map(args) do arg
+                        if @capture(
+                            arg, reorder(relabel(~tns::isalias, ~idxs_1...), ~idxs_2...)
+                        ) && Set(idxs_1) == Set(idxs_2)
+                            :(swizzle(
+                                $(tns.name),
+                                $([findfirst(isequal(idx), idxs_1) for idx in idxs_2]...),
+                            ))
+                        elseif @capture(arg, reorder(~tns::isalias, ~idxs...))
+                            tns.name
+                        elseif @capture(arg, relabel(~tns::isalias, ~idxs...))
+                            tns.name
+                        elseif isalias(arg)
+                            arg.name
+                        else
+                            error("Unrecognized logic: $(arg)")
+                        end
+                    end...
+                ),
+            )
+        )
     elseif @capture ex plan(~bodies...)
         Expr(:block, map(ctx, bodies)...)
     else
         error("Unrecognized logic: $(ex)")
     end
 end
-
 
 """
     LogicCompiler
@@ -184,13 +242,14 @@ end
 Base.:(==)(a::LogicCompiler, b::LogicCompiler) = a.mode == b.mode
 Base.hash(a::LogicCompiler, h::UInt) = hash(LogicCompiler, hash(a.mode, h))
 
-function set_options(ctx::LogicCompiler; mode = ctx.mode, kwargs...)
-    LogicCompiler(mode = mode)
+function set_options(ctx::LogicCompiler; mode=ctx.mode, kwargs...)
+    LogicCompiler(; mode=mode)
 end
 
 function (ctx::LogicCompiler)(prgm::LogicNode)
     prgm = format_queries(prgm, true)
-    LogicLowerer(mode=ctx.mode)(prgm)
+    res = LogicLowerer(; mode=ctx.mode)(prgm)
+    res
 end
 
 codes = Dict()

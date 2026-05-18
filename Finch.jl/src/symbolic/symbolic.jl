@@ -1,6 +1,5 @@
 abstract type AbstractAlgebra end
-struct DefaultAlgebra<:AbstractAlgebra end
-
+struct DefaultAlgebra <: AbstractAlgebra end
 
 isassociative(alg) = (f) -> isassociative(alg, f)
 isassociative(alg, f::FinchNode) = f.kind === literal && isassociative(alg, f.val)
@@ -45,14 +44,25 @@ isabelian(alg) = (f) -> isabelian(alg, f)
 isabelian(alg, f) = isassociative(alg, f) && iscommutative(alg, f)
 
 isdistributive(alg) = (f, g) -> isdistributive(alg, f, g)
-isdistributive(alg, f::FinchNode, x::FinchNode) = isliteral(f) && isliteral(x) && isdistributive(alg, f.val, x.val)
+function isdistributive(alg, f::FinchNode, g::FinchNode)
+    isliteral(f) && isliteral(g) && isdistributive(alg, f.val, g.val)
+end
 """
     isdistributive(algebra, f, g)
 
 Return true when `f(a, g(b, c)) = g(f(a, b), f(a, c))` in `algebra`.
 """
 isdistributive(::Any, f, g) = false
-isdistributive(::AbstractAlgebra, ::typeof(+), ::typeof(*)) = true
+isdistributive(::AbstractAlgebra, ::typeof(*), ::typeof(+)) = true
+isdistributive(::AbstractAlgebra, ::typeof(&), ::typeof(|)) = true
+isdistributive(::AbstractAlgebra, ::typeof(|), ::Chooser{false}) = true
+isdistributive(::AbstractAlgebra, ::Chooser{true}, ::typeof(&)) = true
+function isdistributive(::AbstractAlgebra, ::Chooser{Vf}, ::typeof(|)) where {Vf}
+    Vf isa Bool
+end
+function isdistributive(::AbstractAlgebra, ::typeof(&), ::Chooser{Vf}) where {Vf}
+    Vf isa Bool
+end
 
 isidempotent(alg) = (f) -> isidempotent(alg, f)
 isidempotent(alg, f::FinchNode) = f.kind === literal && isidempotent(alg, f.val)
@@ -77,7 +87,9 @@ isidempotent(::AbstractAlgebra, ::Chooser) = true
 Return true when `f(a..., x, b...) = f(a..., b...)` in `algebra`.
 """
 isidentity(alg) = (f, x) -> isidentity(alg, f, x)
-isidentity(alg, f::FinchNode, x::FinchNode) = isliteral(f) && isidentity_by_fn(alg, f.val, x)
+function isidentity(alg, f::FinchNode, x::FinchNode)
+    isliteral(f) && isidentity_by_fn(alg, f.val, x)
+end
 isidentity_by_fn(alg, f, x::FinchNode) = isliteral(x) && isidentity(alg, f, x.val)
 isidentity(::Any, f, x) = false
 isidentity(::AbstractAlgebra, ::typeof(or), x) = x === false
@@ -90,8 +102,12 @@ isidentity(::AbstractAlgebra, ::typeof(|), x) = !ismissing(x) && iszero(x)
 isidentity(::AbstractAlgebra, ::typeof(&), x) = !ismissing(x) && x == ~(zero(x))
 isidentity(::AbstractAlgebra, ::typeof(min), x) = !ismissing(x) && isinf(x) && x > 0
 isidentity(::AbstractAlgebra, ::typeof(max), x) = !ismissing(x) && isinf(x) && x < 0
-isidentity(::Finch.AbstractAlgebra, ::InitMax{D}, x) where {D} = isequal(x, D)
-isidentity(::Finch.AbstractAlgebra, ::InitMin{D}, x) where {D} = isequal(x, D)
+function isidentity(::Finch.AbstractAlgebra, ::InitMax{D}, x) where {D}
+    isequal(x, D) || isequal(x == D, true)
+end
+function isidentity(::Finch.AbstractAlgebra, ::InitMin{D}, x) where {D}
+    isequal(x, D) || isequal(x == D, true)
+end
 
 function isidentity_by_fn(alg::AbstractAlgebra, ::typeof(minby), x::FinchNode)
     if @capture x call(tuple, ~a::isliteral, ~b)
@@ -109,11 +125,17 @@ function isidentity_by_fn(alg::AbstractAlgebra, ::typeof(maxby), x::FinchNode)
     end
     return false
 end
-isidentity(::AbstractAlgebra, ::Chooser{Vf}, x) where {Vf} = isequal(x, Vf)
-isidentity(::AbstractAlgebra, ::InitWriter{Vf}, x) where {Vf} = isequal(x, Vf)
+function isidentity(::AbstractAlgebra, ::Chooser{Vf}, x) where {Vf}
+    isequal(x, Vf) || isequal(x == Vf, true)
+end
+function isidentity(::AbstractAlgebra, ::InitWriter{Vf}, x) where {Vf}
+    isequal(x, Vf) || isequal(x == Vf, true)
+end
 
 isannihilator(alg) = (f, x) -> isannihilator(alg, f, x)
-isannihilator(alg, f::FinchNode, x::FinchNode) = isliteral(f) && isannihilator_by_fn(alg, f.val, x)
+function isannihilator(alg, f::FinchNode, x::FinchNode)
+    isliteral(f) && isannihilator_by_fn(alg, f.val, x)
+end
 isannihilator_by_fn(alg, f, x::FinchNode) = isliteral(x) && isannihilator(alg, f, x.val)
 """
     isannihilator(algebra, f, x)
@@ -145,11 +167,15 @@ function isannihilator_by_fn(alg::AbstractAlgebra, ::typeof(maxby), x::FinchNode
     end
     return false
 end
-isannihilator(::AbstractAlgebra, ::Chooser{Vf}, x) where {Vf} = !isequal(x, Vf)
-#isannihilator(::AbstractAlgebra, ::InitWriter{Vf}, x) where {Vf} = !isequal(x, Vf)
+function isannihilator(::AbstractAlgebra, ::Chooser{Vf}, x) where {Vf}
+    !(isequal(x, Vf) || isequal(x == Vf, true))
+end
+#isannihilator(::AbstractAlgebra, ::InitWriter{Vf}, x) where {Vf} = !(isequal(x, Vf) || isequal(x == Vf, true))
 
 isinverse(alg) = (f, g) -> isinverse(alg, f, g)
-isinverse(alg, f::FinchNode, g::FinchNode) = isliteral(f) && isliteral(g) && isinverse(alg, f.val, g.val)
+function isinverse(alg, f::FinchNode, g::FinchNode)
+    isliteral(f) && isliteral(g) && isinverse(alg, f.val, g.val)
+end
 """
     isinverse(algebra, f, g)
 
@@ -186,17 +212,33 @@ collapsed(alg, idx, ext, lhs, f::FinchNode, rhs) = collapsed(alg, idx, ext, lhs,
 
 Return collapsed expression with respect to f.
 """
-collapsed(alg, idx, ext, lhs, f::Any, rhs) = isidempotent(alg, f) ? sieve(call(>=, measure(ext), get_smallest_measure(ext)), assign(lhs, f, rhs)) : nothing # Hmm.. Why do we need sieve for  only idempotent?
+function collapsed(alg, idx, ext, lhs, f::Any, rhs)
+    if isidempotent(alg, f)
+        sieve(call(>=, measure(ext), get_smallest_measure(ext)), assign(lhs, f, rhs)) # Hmm.. Why do we need sieve for  only idempotent?
+    else
+        nothing # Hmm.. Why do we need sieve for  only idempotent?
+    end # Hmm.. Why do we need sieve for  only idempotent?
+end # Hmm.. Why do we need sieve for  only idempotent?
 
-collapsed(alg, idx, ext, lhs, f::typeof(-), rhs) = assign(lhs, f, call(*, measure(ext), rhs))
-collapsed(alg, idx, ext, lhs, f::typeof(*), rhs) = assign(lhs, f, call(^, rhs, measure(ext)))
-collapsed(alg, idx, ext::Extent, lhs, f::typeof(+), rhs) = assign(lhs, f, call(*, measure(ext), rhs))
-collapsed(alg, idx, ext::ContinuousExtent, lhs, f::typeof(+), rhs) = begin
+function collapsed(alg, idx, ext, lhs, f::typeof(-), rhs)
+    assign(lhs, f, call(*, measure(ext), rhs))
+end
+function collapsed(alg, idx, ext, lhs, f::typeof(*), rhs)
+    assign(lhs, f, call(^, rhs, measure(ext)))
+end
+function collapsed(alg, idx, ext::VirtualExtent, lhs, f::typeof(+), rhs)
+    assign(lhs, f, call(*, measure(ext), rhs))
+end
+function collapsed(alg, idx, ext::VirtualContinuousExtent, lhs, f::typeof(+), rhs)
     if (@capture rhs call(*, ~a1..., call(d, ~i1..., idx, ~i2...), ~a2...)) # Lebesgue
         if prove(FinchCompiler(), call(==, measure(ext), 0))
             assign(lhs, f, literal(0))
         else
-            assign(lhs, f, call(*, call(drop_eps, measure(ext)), a1..., a2..., call(d, i1..., i2...)))
+            assign(
+                lhs,
+                f,
+                call(*, call(drop_eps, measure(ext)), a1..., a2..., call(d, i1..., i2...)),
+            )
         end
     else # Counting
         if prove(FinchCompiler(), call(==, measure(ext), 0))
@@ -209,7 +251,7 @@ collapsed(alg, idx, ext::ContinuousExtent, lhs, f::typeof(+), rhs) = begin
     end
 end
 
-getvars(arr::AbstractArray) = mapreduce(getvars, vcat, arr, init=[])
+getvars(arr::AbstractArray) = mapreduce(getvars, vcat, arr; init=[])
 getvars(arr) = getroot(arr) === nothing ? [] : [getroot(arr)]
 getroot(arr) = nothing
 function getvars(node::FinchNode)
@@ -218,7 +260,7 @@ function getvars(node::FinchNode)
     elseif node.kind == virtual
         return getvars(node.val)
     elseif istree(node)
-        return mapreduce(getvars, vcat, arguments(node), init=[])
+        return mapreduce(getvars, vcat, arguments(node); init=[])
     else
         return []
     end
@@ -233,9 +275,9 @@ A hash function which is static, i.e. the hashes are the same when objects are h
 The hash is used to memoize the results of simplification and proof rules.
 """
 struct StaticHash
-    counts::Dict{Tuple{Any, DataType}, UInt}
+    counts::Dict{Tuple{Any,DataType},UInt}
 end
-StaticHash() = StaticHash(Dict{Tuple{Any, DataType}, UInt}())
+StaticHash() = StaticHash(Dict{Tuple{Any,DataType},UInt}())
 
 (h::StaticHash)(x) = get!(h.counts, (x, typeof(x)), UInt(length(h.counts)))
 

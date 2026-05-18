@@ -93,154 +93,143 @@ end
 bspread_tensor_lookup = OrderedDict(
     "DVEC" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "dense",
+            "level_desc" => "dense",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "element",
-            )
-        )
+                "level_desc" => "element"
+            ),
+        ),
     ),
-
     "DMAT" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "dense",
+            "level_desc" => "dense",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "dense",
+                "level_desc" => "dense",
                 "rank" => 1,
                 "level" => OrderedDict(
-                    "level_kind" => "element",
-                )
-            )
-        )
+                    "level_desc" => "element"
+                ),
+            ),
+        ),
     ),
-
     "DMATR" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "dense",
+            "level_desc" => "dense",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "dense",
+                "level_desc" => "dense",
                 "rank" => 1,
                 "level" => OrderedDict(
-                    "level_kind" => "element",
-                )
-            )
-        )
+                    "level_desc" => "element"
+                ),
+            ),
+        ),
     ),
-
     "DMATC" => OrderedDict(
         "transpose" => [1, 0],
         "level" => OrderedDict(
-            "level_kind" => "dense",
+            "level_desc" => "dense",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "dense",
+                "level_desc" => "dense",
                 "rank" => 1,
                 "level" => OrderedDict(
-                    "level_kind" => "element",
-                )
-            )
-        )
+                    "level_desc" => "element"
+                ),
+            ),
+        ),
     ),
-
     "CVEC" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "sparse",
+            "level_desc" => "sparse",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "element",
-            )
-        )
+                "level_desc" => "element"
+            ),
+        ),
     ),
-
     "CSR" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "dense",
+            "level_desc" => "dense",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "sparse",
+                "level_desc" => "sparse",
                 "rank" => 1,
                 "level" => OrderedDict(
-                    "level_kind" => "element",
-                )
-            )
-        )
+                    "level_desc" => "element"
+                ),
+            ),
+        ),
     ),
-
     "CSC" => OrderedDict(
         "transpose" => [1, 0],
         "level" => OrderedDict(
-            "level_kind" => "dense",
+            "level_desc" => "dense",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "sparse",
+                "level_desc" => "sparse",
                 "rank" => 1,
                 "level" => OrderedDict(
-                    "level_kind" => "element",
-                )
-            )
-        )
+                    "level_desc" => "element"
+                ),
+            ),
+        ),
     ),
-
     "DCSR" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "sparse",
+            "level_desc" => "sparse",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "sparse",
+                "level_desc" => "sparse",
                 "rank" => 1,
                 "level" => OrderedDict(
-                    "level_kind" => "element",
-                )
-            )
-        )
+                    "level_desc" => "element"
+                ),
+            ),
+        ),
     ),
-
     "DCSC" => OrderedDict(
         "transpose" => [1, 0],
         "level" => OrderedDict(
-            "level_kind" => "sparse",
+            "level_desc" => "sparse",
             "rank" => 1,
             "level" => OrderedDict(
-                "level_kind" => "sparse",
+                "level_desc" => "sparse",
                 "rank" => 1,
                 "level" => OrderedDict(
-                    "level_kind" => "element",
-                )
-            )
-        )
+                    "level_desc" => "element"
+                ),
+            ),
+        ),
     ),
-
     "COO" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "sparse",
+            "level_desc" => "sparse",
             "rank" => 2,
             "level" => OrderedDict(
-                "level_kind" => "element",
-            )
-        )
+                "level_desc" => "element"
+            ),
+        ),
     ),
-
     "COOR" => OrderedDict(
         "level" => OrderedDict(
-            "level_kind" => "sparse",
+            "level_desc" => "sparse",
             "rank" => 2,
             "level" => OrderedDict(
-                "level_kind" => "element",
-            )
-        )
+                "level_desc" => "element"
+            ),
+        ),
     ),
-
     "COOC" => OrderedDict(
         "transpose" => [1, 0],
         "level" => OrderedDict(
-            "level_kind" => "sparse",
+            "level_desc" => "sparse",
             "rank" => 2,
             "level" => OrderedDict(
-                "level_kind" => "element",
-            )
-        )
+                "level_desc" => "element"
+            ),
+        ),
     ),
 )
 
@@ -254,10 +243,22 @@ struct NPYPath
     dirname::String
 end
 
-bspwrite_h5(args...) = throw(FinchExtensionError("HDF5.jl must be loaded to write .bsp.h5 files (hint: `using HDF5`)"))
-bspwrite_bspnpy(args...) = throw(FinchExtensionError("NPZ.jl must be loaded to write .bspnpy files (hint: `using NPZ`)"))
+function bspwrite_h5(args...)
+    throw(
+        FinchExtensionError(
+            "HDF5.jl must be loaded to write .bsp.h5 files (hint: `using HDF5`)"
+        ),
+    )
+end
+function bspwrite_bspnpy(args...)
+    throw(
+        FinchExtensionError(
+            "NPZ.jl must be loaded to write .bspnpy files (hint: `using NPZ`)"
+        ),
+    )
+end
 
-function bspwrite(fname::AbstractString, arr, attrs = OrderedDict())
+function bspwrite(fname::AbstractString, arr, attrs=OrderedDict())
     if endswith(fname, ".h5") || endswith(fname, ".hdf5")
         bspwrite_h5(fname, arr, attrs)
     elseif endswith(fname, ".bspnpy")
@@ -266,15 +267,18 @@ function bspwrite(fname::AbstractString, arr, attrs = OrderedDict())
         error("Unknown file extension for file $fname")
     end
 end
-bspwrite(fname, arr, attrs = OrderedDict()) = bspwrite_tensor(fname, arr, attrs)
+bspwrite(fname, arr, attrs=OrderedDict()) = bspwrite_tensor(fname, arr, attrs)
 
-bspwrite_tensor(io, fbr::Tensor, attrs = OrderedDict()) =
+function bspwrite_tensor(io, fbr::Tensor, attrs=OrderedDict())
     bspwrite_tensor(io, swizzle(fbr, 1:ndims(fbr)...), attrs)
+end
 
-function bspwrite_tensor(io, arr::SwizzleArray{dims, <:Tensor}, attrs = OrderedDict()) where {dims}
+function bspwrite_tensor(
+    io, arr::SwizzleArray{dims,<:Tensor}, attrs=OrderedDict()
+) where {dims}
     desc = OrderedDict(
-        "tensor" => OrderedDict{Any, Any}(
-            "level" => OrderedDict(),
+        "custom" => OrderedDict{Any,Any}(
+            "level" => OrderedDict()
         ),
         "fill" => true,
         "shape" => map(Int, size(arr)),
@@ -284,19 +288,31 @@ function bspwrite_tensor(io, arr::SwizzleArray{dims, <:Tensor}, attrs = OrderedD
         "attrs" => attrs,
     )
     if !issorted(reverse(collect(dims)))
-        desc["tensor"]["transpose"] = reverse(collect(dims)) .- 1
+        desc["custom"]["transpose"] = reverse(collect(dims)) .- 1
     end
-    bspwrite_level(io, desc, desc["tensor"]["level"], arr.body.lvl)
-    if haskey(bspwrite_format_lookup, desc["tensor"])
-        desc["format"] = bspwrite_format_lookup[desc["tensor"]]
+    bspwrite_level(io, desc, desc["custom"]["level"], arr.body.lvl)
+    if haskey(bspwrite_format_lookup, desc["custom"])
+        desc["format"] = bspwrite_format_lookup[desc["custom"]]
     end
-    bspwrite_header(io, json(Dict("binsparse" => desc), 4))
+    bspwrite_header(io, JSON.json(Dict("binsparse" => desc), 4))
 end
 
 function bspwrite_header end
 
-bspread_h5(args...) = throw(FinchExtensionError("HDF5.jl must be loaded to read .bsp.h5 files (hint: `using HDF5`)"))
-bspread_bspnpy(args...) = throw(FinchExtensionError("NPZ.jl must be loaded to read .bspnpy files (hint: `using NPZ`)"))
+function bspread_h5(args...)
+    throw(
+        FinchExtensionError(
+            "HDF5.jl must be loaded to read .bsp.h5 files (hint: `using HDF5`)"
+        ),
+    )
+end
+function bspread_bspnpy(args...)
+    throw(
+        FinchExtensionError(
+            "NPZ.jl must be loaded to read .bspnpy files (hint: `using NPZ`)"
+        ),
+    )
+end
 
 function bspread(fname::AbstractString)
     if endswith(fname, ".h5") || endswith(fname, ".hdf5")
@@ -313,9 +329,11 @@ function bspread_header end
 function bspread(f)
     desc = bspread_header(f)["binsparse"]
     @assert desc["version"] == "$BINSPARSE_VERSION"
-    fmt = OrderedDict{Any, Any}(get(() -> bspread_tensor_lookup[desc["format"]], desc, "tensor"))
+    fmt = OrderedDict{Any,Any}(
+        get(() -> bspread_tensor_lookup[desc["format"]], desc, "custom")
+    )
     if !haskey(fmt, "transpose")
-        fmt["transpose"] = collect(0:length(desc["shape"]) - 1)
+        fmt["transpose"] = collect(0:(length(desc["shape"]) - 1))
     end
     if !issorted(reverse(fmt["transpose"]))
         sigma = sortperm(reverse(fmt["transpose"] .+ 1))
@@ -331,10 +349,10 @@ function bspread(f)
     fbr
 end
 
-bspread_level(f, desc, fmt) = bspread_level(f, desc, fmt, Val(Symbol(fmt["level_kind"])))
+bspread_level(f, desc, fmt) = bspread_level(f, desc, fmt, Val(Symbol(fmt["level_desc"])))
 
 function bspwrite_level(f, desc, fmt, lvl::ElementLevel{Vf}) where {Vf}
-    fmt["level_kind"] = "element"
+    fmt["level_desc"] = "element"
     bspwrite_data(f, desc, "values", lvl.val)
     bspwrite_data(f, desc, "fill_value", [Vf])
 end
@@ -349,7 +367,7 @@ function bspread_level(f, desc, fmt, ::Val{:element})
 end
 
 function bspwrite_level(f, desc, fmt, lvl::DenseLevel{Vf}) where {Vf}
-    fmt["level_kind"] = "dense"
+    fmt["level_desc"] = "dense"
     fmt["rank"] = 1
     fmt["level"] = OrderedDict()
     bspwrite_level(f, desc, fmt["level"], lvl.lvl)
@@ -357,7 +375,7 @@ end
 function bspread_level(f, desc, fmt, ::Val{:dense})
     lvl = bspread_level(f, desc, fmt["level"])
     R = fmt["rank"]
-    for r = 1:R
+    for r in 1:R
         n = level_ndims(typeof(lvl))
         shape = Int(desc["shape"][n + 1])
         lvl = DenseLevel(lvl, shape)
@@ -366,7 +384,7 @@ function bspread_level(f, desc, fmt, ::Val{:dense})
 end
 
 function bspwrite_level(f, desc, fmt, lvl::SparseListLevel)
-    fmt["level_kind"] = "sparse"
+    fmt["level_desc"] = "sparse"
     fmt["rank"] = 1
     n = level_ndims(typeof(lvl))
     N = length(desc["shape"])
@@ -378,14 +396,14 @@ function bspwrite_level(f, desc, fmt, lvl::SparseListLevel)
     bspwrite_level(f, desc, fmt["level"], lvl.lvl)
 end
 function bspwrite_level(f, desc, fmt, lvl::SparseCOOLevel{R}) where {R}
-    fmt["level_kind"] = "sparse"
+    fmt["level_desc"] = "sparse"
     fmt["rank"] = R
     n = level_ndims(typeof(lvl))
     N = length(desc["shape"])
     if N - n > 0
         bspwrite_data(f, desc, "pointers_to_$(N - n)", indices_one_to_zero(lvl.ptr))
     end
-    for r = 1:R
+    for r in 1:R
         bspwrite_data(f, desc, "indices_$(N - n + R - r)", indices_one_to_zero(lvl.tbl[r]))
     end
     fmt["level"] = OrderedDict()
@@ -405,10 +423,10 @@ function bspread_level(f, desc, fmt, ::Val{:sparse})
         ptr = [0, length(tbl[1])]
     end
     ptr = indices_zero_to_one(ptr)
-    shape = ntuple(r->eltype(tbl[r])(desc["shape"][n - R + r]), R)
+    shape = ntuple(r -> eltype(tbl[r])(desc["shape"][n - R + r]), R)
     if R == 1
         SparseListLevel(lvl, shape[1], ptr, tbl[1])
     else
-        SparseCOOLevel{Int(R), typeof(shape)}(lvl, shape, ptr, tbl)
+        SparseCOOLevel{Int(R),typeof(shape)}(lvl, shape, ptr, tbl)
     end
 end

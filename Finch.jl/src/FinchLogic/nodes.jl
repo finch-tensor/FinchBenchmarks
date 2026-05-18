@@ -3,20 +3,20 @@ const IS_STATEFUL = 2
 const ID = 4
 
 @enum LogicNodeKind begin
-    immediate =  0ID
-    deferred  =  1ID
-    field     =  2ID
-    alias     =  3ID
-    table     =  4ID | IS_TREE
-    mapjoin   =  5ID | IS_TREE
-    aggregate =  6ID | IS_TREE
-    reorder   =  7ID | IS_TREE
-    relabel   =  8ID | IS_TREE
-    reformat  =  9ID | IS_TREE
-    subquery  = 10ID | IS_TREE
-    query     = 11ID | IS_TREE | IS_STATEFUL
-    produces  = 12ID | IS_TREE | IS_STATEFUL
-    plan      = 13ID | IS_TREE | IS_STATEFUL
+    immediate = 0ID
+    deferred = 1ID
+    field = 2ID
+    alias = 3ID
+    table = 4ID | IS_TREE
+    mapjoin = 5ID | IS_TREE
+    aggregate = 6ID | IS_TREE
+    reorder = 7ID | IS_TREE
+    relabel = 8ID | IS_TREE
+    reformat = 9ID | IS_TREE
+    subquery = 10ID | IS_TREE
+    query = 11ID | IS_TREE | IS_STATEFUL
+    produces = 12ID | IS_TREE | IS_STATEFUL
+    plan = 13ID | IS_TREE | IS_STATEFUL
 end
 
 """
@@ -50,7 +50,7 @@ alias
 """
     table(tns, idxs...)
 
-Logical AST expression for a tensor object `val`, indexed by fields `idxs...`.
+Logical AST expression for a tensor object `tns`, indexed by fields `idxs...`.
 """
 table
 
@@ -59,6 +59,8 @@ table
 
 Logical AST expression for mapping the function `op` across `args...`.
 The order of fields in the mapjoin is `unique(vcat(map(getfields, args)...))`
+Dimensions of fields from different arguments must match, and fields which are
+missing from an argument are broadcasted.
 """
 mapjoin
 
@@ -75,7 +77,7 @@ aggregate
 
 Logical AST statement that reorders the dimensions of `arg` to be `idxs...`.
 Dimensions known to be length 1 may be dropped. Dimensions that do not exist in
-`arg` may be added.
+`arg` may be added, also with length 1.
 """
 reorder
 
@@ -201,7 +203,8 @@ function LogicNode_concatenate_args(args)
 end
 
 function LogicNode(kind::LogicNodeKind, args::Vector)
-    if (kind === immediate || kind === field || kind === alias || kind === deferred) && length(args) == 1
+    if (kind === immediate || kind === field || kind === alias || kind === deferred) &&
+        length(args) == 1
         return LogicNode(kind, args[1], Any, LogicNode[])
     elseif kind === deferred && length(args) == 2
         return LogicNode(kind, args[1], args[2], LogicNode[])
@@ -218,7 +221,7 @@ function LogicNode(kind::LogicNodeKind, args::Vector)
             (kind === subquery && length(args) == 2) ||
             (kind === query && length(args) == 2) ||
             (kind === produces) ||
-            (kind === plan) 
+            (kind === plan)
             return LogicNode(kind, nothing, Any, args)
         else
             error("wrong number of arguments to $kind(...)")
@@ -233,30 +236,54 @@ end
 function Base.getproperty(node::LogicNode, sym::Symbol)
     if sym === :kind || sym === :val || sym === :type || sym === :children
         return Base.getfield(node, sym)
-    elseif node.kind === deferred && sym === :ex node.val isa Tuple ? node.val[1] : node.val
-    elseif node.kind === deferred && sym === :imm node.val[2]
-    elseif node.kind === field && sym === :name node.val::Symbol
-    elseif node.kind === alias && sym === :name node.val::Symbol
-    elseif node.kind === table && sym === :tns node.children[1]
-    elseif node.kind === table && sym === :idxs @view node.children[2:end]
-    elseif node.kind === mapjoin && sym === :op node.children[1]
-    elseif node.kind === mapjoin && sym === :args @view node.children[2:end]
-    elseif node.kind === aggregate && sym === :op node.children[1]
-    elseif node.kind === aggregate && sym === :init node.children[2]
-    elseif node.kind === aggregate && sym === :arg node.children[3]
-    elseif node.kind === aggregate && sym === :idxs @view node.children[4:end]
-    elseif node.kind === reorder && sym === :arg node.children[1]
-    elseif node.kind === reorder && sym === :idxs @view node.children[2:end]
-    elseif node.kind === relabel && sym === :arg node.children[1]
-    elseif node.kind === relabel && sym === :idxs @view node.children[2:end]
-    elseif node.kind === reformat && sym === :tns node.children[1]
-    elseif node.kind === reformat && sym === :arg node.children[2]
-    elseif node.kind === subquery && sym === :lhs node.children[1]
-    elseif node.kind === subquery && sym === :arg node.children[2]
-    elseif node.kind === query && sym === :lhs node.children[1]
-    elseif node.kind === query && sym === :rhs node.children[2]
-    elseif node.kind === produces && sym === :args node.children
-    elseif node.kind === plan && sym === :bodies node.children
+    elseif node.kind === deferred && sym === :ex
+        node.val isa Tuple ? node.val[1] : node.val
+    elseif node.kind === deferred && sym === :imm
+        node.val[2]
+    elseif node.kind === field && sym === :name
+        node.val::Symbol
+    elseif node.kind === alias && sym === :name
+        node.val::Symbol
+    elseif node.kind === table && sym === :tns
+        node.children[1]
+    elseif node.kind === table && sym === :idxs
+        @view node.children[2:end]
+    elseif node.kind === mapjoin && sym === :op
+        node.children[1]
+    elseif node.kind === mapjoin && sym === :args
+        @view node.children[2:end]
+    elseif node.kind === aggregate && sym === :op
+        node.children[1]
+    elseif node.kind === aggregate && sym === :init
+        node.children[2]
+    elseif node.kind === aggregate && sym === :arg
+        node.children[3]
+    elseif node.kind === aggregate && sym === :idxs
+        @view node.children[4:end]
+    elseif node.kind === reorder && sym === :arg
+        node.children[1]
+    elseif node.kind === reorder && sym === :idxs
+        @view node.children[2:end]
+    elseif node.kind === relabel && sym === :arg
+        node.children[1]
+    elseif node.kind === relabel && sym === :idxs
+        @view node.children[2:end]
+    elseif node.kind === reformat && sym === :tns
+        node.children[1]
+    elseif node.kind === reformat && sym === :arg
+        node.children[2]
+    elseif node.kind === subquery && sym === :lhs
+        node.children[1]
+    elseif node.kind === subquery && sym === :arg
+        node.children[2]
+    elseif node.kind === query && sym === :lhs
+        node.children[1]
+    elseif node.kind === query && sym === :rhs
+        node.children[2]
+    elseif node.kind === produces && sym === :args
+        node.children
+    elseif node.kind === plan && sym === :bodies
+        node.children
     else
         error("type LogicNode($(node.kind), ...) has no property $sym")
     end
@@ -268,7 +295,9 @@ function Base.show(io::IO, node::LogicNode)
     elseif node.kind === deferred
         print(io, node.kind, "(", node.val, ", ", node.type, ")")
     else
-        print(io, node.kind, "("); join(io, node.children, ", "); print(io, ")")
+        print(io, node.kind, "(")
+        join(io, node.children, ", ")
+        print(io, ")")
     end
 end
 
@@ -278,7 +307,7 @@ function Base.show(io::IO, mime::MIME"text/plain", node::LogicNode)
         if isstateful(node)
             display_statement(io, mime, node, 0)
         else
-            display_expression(io, mime, node)
+            display_expression(io, mime, node, 0)
         end
     catch
         println(io, "error showing: ", node)
@@ -288,25 +317,25 @@ end
 
 function display_statement(io, mime, node, indent)
     if operation(node) == query
-        display_expression(io, mime, node.lhs)
+        display_expression(io, mime, node.lhs, indent)
         print(io, " = ")
-        display_expression(io, mime, node.rhs)
+        display_expression(io, mime, node.rhs, indent)
     elseif operation(node) == plan
         println(io, "plan")
         for body in node.bodies
-            print(io, " " ^ (indent + 2))
+            print(io, " "^(indent + 2))
             display_statement(io, mime, body, indent + 2)
             println(io)
         end
-        print(io, " " ^ indent, "end")
+        print(io, " "^indent, "end")
     elseif operation(node) == produces
         print(io, "return (")
-        for arg in node.args[1:end - 1]
-            display_expression(io, mime, arg)
+        for arg in node.args[1:(end - 1)]
+            display_expression(io, mime, arg, indent)
             print(io, ", ")
         end
         if length(node.args) > 0
-            display_expression(io, mime, node.args[end])
+            display_expression(io, mime, node.args[end], indent)
         end
         print(io, ")")
     else
@@ -314,7 +343,7 @@ function display_statement(io, mime, node, indent)
     end
 end
 
-function display_expression(io, mime, node)
+function display_expression(io, mime, node, indent)
     if operation(node) === immediate
         print(io, node.val)
     elseif operation(node) === deferred
@@ -327,18 +356,20 @@ function display_expression(io, mime, node)
         print(io, node.name)
     elseif operation(node) == subquery
         print(io, "(")
-        display_expression(io, mime, node.lhs)
+        display_expression(io, mime, node.lhs, indent)
         print(io, " = ")
-        display_expression(io, mime, node.arg)
+        display_expression(io, mime, node.arg, indent)
         print(io, ")")
     elseif istree(node)
-        print(io, operation(node), "(")
-        for child in node.children[1:end-1]
-            display_expression(io, mime, child)
-            print(io, ", ")
+        println(io, operation(node), "(")
+        for child in node.children[1:(end - 1)]
+            print(io, " "^(indent + 2))
+            display_expression(io, mime, child, indent + 2)
+            println(io, ", ")
         end
         if length(node.children) > 0
-            display_expression(io, mime, node.children[end])
+            print(io, " "^(indent + 2))
+            display_expression(io, mime, node.children[end], indent + 2)
         end
         print(io, ")")
     else
@@ -352,7 +383,7 @@ function Base.:(==)(a::LogicNode, b::LogicNode)
     elseif a.kind === immediate
         return b.kind === immediate && a.val === b.val
     elseif a.kind === deferred
-        return b.kind === deferred && a.val === b.val && a.type === b.type
+        return b.kind === deferred && a.ex === b.ex && a.type === b.type
     elseif a.kind === field
         return b.kind === field && a.name == b.name
     elseif a.kind === alias
@@ -370,7 +401,7 @@ function Base.hash(a::LogicNode, h::UInt)
     elseif istree(a)
         return hash(a.kind, hash(a.children, h))
     elseif a.kind === deferred
-        return hash(a.kind, hash(a.val, hash(a.type, h)))
+        return hash(a.kind, hash(a.ex, hash(a.type, h)))
     else
         error("unimplemented")
     end
@@ -396,7 +427,7 @@ finch_pattern(arg) = logic_leaf(arg)
 finch_pattern(arg::RewriteTools.Slot) = arg
 finch_pattern(arg::RewriteTools.Segment) = arg
 finch_pattern(arg::RewriteTools.Term) = arg
-function RewriteTools.term(f::LogicNodeKind, args...; type = nothing)
+function RewriteTools.term(f::LogicNodeKind, args...; type=nothing)
     RewriteTools.Term(f, [finch_pattern.(args)...])
 end
 
@@ -406,7 +437,11 @@ function getfields(node::LogicNode, bindings=Dict())
     elseif node.kind == immediate
         return []
     elseif node.kind == alias
-        throw(ArgumentError("getfields(alias) is undefined, try calling `propagate_fields` on the whole plan to resolve alias fields."))
+        throw(
+            ArgumentError(
+                "getfields(alias) is undefined, try calling `propagate_fields` on the whole plan to resolve alias fields."
+            ),
+        )
     elseif node.kind == table
         return node.idxs
     elseif node.kind == subquery
@@ -427,7 +462,7 @@ function getfields(node::LogicNode, bindings=Dict())
     end
 end
 
-function propagate_fields(node::LogicNode, fields = Dict{LogicNode, Any}())
+function propagate_fields(node::LogicNode, fields=Dict{LogicNode,Any}())
     if @capture node plan(~stmts...)
         stmts = map(stmts) do stmt
             propagate_fields(stmt, fields)
@@ -444,7 +479,9 @@ function propagate_fields(node::LogicNode, fields = Dict{LogicNode, Any}())
     elseif node.kind === produces
         node
     elseif istree(node)
-        similarterm(node, operation(node), map(x -> propagate_fields(x, fields), arguments(node)))
+        similarterm(
+            node, operation(node), map(x -> propagate_fields(x, fields), arguments(node))
+        )
     else
         node
     end

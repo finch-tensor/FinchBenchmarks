@@ -15,6 +15,8 @@ Base.ndims(fbr::SparseData) = 1 + ndims(fbr.lvl)
 fill_value(fbr::SparseData) = fill_value(fbr.lvl)
 Base.eltype(fbr::SparseData) = eltype(fbr.lvl)
 is_concordant_rep(fbr::SparseData) = true
+get_level_rep(fbr::SparseData) = fbr.lvl
+set_level_rep(fbr::SparseData, lvl) = SparseData(lvl)
 
 """
     RepeatData(lvl)
@@ -31,6 +33,8 @@ Base.ndims(fbr::RepeatData) = 1 + ndims(fbr.lvl)
 fill_value(fbr::RepeatData) = fill_value(fbr.lvl)
 Base.eltype(fbr::RepeatData) = eltype(fbr.lvl)
 is_concordant_rep(fbr::RepeatData) = true
+get_level_rep(fbr::RepeatData) = fbr.lvl
+set_level_rep(fbr::RepeatData, lvl) = RepeatData(lvl)
 
 """
     DenseData(lvl)
@@ -45,6 +49,8 @@ fill_value(fbr::DenseData) = fill_value(fbr.lvl)
 Base.ndims(fbr::DenseData) = 1 + ndims(fbr.lvl)
 Base.eltype(fbr::DenseData) = eltype(fbr.lvl)
 is_concordant_rep(fbr::DenseData) = is_concordant_rep(fbr.lvl)
+get_level_rep(fbr::DenseData) = fbr.lvl
+set_level_rep(fbr::DenseData, lvl) = DenseData(lvl)
 
 """
     ExtrudeData(lvl)
@@ -59,6 +65,8 @@ fill_value(fbr::ExtrudeData) = fill_value(fbr.lvl)
 Base.ndims(fbr::ExtrudeData) = 1 + ndims(fbr.lvl)
 Base.eltype(fbr::ExtrudeData) = eltype(fbr.lvl)
 is_concordant_rep(fbr::ExtrudeData) = is_concordant_rep(fbr.lvl)
+get_level_rep(fbr::ExtrudeData) = fbr.lvl
+set_level_rep(fbr::ExtrudeData, lvl) = ExtrudeData(lvl)
 
 """
     HollowData(lvl)
@@ -73,6 +81,8 @@ fill_value(fbr::HollowData) = fill_value(fbr.lvl)
 Base.ndims(fbr::HollowData) = ndims(fbr.lvl)
 Base.eltype(fbr::HollowData) = eltype(fbr.lvl)
 is_concordant_rep(fbr::HollowData) = true
+get_level_rep(fbr::HollowData) = fbr.lvl
+set_level_rep(fbr::HollowData, lvl) = HollowData(lvl)
 
 """
     ElementData(fill_value, eltype)
@@ -115,7 +125,9 @@ collapse_rep(::DenseData, lvl::HollowData) = collapse_rep(SparseData(lvl.lvl))
 collapse_rep(::DenseData, lvl) = DenseData(collapse_rep(lvl))
 
 collapse_rep(fbr::ExtrudeData) = collapse_rep(fbr, collapse_rep(fbr.lvl))
-collapse_rep(::ExtrudeData, lvl::HollowData) = HollowData(collapse_rep(ExtrudeData(lvl.lvl)))
+function collapse_rep(::ExtrudeData, lvl::HollowData)
+    HollowData(collapse_rep(ExtrudeData(lvl.lvl)))
+end
 collapse_rep(::ExtrudeData, lvl) = ExtrudeData(collapse_rep(lvl))
 
 collapse_rep(fbr::SparseData) = collapse_rep(fbr, collapse_rep(fbr.lvl))
@@ -144,20 +156,43 @@ Expand the representation of `tns` by inserting singleton dimensions `dims`.
 """
 function expanddims_rep(tns, dims)
     @assert allunique(dims)
-    @assert issubset(dims,1:ndims(tns) + length(dims))
+    @assert issubset(dims, 1:(ndims(tns) + length(dims)))
     expanddims_rep_def(tns, ndims(tns) + length(dims), dims)
 end
-expanddims_rep_def(tns::HollowData, dim, dims) = HollowData(expanddims_rep_def(tns.lvl, dim, dims))
-expanddims_rep_def(tns::ElementData, dim, dims) =
-    dim in dims ? ExtrudeData(expanddims_rep_def(tns, dim-1, dims)) : tns
-expanddims_rep_def(tns::SparseData, dim, dims) =
-    dim in dims ? ExtrudeData(expanddims_rep_def(tns, dim-1, dims)) : SparseData(expanddims_rep_def(tns.lvl, dim-1, dims))
-expanddims_rep_def(tns::RepeatData, dim, dims) =
-    dim in dims ? ExtrudeData(expanddims_rep_def(tns, dim-1, dims)) : RepeatData(expanddims_rep_def(tns.lvl, dim-1, dims))
-expanddims_rep_def(tns::DenseData, dim, dims) =
-    dim in dims ? ExtrudeData(expanddims_rep_def(tns, dim-1, dims)) : DenseData(expanddims_rep_def(tns.lvl, dim-1, dims))
-expanddims_rep_def(tns::ExtrudeData, dim, dims) =
-    dim in dims ? ExtrudeData(expanddims_rep_def(tns, dim-1, dims)) : ExtrudeData(expanddims_rep_def(tns.lvl, dim-1, dims))
+function expanddims_rep_def(tns::HollowData, dim, dims)
+    HollowData(expanddims_rep_def(tns.lvl, dim, dims))
+end
+function expanddims_rep_def(tns::ElementData, dim, dims)
+    dim in dims ? ExtrudeData(expanddims_rep_def(tns, dim - 1, dims)) : tns
+end
+function expanddims_rep_def(tns::SparseData, dim, dims)
+    if dim in dims
+        ExtrudeData(expanddims_rep_def(tns, dim - 1, dims))
+    else
+        SparseData(expanddims_rep_def(tns.lvl, dim - 1, dims))
+    end
+end
+function expanddims_rep_def(tns::RepeatData, dim, dims)
+    if dim in dims
+        ExtrudeData(expanddims_rep_def(tns, dim - 1, dims))
+    else
+        RepeatData(expanddims_rep_def(tns.lvl, dim - 1, dims))
+    end
+end
+function expanddims_rep_def(tns::DenseData, dim, dims)
+    if dim in dims
+        ExtrudeData(expanddims_rep_def(tns, dim - 1, dims))
+    else
+        DenseData(expanddims_rep_def(tns.lvl, dim - 1, dims))
+    end
+end
+function expanddims_rep_def(tns::ExtrudeData, dim, dims)
+    if dim in dims
+        ExtrudeData(expanddims_rep_def(tns, dim - 1, dims))
+    else
+        ExtrudeData(expanddims_rep_def(tns.lvl, dim - 1, dims))
+    end
+end
 
 struct MapRepHollowStyle end
 struct MapRepExtrudeStyle end
@@ -204,8 +239,12 @@ map_rep_child(r::SparseData) = r.lvl
 map_rep_child(r::DenseData) = r.lvl
 map_rep_child(r::RepeatData) = r.lvl
 
-map_rep_def(::MapRepDenseStyle, f, args) = DenseData(map_rep_def(f, map(map_rep_child, args)))
-map_rep_def(::MapRepExtrudeStyle, f, args) = ExtrudeData(map_rep_def(f, map(map_rep_child, args)))
+function map_rep_def(::MapRepDenseStyle, f, args)
+    DenseData(map_rep_def(f, map(map_rep_child, args)))
+end
+function map_rep_def(::MapRepExtrudeStyle, f, args)
+    ExtrudeData(map_rep_def(f, map(map_rep_child, args)))
+end
 
 function map_rep_def(::MapRepHollowStyle, f, args)
     lvl = map_rep_def(f, map(arg -> arg isa HollowData ? arg.lvl : arg, args))
@@ -216,7 +255,8 @@ function map_rep_def(::MapRepHollowStyle, f, args)
         if arg isa HollowData
             args_2 = map(arg -> value(gensym(), eltype(arg)), collect(args))
             args_2[n] = literal(fill_value(arg))
-            if finch_leaf(simplify(FinchCompiler(), call(f, args_2...))) == literal(fill_value(lvl))
+            if finch_leaf(simplify(FinchCompiler(), call(f, args_2...))) ==
+                literal(fill_value(lvl))
                 return HollowData(lvl)
             end
         end
@@ -233,7 +273,8 @@ function map_rep_def(::MapRepSparseStyle, f, args)
         if arg isa SparseData
             args_2 = map(arg -> value(gensym(), eltype(arg)), collect(args))
             args_2[n] = literal(fill_value(arg))
-            if finch_leaf(simplify(FinchCompiler(), call(f, args_2...))) == literal(fill_value(lvl))
+            if finch_leaf(simplify(FinchCompiler(), call(f, args_2...))) ==
+                literal(fill_value(lvl))
                 return SparseData(lvl)
             end
         end
@@ -250,7 +291,8 @@ function map_rep_def(::MapRepRepeatStyle, f, args)
         if arg isa RepeatData
             args_2 = map(arg -> value(gensym(), eltype(arg)), collect(args))
             args_2[n] = literal(fill_value(arg))
-            if finch_leaf(simplify(FinchCompiler(), call(f, args_2...))) == literal(fill_value(lvl))
+            if finch_leaf(simplify(FinchCompiler(), call(f, args_2...))) ==
+                literal(fill_value(lvl))
                 return RepeatData(lvl)
             end
         end
@@ -259,7 +301,9 @@ function map_rep_def(::MapRepRepeatStyle, f, args)
 end
 
 function map_rep_def(::MapRepElementStyle, f, args)
-    return ElementData(f(map(fill_value, args)...), return_type(DefaultAlgebra(), f, map(eltype, args)...))
+    return ElementData(
+        f(map(fill_value, args)...), return_type(DefaultAlgebra(), f, map(eltype, args)...)
+    )
 end
 
 """
@@ -273,7 +317,9 @@ function aggregate_rep(op, init, tns, dims)
 end
 
 #TODO I think HollowData here is wrong
-aggregate_rep_def(op, z, fbr::HollowData, drops...) = HollowData(aggregate_rep_def(op, z, fbr.lvl, drops...))
+function aggregate_rep_def(op, z, fbr::HollowData, drops...)
+    HollowData(aggregate_rep_def(op, z, fbr.lvl, drops...))
+end
 function aggregate_rep_def(op, z, lvl::HollowData, drop, drops...)
     if op(z, fill_value(lvl)) == z
         HollowData(aggregate_rep_def(op, z, lvl.lvl, drops...))
@@ -310,7 +356,6 @@ function aggregate_rep_def(op, z, lvl::DenseData, drop, drops...)
     end
 end
 
-
 function aggregate_rep_def(op, z, lvl::ExtrudeData, drop, drops...)
     if drop
         aggregate_rep_def(op, z, lvl.lvl, drops...)
@@ -319,7 +364,9 @@ function aggregate_rep_def(op, z, lvl::ExtrudeData, drop, drops...)
     end
 end
 
-aggregate_rep_def(op, z, lvl::ElementData) = ElementData(z, fixpoint_type(op, z, eltype(lvl)))
+function aggregate_rep_def(op, z, lvl::ElementData)
+    ElementData(z, fixpoint_type(op, z, eltype(lvl)))
+end
 
 """
     permutedims_rep(tns, perm)
@@ -331,105 +378,142 @@ function permutedims_rep(tns, perm)
     if length(perm) == 0
         return tns
     end
-    tns_2 = collapse_rep(permutedims_rep_select_def(tns, reverse([i == perm[end] for i = 1:ndims(tns)])...))
-    leaf = permutedims_rep(tns_2, [p - (p > perm[end]) for p in perm[1:end-1]])
-    collapse_rep(permutedims_rep_aggregate_def(leaf, tns, reverse([i != perm[end] for i = 1:ndims(tns)])...))
+    tns_2 = collapse_rep(
+        permutedims_rep_select_def(tns, reverse([i == perm[end] for i in 1:ndims(tns)])...)
+    )
+    leaf = permutedims_rep(tns_2, [p - (p > perm[end]) for p in perm[1:(end - 1)]])
+    collapse_rep(
+        permutedims_rep_aggregate_def(
+            leaf, tns, reverse([i != perm[end] for i in 1:ndims(tns)])...
+        ),
+    )
 end
 
 function permutedims_rep(tns::HollowData, perm)
     return HollowData(permutedims_rep(tns.lvl, perm))
 end
 
-permutedims_rep_aggregate_def(tns, lvl::HollowData, drops...) =
+function permutedims_rep_aggregate_def(tns, lvl::HollowData, drops...)
     permutedims_rep_aggregate_def(tns, lvl.lvl, drops...)
-permutedims_rep_aggregate_def(tns, lvl::SparseData, drop, drops...) = if drop
+end
+function permutedims_rep_aggregate_def(tns, lvl::SparseData, drop, drops...)
+    if drop
         permutedims_rep_aggregate_def(tns, lvl.lvl, drops...)
     else
         SparseData(permutedims_rep_aggregate_def(tns, lvl.lvl, drops...))
     end
-permutedims_rep_aggregate_def(tns, lvl::ExtrudeData, drop, drops...) = if drop
+end
+function permutedims_rep_aggregate_def(tns, lvl::ExtrudeData, drop, drops...)
+    if drop
         permutedims_rep_aggregate_def(tns, lvl.lvl, drops...)
     else
         ExtrudeData(permutedims_rep_aggregate_def(tns, lvl.lvl, drops...))
     end
-permutedims_rep_aggregate_def(tns, lvl::DenseData, drop, drops...) = if drop
+end
+function permutedims_rep_aggregate_def(tns, lvl::DenseData, drop, drops...)
+    if drop
         permutedims_rep_aggregate_def(tns, lvl.lvl, drops...)
     else
         DenseData(permutedims_rep_aggregate_def(tns, lvl.lvl, drops...))
     end
-permutedims_rep_aggregate_def(tns, lvl::RepeatData, drop, drops...) = if drop
+end
+function permutedims_rep_aggregate_def(tns, lvl::RepeatData, drop, drops...)
+    if drop
         permutedims_rep_aggregate_def(tns, lvl.lvl, drops...)
     else
         RepeatData(permutedims_rep_aggregate_def(tns, lvl.lvl, drops...))
     end
+end
 permutedims_rep_aggregate_def(tns, lvl::ElementData) = tns
 
-permutedims_rep_select_def(lvl::SparseData, drop, drops...) = if drop
+function permutedims_rep_select_def(lvl::SparseData, drop, drops...)
+    if drop
         HollowData(permutedims_rep_select_def(lvl.lvl, drops...))
     else
         SparseData(permutedims_rep_select_def(lvl.lvl, drops...))
     end
-permutedims_rep_select_def(lvl::DenseData, drop, drops...) = if drop
+end
+function permutedims_rep_select_def(lvl::DenseData, drop, drops...)
+    if drop
         permutedims_rep_select_def(lvl.lvl, drops...)
     else
         DenseData(permutedims_rep_select_def(lvl.lvl, drops...))
     end
-permutedims_rep_select_def(lvl::ExtrudeData, drop, drops...) = if drop
+end
+function permutedims_rep_select_def(lvl::ExtrudeData, drop, drops...)
+    if drop
         permutedims_rep_select_def(lvl.lvl, drops...)
     else
         ExtrudeData(permutedims_rep_select_def(lvl.lvl, drops...))
     end
-permutedims_rep_select_def(lvl::RepeatData, drop, drops...) = if drop
+end
+function permutedims_rep_select_def(lvl::RepeatData, drop, drops...)
+    if drop
         permutedims_rep_select_def(lvl.lvl, drops...)
     else
         RepeatData(permutedims_rep_select_def(lvl.lvl, drops...))
     end
+end
 permutedims_rep_select_def(lvl::ElementData) = lvl
 
 """
-    rep_construct(tns, protos...)
+    rep_construct(tns, args...)
 
 Construct a tensor suitable to hold data with a representation described by
 `tns`. Assumes representation is collapsed.
 """
 function rep_construct end
-rep_construct(fbr) = rep_construct(fbr, [nothing for _ in 1:ndims(fbr)])
-rep_construct(fbr::HollowData, protos) = rep_construct_hollow(fbr.lvl, protos)
-rep_construct_hollow(fbr::DenseData, protos) = Tensor(construct_level_rep(SparseData(fbr.lvl), protos...))
-rep_construct_hollow(fbr::ExtrudeData, protos) = Tensor(construct_level_rep(SparseData(fbr.lvl), protos...))
-rep_construct_hollow(fbr::RepeatData, protos) = Tensor(construct_level_rep(fbr, protos...))
-rep_construct_hollow(fbr::SparseData, protos) = Tensor(construct_level_rep(fbr, protos...))
-rep_construct(fbr, protos) = Tensor(construct_level_rep(fbr, protos...))
+rep_construct(fbr::HollowData, args...) = rep_construct_hollow(fbr.lvl, args)
+function rep_construct_hollow(fbr::DenseData, args)
+    Tensor(construct_level_rep(SparseData(fbr.lvl)), args...)
+end
+function rep_construct_hollow(fbr::ExtrudeData, args)
+    Tensor(construct_level_rep(SparseData(fbr.lvl)), args...)
+end
+rep_construct_hollow(fbr::RepeatData, args) = Tensor(construct_level_rep(fbr), args...)
+rep_construct_hollow(fbr::SparseData, args) = Tensor(construct_level_rep(fbr), args...)
+rep_construct(fbr, args...) = Tensor(construct_level_rep(fbr), args...)
 
-construct_level_rep(fbr::SparseData, proto::Union{Nothing, typeof(walk), typeof(extrude)}, protos...) = SparseDict(construct_level_rep(fbr.lvl, protos...))
-construct_level_rep(fbr::SparseData, proto::Union{typeof(laminate)}, protos...) = SparseDict(construct_level_rep(fbr.lvl, protos...))
-construct_level_rep(fbr::RepeatData, proto::Union{Nothing, typeof(walk), typeof(extrude)}, protos...) = SparseRunList(construct_level_rep(fbr.lvl, protos...))
-construct_level_rep(fbr::RepeatData, proto::Union{typeof(laminate)}, protos...) = SparseDict(construct_level_rep(fbr.lvl, protos...))
-construct_level_rep(fbr::DenseData, proto, protos...) = Dense(construct_level_rep(fbr.lvl, protos...))
-construct_level_rep(fbr::ExtrudeData, proto, protos...) = Dense(construct_level_rep(fbr.lvl, protos...), 1)
-construct_level_rep(fbr::ElementData) = Element{fbr.fill_value, fbr.eltype}()
+function construct_level_rep(fbr::SparseData)
+    SparseDict(construct_level_rep(fbr.lvl))
+end
+function construct_level_rep(fbr::RepeatData)
+    SparseDict(construct_level_rep(fbr.lvl))
+end
+function construct_level_rep(fbr::DenseData)
+    Dense(construct_level_rep(fbr.lvl))
+end
+function construct_level_rep(fbr::ExtrudeData)
+    Dense(construct_level_rep(fbr.lvl), 1)
+end
+construct_level_rep(fbr::ElementData) = Element{fbr.fill_value,fbr.eltype}()
 
 """
-    fiber_ctr(tns, protos...)
+    fiber_ctr(tns, args...)
 
 Return an expression that would construct a tensor suitable to hold data with a
 representation described by `tns`. Assumes representation is collapsed.
 """
 function fiber_ctr end
-fiber_ctr(fbr) = fiber_ctr(fbr, [nothing for _ in 1:ndims(fbr)])
-fiber_ctr(fbr::HollowData, protos) = fiber_ctr_hollow(fbr.lvl, protos)
-fiber_ctr_hollow(fbr::DenseData, protos) = :(Tensor($(level_ctr(SparseData(fbr.lvl), protos...))))
-fiber_ctr_hollow(fbr::ExtrudeData, protos) = :(Tensor($(level_ctr(SparseData(fbr.lvl), protos...))))
-fiber_ctr_hollow(fbr::SparseData, protos) = :(Tensor($(level_ctr(fbr, protos...))))
-fiber_ctr_hollow(fbr::RepeatData, protos) = :(Tensor($(level_ctr(fbr, protos...))))
-fiber_ctr(fbr, protos) = :(Tensor($(level_ctr(fbr, protos...))))
+fiber_ctr(fbr::HollowData, args...) = fiber_ctr_hollow(fbr.lvl, args)
+function fiber_ctr_hollow(fbr::DenseData, args)
+    :(Tensor($(level_ctr(SparseData(fbr.lvl)))), $(args...))
+end
+function fiber_ctr_hollow(fbr::ExtrudeData, args)
+    :(Tensor($(level_ctr(SparseData(fbr.lvl)))), $(args...))
+end
+fiber_ctr_hollow(fbr::SparseData, args) = :(Tensor($(level_ctr(fbr)), $(args...)))
+fiber_ctr_hollow(fbr::RepeatData, args) = :(Tensor($(level_ctr(fbr)), $(args...)))
+fiber_ctr(fbr, args...) = :(Tensor($(level_ctr(fbr)), $(args...)))
 
-level_ctr(fbr::SparseData, proto::Union{Nothing, typeof(walk), typeof(extrude)}, protos...) = :(SparseDict($(level_ctr(fbr.lvl, protos...))))
-level_ctr(fbr::SparseData, proto::Union{typeof(laminate)}, protos...) = :(SparseDict($(level_ctr(fbr.lvl, protos...))))
-level_ctr(fbr::RepeatData, proto::Union{Nothing, typeof(walk), typeof(extrude)}, protos...) = :(SparseRunList($(level_ctr(fbr.lvl, protos...))))
-level_ctr(fbr::RepeatData, proto::Union{typeof(laminate)}, protos...) = :(SparseDict($(level_ctr(fbr.lvl, protos...))))
-level_ctr(fbr::DenseData, proto, protos...) = :(Dense($(level_ctr(fbr.lvl, protos...))))
-level_ctr(fbr::ExtrudeData, proto, protos...) = :(Dense($(level_ctr(fbr.lvl, protos...)), 1))
-level_ctr(fbr::RepeatData, proto::Union{Nothing, typeof(walk), typeof(extrude)}) = :(Repeat{$(fbr.fill_value), $(fbr.eltype)}())
-level_ctr(fbr::RepeatData, proto::Union{typeof(laminate)}) = level_ctr(DenseData(ElementData(fbr.fill_value, fbr.eltype)), proto)
-level_ctr(fbr::ElementData) = :(Element{$(fbr.fill_value), $(fbr.eltype)}())
+function level_ctr(fbr::SparseData)
+    :(SparseDict($(level_ctr(fbr.lvl))))
+end
+function level_ctr(fbr::RepeatData)
+    :(SparseDict($(level_ctr(fbr.lvl))))
+end
+level_ctr(fbr::DenseData) = :(Dense($(level_ctr(fbr.lvl))))
+function level_ctr(fbr::ExtrudeData)
+    :(Dense($(level_ctr(fbr.lvl)), 1))
+end
+level_ctr(fbr::ElementData) = :(Element{$(fbr.fill_value),$(fbr.eltype)}())

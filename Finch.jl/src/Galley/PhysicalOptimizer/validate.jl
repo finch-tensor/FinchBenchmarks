@@ -11,10 +11,10 @@ function get_input_indices(n::PlanNode)
     elseif n.kind == Alias
         get_index_set(n.stats)
     elseif n.kind == Value
-        Set{IndexExpr}()
-    elseif  n.kind == Aggregate
+        StableSet{IndexExpr}()
+    elseif n.kind == Aggregate
         get_input_indices(n.arg)
-    elseif  n.kind == MapJoin
+    elseif n.kind == MapJoin
         union([get_input_indices(input) for input in n.args]...)
     elseif n.kind == Materialize
         get_input_indices(n.expr)
@@ -28,13 +28,12 @@ function get_output_indices(n::PlanNode)
         get_index_set(n.stats)
     elseif n.kind == Aggregate
         setdiff(get_input_indices(n.arg), n.idxs)
-    elseif  n.kind == MapJoin
+    elseif n.kind == MapJoin
         union([get_input_indices(input) for input in n.args]...)
     elseif n.kind == Materialize
         get_input_indices(n.expr)
     end
 end
-
 
 function get_input_indices_and_dims(n::PlanNode)
     return if n.kind == Input
@@ -43,23 +42,27 @@ function get_input_indices_and_dims(n::PlanNode)
         [(idx, get_dim_size(n.stats, idx)) for idx in get_index_set(n.stats)]
     elseif n.kind == Value
         []
-    elseif  n.kind == Aggregate
+    elseif n.kind == Aggregate
         union([(idx, get_dim_size(n.stats, idx)) for idx in get_index_set(n.stats)],
-                get_input_indices_and_dims(n.arg))
-    elseif  n.kind == MapJoin
+            get_input_indices_and_dims(n.arg))
+    elseif n.kind == MapJoin
         union([(idx, get_dim_size(n.stats, idx)) for idx in get_index_set(n.stats)],
-                [get_input_indices_and_dims(input) for input in n.args]...)
+            [get_input_indices_and_dims(input) for input in n.args]...)
     elseif n.kind == Materialize
         union([(idx, get_dim_size(n.stats, idx)) for idx in get_index_set(n.stats)],
-                get_input_indices_and_dims(n.expr))
+            get_input_indices_and_dims(n.expr))
     end
 end
 
 function check_sorted_inputs(n::PlanNode, loop_order)
     return if n.kind == Input
-        @assert is_sorted_wrt_index_order([idx.name for idx in n.idxs], loop_order; loop_order=true)
+        @assert is_sorted_wrt_index_order(
+            [idx.name for idx in n.idxs], loop_order; loop_order=true
+        )
     elseif n.kind == Alias
-        @assert is_sorted_wrt_index_order(get_index_order(n.stats), loop_order; loop_order=true)
+        @assert is_sorted_wrt_index_order(
+            get_index_order(n.stats), loop_order; loop_order=true
+        )
     elseif n.kind == Aggregate
         check_sorted_inputs(n.arg, loop_order)
     elseif n.kind == MapJoin
@@ -111,16 +114,16 @@ function validate_physical_query(q::PlanNode)
     q = plan_copy(q)
     input_indices = get_input_indices(q.expr)
     indices_and_dims = get_input_indices_and_dims(q.expr)
-    idx_dim = Dict()
-    for (idx,dim) in indices_and_dims
+    idx_dim = OrderedDict()
+    for (idx, dim) in indices_and_dims
         if !haskey(idx_dim, idx)
             idx_dim[idx] = dim
         end
         @assert idx_dim[idx] == dim "idx:$idx dim:$dim query:$q "
     end
-    output_indices = Set([idx.name for idx in q.expr.idx_order])
-    @assert input_indices ∪ output_indices == Set([idx.name for idx in q.loop_order])
-    @assert Set(output_indices) == Set([idx.name for idx in q.expr.idx_order])
+    output_indices = StableSet([idx.name for idx in q.expr.idx_order])
+    @assert input_indices ∪ output_indices == StableSet([idx.name for idx in q.loop_order])
+    @assert StableSet(output_indices) == StableSet([idx.name for idx in q.expr.idx_order])
     check_sorted_inputs(q.expr, [idx.name for idx in q.loop_order])
     check_protocols(q.expr)
     check_formats(q.expr)

@@ -1,11 +1,14 @@
-FinchNotation.finch_leaf(x::Dimensionless) = virtual(x)
-FinchNotation.finch_leaf_instance(x::Dimensionless) = value_instance(x)
-virtualize(ctx, ex, ::Type{Dimensionless}) = dimless
+abstract type AbstractExtent end
+abstract type AbstractVirtualExtent end
 
-getstart(::Dimensionless) = error("asked for start of dimensionless range")
-getstop(::Dimensionless) = error("asked for stop of dimensionless range")
+FinchNotation.finch_leaf(x::Auto) = virtual(x)
+FinchNotation.finch_leaf_instance(x::Auto) = value_instance(x)
+virtualize(ctx, ex, ::Type{Auto}) = auto
 
-struct UnknownDimension end
+getstart(::Auto) = error("asked for start of dimensionless range")
+getstop(::Auto) = error("asked for stop of dimensionless range")
+
+struct UnknownDimension <: AbstractExtent end
 
 resolvedim(ext) = ext
 
@@ -15,7 +18,9 @@ function resultdim(ctx, a, b)
     d = combinedim(ctx, b, a)
     return _resultdim(ctx, a, b, c, d)
 end
-_resultdim(ctx, a, b, c::UnknownDimension, d::UnknownDimension) = throw(MethodError(combinedim, (ctx, a, b)))
+function _resultdim(ctx, a, b, c::UnknownDimension, d::UnknownDimension)
+    throw(MethodError(combinedim, (ctx, a, b)))
+end
 _resultdim(ctx, a, b, c, d::UnknownDimension) = c
 _resultdim(ctx, a, b, c::UnknownDimension, d) = d
 _resultdim(ctx, a, b, c, d) = c #TODO assert same lattice type here.
@@ -33,33 +38,82 @@ combinedim(ctx, ::B, ::A)
 """
 combinedim(ctx, a, b) = UnknownDimension()
 
-combinedim(ctx, a::Dimensionless, b) = b
+combinedim(ctx, a::Auto, b) = b
 
-@kwdef struct Extent
+@kwdef struct Extent{Start,Stop} <: AbstractExtent
+    start::Start
+    stop::Stop
+end
+
+FinchNotation.extent(start::Integer, stop::Integer) = Extent(start, stop)
+
+@kwdef struct VirtualExtent <: AbstractVirtualExtent
     start
     stop
 end
 
-@kwdef struct ContinuousExtent
+function virtualize(ctx, ex, ::Type{Extent{Start,Stop}}) where {Start,Stop}
+    VirtualExtent(
+        virtualize(ctx, :($ex.start), Start),
+        virtualize(ctx, :($ex.stop), Stop),
+    )
+end
+
+function lower(ctx, ex::VirtualExtent)
+    :($Extent($(ctx(ex.start)), $(ctx(ex.stop))))
+end
+
+FinchNotation.finch_leaf(x::VirtualExtent) = virtual(x)
+
+function virtual_call_def(
+    ctx, alg, ::typeof(extent), ::Type{<:Tuple{<:Integer,<:Integer}}, start, stop
+)
+    if isfoldable(start) && isfoldable(stop)
+        VirtualExtent(start, stop)
+    end
+end
+
+@kwdef struct ContinuousExtent{Start,Stop} <: AbstractExtent
+    start::Start
+    stop::Stop
+end
+
+function FinchNotation.extent(start::Union{Real,Limit}, stop::Union{Real,Limit})
+    ContinuousExtent(start, stop)
+end
+
+@kwdef struct VirtualContinuousExtent <: AbstractVirtualExtent
     start
     stop
 end
 
-function virtual_call(ctx, ::typeof(extent), start, stop)
+function virtual_call_def(
+    ctx,
+    alg,
+    ::typeof(extent),
+    ::Type{<:Tuple{<:Union{<:Real,<:Limit},<:Union{<:Real,<:Limit}}},
+    start,
+    stop,
+)
     if isfoldable(start) && isfoldable(stop)
-        Extent(start, stop)
-    end
-end
-function virtual_call(ctx, ::typeof(realextent), start, stop)
-    if isfoldable(start) && isfoldable(stop)
-        ContinuousExtent(start, stop)
+        VirtualContinuousExtent(start, stop)
     end
 end
 
-FinchNotation.finch_leaf(x::Extent) = virtual(x)
-FinchNotation.finch_leaf(x::ContinuousExtent) = virtual(x)
+function virtualize(ctx, ex, ::Type{ContinuousExtent{Start,Stop}}) where {Start,Stop}
+    VirtualExtent(
+        virtualize(ctx, :($ex.start), Start),
+        virtualize(ctx, :($ex.stop), Stop),
+    )
+end
 
-Base.:(==)(a::Extent, b::Extent) =
+function lower(ctx, ex::VirtualContinuousExtent)
+    :($ContinuousExtent($(ctx(ex.start)), $(ctx(ex.stop))))
+end
+
+FinchNotation.finch_leaf(x::VirtualContinuousExtent) = virtual(x)
+
+Base.:(==)(a::VirtualExtent, b::VirtualExtent) =
     a.start == b.start &&
     a.stop == b.stop
 
@@ -67,47 +121,70 @@ bound_below!(val, below) = cached(val, literal(call(max, val, below)))
 
 bound_above!(val, above) = cached(val, literal(call(min, val, above)))
 
-bound_measure_below!(ext::Extent, m) = Extent(ext.start, bound_below!(ext.stop, call(+, ext.start, m)))
-bound_measure_above!(ext::Extent, m) = Extent(ext.start, bound_above!(ext.stop, call(+, ext.start, m)))
+function bound_measure_below!(ext::VirtualExtent, m)
+    VirtualExtent(ext.start, bound_below!(ext.stop, call(+, ext.start, m)))
+end
+function bound_measure_above!(ext::VirtualExtent, m)
+    VirtualExtent(ext.start, bound_above!(ext.stop, call(+, ext.start, m)))
+end
 
-cache_dim!(ctx, var, ext::Extent) = Extent(
-    start = cache!(ctx, Symbol(var, :_start), ext.start),
-    stop = cache!(ctx, Symbol(var, :_stop), ext.stop)
-)
-
-getstart(ext::Extent) = ext.start
-getstop(ext::Extent) = ext.stop
-measure(ext::Extent) = call(+, call(-, ext.stop, ext.start), 1)
-
-combinedim(ctx, a::Extent, b::Extent) =
-    Extent(
-        start = checklim(ctx, a.start, b.start),
-        stop = checklim(ctx, a.stop, b.stop)
+function cache_dim!(ctx, var, ext::VirtualExtent)
+    VirtualExtent(;
+        start=cache!(ctx, Symbol(var, :_start), ext.start),
+        stop=cache!(ctx, Symbol(var, :_stop), ext.stop),
     )
+end
 
-combinedim(ctx, a::Dimensionless, b::Extent) = b
+getstart(ext::VirtualExtent) = ext.start
+getstop(ext::VirtualExtent) = ext.stop
+measure(ext::VirtualExtent) = call(+, call(-, ext.stop, ext.start), 1)
 
-struct SuggestedExtent
+function combinedim(ctx, a::VirtualExtent, b::VirtualExtent)
+    VirtualExtent(;
+        start=checklim(ctx, a.start, b.start),
+        stop=checklim(ctx, a.stop, b.stop),
+    )
+end
+
+combinedim(ctx, a::Auto, b::VirtualExtent) = b
+
+struct SuggestedExtent{Ext} <: AbstractExtent
+    ext::Ext
+end
+
+struct VirtualSuggestedExtent <: AbstractVirtualExtent
     ext
 end
 
-FinchNotation.finch_leaf(x::SuggestedExtent) = virtual(x)
+FinchNotation.finch_leaf(x::VirtualSuggestedExtent) = virtual(x)
 
-Base.:(==)(a::SuggestedExtent, b::SuggestedExtent) = a.ext == b.ext
+function virtualize(ctx, ex, ::Type{SuggestedExtent{Ext}}) where {Ext}
+    VirtualSuggestedExtent(virtualize(ctx, :($ex.ext), Ext))
+end
 
-suggest(ext) = SuggestedExtent(ext)
-suggest(ext::SuggestedExtent) = ext
-suggest(ext::Dimensionless) = dimless
+function lower(ctx, ex::VirtualSuggestedExtent)
+    :($SuggestedExtent($(ctx(ex.ext))))
+end
+
+Base.:(==)(a::VirtualSuggestedExtent, b::VirtualSuggestedExtent) = a.ext == b.ext
+
+suggest(ext) = VirtualSuggestedExtent(ext)
+suggest(ext::VirtualSuggestedExtent) = ext
+suggest(ext::Auto) = auto
 
 resolvedim(ext::Symbol) = error()
-resolvedim(ext::SuggestedExtent) = resolvedim(ext.ext)
-cache_dim!(ctx, tag, ext::SuggestedExtent) = SuggestedExtent(cache_dim!(ctx, tag, ext.ext))
+resolvedim(ext::VirtualSuggestedExtent) = resolvedim(ext.ext)
+function cache_dim!(ctx, tag, ext::VirtualSuggestedExtent)
+    VirtualSuggestedExtent(cache_dim!(ctx, tag, ext.ext))
+end
 
-combinedim(ctx, a::SuggestedExtent, b::Extent) = b
+combinedim(ctx, a::VirtualSuggestedExtent, b::VirtualExtent) = b
 
-combinedim(ctx, a::SuggestedExtent, b::Dimensionless) = a
+combinedim(ctx, a::VirtualSuggestedExtent, b::Auto) = a
 
-combinedim(ctx, a::SuggestedExtent, b::SuggestedExtent) = SuggestedExtent(combinedim(ctx, a.ext, b.ext))
+function combinedim(ctx, a::VirtualSuggestedExtent, b::VirtualSuggestedExtent)
+    VirtualSuggestedExtent(combinedim(ctx, a.ext, b.ext))
+end
 
 function checklim(ctx::AbstractCompiler, a::FinchNode, b::FinchNode)
     shash = get_static_hash(ctx)
@@ -115,77 +192,114 @@ function checklim(ctx::AbstractCompiler, a::FinchNode, b::FinchNode)
         a == b || throw(DimensionMismatch("mismatched dimension limits ($a != $b)"))
     end
     if shash(a) < shash(b) #TODO instead of this, we should introduce a lazy operator to assert equality
-        push_preamble!(ctx, quote
-            $(ctx(a)) == $(ctx(b)) || throw(DimensionMismatch("mismatched dimension limits ($($(ctx(a))) != $($(ctx(b))))"))
-        end)
+        push_preamble!(
+            ctx,
+            quote
+                $(ctx(a)) == $(ctx(b)) || throw(
+                    DimensionMismatch(
+                        "mismatched dimension limits ($($(ctx(a))) != $($(ctx(b))))"
+                    ),
+                )
+            end,
+        )
         a
     else
         b
     end
 end
 
-struct ParallelDimension
+@kwdef struct ParallelDimension{Ext,Device,Schedule} <: AbstractExtent
+    ext::Ext
+    device::Device
+    schedule::Schedule
+end
+
+@kwdef struct VirtualParallelDimension <: AbstractVirtualExtent
     ext
     device
+    schedule
+end
+
+FinchNotation.finch_leaf(x::VirtualParallelDimension) = virtual(x)
+function virtualize(
+    ctx, ex, ::Type{ParallelDimension{Ext,Device,Schedule}}
+) where {Ext,Device,Schedule}
+    VirtualParallelDimension(
+        virtualize(ctx, :($ex.ext), Ext),
+        virtualize(ctx, :($ex.device), Device),
+        virtualize(ctx, :($ex.schedule), Schedule),
+    )
+end
+function lower(ctx, ex::VirtualParallelDimension)
+    :($ParallelDimension($(ctx(ex.ext)), $(ctx(ex.device))))
 end
 
 """
-    parallel(ext, device=CPU(nthreads()))
+    parallel(ext, device=CPU(nthreads()), schedule=static_schedule())
 
-A dimension `ext` that is parallelized over `device`. The `ext` field is usually
+A dimension `ext` that is parallelized over `device` using the `schedule`. The `ext` field is usually
 `_`, or dimensionless, but can be any standard dimension argument.
 """
-parallel(dim, device=CPU(nthreads())) = ParallelDimension(dim, device)
-
-function virtual_call(ctx, ::typeof(parallel), ext)
-    if ext.kind === virtual
-        n = cache!(ctx, :n, value(:(Threads.nthreads()), Int))
-        virtual_call(ctx, parallel, ext, finch_leaf(VirtualCPU(nothing, n)))
-    end
+function parallel(dim, device=cpu(Threads.nthreads()), schedule=static_schedule())
+    ParallelDimension(dim, device, schedule)
 end
 
-function virtual_call(ctx, ::typeof(parallel), ext, device)
-    device = resolve(ctx, device) #TODO this feels broken
-    if ext.kind === virtual
-        ParallelDimension(ext.val, device)
-    end
+function virtual_call_def(
+    ctx,
+    alg,
+    ::typeof(parallel),
+    ::Any,
+    ext,
+    device=finch_leaf(virtual_call(ctx, cpu)),
+    schedule=finch_leaf(VirtualFinchStaticSchedule(:dynamic)),
+)
+    ext = resolve(ctx, ext)
+    device = resolve(ctx, device)
+    schedule = resolve(ctx, schedule)
+    VirtualParallelDimension(ext, device, schedule)
 end
 
-FinchNotation.finch_leaf(x::ParallelDimension) = virtual(x)
+Base.:(==)(a::VirtualParallelDimension, b::VirtualParallelDimension) = a.ext == b.ext
 
-Base.:(==)(a::ParallelDimension, b::ParallelDimension) = a.ext == b.ext
+getstart(ext::VirtualParallelDimension) = getstart(ext.ext)
+getstop(ext::VirtualParallelDimension) = getstop(ext.ext)
 
-getstart(ext::ParallelDimension) = getstart(ext.ext)
-getstop(ext::ParallelDimension) = getstop(ext.ext)
-
-combinedim(ctx, a::ParallelDimension, b::Extent) = ParallelDimension(resultdim(ctx, a.ext, b), a.device)
-combinedim(ctx, a::ParallelDimension, b::SuggestedExtent) = a
-function combinedim(ctx, a::ParallelDimension, b::ParallelDimension)
+function combinedim(ctx, a::VirtualParallelDimension, b::VirtualExtent)
+    VirtualParallelDimension(resultdim(ctx, a.ext, b), a.device, a.schedule)
+end
+combinedim(ctx, a::VirtualParallelDimension, b::VirtualSuggestedExtent) = a
+function combinedim(ctx, a::VirtualParallelDimension, b::VirtualParallelDimension)
     @assert a.device == b.device
-    ParallelDimension(combinedim(ctx, a.ext, b.ext), a.device)
+    @assert a.schedule == b.schedule
+    VirtualParallelDimension(combinedim(ctx, a.ext, b.ext), a.device, a.schedule)
 end
 
-resolvedim(ext::ParallelDimension) = ParallelDimension(resolvedim(ext.ext), ext.device)
-cache_dim!(ctx, tag, ext::ParallelDimension) = ParallelDimension(cache_dim!(ctx, tag, ext.ext), ext.device)
+function resolvedim(ext::VirtualParallelDimension)
+    VirtualParallelDimension(resolvedim(ext.ext), ext.device, ext.schedule)
+end
+function cache_dim!(ctx, tag, ext::VirtualParallelDimension)
+    VirtualParallelDimension(cache_dim!(ctx, tag, ext.ext), ext.device, ext.schedule)
+end
 
-promote_rule(::Type{Extent}, ::Type{Extent}) = Extent
+promote_rule(::Type{VirtualExtent}, ::Type{VirtualExtent}) = VirtualExtent
 
-function shiftdim(ext::Extent, delta)
-    Extent(
-        start = call(+, ext.start, delta),
-        stop = call(+, ext.stop, delta)
+function shiftdim(ext::VirtualExtent, delta)
+    VirtualExtent(;
+        start=call(+, ext.start, delta),
+        stop=call(+, ext.stop, delta),
     )
 end
-function shiftdim(ext::ContinuousExtent, delta)
-    ContinuousExtent(
-        start = call(+, ext.start, delta),
-        stop = call(+, ext.stop, delta)
+function shiftdim(ext::VirtualContinuousExtent, delta)
+    VirtualContinuousExtent(;
+        start=call(+, ext.start, delta),
+        stop=call(+, ext.stop, delta),
     )
 end
 
-
-shiftdim(ext::Dimensionless, delta) = dimless
-shiftdim(ext::ParallelDimension, delta) = ParallelDimension(ext, shiftdim(ext.ext, delta), ext.device)
+shiftdim(ext::Auto, delta) = auto
+function shiftdim(ext::VirtualParallelDimension, delta)
+    VirtualParallelDimension(ext, shiftdim(ext.ext, delta), ext.device, ext.schedule)
+end
 
 function shiftdim(ext::FinchNode, body)
     if ext.kind === virtual
@@ -195,21 +309,23 @@ function shiftdim(ext::FinchNode, body)
     end
 end
 
-function scaledim(ext::Extent, scale)
-    Extent(
-        start = call(*, ext.start, scale),
-        stop = call(*, ext.stop, scale)
+function scaledim(ext::VirtualExtent, scale)
+    VirtualExtent(;
+        start=call(*, ext.start, scale),
+        stop=call(*, ext.stop, scale),
     )
 end
-function scaledim(ext::ContinuousExtent, scale)
-    ContinuousExtent(
-        start = call(*, ext.start, scale),
-        stop = call(*, ext.stop, scale)
+function scaledim(ext::VirtualContinuousExtent, scale)
+    VirtualContinuousExtent(;
+        start=call(*, ext.start, scale),
+        stop=call(*, ext.stop, scale),
     )
 end
 
-scaledim(ext::Dimensionless, scale) = dimless
-scaledim(ext::ParallelDimension, scale) = ParallelDimension(ext, scaledim(ext.ext, scale), ext.device)
+scaledim(ext::Auto, scale) = auto
+function scaledim(ext::VirtualParallelDimension, scale)
+    VirtualParallelDimension(ext, scaledim(ext.ext, scale), ext.device, ext.schedule)
+end
 
 function scaledim(ext::FinchNode, body)
     if ext.kind === virtual
@@ -219,7 +335,6 @@ function scaledim(ext::FinchNode, body)
     end
 end
 
-
 #virtual_intersect(ctx, a, b) = virtual_intersect(ctx, promote(a, b)...)
 function virtual_intersect(ctx, a, b)
     println(a, b)
@@ -227,87 +342,108 @@ function virtual_intersect(ctx, a, b)
     error()
 end
 
-virtual_intersect(ctx, a::Dimensionless, b) = b
-virtual_intersect(ctx, a, b::Dimensionless) = a
-virtual_intersect(ctx, a::Dimensionless, b::Dimensionless) = b
+virtual_intersect(ctx, a::Auto, b) = b
+virtual_intersect(ctx, a, b::Auto) = a
+virtual_intersect(ctx, a::Auto, b::Auto) = b
 
-function virtual_intersect(ctx, a::Extent, b::Extent)
-    Extent(
-        start = call(max, getstart(a), getstart(b)),
-        stop = call(min, getstop(a), getstop(b))
+function virtual_intersect(ctx, a::VirtualExtent, b::VirtualExtent)
+    VirtualExtent(;
+        start=call(max, getstart(a), getstart(b)),
+        stop=call(min, getstop(a), getstop(b)),
     )
 end
 
-virtual_union(ctx, a::Dimensionless, b) = b
-virtual_union(ctx, a, b::Dimensionless) = a
-virtual_union(ctx, a::Dimensionless, b::Dimensionless) = b
+virtual_union(ctx, a::Auto, b) = b
+virtual_union(ctx, a, b::Auto) = a
+virtual_union(ctx, a::Auto, b::Auto) = b
 
 #virtual_union(ctx, a, b) = virtual_union(ctx, promote(a, b)...)
-function virtual_union(ctx, a::Extent, b::Extent)
-    Extent(
-        start = call(min, getstart(a), getstart(b)),
-        stop = call(max, getstop(a), getstop(b))
+function virtual_union(ctx, a::VirtualExtent, b::VirtualExtent)
+    VirtualExtent(;
+        start=call(min, getstart(a), getstart(b)),
+        stop=call(max, getstop(a), getstop(b)),
     )
 end
 
-make_extent(::Type, start, stop) = throw(ArgumentError("Unsupported type"))
-make_extent(::Type{T}, start, stop) where T <: Integer = Extent(start, stop)
-make_extent(::Type{T}, start, stop) where T <: Real = ContinuousExtent(start, stop)
-make_extent(::Type{T}, start, stop) where T <: Limit = ContinuousExtent(start, stop)
-
-similar_extent(ext::Extent, start, stop) = Extent(start, stop)
-similar_extent(ext::ContinuousExtent, start, stop) = ContinuousExtent(start, stop)
-similar_extent(ext::FinchNode, start, stop) = ext.kind === virtual ? similar_extent(ext.val, start, stop) : similar_extent(ext, start, stop)
+similar_extent(ext::VirtualExtent, start, stop) = VirtualExtent(start, stop)
+function similar_extent(ext::VirtualContinuousExtent, start, stop)
+    VirtualContinuousExtent(start, stop)
+end
+function similar_extent(ext::FinchNode, start, stop)
+    if ext.kind === virtual
+        similar_extent(ext.val, start, stop)
+    else
+        similar_extent(ext, start, stop)
+    end
+end
 
 is_continuous_extent(x) = false # generic
-is_continuous_extent(x::ContinuousExtent) = true
-is_continuous_extent(x::FinchNode) = x.kind === virtual ? is_continuous_extent(x.val) : is_continuous_extent(x)
+is_continuous_extent(x::VirtualContinuousExtent) = true
+function is_continuous_extent(x::FinchNode)
+    x.kind === virtual ? is_continuous_extent(x.val) : is_continuous_extent(x)
+end
 
-Base.:(==)(a::ContinuousExtent, b::ContinuousExtent) = a.start == b.start && a.stop == b.stop
-Base.:(==)(a::Extent, b::ContinuousExtent) = throw(ArgumentError("Extent and ContinuousExtent cannot interact ...yet"))
+function Base.:(==)(a::VirtualContinuousExtent, b::VirtualContinuousExtent)
+    a.start == b.start && a.stop == b.stop
+end
+function Base.:(==)(a::VirtualExtent, b::VirtualContinuousExtent)
+    throw(ArgumentError("VirtualExtent and VirtualContinuousExtent cannot interact ...yet"))
+end
 
-bound_measure_below!(ext::ContinuousExtent, m) = ContinuousExtent(ext.start, bound_below!(ext.stop, call(+, ext.start, m)))
-bound_measure_above!(ext::ContinuousExtent, m) = ContinuousExtent(ext.start, bound_above!(ext.stop, call(+, ext.start, m)))
+function bound_measure_below!(ext::VirtualContinuousExtent, m)
+    VirtualContinuousExtent(ext.start, bound_below!(ext.stop, call(+, ext.start, m)))
+end
+function bound_measure_above!(ext::VirtualContinuousExtent, m)
+    VirtualContinuousExtent(ext.start, bound_above!(ext.stop, call(+, ext.start, m)))
+end
 
-cache_dim!(ctx, var, ext::ContinuousExtent) = ContinuousExtent(
-    start = cache!(ctx, Symbol(var, :_start), ext.start),
-    stop = cache!(ctx, Symbol(var, :_stop), ext.stop)
-)
-
-getunit(ext::Extent) = literal(1)
-getunit(ext::ContinuousExtent) = Eps
-getunit(ext::FinchNode) = ext.kind === virtual ? getunit(ext.val) : ext
-
-get_smallest_measure(ext::Extent) = literal(1)
-get_smallest_measure(ext::ContinuousExtent) = literal(0)
-get_smallest_measure(ext::FinchNode) = ext.kind === virtual ? get_smallest_measure(ext.val) : ext
-
-getstart(ext::ContinuousExtent) = ext.start
-getstart(ext::FinchNode) = ext.kind === virtual ? getstart(ext.val) : ext
-
-getstop(ext::ContinuousExtent) = ext.stop
-getstop(ext::FinchNode) = ext.kind === virtual ? getstop(ext.val) : ext
-
-measure(ext::ContinuousExtent) = call(-, ext.stop, ext.start) # TODO: Think carefully, Not quite sure!
-
-combinedim(ctx, a::ContinuousExtent, b::ContinuousExtent) = ContinuousExtent(checklim(ctx, a.start, b.start), checklim(ctx, a.stop, b.stop))
-combinedim(ctx, a::Dimensionless, b::ContinuousExtent) = b
-combinedim(ctx, a::Extent, b::ContinuousExtent) = throw(ArgumentError("Extent and ContinuousExtent cannot interact ...yet"))
-
-combinedim(ctx, a::SuggestedExtent, b::ContinuousExtent) = b
-
-is_continuous_extent(x::ParallelDimension) = is_continuous_extent(x.dim)
-
-function virtual_intersect(ctx, a::ContinuousExtent, b::ContinuousExtent)
-    ContinuousExtent(
-        start = call(max, getstart(a), getstart(b)),
-        stop = call(min, getstop(a), getstop(b))
+function cache_dim!(ctx, var, ext::VirtualContinuousExtent)
+    VirtualContinuousExtent(;
+        start=cache!(ctx, Symbol(var, :_start), ext.start),
+        stop=cache!(ctx, Symbol(var, :_stop), ext.stop),
     )
 end
 
-function virtual_union(ctx, a::ContinuousExtent, b::ContinuousExtent)
-    ContinuousExtent(
-        start = call(min, getstart(a), getstart(b)),
-        stop = call(max, getstop(a), getstop(b))
+getunit(ext::VirtualExtent) = literal(1)
+getunit(ext::VirtualContinuousExtent) = Eps
+getunit(ext::FinchNode) = ext.kind === virtual ? getunit(ext.val) : ext
+
+get_smallest_measure(ext::VirtualExtent) = literal(1)
+get_smallest_measure(ext::VirtualContinuousExtent) = literal(0)
+function get_smallest_measure(ext::FinchNode)
+    ext.kind === virtual ? get_smallest_measure(ext.val) : ext
+end
+
+getstart(ext::VirtualContinuousExtent) = ext.start
+getstart(ext::FinchNode) = ext.kind === virtual ? getstart(ext.val) : ext
+
+getstop(ext::VirtualContinuousExtent) = ext.stop
+getstop(ext::FinchNode) = ext.kind === virtual ? getstop(ext.val) : ext
+
+measure(ext::VirtualContinuousExtent) = call(-, ext.stop, ext.start) # TODO: Think carefully, Not quite sure!
+
+function combinedim(ctx, a::VirtualContinuousExtent, b::VirtualContinuousExtent)
+    VirtualContinuousExtent(checklim(ctx, a.start, b.start), checklim(ctx, a.stop, b.stop))
+end
+combinedim(ctx, a::Auto, b::VirtualContinuousExtent) = b
+function combinedim(ctx, a::VirtualExtent, b::VirtualContinuousExtent)
+    throw(ArgumentError("VirtualExtent and VirtualContinuousExtent cannot interact ...yet"))
+end
+
+combinedim(ctx, a::VirtualSuggestedExtent, b::VirtualContinuousExtent) = b
+
+is_continuous_extent(x::VirtualParallelDimension) = is_continuous_extent(x.ext)
+
+function virtual_intersect(ctx, a::VirtualContinuousExtent, b::VirtualContinuousExtent)
+    VirtualContinuousExtent(;
+        start=call(max, getstart(a), getstart(b)),
+        stop=call(min, getstop(a), getstop(b)),
+    )
+end
+
+function virtual_union(ctx, a::VirtualContinuousExtent, b::VirtualContinuousExtent)
+    VirtualContinuousExtent(;
+        start=call(min, getstart(a), getstart(b)),
+        stop=call(max, getstop(a), getstop(b)),
     )
 end

@@ -1,5 +1,6 @@
 @kwdef mutable struct VirtualAbstractUnitRange
-    ex
+    tag
+    data
     target
     arrtype
     eltype
@@ -10,33 +11,35 @@ function lower(ctx::AbstractCompiler, arr::VirtualAbstractUnitRange, ::DefaultSt
 end
 
 function virtualize(ctx, ex, arrtype::Type{<:AbstractUnitRange{T}}, tag=:tns) where {T}
-    sym = freshen(ctx, tag)
-    push_preamble!(ctx, :($sym = $ex))
-    target = Extent(value(:(first($sym)), T), value(:(last($sym)), T))
-    VirtualAbstractUnitRange(sym, target, arrtype, T)
+    tag = freshen(ctx, tag)
+    data = freshen(ctx, tag, :_data)
+    push_preamble!(ctx, :($data = $ex))
+    target = VirtualExtent(value(:(first($data)), T), value(:(last($data)), T))
+    VirtualAbstractUnitRange(tag, data, target, arrtype, T)
 end
 
 function virtual_size(ctx::AbstractCompiler, arr::VirtualAbstractUnitRange)
-    return [Extent(literal(1), value(:(length($(arr.ex))), Int)),]
+    return [VirtualExtent(literal(1), value(:(length($(arr.data))), Int))]
 end
 
 virtual_resize!(ctx::AbstractCompiler, arr::VirtualAbstractUnitRange, idx_dim) = arr
-
-function unfurl(ctx, arr::VirtualAbstractUnitRange, ext, mode, proto)
-    Unfurled(
-        arr = arr,
-        body = Lookup(
-            body = (ctx, i) -> FillLeaf(value(:($(arr.ex)[$(ctx(i))])))
-        )
-    )
-end
 
 function declare!(ctx::AbstractCompiler, arr::VirtualAbstractUnitRange, init)
     throw(FinchProtocolError("$(arr.arrtype) is not writeable"))
 end
 
-unfurl(ctx::AbstractCompiler, arr::VirtualAbstractUnitRange, ext, mode::Updater, proto) =
-    throw(FinchProtocolError("$(arr.arrtype) is not writeable"))
+function unfurl(ctx::AbstractCompiler, arr::VirtualAbstractUnitRange, ext, mode, proto)
+    if mode.kind === reader
+        Unfurled(;
+            arr=arr,
+            body=Lookup(;
+                body=(ctx, i) -> FillLeaf(value(:($(arr.data)[$(ctx(i))])))
+            ),
+        )
+    else
+        throw(FinchProtocolError("$(arr.arrtype) is not writeable"))
+    end
+end
 
 FinchNotation.finch_leaf(x::VirtualAbstractUnitRange) = virtual(x)
 

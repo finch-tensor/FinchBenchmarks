@@ -9,18 +9,22 @@ after simplification so one can expect constants to be folded.
 """
 function get_wrapper_rules(ctx, depth, alg)
     return [
-        (@rule access(~A, ~m, ~i1..., call(~proto::isliteral, ~j), ~i2...) => if isprotocol(proto.val)
-            protos = ([nothing for _ in i1]..., proto.val, [nothing for _ in i2]...)
-            access(call(protocolize, A, protos...), m, i1..., j, i2...)
-        end),
-        (@rule call(protocolize, call(protocolize, ~A, ~protos_1...), ~protos_2...) => begin
-            protos_3 = map(protos_1, protos_2) do proto_1, proto_2
-                something(getval(proto_1), getval(proto_2), Some(nothing))
-            end
-            call(protocolize, A, protos_3...)
-        end),
+        (@rule access(~A, ~m, ~i1..., call(~proto::isliteral, ~j), ~i2...) =>
+            if isprotocol(proto.val)
+                protos = ([nothing for _ in i1]..., proto.val, [nothing for _ in i2]...)
+                access(call(protocolize, A, protos...), m, i1..., j, i2...)
+            end),
+        (@rule call(protocolize, call(protocolize, ~A, ~protos_1...), ~protos_2...) =>
+            begin
+                protos_3 = map(protos_1, protos_2) do proto_1, proto_2
+                    something(getval(proto_1), getval(proto_2), Some(nothing))
+                end
+                call(protocolize, A, protos_3...)
+            end),
         (@rule call(protocolize, call(swizzle, ~A, ~sigma...), ~protos...) =>
-            call(swizzle, call(protocolize, A, protos[invperm(getval.(sigma))]...), sigma...)),
+            call(
+                swizzle, call(protocolize, A, protos[invperm(getval.(sigma))]...), sigma...
+            )),
         (@rule access(~A, ~m, ~i1..., call($(~), ~j), ~i2...) => begin
             dims = ([false for _ in i1]..., true, [false for _ in i2]...)
             access(call(permissive, A, dims...), m, i1..., j, i2...)
@@ -72,7 +76,9 @@ function get_wrapper_rules(ctx, depth, alg)
             end
             call(scale, A, factors_3...)
         end),
-        (@rule access(~A, ~m, ~i1::(All(isindex))..., call(+, ~j1..., ~k, ~j2...), ~i2...) => begin
+        (@rule access(
+            ~A, ~m, ~i1::(All(isindex))..., call(+, ~j1..., ~k, ~j2...), ~i2...
+        ) => begin
             if (!isempty(j1) || !isempty(j2))
                 k_2 = call(+, ~j1..., ~j2...)
                 if depth(k_2) < depth(k) && depth(k_2) != 0
@@ -82,68 +88,75 @@ function get_wrapper_rules(ctx, depth, alg)
         end),
         (@rule call(<, ~i, ~j::isindex) => begin
             if depth(i) < depth(j)
-                access(VirtualLoTriMask(), reader, j, call(+, i, 1))
+                access(VirtualLoTriMask(), reader(), j, call(+, i, 1))
             end
         end),
         (@rule call(<, ~i::isindex, ~j) => begin
             if depth(i) > depth(j)
-                access(VirtualUpTriMask(), reader, i, call(-, j, 1))
+                access(VirtualUpTriMask(), reader(), i, call(-, j, 1))
             end
         end),
         (@rule call(<=, ~i, ~j::isindex) => begin
             if depth(i) < depth(j)
-                access(VirtualLoTriMask(), reader, j, i)
+                access(VirtualLoTriMask(), reader(), j, i)
             end
         end),
         (@rule call(<=, ~i::isindex, ~j) => begin
             if depth(i) > depth(j)
-                access(VirtualUpTriMask(), reader, i, j)
+                access(VirtualUpTriMask(), reader(), i, j)
             end
         end),
         (@rule call(>, ~i, ~j::isindex) => begin
             if depth(i) < depth(j)
-                access(VirtualUpTriMask(), reader, j, call(-, i, 1))
+                access(VirtualUpTriMask(), reader(), j, call(-, i, 1))
             end
         end),
         (@rule call(>, ~i::isindex, ~j) => begin
             if depth(i) > depth(j)
-                access(VirtualLoTriMask(), reader, i, call(+, j, 1))
+                access(VirtualLoTriMask(), reader(), i, call(+, j, 1))
             end
         end),
         (@rule call(>=, ~i, ~j::isindex) => begin
             if depth(i) < depth(j)
-                access(VirtualUpTriMask(), reader, j, i)
+                access(VirtualUpTriMask(), reader(), j, i)
             end
         end),
         (@rule call(>=, ~i::isindex, ~j) => begin
             if depth(i) > depth(j)
-                access(VirtualLoTriMask(), reader, i, j)
+                access(VirtualLoTriMask(), reader(), i, j)
             end
         end),
         (@rule call(==, ~i, ~j::isindex) => begin
             if depth(i) < depth(j)
-                access(VirtualDiagMask(), reader, j, i)
+                access(VirtualDiagMask(), reader(), j, i)
             end
         end),
         (@rule call(==, ~i::isindex, ~j) => begin
             if depth(i) > depth(j)
-                access(VirtualDiagMask(), reader, i, j)
+                access(VirtualDiagMask(), reader(), i, j)
             end
         end),
         (@rule call(!=, ~i, ~j::isindex) => begin
             if depth(i) < depth(j)
-                call(!, access(VirtualDiagMask(), reader, j, i))
+                call(!, access(VirtualDiagMask(), reader(), j, i))
             end
         end),
         (@rule call(!=, ~i::isindex, ~j) => begin
             if depth(i) > depth(j)
-                call(!, access(VirtualDiagMask(), reader, i, j))
+                call(!, access(VirtualDiagMask(), reader(), i, j))
             end
         end),
         (@rule call(toeplitz, call(swizzle, ~A, ~sigma...), ~dim...) => begin
             sigma = getval.(sigma)
             idim = invperm(sigma)[dim]
-            call(swizzle, call(toeplitz, A, idim), sigma[1:idim-1]..., sigma[idim], sigma[idim], sigma[idim+1:end]...)
+            call(
+                swizzle,
+                call(toeplitz, A, idim),
+                sigma[1:(idim - 1)]...,
+                sigma[idim],
+                sigma[idim],
+                sigma[(idim + 1):end]...,
+            )
         end),
         (@rule access(~A, ~m, ~i1..., call(+, ~j1..., ~k, ~j2...), ~i2...) => begin
             if !isempty(j1) || !isempty(j2)
@@ -162,19 +175,18 @@ function get_wrapper_rules(ctx, depth, alg)
         end),
         (@rule call(offset, call(swizzle, ~A, ~sigma...), ~delta...) =>
             call(swizzle, call(offset, A, delta[invperm(getval.(sigma))]...), sigma...)),
-        (@rule access(~A, ~m, ~i1..., call(call(extent, ~start, ~stop), ~k), ~i2...) => begin
-            A_2 = call(window, A, [nothing for _ in i1]..., call(extent, start, stop), [nothing for _ in i2]...)
-            A_3 = call(offset, A_2, [0 for _ in i1]..., call(-, start, 1), [0 for _ in i2]...)
-            access(A_3, m, i1..., k, i2...)
-        end),
-        (@rule access(~A, ~m, ~i1..., call(~I::isvirtual, ~k), ~i2...) => if I.val isa Extent
-            A_2 = call(window, A, [nothing for _ in i1]..., I, [nothing for _ in i2]...)
-            A_3 = call(offset, A_2, [0 for _ in i1]..., call(-, getstart(I), 1), [0 for _ in i2]...)
-            access(A_3, m, i1..., k, i2...)
-        end),
-        (@rule assign(access(~a, updater, ~i...), initwrite, ~rhs) => begin
-            assign(access(a, updater, i...), call(initwrite, call(fill_value, a)), rhs)
-        end),
+        (@rule access(~A, ~m, ~i1..., call(~I::isvirtual, ~k), ~i2...) =>
+            if I.val isa AbstractVirtualExtent
+                A_2 = call(window, A, [nothing for _ in i1]..., I, [nothing for _ in i2]...)
+                A_3 = call(
+                    offset,
+                    A_2,
+                    [0 for _ in i1]...,
+                    call(-, getstart(I.val), 1),
+                    [0 for _ in i2]...,
+                )
+                access(A_3, m, i1..., k, i2...)
+            end),
         (@rule call(swizzle, call(swizzle, ~A, ~sigma_1...), ~sigma_2...) =>
             call(swizzle, A, sigma_1[getval.(sigma_2)]...)),
         (@rule access(call(swizzle, ~A, ~sigma...), ~m, ~i...) =>
@@ -208,21 +220,28 @@ semantics of the wrapper.
 function wrapperize(ctx::AbstractCompiler, root)
     depth = depth_calculator(root)
     root = unwrap_roots(ctx, root)
-    root = Rewrite(Prewalk(
+    root = Rewrite(
+        Prewalk(
         (@rule loop(~idx, ~ext, ~body) => begin
             counts = OrderedDict()
             for node in PostOrderDFS(body)
-                if @capture(node, access(~tn, reader, ~idxs...))
+                if @capture(node, access(~tn, reader(), ~idxs...))
                     counts[node] = get(counts, node, 0) + 1
                 end
             end
             applied = false
             for (node, count) in counts
                 if depth(idx) == depth(node)
-                    if @capture(node, access(~tn, reader, ~idxs...)) && count > 1
-                        var = variable(Symbol(freshen(ctx, tn.val), "_", join([idx.val for idx in idxs])))
+                    if @capture(node, access(~tn, reader(), ~idxs...)) && count > 1
+                        var = variable(
+                            Symbol(
+                                freshen(ctx, tn.val),
+                                "_",
+                                join([idx.val for idx in idxs]),
+                            ),
+                        )
                         body = Postwalk(@rule node => var)(body)
-                        body = define(var, access(tn, reader, idxs...), body)
+                        body = define(var, access(tn, reader(), idxs...), body)
                         applied = true
                     end
                 end
@@ -231,10 +250,19 @@ function wrapperize(ctx::AbstractCompiler, root)
                 loop(idx, ext, body)
             end
         end)
-    ))(root)
-    root = Rewrite(Fixpoint(Chain([
-        Postwalk(Fixpoint(Chain(get_wrapper_rules(ctx, depth, ctx.algebra))))
-    ])))(root)
+    ),
+    )(
+        root
+    )
+    root = Rewrite(
+        Fixpoint(
+            Chain([
+                Postwalk(Fixpoint(Chain(get_wrapper_rules(ctx, depth, ctx.algebra))))
+            ]),
+        ),
+    )(
+        root
+    )
     evaluate_partial(ctx, root)
 end
 
@@ -250,21 +278,28 @@ function unwrap(ctx, x, var)
 end
 
 function unwrap_roots(ctx, root)
-    tnss = unique(filter(!isnothing, map(PostOrderDFS(root)) do node
-        if @capture(node, access(~A, ~m, ~i...))
-            if getroot(A) === nothing
-                @info "Hi" (A)
+    tnss = unique(filter(
+        !isnothing,
+        map(PostOrderDFS(root)) do node
+            if @capture(node, access(~A, ~m, ~i...))
+                if getroot(A) === nothing
+                    @info "Hi" (A)
+                end
+                getroot(A)
+            elseif @capture(node, declare(~A, ~i, ~op))
+                A
+            elseif @capture(node, freeze(~A, ~op))
+                A
+            elseif @capture(node, thaw(~A, ~op))
+                A
             end
-            getroot(A)
-        elseif @capture(node, declare(~A, ~i))
-            A
-        elseif @capture(node, freeze(~A))
-            A
-        elseif @capture(node, thaw(~A))
-            A
-        end
-    end))
-    root = Rewrite(Postwalk(@rule access(~A, ~m, ~i...) => access(unwrap(ctx, A, getroot(A)), m, i...)))(root)
+        end,
+    ))
+    root = Rewrite(
+        Postwalk(@rule access(~A, ~m, ~i...) => access(unwrap(ctx, A, getroot(A)), m, i...))
+    )(
+        root
+    )
     for tns in tnss
         @assert isvariable(tns)
         @assert has_binding(ctx, tns) "root tensor variable $tns is not defined as a global binding"
@@ -273,11 +308,17 @@ function unwrap_roots(ctx, root)
         if val_2 != tns
             #@info "Unwrapping" tns val val_2
             root = Rewrite(Postwalk(@rule tns => val_2))(root)
-            root = Rewrite(Postwalk(Chain([
-                (@rule declare(val_2, ~i) => declare(tns, i)),
-                (@rule freeze(val_2) => freeze(tns)),
-                (@rule thaw(val_2) => thaw(tns)),
-            ])))(root)
+            root = Rewrite(
+                Postwalk(
+                    Chain([
+                        (@rule declare(val_2, ~i, ~op) => declare(tns, i, op)),
+                        (@rule freeze(val_2, ~op) => freeze(tns, op)),
+                        (@rule thaw(val_2, ~op) => thaw(tns, op)),
+                    ]),
+                ),
+            )(
+                root
+            )
         end
     end
     root

@@ -34,7 +34,7 @@ julia> tensor_tree(Tensor(SparseDict(SparseDict(Element(0.0))), [10 0 20; 30 0 0
 
 ```
 """
-struct SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl} <: AbstractLevel
+struct SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl} <: AbstractLevel
     lvl::Lvl
     shape::Ti
     ptr::Ptr
@@ -49,42 +49,81 @@ const SparseDict = SparseDictLevel
 SparseDictLevel(lvl) = SparseDictLevel{Int}(lvl)
 SparseDictLevel(lvl, shape::Ti) where {Ti} = SparseDictLevel{Ti}(lvl, shape)
 SparseDictLevel{Ti}(lvl) where {Ti} = SparseDictLevel{Ti}(lvl, zero(Ti))
-SparseDictLevel{Ti}(lvl, shape) where {Ti} = SparseDictLevel{Ti}(lvl, shape, postype(lvl)[1], Ti[], postype(lvl)[], Dict{Tuple{postype(lvl), Ti}, postype(lvl)}(), postype(lvl)[])
+function SparseDictLevel{Ti}(lvl, shape) where {Ti}
+    SparseDictLevel{Ti}(
+        lvl,
+        shape,
+        postype(lvl)[1],
+        Ti[],
+        postype(lvl)[],
+        Dict{Tuple{postype(lvl),Ti},postype(lvl)}(),
+        postype(lvl)[],
+    )
+end
 
-SparseDictLevel{Ti}(lvl::Lvl, shape, ptr::Ptr, idx::Idx, val::Val, tbl::Tbl, pool::Pool) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl} =
-    SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}(lvl, shape, ptr, idx, val, tbl, pool)
+function SparseDictLevel{Ti}(
+    lvl::Lvl, shape, ptr::Ptr, idx::Idx, val::Val, tbl::Tbl, pool::Pool
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}
+    SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}(lvl, shape, ptr, idx, val, tbl, pool)
+end
 
 Base.summary(lvl::SparseDictLevel) = "SparseDict($(summary(lvl.lvl)))"
-similar_level(lvl::SparseDictLevel, fill_value, eltype::Type, dim, tail...) =
+function similar_level(lvl::SparseDictLevel, fill_value, eltype::Type, dim, tail...)
     SparseDict(similar_level(lvl.lvl, fill_value, eltype, tail...), dim)
+end
 
-function postype(::Type{SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}}) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}
+function postype(
+    ::Type{SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}}
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}
     return postype(Lvl)
 end
 
-Base.resize!(lvl::SparseDictLevel{Ti}, dims...) where {Ti} =
-    SparseDictLevel{Ti}(resize!(lvl.lvl, dims[1:end-1]...), dims[end], lvl.ptr, lvl.idx, lvl.val, lvl.tbl, lvl.pool)
+function Base.resize!(lvl::SparseDictLevel{Ti}, dims...) where {Ti}
+    SparseDictLevel{Ti}(
+        resize!(lvl.lvl, dims[1:(end - 1)]...),
+        dims[end],
+        lvl.ptr,
+        lvl.idx,
+        lvl.val,
+        lvl.tbl,
+        lvl.pool,
+    )
+end
 
-function moveto(lvl::SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}, Tm) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}
-    lvl_2 = moveto(lvl.lvl, Tm)
-    ptr_2 = moveto(lvl.ptr, Tm)
-    idx_2 = moveto(lvl.idx, Tm)
-    val_2 = moveto(lvl.val, Tm)
-    tbl_2 = moveto(lvl.tbl, Tm)
-    pool_2 = moveto(lvl.pool, Tm)
+function transfer(
+    Tm, lvl::SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}
+    lvl_2 = transfer(Tm, lvl.lvl)
+    ptr_2 = transfer(Tm, lvl.ptr)
+    idx_2 = transfer(Tm, lvl.idx)
+    val_2 = transfer(Tm, lvl.val)
+    tbl_2 = transfer(Tm, lvl.tbl)
+    pool_2 = transfer(Tm, lvl.pool)
     return SparseDictLevel{Ti}(lvl_2, lvl.shape, ptr_2, idx_2, val_2, tbl_2, pool_2)
 end
 
 function countstored_level(lvl::SparseDictLevel, pos)
     pos == 0 && return countstored_level(lvl.lvl, pos)
-    countstored_level(lvl.lvl, lvl.ptr[pos + 1]  - 1)
+    countstored_level(lvl.lvl, lvl.ptr[pos + 1] - 1)
 end
 
-pattern!(lvl::SparseDictLevel{Ti}) where {Ti} =
-    SparseDictLevel{Ti}(pattern!(lvl.lvl), lvl.shape, lvl.ptr, lvl.idx, lvl.val, lvl.tbl, lvl.pool)
+function pattern!(lvl::SparseDictLevel{Ti}) where {Ti}
+    SparseDictLevel{Ti}(
+        pattern!(lvl.lvl), lvl.shape, lvl.ptr, lvl.idx, lvl.val, lvl.tbl, lvl.pool
+    )
+end
 
-set_fill_value!(lvl::SparseDictLevel{Ti}, init) where {Ti} =
-    SparseDictLevel{Ti}(set_fill_value!(lvl.lvl, init), lvl.shape, lvl.ptr, lvl.idx, lvl.val, lvl.tbl, lvl.pool)
+function set_fill_value!(lvl::SparseDictLevel{Ti}, init) where {Ti}
+    SparseDictLevel{Ti}(
+        set_fill_value!(lvl.lvl, init),
+        lvl.shape,
+        lvl.ptr,
+        lvl.idx,
+        lvl.val,
+        lvl.tbl,
+        lvl.pool,
+    )
+end
 
 function Base.show(io::IO, lvl::SparseDictLevel{Ti}) where {Ti}
     if get(io, :compact, false)
@@ -94,7 +133,7 @@ function Base.show(io::IO, lvl::SparseDictLevel{Ti}) where {Ti}
     end
     show(io, lvl.lvl)
     print(io, ", ")
-    show(IOContext(io, :typeinfo=>Ti), lvl.shape)
+    show(IOContext(io, :typeinfo => Ti), lvl.shape)
     print(io, ", ")
     if get(io, :compact, false)
         print(io, "…")
@@ -112,39 +151,68 @@ function Base.show(io::IO, lvl::SparseDictLevel{Ti}) where {Ti}
     print(io, ")")
 end
 
-labelled_show(io::IO, fbr::SubFiber{<:SparseDictLevel}) =
-    print(io, "SparseDict (", fill_value(fbr), ") [", ":,"^(ndims(fbr) - 1), "1:", size(fbr)[end], "]")
+function labelled_show(io::IO, fbr::SubFiber{<:SparseDictLevel})
+    print(
+        io,
+        "SparseDict (",
+        fill_value(fbr),
+        ") [",
+        ":,"^(ndims(fbr) - 1),
+        "1:",
+        size(fbr)[end],
+        "]",
+    )
+end
 
 function labelled_children(fbr::SubFiber{<:SparseDictLevel})
     lvl = fbr.lvl
     pos = fbr.pos
     pos + 1 > length(lvl.ptr) && return []
-    map(lvl.ptr[pos]:lvl.ptr[pos + 1] - 1) do qos
-        LabelledTree(cartesian_label([range_label() for _ = 1:ndims(fbr) - 1]..., lvl.idx[qos]), SubFiber(lvl.lvl, lvl.val[qos]))
+    map(lvl.ptr[pos]:(lvl.ptr[pos + 1] - 1)) do qos
+        LabelledTree(
+            cartesian_label([range_label() for _ in 1:(ndims(fbr) - 1)]..., lvl.idx[qos]),
+            SubFiber(lvl.lvl, lvl.val[qos]),
+        )
     end
 end
 
-@inline level_ndims(::Type{<:SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}}) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl} = 1 + level_ndims(Lvl)
+@inline level_ndims(
+    ::Type{<:SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}}
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl} = 1 + level_ndims(Lvl)
 @inline level_size(lvl::SparseDictLevel) = (level_size(lvl.lvl)..., lvl.shape)
 @inline level_axes(lvl::SparseDictLevel) = (level_axes(lvl.lvl)..., Base.OneTo(lvl.shape))
-@inline level_eltype(::Type{<:SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}}) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl} = level_eltype(Lvl)
-@inline level_fill_value(::Type{<:SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}}) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl} = level_fill_value(Lvl)
-data_rep_level(::Type{<:SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}}) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl} = SparseData(data_rep_level(Lvl))
+@inline level_eltype(
+    ::Type{<:SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}}
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl} = level_eltype(Lvl)
+@inline level_fill_value(
+    ::Type{<:SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}}
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl} = level_fill_value(Lvl)
+function data_rep_level(
+    ::Type{<:SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}}
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}
+    SparseData(data_rep_level(Lvl))
+end
+
+function isstructequal(a::T, b::T) where {T<:SparseDict}
+    a.shape == b.shape &&
+        a.tbl == b.tbl &&
+        isstructequal(a.lvl, b.lvl)
+end
 
 (fbr::AbstractFiber{<:SparseDictLevel})() = fbr
 function (fbr::SubFiber{<:SparseDictLevel{Ti}})(idxs...) where {Ti}
     isempty(idxs) && return fbr
     lvl = fbr.lvl
     p = fbr.pos
-    crds = @view lvl.idx[lvl.ptr[p]:lvl.ptr[p + 1] - 1]
+    crds = @view lvl.idx[lvl.ptr[p]:(lvl.ptr[p + 1] - 1)]
     r = searchsorted(crds, idxs[end])
     q = lvl.ptr[p] + first(r) - 1
-    length(r) == 0 ? fill_value(fbr) : SubFiber(lvl.lvl, lvl.val[q])(idxs[1:end-1]...)
+    length(r) == 0 ? fill_value(fbr) : SubFiber(lvl.lvl, lvl.val[q])(idxs[1:(end - 1)]...)
 end
 
 mutable struct VirtualSparseDictLevel <: AbstractVirtualLevel
+    tag
     lvl
-    ex
     Ti
     ptr
     idx
@@ -155,7 +223,9 @@ mutable struct VirtualSparseDictLevel <: AbstractVirtualLevel
     qos_stop
 end
 
-is_level_injective(ctx, lvl::VirtualSparseDictLevel) = [is_level_injective(ctx, lvl.lvl)..., false]
+function is_level_injective(ctx, lvl::VirtualSparseDictLevel)
+    [is_level_injective(ctx, lvl.lvl)..., false]
+end
 function is_level_atomic(ctx, lvl::VirtualSparseDictLevel)
     (below, atomic) = is_level_atomic(ctx, lvl.lvl)
     return ([below; [atomic]], atomic)
@@ -165,26 +235,32 @@ function is_level_concurrent(ctx, lvl::VirtualSparseDictLevel)
     return ([data; [false]], false)
 end
 
-function virtualize(ctx, ex, ::Type{SparseDictLevel{Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}}, tag=:lvl) where {Ti, Ptr, Idx, Val, Tbl, Pool, Lvl}
-    sym = freshen(ctx, tag)
+function virtualize(
+    ctx, ex, ::Type{SparseDictLevel{Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}}, tag=:lvl
+) where {Ti,Ptr,Idx,Val,Tbl,Pool,Lvl}
+    tag = freshen(ctx, tag)
     ptr = freshen(ctx, tag, :_ptr)
     idx = freshen(ctx, tag, :_idx)
     val = freshen(ctx, tag, :_val)
     tbl = freshen(ctx, tag, :_tbl)
     pool = freshen(ctx, tag, :_pool)
+    stop = freshen(ctx, tag, :_stop)
+    push_preamble!(
+        ctx,
+        quote
+            $tag = $ex
+            $ptr = $tag.ptr
+            $idx = $tag.idx
+            $val = $tag.val
+            $tbl = $tag.tbl
+            $pool = $tag.pool
+            $stop = $tag.shape
+        end,
+    )
     qos_stop = freshen(ctx, tag, :_qos_stop)
-    push_preamble!(ctx, quote
-        $sym = $ex
-        $ptr = $sym.ptr
-        $idx = $sym.idx
-        $val = $sym.val
-        $tbl = $sym.tbl
-        $pool = $sym.pool
-        $qos_stop = length($tbl)
-    end)
-    lvl_2 = virtualize(ctx, :($sym.lvl), Lvl, sym)
-    shape = value(:($sym.shape), Int)
-    VirtualSparseDictLevel(lvl_2, sym, Ti, ptr, idx, val, tbl, pool, shape, qos_stop)
+    shape = value(stop, Int)
+    lvl_2 = virtualize(ctx, :($tag.lvl), Lvl, tag)
+    VirtualSparseDictLevel(tag, lvl_2, Ti, ptr, idx, val, tbl, pool, shape, qos_stop)
 end
 function lower(ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, ::DefaultStyle)
     quote
@@ -200,16 +276,52 @@ function lower(ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, ::DefaultStyl
     end
 end
 
+function distribute_level(
+    ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, arch, diff, style
+)
+    return diff[lvl.tag] = VirtualSparseDictLevel(
+        lvl.tag,
+        distribute_level(ctx, lvl.lvl, arch, diff, style),
+        lvl.Ti,
+        distribute_buffer(ctx, lvl.ptr, arch, style),
+        distribute_buffer(ctx, lvl.idx, arch, style),
+        distribute_buffer(ctx, lvl.val, arch, style),
+        distribute_buffer(ctx, lvl.tbl, arch, style),
+        distribute_buffer(ctx, lvl.pool, arch, style),
+        lvl.shape,
+        lvl.qos_stop,
+    )
+end
+
+function redistribute(ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, diff)
+    get(
+        diff,
+        lvl.tag,
+        VirtualSparseDictLevel(
+            lvl.tag,
+            redistribute(ctx, lvl.lvl, diff),
+            lvl.Ti,
+            lvl.ptr,
+            lvl.idx,
+            lvl.val,
+            lvl.tbl,
+            lvl.pool,
+            lvl.shape,
+            lvl.qos_stop,
+        ),
+    )
+end
+
 Base.summary(lvl::VirtualSparseDictLevel) = "SparseDict($(summary(lvl.lvl)))"
 
 function virtual_level_size(ctx, lvl::VirtualSparseDictLevel)
-    ext = make_extent(lvl.Ti, literal(lvl.Ti(1)), lvl.shape)
+    ext = virtual_call(ctx, extent, literal(lvl.Ti(1)), lvl.shape)
     (virtual_level_size(ctx, lvl.lvl)..., ext)
 end
 
 function virtual_level_resize!(ctx, lvl::VirtualSparseDictLevel, dims...)
     lvl.shape = getstop(dims[end])
-    lvl.lvl = virtual_level_resize!(ctx, lvl.lvl, dims[1:end-1]...)
+    lvl.lvl = virtual_level_resize!(ctx, lvl.lvl, dims[1:(end - 1)]...)
     lvl
 end
 
@@ -223,12 +335,15 @@ function declare_level!(ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, pos,
     Ti = lvl.Ti
     Tp = postype(lvl)
     qos = freshen(ctx, tag, :qos)
-    push_preamble!(ctx, quote
-        empty!($(lvl.tbl))
-        empty!($(lvl.pool))
-        $qos = $(Tp(0))
-        $(lvl.qos_stop) = 0
-    end)
+    push_preamble!(
+        ctx,
+        quote
+            empty!($(lvl.tbl))
+            empty!($(lvl.pool))
+            $qos = $(Tp(0))
+            $(lvl.qos_stop) = 0
+        end,
+    )
     lvl.lvl = declare_level!(ctx, lvl.lvl, value(qos, Tp), init)
     return lvl
 end
@@ -255,38 +370,41 @@ function freeze_level!(ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, pos_s
     pdx_tmp = freshen(ctx, :pdx_tmp)
     entry = freshen(ctx, :entry)
     ptr_2 = freshen(ctx, :ptr_2)
-    push_preamble!(ctx, quote
-        resize!($(lvl.ptr), $(ctx(pos_stop)) + 1)
-        $(lvl.ptr)[1] = 1
-        Finch.fill_range!($(lvl.ptr), 0, 2, $(ctx(pos_stop)) + 1)
-        $pdx_tmp = Vector{$Tp}(undef, length($(lvl.tbl)))
-        resize!($(lvl.idx), length($(lvl.tbl)))
-        resize!($(lvl.val), length($(lvl.tbl)))
-        $idx_tmp = Vector{$Ti}(undef, length($(lvl.tbl)))
-        $val_tmp = Vector{$Tp}(undef, length($(lvl.tbl)))
-        $q = 0
-        for $entry in pairs($(lvl.tbl))
-            (($p, $i), $v) = $entry
-            $q += 1
-            $idx_tmp[$q] = $i
-            $val_tmp[$q] = $v
-            $pdx_tmp[$q] = $p
-            $(lvl.ptr)[$p + 1] += 1
-        end
-        for $p = 2:$(ctx(pos_stop)) + 1
-            $(lvl.ptr)[$p] += $(lvl.ptr)[$p - 1]
-        end
-        $perm = sortperm($idx_tmp)
-        $ptr_2 = copy($(lvl.ptr))
-        for $q in $perm
-            $p = $pdx_tmp[$q]
-            $r = $ptr_2[$p]
-            $(lvl.idx)[$r] = $idx_tmp[$q]
-            $(lvl.val)[$r] = $val_tmp[$q]
-            $ptr_2[$p] += 1
-        end
-        $qos_stop = $(lvl.ptr)[$(ctx(pos_stop)) + 1] - 1
-    end)
+    push_preamble!(
+        ctx,
+        quote
+            resize!($(lvl.ptr), $(ctx(pos_stop)) + 1)
+            $(lvl.ptr)[1] = 1
+            Finch.fill_range!($(lvl.ptr), 0, 2, $(ctx(pos_stop)) + 1)
+            $pdx_tmp = Vector{$Tp}(undef, length($(lvl.tbl)))
+            resize!($(lvl.idx), length($(lvl.tbl)))
+            resize!($(lvl.val), length($(lvl.tbl)))
+            $idx_tmp = Vector{$Ti}(undef, length($(lvl.tbl)))
+            $val_tmp = Vector{$Tp}(undef, length($(lvl.tbl)))
+            $q = 0
+            for $entry in pairs($(lvl.tbl))
+                (($p, $i), $v) = $entry
+                $q += 1
+                $idx_tmp[$q] = $i
+                $val_tmp[$q] = $v
+                $pdx_tmp[$q] = $p
+                $(lvl.ptr)[$p + 1] += 1
+            end
+            for $p in 2:($(ctx(pos_stop)) + 1)
+                $(lvl.ptr)[$p] += $(lvl.ptr)[$p - 1]
+            end
+            $perm = sortperm($idx_tmp)
+            $ptr_2 = copy($(lvl.ptr))
+            for $q in $perm
+                $p = $pdx_tmp[$q]
+                $r = $ptr_2[$p]
+                $(lvl.idx)[$r] = $idx_tmp[$q]
+                $(lvl.val)[$r] = $val_tmp[$q]
+                $ptr_2[$p] += 1
+            end
+            $qos_stop = $(lvl.ptr)[$(ctx(pos_stop)) + 1] - 1
+        end,
+    )
     lvl.lvl = freeze_level!(ctx, lvl.lvl, value(qos_stop))
     return lvl
 end
@@ -294,30 +412,25 @@ end
 function thaw_level!(ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, pos_stop)
     p = freshen(ctx, :p)
     pos_stop = ctx(cache!(ctx, :pos_stop, simplify(ctx, pos_stop)))
-    push_preamble!(ctx, quote
-        $(lvl.qos_stop) = $(lvl.ptr)[$(ctx(pos_stop)) + 1] - 1
-    end)
+    push_preamble!(
+        ctx,
+        quote
+            $(lvl.qos_stop) = $(lvl.ptr)[$(ctx(pos_stop)) + 1] - 1
+        end,
+    )
     lvl.lvl = thaw_level!(ctx, lvl.lvl, value(lvl.qos_stop))
     return lvl
 end
 
-function virtual_moveto_level(ctx::AbstractCompiler, lvl::VirtualSparseDictLevel, arch)
-    ptr_2 = freshen(ctx, lvl.ptr)
-    idx_2 = freshen(ctx, lvl.idx)
-    tbl_2 = freshen(ctx, lvl.tbl_2)
-    push_preamble!(ctx, quote
-        $tbl_2 = $(lvl.tbl)
-        $(lvl.tbl) = $moveto($(lvl.tbl), $(ctx(arch)))
-    end)
-    push_epilogue!(ctx, quote
-        $(lvl.tbl) = $tbl_2
-    end)
-    virtual_moveto_level(ctx, lvl.lvl, arch)
-end
-
-function unfurl(ctx, fbr::VirtualSubFiber{VirtualSparseDictLevel}, ext, mode::Reader, ::Union{typeof(defaultread), typeof(walk)})
+function unfurl(
+    ctx,
+    fbr::VirtualSubFiber{VirtualSparseDictLevel},
+    ext,
+    mode,
+    ::Union{typeof(defaultread),typeof(walk)},
+)
     (lvl, pos) = (fbr.lvl, fbr.pos)
-    tag = lvl.ex
+    tag = lvl.tag
     Tp = postype(lvl)
     Ti = lvl.Ti
     my_i = freshen(ctx, tag, :_i)
@@ -326,8 +439,8 @@ function unfurl(ctx, fbr::VirtualSubFiber{VirtualSparseDictLevel}, ext, mode::Re
     my_i1 = freshen(ctx, tag, :_i1)
     my_v = freshen(ctx, tag, :_v)
 
-    Thunk(
-        preamble = quote
+    Thunk(;
+        preamble=quote
             $my_q = $(lvl.ptr)[$(ctx(pos))]
             $my_q_stop = $(lvl.ptr)[$(ctx(pos)) + $(Tp(1))]
             if $my_q < $my_q_stop
@@ -338,69 +451,98 @@ function unfurl(ctx, fbr::VirtualSubFiber{VirtualSparseDictLevel}, ext, mode::Re
                 $my_i1 = $(Ti(0))
             end
         end,
-        body = (ctx) -> Sequence([
-            Phase(
-                stop = (ctx, ext) -> value(my_i1),
-                body = (ctx, ext) -> Stepper(
-                    seek = (ctx, ext) -> quote
+        body=(ctx) -> Sequence([
+            Phase(;
+                stop=(ctx, ext) -> value(my_i1),
+                body=(ctx, ext) -> Stepper(;
+                    seek=(ctx, ext) -> quote
                         if $(lvl.idx)[$my_q] < $(ctx(getstart(ext)))
-                            $my_q = Finch.scansearch($(lvl.idx), $(ctx(getstart(ext))), $my_q, $my_q_stop - 1)
+                            $my_q = Finch.scansearch(
+                                $(lvl.idx),
+                                $(ctx(getstart(ext))),
+                                $my_q,
+                                $my_q_stop - 1,
+                            )
                             $my_i = $(lvl.idx)[$my_q]
                         end
                     end,
-                    preamble = quote
+                    preamble=quote
                         $my_i = $(lvl.idx)[$my_q]
                         $my_v = $(lvl.val)[$my_q]
                     end,
-                    stop = (ctx, ext) -> value(my_i),
-                    chunk = Spike(
-                        body = FillLeaf(virtual_level_fill_value(lvl)),
-                        tail = Simplify(instantiate(ctx, VirtualSubFiber(lvl.lvl, value(my_v, Ti)), mode)),
+                    stop=(ctx, ext) -> value(my_i),
+                    chunk=Spike(;
+                        body=FillLeaf(virtual_level_fill_value(lvl)),
+                        tail=Simplify(
+                            instantiate(
+                                ctx, VirtualSubFiber(lvl.lvl, value(my_v, Ti)), mode
+                            ),
+                        ),
                     ),
-                    next = (ctx, ext) -> :($my_q += $(Tp(1)))
-                )
+                    next=(ctx, ext) -> :($my_q += $(Tp(1))),
+                ),
             ),
-            Phase(
-                body = (ctx, ext) -> Run(FillLeaf(virtual_level_fill_value(lvl)))
-            )
-        ])
+            Phase(;
+                body=(ctx, ext) -> Run(FillLeaf(virtual_level_fill_value(lvl)))
+            ),
+        ]),
     )
 end
 
-function unfurl(ctx, fbr::VirtualSubFiber{VirtualSparseDictLevel}, ext, mode::Reader, ::typeof(follow))
+function unfurl(
+    ctx, fbr::VirtualSubFiber{VirtualSparseDictLevel}, ext, mode, ::typeof(follow)
+)
     (lvl, pos) = (fbr.lvl, fbr.pos)
-    tag = lvl.ex
+    tag = lvl.tag
     Tp = postype(lvl)
     my_q = freshen(ctx, tag, :_q)
 
-    Lookup(
-        body = (ctx, i) -> Thunk(
-            preamble = quote
+    Lookup(;
+        body=(ctx, i) -> Thunk(;
+            preamble=quote
                 $my_q = get($(lvl.tbl), ($(ctx(pos)), $(ctx(i))), 0)
             end,
-            body = (ctx) -> Switch([
-                value(:($my_q != 0)) => instantiate(ctx, VirtualSubFiber(lvl.lvl, value(my_q, Tp)), mode)
-                literal(true) => FillLeaf(virtual_level_fill_value(lvl))
-            ])
-        )
+            body=(ctx) -> Switch(
+                [
+                    value(:($my_q != 0)) => instantiate(
+                        ctx, VirtualSubFiber(lvl.lvl, value(my_q, Tp)), mode
+                    )
+                    literal(true) => FillLeaf(virtual_level_fill_value(lvl))
+                ],
+            ),
+        ),
     )
 end
 
-unfurl(ctx, fbr::VirtualSubFiber{VirtualSparseDictLevel}, ext, mode::Updater, proto) = begin
-    unfurl(ctx, VirtualHollowSubFiber(fbr.lvl, fbr.pos, freshen(ctx, :null)), ext, mode, proto)
+function unfurl(
+    ctx,
+    fbr::VirtualSubFiber{VirtualSparseDictLevel},
+    ext,
+    mode,
+    proto::Union{typeof(defaultupdate),typeof(extrude)},
+)
+    unfurl(
+        ctx, VirtualHollowSubFiber(fbr.lvl, fbr.pos, freshen(ctx, :null)), ext, mode, proto
+    )
 end
-function unfurl(ctx, fbr::VirtualHollowSubFiber{VirtualSparseDictLevel}, ext, mode::Updater, ::Union{typeof(defaultupdate), typeof(extrude)})
+function unfurl(
+    ctx,
+    fbr::VirtualHollowSubFiber{VirtualSparseDictLevel},
+    ext,
+    mode,
+    ::Union{typeof(defaultupdate),typeof(extrude)},
+)
     (lvl, pos) = (fbr.lvl, fbr.pos)
-    tag = lvl.ex
+    tag = lvl.tag
     Tp = postype(lvl)
     qos = freshen(ctx, tag, :_qos)
     qos_stop = lvl.qos_stop
     dirty = freshen(ctx, tag, :_dirty)
 
-    Thunk(
-        body = (ctx) -> Lookup(
-            body = (ctx, idx) -> Thunk(
-                preamble = quote
+    Thunk(;
+        body=(ctx) -> Lookup(;
+            body=(ctx, idx) -> Thunk(;
+                preamble=quote
                     $qos = get($(lvl.tbl), ($(ctx(pos)), $(ctx(idx))), 0)
                     if $qos == 0
                         #If the qos is not in the table, we need to add it.
@@ -412,7 +554,15 @@ function unfurl(ctx, fbr::VirtualHollowSubFiber{VirtualSparseDictLevel}, ext, mo
                             $qos = length($(lvl.tbl)) + 1
                             if $qos > $qos_stop
                                 $qos_stop = max($qos_stop << 1, 1)
-                                $(contain(ctx_2->assemble_level!(ctx_2, lvl.lvl, value(qos, Tp), value(qos_stop, Tp)), ctx))
+                                $(contain(
+                                    ctx_2 -> assemble_level!(
+                                        ctx_2,
+                                        lvl.lvl,
+                                        value(qos, Tp),
+                                        value(qos_stop, Tp),
+                                    ),
+                                    ctx,
+                                ))
                                 Finch.resize_if_smaller!($(lvl.val), $qos_stop)
                                 Finch.fill_range!($(lvl.val), 0, $qos, $qos_stop)
                             end
@@ -421,8 +571,12 @@ function unfurl(ctx, fbr::VirtualHollowSubFiber{VirtualSparseDictLevel}, ext, mo
                     end
                     $dirty = false
                 end,
-                body = (ctx) -> instantiate(ctx, VirtualHollowSubFiber(lvl.lvl, value(qos, Tp), dirty), mode),
-                epilogue = quote
+                body=(ctx) -> instantiate(
+                    ctx,
+                    VirtualHollowSubFiber(lvl.lvl, value(qos, Tp), dirty),
+                    mode,
+                ),
+                epilogue=quote
                     if $dirty
                         $(lvl.val)[$qos] = $qos
                         $(fbr.dirty) = true
@@ -430,8 +584,45 @@ function unfurl(ctx, fbr::VirtualHollowSubFiber{VirtualSparseDictLevel}, ext, mo
                         push!($(lvl.pool), $qos)
                         delete!($(lvl.tbl), ($(ctx(pos)), $(ctx(idx))))
                     end
-                end
-            )
+                end,
+            ),
         ),
     )
+end
+
+function coalesce_level!(
+    lvl::SparseDictLevel, global_fbr_map, local_fbr_map, task_map, factor, P, coalescent
+)
+    if factor > 1
+        global_fbr_map, local_fbr_map, task_map = unroll_dense_coalesce(
+            global_fbr_map, local_fbr_map, task_map, factor, P
+        )
+        factor = 1
+    end
+
+    #lvl.idx and lvl.ptr should be MultiChannelBuffers
+    idx = lvl.idx.data
+    ptr = lvl.ptr.data
+    max_level_dim = global_fbr_map[length(global_fbr_map)]
+    cutoffs = compute_proc_cutoffs(idx, P)
+
+    #Don't merge zero-ed arrays.
+    if cutoffs[P + 1] == 1
+        return coalescent
+    end
+
+    pos_map, idx_map, lfm, tm = gen_pos_idx_map(
+        global_fbr_map, local_fbr_map, task_map, ptr, idx, cutoffs, P
+    )
+    global_fbr_map, local_fbr_map, task_map, ptr_2, idx_2 = process_next_lvl(
+        pos_map, idx_map, tm, lfm, P, max_level_dim
+    )
+
+    tbl_2 = Dict((pos_map[x], idx_map[x]) => global_fbr_map[x] for x in eachindex(pos_map))
+
+    SparseDictLevel(
+        coalesce_level!(
+            lvl.lvl, global_fbr_map, local_fbr_map, task_map, factor, P, coalescent.lvl
+        ),
+        lvl.shape, ptr_2, idx_2, global_fbr_map, tbl_2, Vector{Int}(undef, 0))
 end
