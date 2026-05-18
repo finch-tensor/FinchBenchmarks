@@ -18,7 +18,7 @@ graphs/pyvenv.cfg
 images/output/*
 */Manifest.toml
 Manifest.toml
-# old/*
+old/*
 morphology/output/*
 */manifest.toml
 opencv/*

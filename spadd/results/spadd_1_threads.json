@@ -1,0 +1,16 @@
+[
+    {
+        "time": 0.0005791,
+        "n_threads": 1,
+        "method": "eigen_impl",
+        "dataset": "diff_sizes",
+        "matrix": "FIDAP/ex27"
+    },
+    {
+        "time": 0.0006944000000000001,
+        "n_threads": 1,
+        "method": "mkl_impl",
+        "dataset": "diff_sizes",
+        "matrix": "FIDAP/ex27"
+    }
+]

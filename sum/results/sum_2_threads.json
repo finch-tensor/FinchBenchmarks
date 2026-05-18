@@ -1,0 +1,166 @@
+[
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i5",
+        "method": "coalesce_impl",
+        "n_threads": 2,
+        "time": 1.07e-5
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i5",
+        "method": "taco_impl",
+        "n_threads": 2,
+        "time": 0.000185899
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i5",
+        "method": "eigen_impl",
+        "n_threads": 2,
+        "time": 0.0001088
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i5",
+        "method": "mkl_impl",
+        "n_threads": 2,
+        "time": 0.0
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i4",
+        "method": "coalesce_impl",
+        "n_threads": 2,
+        "time": 1.05e-5
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i4",
+        "method": "taco_impl",
+        "n_threads": 2,
+        "time": 0.00018600000000000002
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i4",
+        "method": "eigen_impl",
+        "n_threads": 2,
+        "time": 0.0001761
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i4",
+        "method": "mkl_impl",
+        "n_threads": 2,
+        "time": 0.0
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i2",
+        "method": "coalesce_impl",
+        "n_threads": 2,
+        "time": 1.12e-5
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i2",
+        "method": "taco_impl",
+        "n_threads": 2,
+        "time": 0.00020290000000000003
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i2",
+        "method": "eigen_impl",
+        "n_threads": 2,
+        "time": 0.0001286
+    },
+    {
+        "dataset": "FlowIPM22",
+        "matrix": "FlowIPM22/uni_chimera_i2",
+        "method": "mkl_impl",
+        "n_threads": 2,
+        "time": 0.0
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 1.0e-5
+        },
+        "method": "coalesce_impl",
+        "n_threads": 2,
+        "time": 1.13e-5
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 1.0e-5
+        },
+        "method": "taco_impl",
+        "n_threads": 2,
+        "time": 0.0001866
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 1.0e-5
+        },
+        "method": "eigen_impl",
+        "n_threads": 2,
+        "time": 0.450167515
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 1.0e-5
+        },
+        "method": "mkl_impl",
+        "n_threads": 2,
+        "time": 1.0000000000000002e-6
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 0.1
+        },
+        "method": "coalesce_impl",
+        "n_threads": 2,
+        "time": 0.007148399
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 0.1
+        },
+        "method": "taco_impl",
+        "n_threads": 2,
+        "time": 0.0041537990000000006
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 0.1
+        },
+        "method": "eigen_impl",
+        "n_threads": 2,
+        "time": 1.1615704390000001
+    },
+    {
+        "dataset": "uniform",
+        "matrix": {
+            "size": 100000000,
+            "sparsity": 0.1
+        },
+        "method": "mkl_impl",
+        "n_threads": 2,
+        "time": 0.044759506000000004
+    }
+]

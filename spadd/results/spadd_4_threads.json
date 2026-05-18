@@ -1,0 +1,218 @@
+[
+    {
+        "time": 0.001066813,
+        "n_threads": 4,
+        "method": "serial_default_implementation",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 1024,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.00033214,
+        "n_threads": 4,
+        "method": "shard_implementation",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 1024,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.001533253,
+        "n_threads": 4,
+        "method": "eigen_impl",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 1024,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.000401338,
+        "n_threads": 4,
+        "method": "mkl_impl",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 1024,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.163370111,
+        "n_threads": 4,
+        "method": "serial_default_implementation",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 131072,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.053704199,
+        "n_threads": 4,
+        "method": "shard_implementation",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 131072,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.279576066,
+        "n_threads": 4,
+        "method": "eigen_impl",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 131072,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.073490231,
+        "n_threads": 4,
+        "method": "mkl_impl",
+        "dataset": "uniform_a",
+        "matrix": {
+            "size": 131072,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.00331268,
+        "n_threads": 4,
+        "method": "serial_default_implementation",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Da"
+    },
+    {
+        "time": 0.001149896,
+        "n_threads": 4,
+        "method": "shard_implementation",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Da"
+    },
+    {
+        "time": 0.004794782,
+        "n_threads": 4,
+        "method": "eigen_impl",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Da"
+    },
+    {
+        "time": 0.001648071,
+        "n_threads": 4,
+        "method": "mkl_impl",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Da"
+    },
+    {
+        "time": 0.025249292,
+        "n_threads": 4,
+        "method": "serial_default_implementation",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Db"
+    },
+    {
+        "time": 0.009684141,
+        "n_threads": 4,
+        "method": "shard_implementation",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Db"
+    },
+    {
+        "time": 0.031445662,
+        "n_threads": 4,
+        "method": "eigen_impl",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Db"
+    },
+    {
+        "time": 0.014578548,
+        "n_threads": 4,
+        "method": "mkl_impl",
+        "dataset": "FEMLAB",
+        "matrix": "FEMLAB/poisson3Db"
+    },
+    {
+        "time": 3.2721e-5,
+        "n_threads": 4,
+        "method": "serial_default_implementation",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 1.0e-5
+        }
+    },
+    {
+        "time": 2.2599e-5,
+        "n_threads": 4,
+        "method": "shard_implementation",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 1.0e-5
+        }
+    },
+    {
+        "time": 5.1025e-5,
+        "n_threads": 4,
+        "method": "eigen_impl",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 1.0e-5
+        }
+    },
+    {
+        "time": 5.0432e-5,
+        "n_threads": 4,
+        "method": "mkl_impl",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 1.0e-5
+        }
+    },
+    {
+        "time": 0.126741139,
+        "n_threads": 4,
+        "method": "serial_default_implementation",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.04226388,
+        "n_threads": 4,
+        "method": "shard_implementation",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.21049530100000002,
+        "n_threads": 4,
+        "method": "eigen_impl",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 0.1
+        }
+    },
+    {
+        "time": 0.054611154,
+        "n_threads": 4,
+        "method": "mkl_impl",
+        "dataset": "uniform_b",
+        "matrix": {
+            "size": 10000,
+            "sparsity": 0.1
+        }
+    }
+]
