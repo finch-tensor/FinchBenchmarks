@@ -1,0 +1,107 @@
+[
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_1024.ttx",
+        "method": "spgemm_eigen",
+        "threads": 4,
+        "time": 0.003015158
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_1024.ttx",
+        "method": "spgemm_mkl",
+        "threads": 4,
+        "time": 0.002115294
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_1024.ttx",
+        "method": "spgemm_finch_gustavson",
+        "threads": 4,
+        "time": 0.001977402
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_2048.ttx",
+        "method": "spgemm_eigen",
+        "threads": 4,
+        "time": 0.006619444
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_2048.ttx",
+        "method": "spgemm_mkl",
+        "threads": 4,
+        "time": 0.004249841
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_2048.ttx",
+        "method": "spgemm_finch_gustavson",
+        "threads": 4,
+        "time": 0.004127867
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_4096.ttx",
+        "method": "spgemm_eigen",
+        "threads": 4,
+        "time": 0.017622213
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_4096.ttx",
+        "method": "spgemm_mkl",
+        "threads": 4,
+        "time": 0.0083295
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_4096.ttx",
+        "method": "spgemm_finch_gustavson",
+        "threads": 4,
+        "time": 0.008486465
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_8192.ttx",
+        "method": "spgemm_eigen",
+        "threads": 4,
+        "time": 0.050340294
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_8192.ttx",
+        "method": "spgemm_mkl",
+        "threads": 4,
+        "time": 0.016473292
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_8192.ttx",
+        "method": "spgemm_finch_gustavson",
+        "threads": 4,
+        "time": 0.01792506
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_eigen",
+        "threads": 4,
+        "time": 0.12048781700000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_mkl",
+        "threads": 4,
+        "time": 0.032990684
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_finch_gustavson",
+        "threads": 4,
+        "time": 0.037447746
+    }
+]

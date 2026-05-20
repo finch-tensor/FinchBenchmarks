@@ -1,0 +1,23 @@
+[
+    {
+        "time": 0.000272135,
+        "method": "spgemm_finch_inner",
+        "kernel": "spgemm",
+        "threads": 4,
+        "matrix": "HB/arc130"
+    },
+    {
+        "time": 0.015884562,
+        "method": "spgemm_finch_nested",
+        "kernel": "spgemm",
+        "threads": 4,
+        "matrix": "HB/arc130"
+    },
+    {
+        "time": 0.000165832,
+        "method": "spgemm_finch_gustavson_dynamic",
+        "kernel": "spgemm",
+        "threads": 4,
+        "matrix": "HB/arc130"
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.076169656
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.006404015000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.006754629
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.007283898
+    }
+]

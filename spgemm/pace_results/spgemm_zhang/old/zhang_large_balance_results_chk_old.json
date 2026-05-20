@@ -1,0 +1,534 @@
+[
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.630009127
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.04136352
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.111967123
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.194731314
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.150329714
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.009989345
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.018802539
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.026763241
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.024253279000000003
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.0026644560000000004
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.003594942
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.005372589
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.185608675
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.019532106
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.015299313
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.024965747
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.08420263600000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.012334693
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.009035553
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.013999053
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 1.660231095
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.379989473
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.110287996
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.558064406
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.13153408800000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.011464305000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.011338725
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.0143775
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 1.1158729090000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.08590015000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.096266197
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.122019363
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 1.205737442
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.11646291900000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.090593524
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.158650438
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 1.554525938
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.10450611700000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.138485401
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.168810083
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.553076421
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.037777528000000005
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.050634095
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.062977014
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.8374490160000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.090503708
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.064885149
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.116686213
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 1.363758172
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.072202044
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.105521454
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.224566133
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.24554842000000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.022156819
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.027810923
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.041629688
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 3.9844969740000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.18208394
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.24817281
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.293720187
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.525349307
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.024074999000000003
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.034502066
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.04099181
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 10.375463502
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 1.308537185
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.772548105
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 1.305934007
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.16212431700000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.005898709
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.014841911
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.016099099
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 2.822698576
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.332205432
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.20111258
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 1.849695848
+    }
+]
