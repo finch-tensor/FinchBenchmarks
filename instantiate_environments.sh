@@ -1,7 +1,6 @@
 #!/bin/bash
 julia --project=. -e '
-using Pkg; 
-Pkg.develop(path="Finch.jl")
+using Pkg;
 Pkg.instantiate(); 
 Pkg.precompile()
 '
