@@ -1,0 +1,62 @@
+[
+    {
+        "time": 0.60398071,
+        "n_threads": 8,
+        "method": "serial_default_implementation",
+        "dataset": "hb_wide",
+        "matrix": [
+            "SNAP/sx-stackoverflow",
+            "sx-stackoverflow"
+        ]
+    },
+    {
+        "time": 0.267100568,
+        "n_threads": 8,
+        "method": "coalesce_static",
+        "dataset": "hb_wide",
+        "matrix": [
+            "SNAP/sx-stackoverflow",
+            "sx-stackoverflow"
+        ]
+    },
+    {
+        "time": 0.155196656,
+        "n_threads": 8,
+        "method": "graphblas",
+        "dataset": "hb_wide",
+        "matrix": [
+            "SNAP/sx-stackoverflow",
+            "sx-stackoverflow"
+        ]
+    },
+    {
+        "time": 0.512886793,
+        "n_threads": 8,
+        "method": "serial_default_implementation",
+        "dataset": "hb_wide",
+        "matrix": [
+            "SNAP/cit-Patents",
+            "cit-Patents"
+        ]
+    },
+    {
+        "time": 0.190696906,
+        "n_threads": 8,
+        "method": "coalesce_static",
+        "dataset": "hb_wide",
+        "matrix": [
+            "SNAP/cit-Patents",
+            "cit-Patents"
+        ]
+    },
+    {
+        "time": 0.092111199,
+        "n_threads": 8,
+        "method": "graphblas",
+        "dataset": "hb_wide",
+        "matrix": [
+            "SNAP/cit-Patents",
+            "cit-Patents"
+        ]
+    }
+]

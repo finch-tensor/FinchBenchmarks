@@ -1,5 +1,5 @@
+using Base: nothing_sentinel
 #!/usr/bin/env julia
-# using Base: nothing_sentinel
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
     Pkg.activate(dirname(@__DIR__))
@@ -14,15 +14,14 @@ using ArgParse
 using DataStructures
 using JSON
 using Random
+using LinearAlgebra
+using SparseArrays
 
 Random.seed!(1234)
 
 # Parsing Arguments
-s = ArgParseSettings("Run Parallel Sum Experiments.")
+s = ArgParseSettings("Run Parallel SpMSpV Experiments.")
 @add_arg_table! s begin
-   "--ncpu"
-    help = "number of CPUs"
-    arg_type = Int
     "--output", "-o"
     arg_type = String
     help = "output file path"
@@ -40,30 +39,38 @@ parsed_args = parse_args(ARGS, s)
 
 # Mapping from dataset types to datasets
 datasets = Dict(
-    # set of same sizes, different sparsity
-    "diff_sparsity" => [
-        # "Pajek/California", # 100m, 1e-5
-        "Nasa/shuttle_eddy", # 100m, 1e-4
-        "Nemeth/nemeth20", # 100m, 1e-3 (may have too many nnz)
-        # "Pothen/tandem_dual", # 10t, 1e-5
-        "DIMACS10/G_n_pin_pout", # 10t, 1e-4
-        "DNVS/m_t1", # 10t, 1e-3 
-        "Mycielski/mycielskian17", # 10t, 1e-2 (may have too many nnz)
-    ],
+    # "uniform" => [
+    #     # OrderedDict("size" => 1_000, "sparsity" => 0.01),
+    #     OrderedDict("size" => 10_000, "sparsity" => 0.3),
+    # ],
+    # "hb_short" => [
+    #     ("HB/bcsstm08", "bcsstm08"),
+    #     ("HB/bcsstm09", "bcsstm09"),
+    #     ("HB/bcsstm11", "bcsstm11"),
+    #     ("HB/bcsstm26", "bcsstm26"),
+    #     ("HB/bcsstm23", "bcsstm23"),
+    #     ("HB/bcsstm25", "bcsstm25"),
+    #     ("HB/bcsstk32", "bcsstk32"),
+    #     ("HB/cegb2802", "cegb2802"),
+    #     ("HB/bcsstk30", "bcsstk30"),
+    #     ("HB/bcsstk31", "bcsstk31"),
+    # ],
+    "hb_wide" => [
+        ("SNAP/sx-stackoverflow", "sx-stackoverflow"),
+        ("SNAP/cit-Patents", "cit-Patents"),
+    ]
 )
 
 # Mapping from method keywords to methods
-include("coalesce_impl.jl")
-include("taco_impl.jl")
-include("eigen_impl.jl")
-include("mkl_impl.jl")
+include("serial_default_implementation.jl")
+include("coalesce_implementation.jl")
 
 
 methods = OrderedDict(
-    "coalesce_impl" => coalesce_impl,
-    "taco_impl" => taco_impl,
-    "eigen_impl" => eigen_impl,
-    "mkl_impl" => mkl_impl,
+    "serial_default_implementation" => serial_default_implementation_spmspv,
+    "coalesce_static" => coalesce_spmspv,
+    "graphblas" => blas_spmspv,
+    # "coalesce_dynamic" => coalesce_spmspv_dynamic,
 )
 
 if !isnothing(parsed_args["method"])
@@ -77,27 +84,28 @@ end
 function calculate_results(dataset, mtxs, results)
     for mtx in mtxs
         # Get relevant matrix
-        if dataset == "diff_sparsity"
-            A = matrixdepot(mtx)
-            v = vec(A)
+        if dataset == "uniform"
+            A = fsprand(mtx["size"], mtx["size"], mtx["sparsity"])
+            x = fsprand(mtx["size"], mtx["sparsity"])
+        elseif dataset == "hb_wide"
+            A = matrixdepot(mtx[1])
+            (m, n) = size(A)
+            if m < 1000 || n < 1000
+                continue
+            end
+            x = sprand(n, 0.1)
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
         for (key, method) in methods
-            ncpu = parsed_args["ncpu"]
-            result = method(v, ncpu)
+            result = method(A, x, Threads.nthreads())
 
             if parsed_args["accuracy-check"]
-                # Check the result of the sum
-                coalesce_impl_result = coalesce_impl(v, ncpu)
-
-                rtol = 1e-4
-                @assert isapprox(result.s, coalesce_impl_result.s, rtol=rtol) """
-                    Incorrect result for $key: got $(result.s), expected $(coalesce_impl_result.s)
-                    relative error = $(abs(result.s - coalesce_impl_result.s) / abs(coalesce_impl_result.s))
-                    """
-                # @assert result.s == coalesce_impl_result.s "Incorrect result for $key: $result : $coalesce_impl_result"
+                # Check the result of the multiplication
+                ref = serial_default_implementation_spmspv(A, x, 0)
+                @info "checking accuracy"
+                norm(SparseVector(ref.y) - SparseVector(result.y))/norm(SparseVector(ref.y)) < 0.01 || @warn("incorrect result via norm")
             end
 
             # Write result
@@ -112,7 +120,7 @@ function calculate_results(dataset, mtxs, results)
             ))
 
             if isnothing(parsed_args["output"])
-                write("results/sum_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
+                write("results/spmspv_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
             else
                 write(parsed_args["output"], JSON.json(results, 4))
             end

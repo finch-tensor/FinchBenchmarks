@@ -1,0 +1,282 @@
+[
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk30",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000164374
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk30",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.0005473380000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk30",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.813516074
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk30",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.0021186340000000003
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk32",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000172748
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk32",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.000540427
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk32",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 1.9317043530000002
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk32",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.002169223
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk31",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000118845
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk31",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.00031947700000000003
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk31",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 1.179616907
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk31",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.001415947
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk29",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 8.5522e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk29",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.00016998300000000002
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk29",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.174764374
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk29",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.000629006
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk33",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 7.2504e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk33",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.000163177
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk33",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.068559548
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk33",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.0006770400000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_1",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 7.7277e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_1",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.00015008100000000002
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_1",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.012134508
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_1",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.0008922820000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_3",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 7.8743e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_3",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.000149826
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_3",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.012154307000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_3",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.0008966380000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_2",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 7.7202e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_2",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.00014908600000000002
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_2",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.0121201
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_2",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.0008921490000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk17",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 6.7383e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk17",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.00011619100000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk17",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.105634926
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk17",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.00047215800000000003
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/cegb2919",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 6.4424e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/cegb2919",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 7.202100000000001e-5
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/cegb2919",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.007830680000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/cegb2919",
+        "method": "mkl_impl",
+        "n_threads": 16,
+        "time": 0.000291237
+    }
+]
