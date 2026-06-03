@@ -2,6 +2,8 @@ CC       = gcc
 CXX      = g++
 CXXFLAGS += -std=c++17 -O3 -fPIC -fopenmp
 
+NPROC_VAL ?= 16
+
 all: cv_kernel
 
 OPENCV_DIR   = ../../deps/opencv

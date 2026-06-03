@@ -74,7 +74,16 @@ int main(int argc, char **argv)
 {
     auto params = parse(argc, argv);
 
-    int n_threads = params.max_threads;
+    int n_threads = omp_get_max_threads();
+
+    for (int i = 0; i < params.argc; i++) {
+        std::string arg = params.argv[i];
+        if (arg == "-t" || arg == "--threads") {
+            if (i + 1 < params.argc) {
+                n_threads = std::stoi(params.argv[i + 1]);
+            }
+        }
+    }
     omp_set_num_threads(n_threads);
 
     Mat A = loadTTX(params.input + "/A.ttx");
@@ -92,7 +101,7 @@ int main(int argc, char **argv)
     writeTTX(params.output + "/C.ttx", C);
 
     json measurements;
-    measurements["time"] = time.first;
+    measurements["time"] = time;
     measurements["memory"] = 0;
 
     std::ofstream measurements_file(params.output + "/measurements.json");

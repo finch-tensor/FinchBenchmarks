@@ -2,6 +2,8 @@ CC       = gcc
 CXX      = g++
 CXXFLAGS += -std=c++17 -O3 -fPIC -fopenmp
 
+NPROC_VAL ?= 4
+
 all: cv_kernel
 
 OPENCV_DIR   = ../../deps/opencv
@@ -58,5 +60,5 @@ cv_kernel: cv_impl.cpp $(OPENCV_LIB)
 clean:
 	rm -f cv_kernel
 
-# clean-all: clean
-# 	rm -rf $(TACO_DIR)/build
+clean-all: clean
+	rm -rf $(OPENCV_DIR)/build
