@@ -44,10 +44,12 @@ datasets = Dict(
 )
 
 include("coalesce_impl.jl")
+include("cv_impl.jl")
 
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
+    "cv_impl" => hist_cv_impl,
 )
 
 if !isnothing(parsed_args["method"])
@@ -64,17 +66,13 @@ function calculate_results(dataset, mtxs, results)
         if dataset == "image"
             A_orig = load("../" * mtx)
             m, n = size(A_orig)
-            A = fill((0, 0, 0), m, n)
+            A = zeros(UInt8, m, n)
 
             for i in 1:m
                 for j in 1:n
                     c = A_orig[i, j]
 
-                    A[i, j] = (
-                        round(Int, 255 * Float64(c.r)),
-                        round(Int, 255 * Float64(c.g)),
-                        round(Int, 255 * Float64(c.b))
-                    )
+                    A[i,j] = UInt8(round((c.r*0.299 + c.g*0.587 + c.b*0.114) * 255))
                 end
             end
 
@@ -93,11 +91,7 @@ function calculate_results(dataset, mtxs, results)
                 m, n, p = size(coalesce_impl_result.hist)
                 expected = coalesce_impl_result.hist
                 for i in 1:m
-                    for j in 1:n
-                        for k in 1:p
-                            @assert isapprox(result.hist[i,j,k], expected[i,j,k]) "Incorrect result for $key at ($i,$j,$k): got $(result.hist[i,j,k]), expected $(expected[i,j,k])"
-                        end
-                    end
+                    @assert isapprox(result.hist[i], expected[i]) "Incorrect result for $key at ($i): got $(result.hist[i]), expected $(expected[i])"
                 end
             end
 

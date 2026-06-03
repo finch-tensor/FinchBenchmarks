@@ -16,3 +16,6 @@
 [submodule "deps/GraphBLAS"]
 	path = deps/GraphBLAS
 	url = https://github.com/DrTimothyAldenDavis/GraphBLAS.git
+[submodule "deps/opencv"]
+	path = deps/opencv
+	url = https://github.com/opencv/opencv.git

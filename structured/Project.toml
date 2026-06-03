@@ -8,6 +8,7 @@ FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 Finch = "9177782c-1635-4eb9-9bfb-d9dfa25e6bce"
 Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+TensorMarket = "8b7d4fe7-0b45-4d0d-9dd8-5cc9b23b4b77"
 
 [compat]
 julia = ">=1.9, <2.0"

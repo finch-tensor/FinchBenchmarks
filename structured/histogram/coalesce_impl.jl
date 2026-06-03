@@ -5,16 +5,16 @@ using SparseArrays
 
 function coalesce_impl(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element((0,0,0)))), A)
-    _hist = Tensor(Coalesce(dev, SparseDict(SparseDict(SparseDict(Element(0))))))
+    _A = Tensor(Dense(SparseRunList(Element(UInt8(0)))), A)
+    _hist = Tensor(Coalesce(dev, SparseDict(Element(0))))
 
     time = @belapsed begin
         (_A, _hist, dev) = $(_A, _hist, dev)
         @finch mode = :fast begin
             _hist .= 0
             for j = parallel(_, dev), i = _
-                let r = getfield(_A[i, j], 1), g = getfield(_A[i, j], 2), b = getfield(_A[i, j], 3)
-                    _hist[r, g, b] += 1
+                let g = _A[i, j]
+                    _hist[g] += 1
                 end
             end
         end
@@ -23,8 +23,8 @@ function coalesce_impl(A, num_cpu)
     @finch mode = :fast begin
         _hist .= 0
         for j = parallel(_, dev), i = _
-            let r = getfield(_A[i, j], 1), g = getfield(_A[i, j], 2), b = getfield(_A[i, j], 3)
-                _hist[r, g, b] += 1
+            let g = _A[i, j]
+                _hist[g] += 1
             end
         end
     end

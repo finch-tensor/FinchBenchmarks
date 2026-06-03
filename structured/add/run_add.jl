@@ -46,10 +46,12 @@ datasets = Dict(
 )
 
 include("shard_impl.jl")
+include("cv_impl.jl")
 
 
 methods = OrderedDict(
     "shard_impl" => shard_impl,
+    "cv_impl" => add_cv_impl,
 )
 
 if !isnothing(parsed_args["method"])
@@ -66,24 +68,24 @@ function calculate_results(dataset, mtxs, results)
         if dataset == "image"
             A_orig = load("../" * a_path)
             m, n = size(A_orig)
-            A = zeros(UInt8, m, n)
+            A = zeros(m, n)
 
             for i in 1:m
                 for j in 1:n
                     c = A_orig[i, j]
 
-                    A[i, j] = round(UInt8, (c.r * 0.299 + c.g * 0.587 + c.b * 0.114) * 255)
+                    A[i, j] = c.r * 0.299 + c.g * 0.587 + c.b * 0.114
                 end
             end
 
             B_orig = load("../" * b_path)
-            B = zeros(UInt8, m, n)
+            B = zeros(m, n)
 
             for i in 1:m
                 for j in 1:n
                     c = B_orig[i, j]
 
-                    B[i, j] = round(UInt8, (c.r * 0.299 + c.g * 0.587 + c.b * 0.114) * 255)
+                    B[i, j] = c.r * 0.299 + c.g * 0.587 + c.b * 0.114
                 end
             end
 
@@ -110,7 +112,7 @@ function calculate_results(dataset, mtxs, results)
 
             # Write result
             time = result.time
-            @info "result for $key on $mtx" time
+            @info "result for $key on $(a_path) + $(b_path)" time
             push!(results, OrderedDict(
                 "time" => time,
                 "n_threads" => Threads.nthreads(),
