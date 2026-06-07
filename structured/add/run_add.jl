@@ -14,6 +14,9 @@ using ArgParse
 using DataStructures
 using JSON
 using Images
+using Random
+
+Random.seed!(1234)
 
 # Parsing Arguments
 s = ArgParseSettings("Run Structured Add Experiments.")
@@ -39,10 +42,11 @@ parsed_args = parse_args(ARGS, s)
 # Mapping from dataset types to datasets
 datasets = Dict(
     "image" => [
-        ("highly_compressed/benjamin.duboc.free.fr.jpg",
-            "highly_compressed/guitars.com.jpg"),
-        
+        ("very_highly_compressed/www.duo-thais.com.jpg", "very_highly_compressed/www.handball-riehen.ch.jpg"),
     ],
+    # "uniform" => [
+    #     OrderedDict("size" => 50_000, "sparsity" => 0.0001),
+    # ],
 )
 
 include("shard_impl.jl")
@@ -63,9 +67,11 @@ if !isnothing(parsed_args["method"])
 end
 
 function calculate_results(dataset, mtxs, results)
-    for (a_path, b_path) in mtxs
-        # Get relevant matrix
+    for item in mtxs
+        matrix_label = ""
+
         if dataset == "image"
+            a_path, b_path = item
             A_orig = load("../" * a_path)
             m, n = size(A_orig)
             A = zeros(m, n)
@@ -73,7 +79,6 @@ function calculate_results(dataset, mtxs, results)
             for i in 1:m
                 for j in 1:n
                     c = A_orig[i, j]
-
                     A[i, j] = c.r * 0.299 + c.g * 0.587 + c.b * 0.114
                 end
             end
@@ -84,11 +89,16 @@ function calculate_results(dataset, mtxs, results)
             for i in 1:m
                 for j in 1:n
                     c = B_orig[i, j]
-
                     B[i, j] = c.r * 0.299 + c.g * 0.587 + c.b * 0.114
                 end
             end
 
+            matrix_label = "$(a_path) + $(b_path)"
+        elseif dataset == "uniform"
+            mtx = item
+            A = fsprand(Float64, mtx["size"], mtx["size"], mtx["sparsity"])
+            B = fsprand(Float64, mtx["size"], mtx["size"], mtx["sparsity"])
+            matrix_label = string("uniform size=", mtx["size"], " sparsity=", mtx["sparsity"])
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
@@ -98,7 +108,7 @@ function calculate_results(dataset, mtxs, results)
             result = method(A, B, ncpu)
 
             if parsed_args["accuracy-check"]
-                # Check the result of the sum
+                # Check the result of the add
                 shard_impl_result = shard_impl(A, B, ncpu)
 
                 m, n = size(shard_impl_result.C)
@@ -112,17 +122,17 @@ function calculate_results(dataset, mtxs, results)
 
             # Write result
             time = result.time
-            @info "result for $key on $(a_path) + $(b_path)" time
+            @info "result for $key on $matrix_label" time
             push!(results, OrderedDict(
                 "time" => time,
                 "n_threads" => Threads.nthreads(),
                 "method" => key,
                 "dataset" => dataset,
-                "matrix" => "$(a_path) + $(b_path)",
+                "matrix" => matrix_label,
             ))
 
             if isnothing(parsed_args["output"])
-                write("results/sum_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
+                write("results/add_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
             else
                 write(parsed_args["output"], JSON.json(results, 4))
             end

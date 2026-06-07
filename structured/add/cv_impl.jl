@@ -12,7 +12,7 @@ function add_cv_helper(args, num_cpu, A, B)
         C_path = joinpath(tmpdir, "C.ttx")
 
         opencv_path = joinpath(@__DIR__, "cv_kernel")
-        cmd = `$opencv_path -i $tmpdir -o $tmpdir -t $num_cpu $args`
+        cmd = `$opencv_path -i $tmpdir -o $tmpdir -- -t $num_cpu $args`
         run(cmd)
 
         parsed = JSON.parsefile(joinpath(tmpdir, "measurements.json"))

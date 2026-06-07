@@ -14,13 +14,17 @@ RESULTS_FOLDER = "results"
 NTHREADS = [2**i for i in range(5)] # Modify based on how many threads were tested
 
 METHODS = [
-    "shard_impl",
-    "cv_impl", 
+    "coalesce_impl",
+    "cv_impl",
 ]
 
 DATASETS = {
     "image": [
-        "very_highly_compressed/www.duo-thais.com.jpg + very_highly_compressed/www.handball-riehen.ch.jpg"
+        "very_highly_compressed/www.abalip.com.jpg",
+        "very_highly_compressed/www.carmelmusic.com.jpg",
+        "very_highly_compressed/www.claudiozappi.it.jpg",
+        "very_highly_compressed/www.duo-thais.com.jpg",
+        "very_highly_compressed/www.handball-riehen.ch.jpg",
     ],
 }
 
@@ -40,12 +44,9 @@ def format_sparsity(x: float) -> str:
     s = f"{x:.12f}".rstrip("0").rstrip(".")
     return s
 
-
 def sanitize_matrix_name(matrix: str) -> str:
     return (
         matrix.replace("/", "-")
-        .replace(" + ", "_plus_")
-        .replace(" ", "_")
     )
 
 
@@ -53,7 +54,7 @@ def load_json():
     combine_results = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: {})))
     for n_thread in NTHREADS:
         results_json = json.load(
-            open(f"{RESULTS_FOLDER}/add_{n_thread}_threads.json", "r")
+            open(f"{RESULTS_FOLDER}/hist_{n_thread}_threads.json", "r")
         )
         for result in results_json:
 
@@ -117,7 +118,7 @@ def plot_runtime_result(results, dataset, matrix, save_location):
 
     pretty_matrix = sanitize_matrix_name(matrix)
 
-    plt.title(f"Parallel Sum - Runtime for {dataset}: {matrix}")
+    plt.title(f"Histogram - Runtime for {dataset}: {pretty_matrix}")
     plt.xscale("log", base=2)
     plt.yscale("log", base=2)
     plt.xticks(NTHREADS)
@@ -125,7 +126,6 @@ def plot_runtime_result(results, dataset, matrix, save_location):
     plt.ylabel(f"Runtime (in seconds)")
 
     plt.gca().xaxis.set_major_formatter(ScalarFormatter())
-    # plt.gca().yaxis.set_major_formatter(ScalarFormatter())
 
     plt.legend()
     plt.savefig(save_location)
@@ -164,6 +164,7 @@ if __name__ == "__main__":
     results = load_json()
     for dataset, matrices in DATASETS.items():
         for matrix in matrices:
+            pretty_matrix = sanitize_matrix_name(matrix)
             plot_runtime_result(
                 results,
                 dataset,
@@ -171,6 +172,6 @@ if __name__ == "__main__":
                 os.path.join(
                     GRAPH_FOLDER,
                     RUNTIME_FOLDER,
-                    f"{dataset}-{sanitize_matrix_name(matrix)}.png",
+                    f"{dataset}-{pretty_matrix}.png",
                 ),
             )

@@ -1,0 +1,30 @@
+[
+    {
+        "time": 0.001833458,
+        "n_threads": 1,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "highly_compressed/benjamin.duboc.free.fr.jpg + highly_compressed/guitars.com.jpg"
+    },
+    {
+        "time": 0.000242458,
+        "n_threads": 1,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "highly_compressed/benjamin.duboc.free.fr.jpg + highly_compressed/guitars.com.jpg"
+    },
+    {
+        "time": 0.005055875,
+        "n_threads": 1,
+        "method": "shard_impl",
+        "dataset": "uniform",
+        "matrix": "uniform size=50000 sparsity=0.0001"
+    },
+    {
+        "time": 9.496350042000001,
+        "n_threads": 1,
+        "method": "cv_impl",
+        "dataset": "uniform",
+        "matrix": "uniform size=50000 sparsity=0.0001"
+    }
+]

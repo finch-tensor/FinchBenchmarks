@@ -1,3 +1,9 @@
+using Pkg
+
+Pkg.add("FileIO")
+Pkg.add("Images")
+Pkg.add("Finch")
+
 using FileIO
 using Images
 using Finch
@@ -32,8 +38,10 @@ function get_compression_ratio(filepath::String)
 end
 
 
-function extract_highly_compressed_images(src_dirs, dest_dir; threshold=10.0)
-    mkpath(dest_dir) 
+function extract_highly_compressed_images(src_dirs, dest_dir; threshold=10.0, top_n=5)
+    mkpath(dest_dir)
+
+    candidates = Vector{Tuple{Float64,String,String}}()
 
     for dir in src_dirs
         if !isdir(dir)
@@ -47,10 +55,8 @@ function extract_highly_compressed_images(src_dirs, dest_dir; threshold=10.0)
 
                 try
                     ratio = get_compression_ratio(filepath)
-
                     if ratio >= threshold
-                        println("Saving $filename (Compression: $(round(ratio, digits=2))x)")
-                        cp(filepath, joinpath(dest_dir, filename), force=true)
+                        push!(candidates, (ratio, filepath, filename))
                     else
                         println("Skipping $filename (Compression: $(round(ratio, digits=2))x)")
                     end
@@ -60,11 +66,51 @@ function extract_highly_compressed_images(src_dirs, dest_dir; threshold=10.0)
             end
         end
     end
-    
-    println("\nProcess complete! Highly compressed files are in: $dest_dir")
+
+    sort!(candidates, by=x->x[1], rev=true)
+    selected = first(candidates, min(top_n, length(candidates)))
+
+    for (ratio, filepath, filename) in selected
+        destpath = joinpath(dest_dir, filename)
+        println("Moving $filename (Compression: $(round(ratio, digits=2))x) to $dest_dir")
+        try
+            mv(filepath, destpath; force=true)
+        catch e
+            println("Error moving $filepath to $destpath: $e")
+        end
+    end
+
+    println("\nProcess complete! Top $(length(selected)) highly compressed files moved to: $dest_dir")
 end
 
-source_directories = ["music", "machinery"]
-destination_directory = "highly_compressed"
+function select_best_rle_image(dir::String)
+    best_path = ""
+    best_ratio = 0.0
 
-extract_highly_compressed_images(source_directories, destination_directory, threshold=10.0)
+    for filename in readdir(dir)
+        if endswith(lowercase(filename), ".jpg")
+            filepath = joinpath(dir, filename)
+            try
+                ratio = get_compression_ratio(filepath)
+                if ratio > best_ratio
+                    best_ratio = ratio
+                    best_path = filepath
+                end
+            catch e
+                println("Failed on $filepath: $e")
+            end
+        end
+    end
+
+    return best_path, best_ratio
+end
+
+best_file, best_ratio = select_best_rle_image("highly_compressed")
+println("Best RLE image: $best_file (ratio=$(round(best_ratio, digits=2))x)")
+
+extract_highly_compressed_images(["highly_compressed"], "very_highly_compressed", threshold=10.0, top_n=5)
+
+# source_directories = ["music", "machinery", "sport", "tourism",]
+# destination_directory = "highly_compressed"
+
+# extract_highly_compressed_images(source_directories, destination_directory, threshold=10.0)

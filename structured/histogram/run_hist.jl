@@ -39,8 +39,25 @@ parsed_args = parse_args(ARGS, s)
 # Mapping from dataset types to datasets
 datasets = Dict(
     "image" => [
-        "highly_compressed/aviva.songs24.de.jpg",
+        "very_highly_compressed/www.abalip.com.jpg",
+        "very_highly_compressed/www.carmelmusic.com.jpg",
+        "very_highly_compressed/www.claudiozappi.it.jpg",
+        "very_highly_compressed/www.duo-thais.com.jpg",
+        "very_highly_compressed/www.handball-riehen.ch.jpg",
     ],
+    # "uniform" => [
+    #     OrderedDict("size" => 1_000, "sparsity" => 0.1),
+    #     OrderedDict("size" => 1_000, "sparsity" => 0.01),
+    #     OrderedDict("size" => 1_000, "sparsity" => 0.001),
+    #     OrderedDict("size" => 1_000, "sparsity" => 0.0001),
+    #     OrderedDict("size" => 2_000, "sparsity" => 0.00001),
+    #     OrderedDict("size" => 5_000, "sparsity" => 0.00001),
+    #     OrderedDict("size" => 10_000, "sparsity" => 0.00001),
+    #     OrderedDict("size" => 20_000, "sparsity" => 0.00001),
+    #     OrderedDict("size" => 50_000, "sparsity" => 0.00001),
+    #     OrderedDict("size" => 100_000, "sparsity" => 0.00001),
+
+    # ],
 )
 
 include("coalesce_impl.jl")
@@ -66,15 +83,33 @@ function calculate_results(dataset, mtxs, results)
         if dataset == "image"
             A_orig = load("../" * mtx)
             m, n = size(A_orig)
-            A = zeros(UInt8, m, n)
+            A = fill((UInt8(0), UInt8(0), UInt8(0)), m, n)
 
             for i in 1:m
                 for j in 1:n
                     c = A_orig[i, j]
 
-                    A[i,j] = UInt8(round((c.r*0.299 + c.g*0.587 + c.b*0.114) * 255))
+                    A[i,j] = (UInt8(c.r * 255), UInt8(c.g * 255), UInt8(c.b * 255))
                 end
             end
+        elseif dataset == "uniform"
+            R = fsprand(UInt8, mtx["size"], mtx["size"], mtx["sparsity"])
+            G = fsprand(UInt8, mtx["size"], mtx["size"], mtx["sparsity"])
+            B = fsprand(UInt8, mtx["size"], mtx["size"], mtx["sparsity"])
+            A = fill((UInt8(0), UInt8(0), UInt8(0)), mtx["size"], mtx["size"])
+            for i in 1:mtx["size"]
+                for j in 1:mtx["size"]
+                    A[i, j] = (R[i, j], G[i, j], B[i, j])
+                end
+            end
+            # m = mtx["size"]
+            # n = mtx["size"]
+            # A = fill((UInt8(0), UInt8(0), UInt8(0)), m, n)
+            # for i in 1:m
+            #     if rand() < mtx["sparsity"]
+            #         A[i, 1] = (rand(UInt8), rand(UInt8), rand(UInt8))
+            #     end
+            # end
 
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
@@ -85,7 +120,7 @@ function calculate_results(dataset, mtxs, results)
             result = method(A, ncpu)
 
             if parsed_args["accuracy-check"]
-                # Check the result of the sum
+                # Check the result of the hist
                 coalesce_impl_result = coalesce_impl(A, ncpu)
 
                 m, n, p = size(coalesce_impl_result.hist)
@@ -107,7 +142,7 @@ function calculate_results(dataset, mtxs, results)
             ))
 
             if isnothing(parsed_args["output"])
-                write("results/sum_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
+                write("results/hist_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
             else
                 write(parsed_args["output"], JSON.json(results, 4))
             end
