@@ -7,7 +7,7 @@ function coalesce_impl(A, num_cpu)
     dev = cpu(:t, num_cpu)
     _A = Tensor(Dense(SparseRunList(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
     _hist = Tensor(Coalesce(dev, SparseDict(SparseDict(SparseDict(Element(0))))))
-
+_
     time = @belapsed begin
         (_A, _hist, dev) = $(_A, _hist, dev)
         @finch mode = :fast begin

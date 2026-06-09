@@ -11,7 +11,7 @@ SPEEDUP_FOLDER = "speedup"
 RUNTIME_FOLDER = "runtime"
 RESULTS_FOLDER = "results"
 
-NTHREADS = [2**i for i in range(5)] # Modify based on how many threads were tested
+NTHREADS = [2**i for i in range(4)]
 
 METHODS = [
     "shard_impl",
@@ -20,7 +20,15 @@ METHODS = [
 
 DATASETS = {
     "image": [
-        "very_highly_compressed/www.duo-thais.com.jpg + very_highly_compressed/www.handball-riehen.ch.jpg"
+        "www.abalip.com.jpg",
+        "www.carmelmusic.com.jpg",
+        "www.claudiozappi.it.jpg",
+        "www.duo-thais.com.jpg", 
+        "www.handball-riehen.ch.jpg",
+        "Fig0227(a)(washington_infrared).png",
+        "Fig1001(b)(edge_image).png",
+        "Fig1213(e)(Mask_B1_without_numbers).png",
+        "FigP0311.png",
     ],
 }
 
@@ -91,7 +99,7 @@ def load_json():
 #         )
 
 #     plt.title(
-#         f"Parallel Sum - Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})"
+#         f"Structured Add - Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})"
 #     )
 #     # plt.yscale("log", base=10)
 #     plt.xticks(NTHREADS)
@@ -117,7 +125,7 @@ def plot_runtime_result(results, dataset, matrix, save_location):
 
     pretty_matrix = sanitize_matrix_name(matrix)
 
-    plt.title(f"Parallel Sum - Runtime for {dataset}: {matrix}")
+    plt.title(f"Structured Add - Runtime for {dataset}: {matrix}")
     plt.xscale("log", base=2)
     plt.yscale("log", base=2)
     plt.xticks(NTHREADS)
@@ -146,7 +154,7 @@ def plot_runtime_result(results, dataset, matrix, save_location):
 #         linewidth=1,
 #     )
 
-#     plt.title(f"Parallel Sum - Weak Scaling with 10,000 x 4096 matrix per thread for {dataset}")
+#     plt.title(f"Structured Add - Weak Scaling with 10,000 x 4096 matrix per thread for {dataset}")
 #     plt.xscale("log", base=2)
 #     plt.xticks(NTHREADS)
 #     plt.xlabel("Number of Threads")

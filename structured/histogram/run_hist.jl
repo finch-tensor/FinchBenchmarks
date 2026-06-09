@@ -66,7 +66,7 @@ include("cv_impl.jl")
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
-    "cv_impl" => hist_cv_impl,
+    # "cv_impl" => hist_cv_impl,
 )
 
 if !isnothing(parsed_args["method"])
@@ -102,14 +102,6 @@ function calculate_results(dataset, mtxs, results)
                     A[i, j] = (R[i, j], G[i, j], B[i, j])
                 end
             end
-            # m = mtx["size"]
-            # n = mtx["size"]
-            # A = fill((UInt8(0), UInt8(0), UInt8(0)), m, n)
-            # for i in 1:m
-            #     if rand() < mtx["sparsity"]
-            #         A[i, 1] = (rand(UInt8), rand(UInt8), rand(UInt8))
-            #     end
-            # end
 
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
@@ -160,5 +152,3 @@ else
     mtxs = datasets[dataset]
     calculate_results(dataset, mtxs, results)
 end
-
-

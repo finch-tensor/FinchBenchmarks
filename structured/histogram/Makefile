@@ -18,11 +18,11 @@ endif
 CXXFLAGS += \
     -std=c++17 -O3 -fPIC \
     $(OMP_FLAGS) \
-    -I$(OMP_INC)
+    $(if $(OMP_INC),-I$(OMP_INC))
 
 LDFLAGS += \
     $(OMP_LIBS) \
-    -L$(OMP_LIB)
+    $(if $(OMP_LIB),-L$(OMP_LIB))
 
 NPROC_VAL ?= 4
 

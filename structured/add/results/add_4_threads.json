@@ -1,16 +1,128 @@
 [
     {
-        "time": 0.000692042,
+        "time": 0.000348833,
         "n_threads": 4,
         "method": "shard_impl",
         "dataset": "image",
-        "matrix": "highly_compressed/benjamin.duboc.free.fr.jpg + highly_compressed/guitars.com.jpg"
+        "matrix": "www.abalip.com.jpg"
     },
     {
-        "time": 0.00024829100000000004,
+        "time": 0.000248375,
         "n_threads": 4,
         "method": "cv_impl",
         "dataset": "image",
-        "matrix": "highly_compressed/benjamin.duboc.free.fr.jpg + highly_compressed/guitars.com.jpg"
+        "matrix": "www.abalip.com.jpg"
+    },
+    {
+        "time": 0.000270041,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "www.carmelmusic.com.jpg"
+    },
+    {
+        "time": 0.00025395800000000004,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "www.carmelmusic.com.jpg"
+    },
+    {
+        "time": 0.000642542,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "www.claudiozappi.it.jpg"
+    },
+    {
+        "time": 0.000247084,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "www.claudiozappi.it.jpg"
+    },
+    {
+        "time": 0.000319334,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "www.duo-thais.com.jpg"
+    },
+    {
+        "time": 0.000252459,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "www.duo-thais.com.jpg"
+    },
+    {
+        "time": 0.000649375,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "www.handball-riehen.ch.jpg"
+    },
+    {
+        "time": 0.000248333,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "www.handball-riehen.ch.jpg"
+    },
+    {
+        "time": 4.1458e-5,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "Fig0227(a)(washington_infrared).png"
+    },
+    {
+        "time": 0.000204417,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "Fig0227(a)(washington_infrared).png"
+    },
+    {
+        "time": 2.2333e-5,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "Fig1001(b)(edge_image).png"
+    },
+    {
+        "time": 6.0583000000000006e-5,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "Fig1001(b)(edge_image).png"
+    },
+    {
+        "time": 1.8667e-5,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "Fig1213(e)(Mask_B1_without_numbers).png"
+    },
+    {
+        "time": 5.0083e-5,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "Fig1213(e)(Mask_B1_without_numbers).png"
+    },
+    {
+        "time": 4.4625e-5,
+        "n_threads": 4,
+        "method": "shard_impl",
+        "dataset": "image",
+        "matrix": "FigP0311.png"
+    },
+    {
+        "time": 0.00031395800000000003,
+        "n_threads": 4,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "FigP0311.png"
     }
 ]

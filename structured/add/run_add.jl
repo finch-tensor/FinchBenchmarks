@@ -42,7 +42,16 @@ parsed_args = parse_args(ARGS, s)
 # Mapping from dataset types to datasets
 datasets = Dict(
     "image" => [
-        ("very_highly_compressed/www.duo-thais.com.jpg", "very_highly_compressed/www.handball-riehen.ch.jpg"),
+        "very_highly_compressed/www.abalip.com.jpg",
+        "very_highly_compressed/www.carmelmusic.com.jpg",
+        "very_highly_compressed/www.claudiozappi.it.jpg",
+        "very_highly_compressed/www.duo-thais.com.jpg", 
+        "very_highly_compressed/www.handball-riehen.ch.jpg",
+        # "../old/images_morphology/masks/Fig0220(a)(chronometer 3692x2812  2pt25 inch 1250 dpi).png",
+        "../old/images_morphology/masks/Fig0227(a)(washington_infrared).png",
+        "../old/images_morphology/masks/Fig1001(b)(edge_image).png",
+        "../old/images_morphology/masks/Fig1213(e)(Mask_B1_without_numbers).png",
+        "../old/images_morphology/masks/FigP0311.png",
     ],
     # "uniform" => [
     #     OrderedDict("size" => 50_000, "sparsity" => 0.0001),
@@ -71,7 +80,7 @@ function calculate_results(dataset, mtxs, results)
         matrix_label = ""
 
         if dataset == "image"
-            a_path, b_path = item
+            a_path = item
             A_orig = load("../" * a_path)
             m, n = size(A_orig)
             A = zeros(m, n)
@@ -79,21 +88,20 @@ function calculate_results(dataset, mtxs, results)
             for i in 1:m
                 for j in 1:n
                     c = A_orig[i, j]
-                    A[i, j] = c.r * 0.299 + c.g * 0.587 + c.b * 0.114
+                    # Handle both RGB images and grayscale images
+                    try
+                        A[i, j] = c.r * 0.299 + c.g * 0.587 + c.b * 0.114
+                    catch
+                        # Grayscale or other single-channel format
+                        A[i, j] = float(c)
+                    end
                 end
             end
 
-            B_orig = load("../" * b_path)
-            B = zeros(m, n)
+            B = reverse(A, dims=2)
 
-            for i in 1:m
-                for j in 1:n
-                    c = B_orig[i, j]
-                    B[i, j] = c.r * 0.299 + c.g * 0.587 + c.b * 0.114
-                end
-            end
-
-            matrix_label = "$(a_path) + $(b_path)"
+            matrix_label = split(a_path, "/")[end]
+            
         elseif dataset == "uniform"
             mtx = item
             A = fsprand(Float64, mtx["size"], mtx["size"], mtx["sparsity"])
