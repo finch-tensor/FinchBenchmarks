@@ -83,8 +83,8 @@ cv_kernel: cv_impl.cpp $(OPENCV_LIB)
         -I$(OPENCV_BUILD) \
         $< \
         -o $@ \
-        -L$(OPENCV_INSTALL)/lib \
-        -Wl,-rpath,$(OPENCV_INSTALL)/lib \
+        -L$(OPENCV_INSTALL)/lib64 \
+        -Wl,-rpath,$(OPENCV_INSTALL)/lib64 \
         $(LDFLAGS) \
 		-lopencv_core \
 		-lopencv_imgproc
