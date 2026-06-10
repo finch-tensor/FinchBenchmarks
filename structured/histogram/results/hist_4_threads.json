@@ -1,9 +1,0 @@
-[
-    {
-        "time": 0.003079125,
-        "n_threads": 4,
-        "method": "coalesce_impl",
-        "dataset": "image",
-        "matrix": "very_highly_compressed/www.abalip.com.jpg"
-    }
-]

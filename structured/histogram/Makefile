@@ -26,6 +26,10 @@ LDFLAGS += \
 
 NPROC_VAL ?= 4
 
+WITH_IPP ?= ON
+
+# IPPROOT ?= /opt/intel/oneapi/ipp/latest
+
 all: cv_kernel
 
 OPENCV_DIR   = ../../deps/opencv
@@ -57,28 +61,16 @@ $(OPENCV_LIB): $(OPENCV_CLONE)
 	cd build && \
 	cmake \
 	    -DCMAKE_BUILD_TYPE=Release \
-	    -DCMAKE_C_COMPILER=$(CC) \
+		-DCMAKE_C_COMPILER=$(CC) \
 		-DCMAKE_CXX_COMPILER=$(CXX) \
-	    -DBUILD_LIST=core,imgproc,ximgproc \
-	    -DCMAKE_INSTALL_PREFIX=$(PWD)/$(OPENCV_BUILD)/install \
-	    .. && \
+		-DBUILD_LIST=core,imgproc,ximgproc \
+		-DCMAKE_INSTALL_PREFIX=$(PWD)/$(OPENCV_BUILD)/install \
+		-DWITH_OPENMP=ON \
+		-DWITH_IPP=$(WITH_IPP) \
+		$(if $(IPPROOT),-DIPPROOT=$(IPPROOT)) \
+		.. && \
 	make -j$(NPROC_VAL) && \
 	make install
-
-# cv_kernel: cv_impl.cpp $(OPENCV_LIB)
-# 	$(CXX) \
-# 	    $(CXXFLAGS) \
-# 	    -I$(OPENCV_DIR)/include \
-# 	    -I$(OPENCV_DIR)/modules/core/include \
-# 	    -I$(OPENCV_DIR)/modules/imgproc/include \
-# 	    -I$(OPENCV_DIR)/modules/ximgproc/include \
-# 	    -I$(OPENCV_BUILD) \
-# 	    $< \
-# 	    -o $@ \
-# 	    -L$(OPENCV_BUILD)/lib \
-# 		-Wl,-rpath,$(abspath $(OPENCV_BUILD)/lib) \
-# 	    -lopencv_core \
-# 	    -lopencv_imgproc
 
 cv_kernel: cv_impl.cpp $(OPENCV_LIB)
 	$(CXX) \

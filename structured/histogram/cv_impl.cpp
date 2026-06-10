@@ -132,7 +132,8 @@ int main(int argc, char **argv)
             }
         }
     }
-    omp_set_num_threads(n_threads);
+    // omp_set_num_threads(n_threads);
+    setNumThreads(n_threads); 
 
     Mat R = loadTTX(params.input + "/R.ttx");
     Mat G = loadTTX(params.input + "/G.ttx");
