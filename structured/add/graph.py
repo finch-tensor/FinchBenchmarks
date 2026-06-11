@@ -11,7 +11,7 @@ SPEEDUP_FOLDER = "speedup"
 RUNTIME_FOLDER = "runtime"
 RESULTS_FOLDER = "results"
 
-NTHREADS = [2**i for i in range(4)]
+NTHREADS = [2**i for i in range(5)]
 
 METHODS = [
     "shard_impl",
@@ -25,10 +25,10 @@ DATASETS = {
         "www.claudiozappi.it.jpg",
         "www.duo-thais.com.jpg", 
         "www.handball-riehen.ch.jpg",
-        "Fig0227(a)(washington_infrared).png",
-        "Fig1001(b)(edge_image).png",
-        "Fig1213(e)(Mask_B1_without_numbers).png",
-        "FigP0311.png",
+        # "Fig0227(a)(washington_infrared).png",
+        # "Fig1001(b)(edge_image).png",
+        # "Fig1213(e)(Mask_B1_without_numbers).png",
+        # "FigP0311.png",
     ],
 }
 

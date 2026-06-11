@@ -60,7 +60,7 @@ $(OPENCV_LIB): $(OPENCV_CLONE)
 	mkdir -p build && \
 	cd build && \
 	cmake \
-		-DCMAKE_BUILD_TYPE=Release \
+	    -DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_C_COMPILER=$(CC) \
 		-DCMAKE_CXX_COMPILER=$(CXX) \
 		-DBUILD_LIST=core,imgproc,ximgproc \
@@ -72,22 +72,21 @@ $(OPENCV_LIB): $(OPENCV_CLONE)
 	make -j$(NPROC_VAL) && \
 	make install
 
-
 cv_kernel: cv_impl.cpp $(OPENCV_LIB)
 	$(CXX) \
-		$(CXXFLAGS) \
-		-I$(OPENCV_DIR)/include \
-        -I$(OPENCV_DIR)/modules/core/include \
-        -I$(OPENCV_DIR)/modules/imgproc/include \
-        -I$(OPENCV_DIR)/modules/ximgproc/include \
-        -I$(OPENCV_BUILD) \
-        $< \
-        -o $@ \
-        -L$(OPENCV_INSTALL)/lib64 \
-        -Wl,-rpath,$(OPENCV_INSTALL)/lib64 \
-        $(LDFLAGS) \
-		-lopencv_core \
-		-lopencv_imgproc
+	    $(CXXFLAGS) \
+	    -I$(OPENCV_DIR)/include \
+	    -I$(OPENCV_DIR)/modules/core/include \
+	    -I$(OPENCV_DIR)/modules/imgproc/include \
+	    -I$(OPENCV_DIR)/modules/ximgproc/include \
+	    -I$(OPENCV_BUILD) \
+	    $< \
+	    -o $@ \
+	    -L$(OPENCV_INSTALL)/lib64 \
+		-Wl,-rpath,$(OPENCV_INSTALL)/lib64 \
+	    $(LDFLAGS) \
+	    -lopencv_core \
+	    -lopencv_imgproc
 
 clean:
 	rm -f cv_kernel

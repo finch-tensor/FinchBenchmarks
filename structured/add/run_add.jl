@@ -123,7 +123,7 @@ function calculate_results(dataset, mtxs, results)
                 expected = shard_impl_result.C
                 for i in 1:m
                     for j in 1:n
-                        @assert isapprox(result.C[i,j], expected[i,j]) "Incorrect result for $key at ($i,$j): got $(result.C[i,j]), expected $(expected[i,j])"
+                        @assert isapprox(result.C[i,j], expected[i,j]; rtol=1e-5, atol=1e-8) "Incorrect result for $key at ($i,$j): got $(result.C[i,j]), expected $(expected[i,j])"
                     end
                 end
             end

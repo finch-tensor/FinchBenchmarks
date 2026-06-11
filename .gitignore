@@ -5,14 +5,21 @@ cache/*
 sum/eigen_kernel
 sum/mkl_kernel
 sum/taco_kernel
+
 spadd/eigen_kernel
 spadd/mkl_kernel
 spadd/taco_kernel
+
 MTTKRP/eigen_kernel
 MTTKRP/mkl_kernel
 MTTKRP/taco_kernel
 
-MTTKRP/data/*.tns
+structured/*.err
+structured/*.out
+
+structured/add/cv_kernel
+
+structured/histogram/cv_kernel
 
 deps/SparseRooflineBenchmark/build
 .vscode/settings.json

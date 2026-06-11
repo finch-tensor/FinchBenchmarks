@@ -47,16 +47,8 @@ datasets = Dict(
     ],
     # "uniform" => [
     #     OrderedDict("size" => 1_000, "sparsity" => 0.1),
-    #     OrderedDict("size" => 1_000, "sparsity" => 0.01),
-    #     OrderedDict("size" => 1_000, "sparsity" => 0.001),
     #     OrderedDict("size" => 1_000, "sparsity" => 0.0001),
-    #     OrderedDict("size" => 2_000, "sparsity" => 0.00001),
-    #     OrderedDict("size" => 5_000, "sparsity" => 0.00001),
-    #     OrderedDict("size" => 10_000, "sparsity" => 0.00001),
-    #     OrderedDict("size" => 20_000, "sparsity" => 0.00001),
-    #     OrderedDict("size" => 50_000, "sparsity" => 0.00001),
     #     OrderedDict("size" => 100_000, "sparsity" => 0.00001),
-
     # ],
 )
 
@@ -66,7 +58,7 @@ include("cv_impl.jl")
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
-    # "cv_impl" => hist_cv_impl,
+    "cv_impl" => hist_cv_impl,
 )
 
 if !isnothing(parsed_args["method"])
