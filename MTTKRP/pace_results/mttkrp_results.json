@@ -1,0 +1,58 @@
+[
+    {
+        "dataset": "large",
+        "matrix": "data/nell-2.tns",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.18944577
+    },
+    {
+        "dataset": "large",
+        "matrix": "data/nell-2.tns",
+        "method": "finch_impl",
+        "n_threads": 16,
+        "time": 0.248461043
+    },
+    {
+        "dataset": "large",
+        "matrix": "data/1998DARPA.tns",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.69797458
+    },
+    {
+        "dataset": "large",
+        "matrix": "data/1998DARPA.tns",
+        "method": "finch_impl",
+        "n_threads": 16,
+        "time": 0.162991957
+    },
+    {
+        "dataset": "large",
+        "matrix": "data/fb-m.tns",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.9668955320000001
+    },
+    {
+        "dataset": "large",
+        "matrix": "data/fb-m.tns",
+        "method": "finch_impl",
+        "n_threads": 16,
+        "time": 1.31075414
+    },
+    {
+        "dataset": "large",
+        "matrix": "data/nell-1.tns",
+        "method": "taco_impl",
+        "n_threads": 16,
+        "time": 0.789947952
+    },
+    {
+        "dataset": "large",
+        "matrix": "data/nell-1.tns",
+        "method": "finch_impl",
+        "n_threads": 16,
+        "time": 2.230066953
+    }
+]

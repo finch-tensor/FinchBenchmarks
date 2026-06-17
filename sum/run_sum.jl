@@ -14,6 +14,7 @@ using ArgParse
 using DataStructures
 using JSON
 using Random
+using SparseArrays
 
 Random.seed!(1234)
 
@@ -80,17 +81,20 @@ function calculate_results(dataset, mtxs, results)
         if dataset == "diff_sparsity"
             A = matrixdepot(mtx)
             v = vec(A)
+            v1 = SparseVector(v)
+            perm = Random.randperm(length(v1))
+            v2 = v1[perm]
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
         for (key, method) in methods
             ncpu = parsed_args["ncpu"]
-            result = method(v, ncpu)
+            result = method(v1, v2, ncpu)
 
             if parsed_args["accuracy-check"]
                 # Check the result of the sum
-                coalesce_impl_result = coalesce_impl(v, ncpu)
+                coalesce_impl_result = coalesce_impl(v1, v2, ncpu)
 
                 rtol = 1e-4
                 @assert isapprox(result.s, coalesce_impl_result.s, rtol=rtol) """

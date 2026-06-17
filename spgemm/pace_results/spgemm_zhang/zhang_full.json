@@ -1,0 +1,1339 @@
+[
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.37132660300000003
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.025456036
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.043701589
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.053072685
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/roadNet-CA",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.04167546
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.072449074
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.006468917
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.009049542
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.013591544
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Pajek/patents_main",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.010713437
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.012482416000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.001733493
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.001532854
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.003022075
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.003649084
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.08742630200000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.013820608000000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.009277598
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.015040758
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.008085504
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.038343151
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.008526538
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.005460833
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.008542639
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.005312691
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.941976409
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.256795025
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.068645235
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.358766403
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Enron",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.064138244
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.061520441
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.008304585
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.006841176
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.00804615
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.005973808
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.590511177
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.056626537000000005
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.056069203
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.066319657
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Oberwolfach/filter3D",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.056030079
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.6579847360000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.07608118700000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.052972919
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.094073952
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/cop20k_A",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.073073828
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.8637948950000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.07045457000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.083269338
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.08580137
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/offshore",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.103059018
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.28696143700000004
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.027024671
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.030692769
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.030352486
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Um/2cubes_sphere",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.027218983
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.44787237500000004
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.06249621
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.03724008
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.067646182
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "vanHeukelum/cage12",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.041888015
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.686493896
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.045346934000000005
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.055836477
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.135215728
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/amazon0312",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.067333986
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.12115272
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.014459744
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.013773283
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.020259126
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Hamm/scircuit",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.015560032
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 1.742543347
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.09834121400000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.12602209
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.144742822
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/web-Google",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.187756024
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.208487839
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.014282153
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.017243222
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.019582859
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "GHS_indef/mario002",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.033435775
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 4.605540837
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.788530395
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.403738288
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.798331362
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/cit-Patents",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.39164372
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.07313127300000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.0031041610000000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.007397922
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.008630622
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "JGD_Homology/m133-b3",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.011128268
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 1.804012968
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.19046865100000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.132929474
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 1.257721292
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "Williams/webbase-1M",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.504625954
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.040130388
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.006680776
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.0017823350000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.0161137
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.001670679
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.001010981
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.060303982
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/email-Eu-core",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001450919
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.023618288
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.007100510000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.001816302
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.017715655
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.001694149
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.001088474
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.08359254
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/CollegeMsg",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001552919
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.069196762
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.013069378000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.009017239
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.077852614
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.00851299
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.001915372
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.1721229
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-alpha",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001786246
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.011176104
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.00316884
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.00048082800000000004
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.070608701
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.000598019
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.000459753
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.215545383
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-GrQc",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001339979
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.147137453
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.026496323000000002
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.005830563
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.068662147
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.005282325
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.003511852
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.281355686
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/soc-sign-bitcoin-otc",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.003104987
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.004116103
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.001456889
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.00027262600000000004
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.061953062
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.000909053
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.0002407
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.250081639
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella08",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001460062
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.600396513
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.060640046
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.009667365
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.075820868
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.011830267
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.007053712
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.385801962
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/as-735",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.005423453
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.004541209
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.001782331
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.000302138
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.090657324
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.000675001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.000338715
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.335375717
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella09",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001192667
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.198729064
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.037866742
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.008516941
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.143489642
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.008580617
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.005366233
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.284438135
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/wiki-Vote",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.005473143
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.00620448
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.002307932
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.000409557
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.129006084
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.000784245
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.000327501
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.362288558
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella06",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001358606
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.005553933
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.0023493800000000003
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.00036950400000000005
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.130944922
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.000764817
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.00032045
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.370108399
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/p2p-Gnutella05",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001318997
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_finch_outer",
+        "threads": 16,
+        "time": 0.022012455
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_eigen",
+        "threads": 16,
+        "time": 0.008438752
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_mkl",
+        "threads": 16,
+        "time": 0.0012712070000000001
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_finch_inner",
+        "threads": 16,
+        "time": 0.250342696
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_finch_gustavson_static",
+        "threads": 16,
+        "time": 0.001200872
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_finch_gustavson_dynamic",
+        "threads": 16,
+        "time": 0.001098315
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_finch_nested",
+        "threads": 16,
+        "time": 0.442214284
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "SNAP/ca-HepTh",
+        "method": "spgemm_graphblas",
+        "threads": 16,
+        "time": 0.001979105
+    }
+]

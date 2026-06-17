@@ -1,0 +1,30 @@
+[
+    {
+        "dataset": "sparse",
+        "matrix": "data/nell-2.tns",
+        "method": "finch_impl",
+        "n_threads": 1,
+        "time": 9.16650761
+    },
+    {
+        "dataset": "sparse",
+        "matrix": "data/1998DARPA.tns",
+        "method": "finch_impl",
+        "n_threads": 1,
+        "time": 3.820619432
+    },
+    {
+        "dataset": "sparse",
+        "matrix": "data/fb-m.tns",
+        "method": "finch_impl",
+        "n_threads": 1,
+        "time": 9.010186737
+    },
+    {
+        "dataset": "sparse",
+        "matrix": "data/nell-1.tns",
+        "method": "finch_impl",
+        "n_threads": 1,
+        "time": 39.335701116
+    }
+]

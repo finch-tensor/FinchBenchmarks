@@ -1,0 +1,128 @@
+[
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/wiki-topcats",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.026533304
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/wiki-topcats",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.025664676
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/soc-Slashdot0811",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.001465715
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/soc-Slashdot0811",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.00116473
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.000504393
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/p2p-Gnutella31",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.000550277
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/cit-Patents",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.031936837
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/cit-Patents",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.032048535
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/web-Google",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.009967547
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/web-Google",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.007163259
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/amazon0312",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.00425204
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/amazon0312",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.004601631
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/web-BerkStan",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.002860295
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/web-BerkStan",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.004973576
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/sx-stackoverflow",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.064800794
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/sx-stackoverflow",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.038320212
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "graphblas",
+        "n_threads": 16,
+        "time": 0.000334778
+    },
+    {
+        "dataset": "snap_large",
+        "matrix": "SNAP/ca-CondMat",
+        "method": "coalesce_static",
+        "n_threads": 16,
+        "time": 0.000365067
+    }
+]

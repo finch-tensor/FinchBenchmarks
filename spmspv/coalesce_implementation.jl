@@ -4,7 +4,7 @@ using SuiteSparseGraphBLAS
 
 function coalesce_spmspv(A, x, nt)
         dev = cpu(:t, nt)
-        _y = Tensor(Coalesce(dev, SparseDict(Element(0.0))))
+        _y = Tensor(Coalesce(dev, SparseByteMap(Element(0.0))))
         _x = Tensor(SparseList(Element(0.0)), x)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         time = @belapsed begin

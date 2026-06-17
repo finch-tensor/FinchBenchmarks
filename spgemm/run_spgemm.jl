@@ -99,7 +99,17 @@ datasets = Dict(
         "SNAP/roadNet-CA",
         "SNAP/p2p-Gnutella31",
         "Pajek/patents_main"
-    ]
+    ],
+    "zhang" => [
+        "SNAP/roadNet-CA",
+        "SNAP/p2p-Gnutella31",
+        "SNAP/cit-Patents",
+        "SNAP/web-Google",
+        "SNAP/amazon0312",
+        "SNAP/wiki-Vote",
+        "SNAP/email-Enron",
+        "SNAP/ca-CondMat",
+    ],
 )
 
 include("spgemm_finch.jl")

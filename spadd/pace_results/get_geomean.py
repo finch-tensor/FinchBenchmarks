@@ -13,7 +13,7 @@ def main(filename):
 
     times_by_matrix = defaultdict(dict)
     for entry in data:
-        matrix = entry['matrix']
+        matrix = (entry['dataset'], entry['matrix'])
         method = entry['method']
         time = entry['time']
         times_by_matrix[matrix][method] = time

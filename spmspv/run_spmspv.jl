@@ -56,8 +56,15 @@ datasets = Dict(
     #     ("HB/bcsstk31", "bcsstk31"),
     # ],
     "hb_wide" => [
-        ("SNAP/sx-stackoverflow", "sx-stackoverflow"),
-        ("SNAP/cit-Patents", "cit-Patents"),
+        # ("SNAP/sx-stackoverflow", "sx-stackoverflow"),
+        "SNAP/com-Orkut",
+        "SNAP/com-LiveJournal",
+        "SNAP/soc-LiveJournal1",
+        "SNAP/sx-stackoverflow",
+        "SNAP/soc-Pokec",
+        "SNAP/wiki-topcats",
+        "SNAP/as-Skitter",
+        "SNAP/cit-Patents"
     ]
 )
 
@@ -67,7 +74,7 @@ include("coalesce_implementation.jl")
 
 
 methods = OrderedDict(
-    "serial_default_implementation" => serial_default_implementation_spmspv,
+    # "serial_default_implementation" => serial_default_implementation_spmspv,
     "coalesce_static" => coalesce_spmspv,
     "graphblas" => blas_spmspv,
     # "coalesce_dynamic" => coalesce_spmspv_dynamic,
@@ -88,12 +95,12 @@ function calculate_results(dataset, mtxs, results)
             A = fsprand(mtx["size"], mtx["size"], mtx["sparsity"])
             x = fsprand(mtx["size"], mtx["sparsity"])
         elseif dataset == "hb_wide"
-            A = matrixdepot(mtx[1])
+            A = SparseMatrixCSC(matrixdepot(mtx[1]))
             (m, n) = size(A)
             if m < 1000 || n < 1000
                 continue
             end
-            x = sprand(n, 0.1)
+            x = sprand(n, 0.01)
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end

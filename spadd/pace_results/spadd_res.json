@@ -2,127 +2,169 @@
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Dc",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.016959752
+    },
+    {
+        "dataset": "femlab",
+        "matrix": "FEMLAB/sme3Dc",
         "method": "mkl_impl",
         "n_threads": 16,
-        "time": 0.010171156
+        "time": 0.011506282000000001
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Dc",
         "method": "shard_implementation",
         "n_threads": 16,
-        "time": 0.003590262
+        "time": 0.003939275
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Dc",
         "method": "eigen_impl",
         "n_threads": 16,
-        "time": 0.057850529000000005
+        "time": 0.066994341
+    },
+    {
+        "dataset": "femlab",
+        "matrix": "FEMLAB/poisson3Db",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.011938279
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/poisson3Db",
         "method": "mkl_impl",
         "n_threads": 16,
-        "time": 0.009093266000000001
+        "time": 0.010263976000000001
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/poisson3Db",
         "method": "shard_implementation",
         "n_threads": 16,
-        "time": 0.003119935
+        "time": 0.003369673
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/poisson3Db",
         "method": "eigen_impl",
         "n_threads": 16,
-        "time": 0.040547787
+        "time": 0.046555702000000004
+    },
+    {
+        "dataset": "femlab",
+        "matrix": "FEMLAB/sme3Db",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.007185926
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Db",
         "method": "mkl_impl",
         "n_threads": 16,
-        "time": 0.006416323000000001
+        "time": 0.007299730000000001
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Db",
         "method": "shard_implementation",
         "n_threads": 16,
-        "time": 0.002352324
+        "time": 0.00262076
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Db",
         "method": "eigen_impl",
         "n_threads": 16,
-        "time": 0.038214245
+        "time": 0.043654795
+    },
+    {
+        "dataset": "femlab",
+        "matrix": "FEMLAB/ns3Da",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.005687747
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/ns3Da",
         "method": "mkl_impl",
         "n_threads": 16,
-        "time": 0.005081174
+        "time": 0.005728266
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/ns3Da",
         "method": "shard_implementation",
         "n_threads": 16,
-        "time": 0.001961372
+        "time": 0.00210713
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/ns3Da",
         "method": "eigen_impl",
         "n_threads": 16,
-        "time": 0.03147249
+        "time": 0.035762723
+    },
+    {
+        "dataset": "femlab",
+        "matrix": "FEMLAB/sme3Da",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.002852185
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Da",
         "method": "mkl_impl",
         "n_threads": 16,
-        "time": 0.0026632400000000003
+        "time": 0.003023739
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Da",
         "method": "shard_implementation",
         "n_threads": 16,
-        "time": 0.001101515
+        "time": 0.001151091
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/sme3Da",
         "method": "eigen_impl",
         "n_threads": 16,
-        "time": 0.016251733
+        "time": 0.018001491
+    },
+    {
+        "dataset": "femlab",
+        "matrix": "FEMLAB/poisson3Da",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.00219413
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/poisson3Da",
         "method": "mkl_impl",
         "n_threads": 16,
-        "time": 0.001288303
+        "time": 0.001500596
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/poisson3Da",
         "method": "shard_implementation",
         "n_threads": 16,
-        "time": 0.000547702
+        "time": 0.000556257
     },
     {
         "dataset": "femlab",
         "matrix": "FEMLAB/poisson3Da",
         "method": "eigen_impl",
         "n_threads": 16,
-        "time": 0.006451036
+        "time": 0.007164409
     }
 ]

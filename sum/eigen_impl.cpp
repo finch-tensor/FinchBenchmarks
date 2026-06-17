@@ -22,21 +22,39 @@ int main(int argc, char **argv){
     }
     omp_set_num_threads(n_threads);
 
-    Eigen::SparseVector<double> v;
+    Eigen::SparseVector<double> v1;
     {
-      std::ifstream f(params.input + "/v.ttx");
+      std::ifstream f(params.input + "/v1.ttx");
       std::string line;
       // Skip comment lines
       while (std::getline(f, line) && line[0] == '%') {}
       // First non-comment line: "size nnz"
       int64_t size, nnz;
       std::istringstream(line) >> size >> nnz;
-      v.resize(size);
-      v.reserve(nnz);
+      v1.resize(size);
+      v1.reserve(nnz);
       int64_t idx;
       double val;
       while (f >> idx >> val) {
-        v.insert(idx - 1) = val;  // ttx is 1-indexed
+        v1.insert(idx - 1) = val;  // ttx is 1-indexed
+      }
+    }
+
+    Eigen::SparseVector<double> v2;
+    {
+      std::ifstream f(params.input + "/v2.ttx");
+      std::string line;
+      // Skip comment lines
+      while (std::getline(f, line) && line[0] == '%') {}
+      // First non-comment line: "size nnz"
+      int64_t size, nnz;
+      std::istringstream(line) >> size >> nnz;
+      v2.resize(size);
+      v2.reserve(nnz);
+      int64_t idx;
+      double val;
+      while (f >> idx >> val) {
+        v2.insert(idx - 1) = val;  // ttx is 1-indexed
       }
     }
 
@@ -45,15 +63,10 @@ int main(int argc, char **argv){
     // Assemble output indices and numerically compute the result
     auto time = benchmark(
       []() {
-        // double s = 0.0;
-        // #pragma omp parallel for reduction(+:s)
-        // for (int i = 0; i < v.size(); ++i) s += v.coeff(i);
-        // out_sum = s;
       },
-      [&v, &out_sum]() {
+      [&v1, &v2, &out_sum]() {
         double s = 0.0;
-        #pragma omp parallel for reduction(+:s)
-        for (int i = 0; i < v.size(); ++i) s += v.coeff(i);
+        s = v1.dot(v2);
         out_sum = s;
       }
     );

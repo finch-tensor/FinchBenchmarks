@@ -8,8 +8,13 @@ function mttkrp_mkl_helper(args, B, C, D, num_cpu)
         fwrite(C_path, C)
         fwrite(D_path, D)
 
-        mttkrp_path = joinpath(@__DIR__, "mkl_kernel")
-        run(`$mttkrp_path -i $tmpdir -o $tmpdir -t $num_cpu`)
+        mttkrp_path = joinpath(@__DIR__, "mttkrp_mkl")
+        taco_path = joinpath(@__DIR__, "../deps/taco/build/lib")
+        mklvars_path = joinpath(@__DIR__, "../deps/intel/oneapi/setvars.sh")
+        withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path","LD_LIBRARY_PATH" => "$taco_path") do
+            cmd = "source $mklvars_path; $mttkrp_path -i $tmpdir -o $tmpdir"
+            run(`bash -c $cmd`)
+        end
 
         A_tensor = fread(A_path)
         parsed = JSON.parsefile(joinpath(tmpdir, "measurements.json"))

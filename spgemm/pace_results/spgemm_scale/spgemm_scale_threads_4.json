@@ -4,27 +4,34 @@
         "matrix": "file:./data/rand_16384.ttx",
         "method": "spgemm_eigen",
         "threads": 4,
-        "time": 0.056937309000000005
+        "time": 0.055646584000000006
     },
     {
         "kernel": "spgemm",
         "matrix": "file:./data/rand_16384.ttx",
         "method": "spgemm_mkl",
         "threads": 4,
-        "time": 0.023378064
+        "time": 0.023266218
     },
     {
         "kernel": "spgemm",
         "matrix": "file:./data/rand_16384.ttx",
         "method": "spgemm_finch_gustavson_dynamic",
         "threads": 4,
-        "time": 0.023595427
+        "time": 0.02275447
     },
     {
         "kernel": "spgemm",
         "matrix": "file:./data/rand_16384.ttx",
         "method": "spgemm_finch_gustavson_static",
         "threads": 4,
-        "time": 0.025543609
+        "time": 0.023850541
+    },
+    {
+        "kernel": "spgemm",
+        "matrix": "file:./data/rand_16384.ttx",
+        "method": "spgemm_graphblas",
+        "threads": 4,
+        "time": 0.012168864
     }
 ]

@@ -5,13 +5,14 @@ import numpy as np
 
 # ── Data ────────────────────────────────────────────────────────────────────
 
-with open("./spadd_res.json") as f:
+with open("./spadd_mirror_results.json") as f:
     raw = json.load(f)
 
 RENAME = {
     "shard_implementation": "wingspan",
     "mkl_impl":             "mkl",
     "eigen_impl":           "eigen",
+    "graphblas_impl":       "graphblas",
 }
 
 data: dict = {}
@@ -25,7 +26,7 @@ for entry in raw:
 matrices = list(data.keys())
 
 # Order: mkl is baseline at 1.0
-methods = ["wingspan", "mkl", "eigen"]
+methods = ["wingspan", "mkl", "eigen", "graphblas"]
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
@@ -47,9 +48,10 @@ COLORS = {
     "wingspan": "#E69F00",  # orange
     "mkl":      "#009E73",  # bluish green
     "eigen":    "#CC79A7",  # reddish purple
+    "graphblas": "#56B4E9", # sky blue
 }
 
-fig, ax = plt.subplots(figsize=(16, 6))
+fig, ax = plt.subplots(figsize=(12, 6))
 fig.patch.set_facecolor("white")
 ax.set_facecolor("white")
 
@@ -68,18 +70,19 @@ for i, meth in enumerate(methods):
 
 ax.axhline(1.0, color="#333333", linewidth=0.9, linestyle="--", zorder=2)
 
-
 ax.yaxis.set_minor_locator(ticker.AutoMinorLocator())
 ax.set_xticks(x)
-ax.set_xticklabels(matrices, rotation=35, ha="right", fontsize=9)
-ax.set_ylabel("Speedup", fontsize=11)
-ax.set_title("SpAdd Speedup Results", fontsize=13, fontweight="bold", pad=14)
+ax.set_yscale("log")
+ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f"{y:g}"))
+ax.set_xticklabels(matrices, rotation=15, ha="right")
+ax.set_ylabel("Speedup")
+ax.set_title("Identity SpAdd Speedup Results", fontweight="bold", pad=14)
 ax.grid(axis="y", which="major", color="#cccccc", linewidth=0.7, zorder=0)
 ax.grid(axis="y", which="minor", color="#e8e8e8", linewidth=0.3, zorder=0)
 ax.spines[["top", "right"]].set_visible(False)
 
-ax.legend(fontsize=9, framealpha=0.85, edgecolor="#cccccc")
+ax.legend(framealpha=0.85, edgecolor="#cccccc")
 
 plt.tight_layout()
-plt.savefig("./spadd_speedup.png", dpi=150, bbox_inches="tight")
+plt.savefig("./spadd_speedup.png", dpi=200)
 print("Saved.")

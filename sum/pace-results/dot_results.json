@@ -1,0 +1,212 @@
+[
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk30",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.002456514
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk30",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.001067211
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk30",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.014750052000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk32",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.004776363
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk32",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.003790975
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk32",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.015286334
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk31",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.002873983
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk31",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.001343922
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk31",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.02114102
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk29",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.000725299
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk29",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000438724
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk29",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.002345433
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk33",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.000418625
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk33",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000323237
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk33",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.0013522270000000001
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_1",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.000673782
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_1",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.0002696
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_1",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.001018893
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_3",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.000541047
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_3",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000269346
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_3",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.001026314
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_2",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.00058715
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_2",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000267681
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/psmigr_2",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.0010140560000000002
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk17",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.000409176
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk17",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000322142
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/bcsstk17",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.001545675
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/cegb2919",
+        "method": "graphblas_impl",
+        "n_threads": 16,
+        "time": 0.00020978
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/cegb2919",
+        "method": "coalesce_impl",
+        "n_threads": 16,
+        "time": 0.000132983
+    },
+    {
+        "dataset": "diff_sparsity",
+        "matrix": "HB/cegb2919",
+        "method": "eigen_impl",
+        "n_threads": 16,
+        "time": 0.000383087
+    }
+]

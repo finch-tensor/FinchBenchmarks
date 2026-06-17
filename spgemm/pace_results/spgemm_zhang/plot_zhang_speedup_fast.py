@@ -13,6 +13,7 @@ RENAME = {
     "spgemm_finch_gustavson_static":  "wingspan_gustavson_static",
     "spgemm_eigen":                   "eigen",
     "spgemm_mkl":                     "mkl",
+    "spgemm_graphblas":               "graphblas",
 }
 
 data: dict = {}
@@ -35,7 +36,7 @@ for m in data:
         data[m]["wingspan_gustavson"] = sta
 
 matrices = list(data.keys())
-methods  = ["wingspan_gustavson", "mkl", "eigen"]
+methods  = ["wingspan_gustavson", "mkl", "graphblas", "eigen"]
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
@@ -48,7 +49,7 @@ for mat in matrices:
 
 n_matrices = len(matrices)
 n_methods  = len(methods)
-bar_width  = 0.22
+bar_width  = 0.175
 group_gap  = 0.06
 x = np.arange(n_matrices)
 
@@ -57,9 +58,10 @@ COLORS = {
     "wingspan_gustavson": "#E69F00",  # orange
     "mkl":                "#56B4E9",  # sky blue
     "eigen":              "#009E73",  # bluish green
+    "graphblas":          "#D55E00",  # vermillion
 }
 
-fig, ax = plt.subplots(figsize=(18, 6))
+fig, ax = plt.subplots(figsize=(12, 6))
 fig.patch.set_facecolor("white")
 ax.set_facecolor("white")
 
@@ -77,18 +79,20 @@ for i, meth in enumerate(methods):
     )
 
 ax.axhline(1.0, color="#333333", linewidth=0.9, linestyle="--", zorder=2)
-
-ax.yaxis.set_minor_locator(ticker.AutoMinorLocator())
+ax.set_yscale("log")
+ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f"{y:g}"))
+ax.yaxis.set_minor_formatter(ticker.NullFormatter())
+# ax.tick_params(axis='y', labelsize=20)
 ax.set_xticks(x)
-ax.set_xticklabels(matrices, rotation=35, ha="right", fontsize=9)
-ax.set_ylabel("Speedup", fontsize=11)
-ax.set_title("Speedup on Large Zhang Matrices", fontsize=13, fontweight="bold", pad=14)
+ax.set_xticklabels(matrices, rotation=15, ha="right")
+ax.set_ylabel("Speedup")
+ax.set_title("Speedup on Large Zhang Matrices", fontweight="bold", pad=14)
 ax.grid(axis="y", which="major", color="#cccccc", linewidth=0.7, zorder=0)
 ax.grid(axis="y", which="minor", color="#e8e8e8", linewidth=0.3, zorder=0)
 ax.spines[["top", "right"]].set_visible(False)
 
-ax.legend(loc="upper right", fontsize=8.5, framealpha=0.85, edgecolor="#cccccc")
+ax.legend(loc="upper right", framealpha=0.85, edgecolor="#cccccc", ncol=2)
 
 plt.tight_layout()
-plt.savefig("./zhang_large_speedup.png", dpi=150, bbox_inches="tight")
+plt.savefig("./zhang_speedup_fast.png", dpi=200)
 print("Saved.")

@@ -11,12 +11,13 @@ using namespace taco;
 
 int main(int argc, char **argv){
     auto params = parse(argc, argv);
-    Tensor<double> v = read(fs::path(params.input)/"v.ttx", Format({Sparse}), true);
-    int dim = v.getDimension(0);
+    Tensor<double> v1 = read(fs::path(params.input)/"v1.ttx", Format({Sparse}), true);
+    Tensor<double> v2 = read(fs::path(params.input)/"v2.ttx", Format({Sparse}), true);
+    int dim = v1.getDimension(0);
     Tensor<double> sum("sum", {}, Format());
 
     IndexVar i;
-    sum() += v(i);
+    sum() += v1(i) * v2(i);
 
     IndexStmt stmt = sum.getAssignment().concretize();
 

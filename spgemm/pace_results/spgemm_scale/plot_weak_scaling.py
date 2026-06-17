@@ -3,16 +3,19 @@ import glob
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
+plt.rcParams.update({"font.size": plt.rcParams["font.size"] * 2})
+
 # ── Data ────────────────────────────────────────────────────────────────────
 
 RENAME = {
     "spgemm_finch_gustavson_dynamic": "wingspan_gustavson",
     "spgemm_eigen":                   "eigen",
     "spgemm_mkl":                     "mkl",
+    "spgemm_graphblas":               "graphblas",
 }
 
 records = []
-for path in glob.glob("./spgemm_scale_threads_weak_*.json"):
+for path in glob.glob("./weak/spgemm_scale_threads_weak_*.json"):
     with open(path) as f:
         records.extend(json.load(f))
 
@@ -26,23 +29,25 @@ for entry in records:
     threads = entry["threads"]
     data.setdefault(name, {})[threads] = t_ms
 
-methods     = ["wingspan_gustavson", "mkl", "eigen"]
+methods     = ["wingspan_gustavson", "mkl", "eigen", "graphblas"]
 all_threads = sorted({t for m in data.values() for t in m})
 
 COLORS  = {
     "wingspan_gustavson": "#E69F00",
     "mkl":                "#56B4E9",
     "eigen":              "#009E73",
+    "graphblas":          "#CC79A7",
 }
 MARKERS = {
     "wingspan_gustavson": "o",
     "mkl":                "s",
     "eigen":              "^",
+    "graphblas":          "D",
 }
 
 # ── Plot ─────────────────────────────────────────────────────────────────────
 
-fig, ax = plt.subplots(figsize=(8, 5))
+fig, ax = plt.subplots(figsize=(12, 8))
 fig.patch.set_facecolor("white")
 ax.set_facecolor("white")
 
@@ -69,15 +74,15 @@ ax.yaxis.set_minor_formatter(ticker.NullFormatter())
 all_times = [t for m in data.values() for t in m.values()]
 ax.set_ylim(min(all_times) * 0.8, max(all_times) * 1.2)
 
-ax.set_xlabel("Number of Threads", fontsize=11)
-ax.set_ylabel("Runtime (ms)", fontsize=11)
-ax.set_title("SpGEMM Weak Scaling", fontsize=13, fontweight="bold", pad=14)
-ax.grid(axis="both", which="major", color="#cccccc", linewidth=0.7, zorder=0)
-ax.grid(axis="both", which="minor", color="#e8e8e8", linewidth=0.3, zorder=0)
+ax.set_xlabel("Number of Threads")
+ax.set_ylabel("Runtime (ms)")
+ax.set_title("SpGEMM Weak Scaling", fontweight="bold", pad=14)
+ax.grid(axis="both", which="major", color="#cccccc", zorder=0)
+ax.grid(axis="both", which="minor", color="#e8e8e8", zorder=0)
 ax.spines[["top", "right"]].set_visible(False)
 
-ax.legend(fontsize=9, framealpha=0.85, edgecolor="#cccccc")
+ax.legend(framealpha=0.85, edgecolor="#cccccc", ncol=2)
 
 plt.tight_layout()
-plt.savefig("./weak_scaling.png", dpi=150, bbox_inches="tight")
+plt.savefig("./weak_scaling.png", dpi=200)
 print("Saved.")
