@@ -1,0 +1,72 @@
+[
+    {
+        "time": 0.005725936,
+        "n_threads": 8,
+        "method": "coalesce_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.abalip.com.jpg"
+    },
+    {
+        "time": 0.0072153090000000005,
+        "n_threads": 8,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.abalip.com.jpg"
+    },
+    {
+        "time": 0.005017547,
+        "n_threads": 8,
+        "method": "coalesce_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.carmelmusic.com.jpg"
+    },
+    {
+        "time": 0.007237288000000001,
+        "n_threads": 8,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.carmelmusic.com.jpg"
+    },
+    {
+        "time": 0.009698571,
+        "n_threads": 8,
+        "method": "coalesce_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.claudiozappi.it.jpg"
+    },
+    {
+        "time": 0.0072524320000000005,
+        "n_threads": 8,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.claudiozappi.it.jpg"
+    },
+    {
+        "time": 0.004092369,
+        "n_threads": 8,
+        "method": "coalesce_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.duo-thais.com.jpg"
+    },
+    {
+        "time": 0.0071979190000000005,
+        "n_threads": 8,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.duo-thais.com.jpg"
+    },
+    {
+        "time": 0.004186658,
+        "n_threads": 8,
+        "method": "coalesce_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.handball-riehen.ch.jpg"
+    },
+    {
+        "time": 0.007160438000000001,
+        "n_threads": 8,
+        "method": "cv_impl",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.handball-riehen.ch.jpg"
+    }
+]
