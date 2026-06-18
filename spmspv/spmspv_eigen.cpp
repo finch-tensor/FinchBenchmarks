@@ -46,14 +46,14 @@ int main(int argc, char **argv) {
   );
 
   // Write y manually in Matrix Market format
-std::ofstream out(params.output + "/C.ttx");
-out << "%%MatrixMarket matrix coordinate real general\n";
-out << y.size() << " 1 " << y.nonZeros() << "\n";
+  std::ofstream out(params.output + "/C.ttx");
+out << "%%MatrixMarket matrix coordinate real general\n";  // or match whatever fwrite emits for SparseList
+out << y.size() << " " << y.nonZeros() << "\n";
 for (Eigen::SparseVector<double>::InnerIterator it(y); it; ++it) {
-    out << (it.index() + 1) << " 1 " << it.value() << "\n";  // 1-indexed
+    out << (it.index() + 1) << " " << it.value() << "\n";  // 1-indexed
 }
-out.close();
 
+out.close();
   json measurements;
   measurements["time"] = time;
   measurements["memory"] = 0;

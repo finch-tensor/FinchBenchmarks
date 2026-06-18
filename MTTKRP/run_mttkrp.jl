@@ -8,12 +8,12 @@ end
 include("../deps/diagnostics.jl")
 print_diagnostics()
 
-using MatrixDepot
 using BenchmarkTools
 using ArgParse
 using DataStructures
 using JSON
 using Random
+using SparseArrays
 
 Random.seed!(1234)
 
@@ -44,9 +44,18 @@ datasets = Dict(
         OrderedDict("size" => 1_000, "sparsity" => 1e-5),
     ],
     # need to manually download from http://frostt.io/tensors/
-    # "nell" => [
-    #     "data/nell-2.tns",
-    # ],
+    "large" => [
+	"data/nell-2.tns",
+	"data/1998DARPA.tns",
+	"data/fb-m.tns",
+	"data/nell-1.tns",
+     ],
+    "sparse" => [
+        "data/nell-2.tns",
+        "data/1998DARPA.tns",
+        "data/fb-m.tns",
+        "data/nell-1.tns",
+     ]
 )
 
 # Mapping from method keywords to methods
@@ -57,10 +66,8 @@ include("mkl_impl.jl")
 
 
 methods = OrderedDict(
-    "finch_impl" => finch_impl,
     "taco_impl" => taco_impl,
-    "eigen_impl" => eigen_impl,
-    "mkl_impl" => mkl_impl,
+    "finch_impl" => finch_impl,
 )
 
 if !isnothing(parsed_args["method"])
@@ -78,16 +85,23 @@ function calculate_results(dataset, mtxs, results)
             B = fsprand(mtx["size"], mtx["size"], mtx["size"], mtx["sparsity"])
             C = rand(mtx["size"], 32)
             D = rand(mtx["size"], 32)
-        elseif dataset == "nell"
-            B = TensorMarket.tnsread(mtx) # may have to look for a sparser matrix?
-            C = rand(size(B)[2], 32)
-            D = rand(size(B)[3], 32)
+        elseif dataset == "large"
+            B = TensorMarket.tnsread(mtx)
+	        B = fsparse(B[1]..., B[2])
+            C = rand(size(B)[2], 16)
+            D = rand(size(B)[3], 16)
+        elseif dataset == "sparse"
+            B = TensorMarket.tnsread(mtx)
+            B = fsparse(B[1]..., B[2])
+            C = sprand(size(B)[2], 16, 0.01)
+            D = sprand(size(B)[3], 16, 0.01)
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
         for (key, method) in methods
             ncpu = parsed_args["ncpu"]
+	    @info "starting test on $key"
             result = method(B, C, D, ncpu)
 
             if parsed_args["accuracy-check"]

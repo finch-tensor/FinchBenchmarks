@@ -1,9 +1,0 @@
-[
-    {
-        "time": 0.0004783,
-        "n_threads": 2,
-        "method": "serial_default_implementation",
-        "dataset": "diff_sizes",
-        "matrix": "FIDAP/ex27"
-    }
-]

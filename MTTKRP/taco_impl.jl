@@ -8,15 +8,16 @@ function mttkrp_taco_helper(args, num_cpu, B, C, D)
         B_path = joinpath(tmpdir, "B.ttx")
         C_path = joinpath(tmpdir, "C.ttx")
         D_path = joinpath(tmpdir, "D.ttx")
-        fwrite(B_path, B)
-        fwrite(C_path, C)
-        fwrite(D_path, D)
+        fwrite(B_path, Tensor(SparseList(SparseList(SparseList(Element(0.0)))), B))
+        fwrite(C_path, Tensor(Dense(Dense(Element(0.0))), C))
+        fwrite(D_path, Tensor(Dense(Dense(Element(0.0))), D))
         taco_path = joinpath(@__DIR__, "../deps/taco/build/lib")
+	@info "about to dispatch"
         withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path", 
                 "LD_LIBRARY_PATH" => "$taco_path", "TACO_CFLAGS" => "-O3 -ffast-math -std=c99 -march=native -ggdb", 
                 "OMP_NUM_THREADS" => string(num_cpu)) do
 
-            mttkrp_path = joinpath(@__DIR__, "taco_kernel")
+            mttkrp_path = joinpath(@__DIR__, "mttkrp_taco")
             cmd = isempty(args) ? `$mttkrp_path -i $tmpdir -o $tmpdir` : `$mttkrp_path -i $tmpdir -o $tmpdir $args`
             run(cmd)
         end

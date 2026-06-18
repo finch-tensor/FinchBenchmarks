@@ -1,7 +1,7 @@
 using Finch
 using TensorMarket
 using JSON
-function spgemm_eigen(A, B)
+function spmspv_eigen(A, B, nt)
     tmpdir = mktempdir(@__DIR__, prefix="experiment_")
     A_path = joinpath(tmpdir, "A.ttx")
     B_path = joinpath(tmpdir, "v.ttx")
@@ -14,7 +14,7 @@ function spgemm_eigen(A, B)
     end 
     C = fread(C_path)
     time = JSON.parsefile(joinpath(tmpdir, "measurements.json"))["time"]
-    return (;time=time*10^-9, C=C)
+    return (;time=time*10^-9, y=C)
 end
 
 has_eigen() = isfile(joinpath(@__DIR__, "spmspv_eigen"))

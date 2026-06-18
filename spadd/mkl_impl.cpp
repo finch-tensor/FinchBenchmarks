@@ -25,7 +25,7 @@ int main(int argc, char **argv){
         }
     }
     mkl_set_num_threads(n_threads);
-
+    std::cout << n_threads << std::endl;
 
     Tensor<double> A = read(fs::path(params.input)/"A.ttx", Format({Dense, Sparse}), true);
     Tensor<double> B = read(fs::path(params.input)/"B.ttx", Format({Dense, Sparse}), true);

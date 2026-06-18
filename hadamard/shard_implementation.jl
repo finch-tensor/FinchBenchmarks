@@ -9,7 +9,7 @@ function shard_impl(A, B, num_cpu)
 
     cpu_dev = cpu(:id, num_cpu)
     _C = Tensor(Dense(Shard(cpu_dev, SparseList(Element(0.0)))))
-    chk = [1, 2, 4, 8, 16, 32, 64]
+    chk = [1, 2, 4, 8, 16, 32, 64, 128, 256]
     opt = 99999999
     for size in chk
         sch = greedy_schedule(size)
@@ -60,3 +60,4 @@ function shard_impl(A, B, num_cpu)
 
     return (; time=opt, C=_C)
 end
+

@@ -41,38 +41,40 @@ parsed_args = parse_args(ARGS, s)
 # Mapping from dataset types to datasets
 datasets = Dict(
     # all 1e-3 sparsity
-    "diff_sizes" => [
-        "FIDAP/ex27", # 1k x 1k
-        "ND/nd3k", # 10k x 10k
-        "DIMACS10/G_n_pin_pout", # 100k x 100k
+     "mirror" => [
+        "SNAP/roadNet-CA",
+        "SNAP/p2p-Gnutella31",
+        "SNAP/cit-Patents",
+        "SNAP/web-Google",
+        "SNAP/amazon0312",
+        "SNAP/wiki-Vote",
+        "SNAP/email-Enron",
+        "SNAP/ca-CondMat",
     ],
-    # all 10k x 10k
-    "diff_sparsity" => [
-        "Pajek/California", # 1e-5
-        "Nasa/shuttle_eddy", # 1e-4
-        "Nemeth/nemeth20", # 1e-3 (may have too many nnz)
+    "sparse" => [
+        "SNAP/roadNet-CA",
+        "SNAP/p2p-Gnutella31",
+        "SNAP/cit-Patents",
+        "SNAP/web-Google",
+        "SNAP/amazon0312",
+        "SNAP/wiki-Vote",
+        "SNAP/email-Enron",
+        "SNAP/ca-CondMat",
     ],
 )
-
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-# include("parallel_col_separate_sparselist_results.jl")
-# include("separated_memory_concatenate_results.jl")
 include("shard_implementation.jl")
-# include("taco_impl.jl")
 include("eigen_impl.jl")
 include("mkl_impl.jl")
-#include("graphBLAS_impl.jl")
+include("graphBLAS_impl.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_add,
-    # "parallel_col_separate_sparselist_results" => parallel_col_separate_sparselist_results_add,
-    # "separated_memory_concatenate_results" => separated_memory_concatenate_results_add,
-    "shard_implementation" => shard_add,
-    # "taco_impl" => taco_impl,
-    "eigen_impl" => eigen_impl,
+    "graphblas_impl" => graphblas_impl,
     "mkl_impl" => mkl_impl,
-    # "graphblas_impl" => graphblas_impl,
+    "shard_implementation" => shard_add,
+    "eigen_impl" => eigen_impl,
 )
 
 if !isnothing(parsed_args["method"])
@@ -86,9 +88,12 @@ end
 function calculate_results(dataset, mtxs, results)
     for mtx in mtxs
         # Get relevant matrix
-        if dataset == "diff_sizes" || dataset == "diff_sparsity"
-            A = matrixdepot(mtx)
-            row_permutation = randperm(size(A, 1))
+	    if dataset == "mirror"
+            A = SparseMatrixCSC(matrixdepot(mtx))
+	        B = SparseMatrixCSC(matrixdepot(mtx))
+        elseif dataset == "sparse"
+            A = SparseMatrixCSC(matrixdepot(mtx))
+	        row_permutation = randperm(size(A, 1))
             col_permutation = randperm(size(A, 2))
             B = A[row_permutation, col_permutation]
         else

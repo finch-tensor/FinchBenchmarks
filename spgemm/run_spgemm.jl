@@ -22,29 +22,29 @@ s = ArgParseSettings("Run spgemm experiments.")
 
 @add_arg_table! s begin
     "--output", "-o"
-        arg_type = String
-        help = "output file path"
-        default = "spgemm_results.json"
+    arg_type = String
+    help = "output file path"
+    default = "spgemm_results.json"
     "--dataset", "-d"
-        arg_type = String
-        help = "dataset keyword"
-        default = "zhang_small"
+    arg_type = String
+    help = "dataset keyword"
+    default = "zhang_small"
     "--batch", "-b"
-        arg_type = Int
-        help = "batch number"
-        default = 1
+    arg_type = Int
+    help = "batch number"
+    default = 1
     "--num_batches", "-B"
-        arg_type = Int
-        help = "number of batches"
-        default = 1
+    arg_type = Int
+    help = "number of batches"
+    default = 1
     "--num_iters"
-        arg_type = Int
-        help = "number of iters to run"
-        default = 20
+    arg_type = Int
+    help = "number of iters to run"
+    default = 20
     "--kernels"
-        arg_type = String
-        help = "set of kernels to run"
-        default = "gustavson"
+    arg_type = String
+    help = "set of kernels to run"
+    default = "gustavson"
 end
 
 parsed_args = parse_args(ARGS, s)
@@ -55,14 +55,19 @@ datasets = Dict(
     "short" => [
         "HB/arc130",
     ],
-    "scale" => [
-        "file:./data/rand_128.ttx",
-        "file:./data/rand_256.ttx",
-        "file:./data/rand_512.ttx",
+    "w1" => [
         "file:./data/rand_1024.ttx",
+    ],
+    "w2" => [
         "file:./data/rand_2048.ttx",
+    ],
+    "w3" => [
         "file:./data/rand_4096.ttx",
+    ],
+    "w4" => [
         "file:./data/rand_8192.ttx",
+    ],
+    "w5" => [
         "file:./data/rand_16384.ttx",
     ],
     "zhang_small" => [
@@ -80,6 +85,9 @@ datasets = Dict(
         "SNAP/ca-HepTh"
     ],
     "zhang_large" => [
+        "SNAP/roadNet-CA",
+        "Pajek/patents_main",
+        "SNAP/p2p-Gnutella31",
         "FEMLAB/poisson3Da",
         "SNAP/wiki-Vote",
         "SNAP/email-Enron",
@@ -95,20 +103,7 @@ datasets = Dict(
         "GHS_indef/mario002",
         "SNAP/cit-Patents",
         "JGD_Homology/m133-b3",
-        "Williams/webbase-1M",
-        "SNAP/roadNet-CA",
-        "SNAP/p2p-Gnutella31",
-        "Pajek/patents_main"
-    ],
-    "zhang" => [
-        "SNAP/roadNet-CA",
-        "SNAP/p2p-Gnutella31",
-        "SNAP/cit-Patents",
-        "SNAP/web-Google",
-        "SNAP/amazon0312",
-        "SNAP/wiki-Vote",
-        "SNAP/email-Enron",
-        "SNAP/ca-CondMat",
+        "Williams/webbase-1M"
     ],
 )
 
@@ -116,40 +111,31 @@ include("spgemm_finch.jl")
 include("spgemm_taco.jl")
 include("spgemm_eigen.jl")
 include("spgemm_mkl.jl")
+include("spgemm_graphblas.jl")
 
 methods = Dict(
-    # "all" => [
-    #     (has_taco() ? ["spgemm_taco_inner" => spgemm_taco_inner] : [])...,
-    #     (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
-    #     (has_taco() ? ["spgemm_taco_outer" => spgemm_taco_outer] : [])...,
-    #     (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
-    #     (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
-    #     "spgemm_finch_inner" => spgemm_finch_inner,
-    #     "spgemm_finch_gustavson" => spgemm_finch_gustavson,
-    #     "spgemm_finch_outer" => spgemm_finch_outer,
-    #     "spgemm_finch_outer_bytemap" => spgemm_finch_outer_bytemap,
-    #     "spgemm_finch_outer_dense" => spgemm_finch_outer_dense,
-    # ],
-    # "fast" => [
-    #     (has_taco() ? ["spgemm_taco_gustavson" => spgemm_taco_gustavson] : [])...,
-    #     (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
-    #     (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
-    #     "spgemm_finch_gustavson" => spgemm_finch_gustavson,
-    # ],
-    "test" => [
-        # (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
-        "spgemm_finch_inner" => spgemm_finch_inner,
-        "spgemm_finch_nested" => spgemm_finch_nested,
+    "fast" => [
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
         "spgemm_finch_gustavson_dynamic" => spgemm_finch_dynamic,
-        # "spgemm_finch_hypersparse" => spgemm_finch_hypersparse,
-        # "spgemm_finch_outer" => spgemm_finch_outer,
-        # "spgemm_finch_gustavson_static" => spgemm_finch_gustavson,
-    ]
+        "spgemm_finch_gustavson_static" => spgemm_finch_gustavson,
+        "spgemm_graphblas" => graphblas_impl,
+    ],
+    "full" => [
+        "spgemm_finch_outer" => spgemm_finch_outer,
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
+        "spgemm_finch_inner" => spgemm_finch_inner,
+        "spgemm_finch_gustavson_static" => spgemm_finch_gustavson,
+        "spgemm_finch_gustavson_dynamic" => spgemm_finch_dynamic,
+        "spgemm_finch_nested" => spgemm_finch_nested,
+        "spgemm_graphblas" => graphblas_impl,
+    ],
 )
 
 results = []
 
-batch = let 
+batch = let
     dataset = datasets[parsed_args["dataset"]]
     batch_num = parsed_args["batch"]
     num_batches = parsed_args["num_batches"]
@@ -171,15 +157,15 @@ for mtx in batch
     for (key, method) in methods[parsed_args["kernels"]]
         @info "testing" key mtx
         res = method(A, B, nt)
-	C_ref = something(C_ref, SparseMatrixCSC(res.C))
-	norm(C_ref - SparseMatrixCSC(res.C))/norm(C_ref) < 0.01 || @warn("incorrect result via norm")
+        C_ref = something(C_ref, SparseMatrixCSC(res.C))
+        norm(C_ref - SparseMatrixCSC(res.C))/norm(C_ref) < 0.01 || @warn("incorrect result via norm")
         @info "results" res.time
         push!(results, OrderedDict(
             "time" => res.time,
             "method" => key,
             "kernel" => "spgemm",
-            "threads" => nt,
             "matrix" => mtx,
+            "threads" => nt,
         ))
         write(parsed_args["output"], JSON.json(results, 4))
     end

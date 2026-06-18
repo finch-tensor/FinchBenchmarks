@@ -3,8 +3,7 @@ using SparseArrays
 using BenchmarkTools
 
 function graphblas_impl(A, B, num_cpu)
-    SuiteSparseGraphBLAS.gbset(:nthreads, num_cpu)
-
+    gbset(:nthreads, num_cpu)
     _A = GBMatrix(A)
     _B = GBMatrix(B)
     

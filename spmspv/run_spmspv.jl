@@ -14,10 +14,11 @@ using ArgParse
 using DataStructures
 using JSON
 using Random
-using LinearAlgebra
 using SparseArrays
+using LinearAlgebra
 
 Random.seed!(1234)
+MatrixDepot.update()
 
 # Parsing Arguments
 s = ArgParseSettings("Run Parallel SpMSpV Experiments.")
@@ -55,29 +56,40 @@ datasets = Dict(
     #     ("HB/bcsstk30", "bcsstk30"),
     #     ("HB/bcsstk31", "bcsstk31"),
     # ],
-    "hb_wide" => [
-        # ("SNAP/sx-stackoverflow", "sx-stackoverflow"),
-        "SNAP/com-Orkut",
-        "SNAP/com-LiveJournal",
+    "snap_large" => [
+	"SNAP/wiki-topcats",
+        "SNAP/soc-Slashdot0811",
+        "SNAP/p2p-Gnutella31",
+        "SNAP/cit-Patents",
+        "SNAP/web-Google",
+        "SNAP/amazon0312",
+        "SNAP/web-BerkStan",
+        "SNAP/sx-stackoverflow",
+        "SNAP/ca-CondMat",
+    ],
+    "snap_largest" => [
+	"SNAP/com-LiveJournal",
+	"SNAP/com-Orkut",
         "SNAP/soc-LiveJournal1",
         "SNAP/sx-stackoverflow",
         "SNAP/soc-Pokec",
         "SNAP/wiki-topcats",
         "SNAP/as-Skitter",
-        "SNAP/cit-Patents"
-    ]
+        "SNAP/cit-Patents",
+    ],
 )
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 include("coalesce_implementation.jl")
-
+include("spmspv_eigen.jl")
 
 methods = OrderedDict(
-    # "serial_default_implementation" => serial_default_implementation_spmspv,
-    "coalesce_static" => coalesce_spmspv,
+    "serial_default_implementation" => serial_default_implementation_spmspv,
     "graphblas" => blas_spmspv,
-    # "coalesce_dynamic" => coalesce_spmspv_dynamic,
+    "coalesce_static" => coalesce_spmspv,
+    "eigen" => spmspv_eigen,
+    "coalesce_dynamic" => coalesce_spmspv_dynamic,
 )
 
 if !isnothing(parsed_args["method"])
@@ -94,13 +106,16 @@ function calculate_results(dataset, mtxs, results)
         if dataset == "uniform"
             A = fsprand(mtx["size"], mtx["size"], mtx["sparsity"])
             x = fsprand(mtx["size"], mtx["sparsity"])
-        elseif dataset == "hb_wide"
-            A = SparseMatrixCSC(matrixdepot(mtx[1]))
+        elseif dataset == "snap_large" || dataset == "snap_largest"
+	    @info "loading"
+            A = SparseMatrixCSC(matrixdepot(mtx))
+	    @info "A loaded"
             (m, n) = size(A)
             if m < 1000 || n < 1000
                 continue
             end
-            x = sprand(n, 0.01)
+            x = sprand(n, 0.1)
+	    @info "x loaded"
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end

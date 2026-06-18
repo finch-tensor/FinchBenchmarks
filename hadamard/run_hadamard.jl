@@ -43,26 +43,45 @@ parsed_args = parse_args(ARGS, s)
 datasets = Dict(
     # all 1e-3 sparsity
     "femlab" => [
-        "FIDAP/ex27", # 1k x 1k
-        "ND/nd3k", # 10k x 10k
-        "DIMACS10/G_n_pin_pout", # 100k x 100k
+	"FEMLAB/poisson3Db",
+	"FEMLAB/sme3Dc",
+	"FEMLAB/sme3Db",
+	"FEMLAB/ns3Da",
+	"FEMLAB/sme3Da",
+	"FEMLAB/poisson3Da",
+    ],
+     "mirror" => [
+        "SNAP/roadNet-CA",
+        "SNAP/p2p-Gnutella31",
+        "SNAP/cit-Patents",
+        "SNAP/web-Google",
+        "SNAP/amazon0312",
+        "SNAP/wiki-Vote",
+        "SNAP/email-Enron",
+        "SNAP/ca-CondMat",
+    ],
+    "sparse" => [
+        "SNAP/roadNet-CA",
+        "SNAP/p2p-Gnutella31",
+        "SNAP/cit-Patents",
+        "SNAP/web-Google",
+        "SNAP/amazon0312",
+        "SNAP/wiki-Vote",
+        "SNAP/email-Enron",
+        "SNAP/ca-CondMat",
     ],
 )
 
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
-# include("parallel_col_separate_sparselist_results.jl")
-# include("separated_memory_concatenate_results.jl")
 include("shard_implementation.jl")
-# include("taco_impl.jl")
 include("eigen_impl.jl")
 include("graphBLAS_impl.jl")
 
 methods = OrderedDict(
-    "serial_default_implementation" => serial_default_implementation_add,
-    "shard_implementation" => shard_add,
-    "eigen_impl" => eigen_impl,
+    "shard_implementation" => shard_impl,
     "graphblas_impl" => graphblas_impl,
+    "eigen_impl" => eigen_impl,
 )
 
 if !isnothing(parsed_args["method"])
@@ -75,25 +94,20 @@ end
 
 function calculate_results(dataset, mtxs, results)
     for mtx in mtxs
-        # Get relevant matrix
-        if dataset == "femlab"
-            A = matrixdepot(mtx)
-            Bs = []
-            densities = [0.1, 0.05, 0.01, 0.005, 0.001]
-            m, n = size(A)
-            for p in densities
-                push!(Bs, sprand(m, n, p))
-            end
-
+        if dataset == "mirror"
+            A = SparseMatrixCSC(matrixdepot(mtx))
+	        B = SparseMatrixCSC(matrixdepot(mtx))
+        elseif dataset == "sparse"
+            A = SparseMatrixCSC(matrixdepot(mtx))
+	        B = A[randperm(size(A, 1)), randperm(size(A, 2))]
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
         for (key, method) in methods
-                for (i, B) in enumerate(Bs)
                 ncpu = parsed_args["ncpu"]
+                m, n = size(A)
                 result = method(A, B, ncpu)
-                p = densities[i]
 
                 if parsed_args["accuracy-check"]
                     serial_default_implementation_result = serial_default_implementation_add(A, B, ncpu)
@@ -115,15 +129,13 @@ function calculate_results(dataset, mtxs, results)
                     "method" => key,
                     "dataset" => dataset,
                     "matrix" => mtx,
-                    "density" => p,
                 ))
 
                 if isnothing(parsed_args["output"])
-                    write("results/spadd_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
+                    write("results/hadamard_$(Threads.nthreads())_threads.json", JSON.json(results, 4))
                 else
                     write(parsed_args["output"], JSON.json(results, 4))
                 end
-            end
         end
     end
 end

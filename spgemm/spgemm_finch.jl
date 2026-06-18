@@ -14,8 +14,9 @@ for z0 = (0, 0.0, false)
 
     AT = Tensor(Dense(SparseList(Element(z))))
     BT = Tensor(Dense(SparseList(Element(z))))
+    sch = greedy_schedule()
 
-    eval(@finch_kernel function spgemm_finch_inner_kernel(C, AT, B, dev)
+    eval(@finch_kernel function spgemm_finch_inner_kernel(C, AT, B, dev, sch)
         C .= 0
         for j=parallel(_, dev), i=_, k=_
             C[i, j] += AT[k, i] * B[k, j]
@@ -34,7 +35,6 @@ for z0 = (0, 0.0, false)
         return C
     end)
 
-    sch = greedy_schedule()
     eval(@finch_kernel function spgemm_finch_dynamic_kernel(C, w, A, B, dev, sch)
         C .= 0
         for j=parallel(_, dev, sch)
@@ -57,9 +57,9 @@ for z0 = (0, 0.0, false)
     end)
 
     C = Tensor(Coalesce(dev, Sparse(Sparse(Element(z)))))
-    eval(@finch_kernel function spgemm_finch_outer_kernel(C, A, BT, dev)
+    eval(@finch_kernel function spgemm_finch_outer_kernel(C, A, BT, dev, sch)
         C .= 0
-        for k=parallel(_, dev), j=_, i=_
+        for k=parallel(_, dev, sch), j=_, i=_
             C[i, j] += A[i, k] * BT[j, k]
         end
         return C
@@ -68,9 +68,9 @@ for z0 = (0, 0.0, false)
     A = Tensor(Sparse(Sparse(Element(z0))))
     BT = Tensor(Sparse(Sparse(Element(z))))
     C = Tensor(Coalesce(dev, Sparse(Sparse(Element(z)))))
-    eval(@finch_kernel function spgemm_finch_outer_kernel(C, A, BT, dev)
+    eval(@finch_kernel function spgemm_finch_outer_kernel(C, A, BT, dev, sch)
         C .= 0
-        for k=parallel(_, dev), j=_, i=_
+        for k=parallel(_, dev, sch), j=_, i=_
             C[i, j] += A[i, k] * BT[j, k]
         end
         return C
@@ -85,9 +85,22 @@ function spgemm_finch_inner_measure(A, B, nt)
     AT = Tensor(Dense(SparseList(Element(z))))
     AT = copyto!(AT, swizzle(A, 2, 1))
     C = Tensor(Dense(Shard(dev, SparseList(Element(z)))))
-    time = @belapsed spgemm_finch_inner_kernel($C, $AT, $B, $dev)
-    C = spgemm_finch_inner_kernel(C, AT, B, dev).C
-    return (time = time, C = C)
+    opt = 999999999
+    opt_chk = 1
+    sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+    for _size in sizes
+        sch = greedy_schedule(_size)
+        @info "testing with chunk size $_size"
+        time = @belapsed spgemm_finch_inner_kernel($C, $AT, $B, $dev, $sch)
+        @info "time: $time"
+        if time < opt
+            opt = time
+            opt_chk = _size
+        end
+    end
+    sch = greedy_schedule(opt_chk)
+    C = spgemm_finch_inner_kernel(C, AT, B, dev, sch).C
+    return (time = opt, C = C)
 end
 
 function spgemm_finch_gustavson_measure(A, B, nt)
@@ -101,17 +114,29 @@ function spgemm_finch_gustavson_measure(A, B, nt)
 end
 
 function spgemm_finch_nested_measure(A, B, nt)
-    d1_nt = isqrt(nt)
-    d2_nt = d1_nt
+    d1_nt = fld(nt, 2)
+    d2_nt = fld(nt, d1_nt)
     z = default(A) * default(B) + false
     dev = cpu(:t, d1_nt)
     dev2 = cpu(:q, d2_nt)
-    sch = greedy_schedule()
     C = Tensor(Dense(Shard(dev, SparseList(Element(z)))))
     w = Tensor(Coalesce(dev2, SparseByteMap(Element(z))))
-    time = @belapsed spgemm_finch_nested_kernel($C, $w, $A, $B, $dev, $dev2, $sch)
+    opt = 999999999
+    opt_chk = 1
+    sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+    for _size in sizes
+        sch = greedy_schedule(_size)
+        @info "testing with chunk size $_size"
+        time = @belapsed spgemm_finch_nested_kernel($C, $w, $A, $B, $dev, $dev2, $sch)
+        @info "time: $time"
+        if time < opt
+            opt = time
+            opt_chk = _size
+        end
+    end
+    sch = greedy_schedule(opt_chk)
     C = spgemm_finch_nested_kernel(C, w, A, B, dev, dev2, sch).C
-    return (time = time, C = C)
+    return (time = opt, C = C)
 end
 
 function spgemm_finch_dynamic_measure(A, B, nt)
@@ -122,7 +147,8 @@ function spgemm_finch_dynamic_measure(A, B, nt)
 
     opt = 999999999
     opt_chk = 1
-    sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+    sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
+    #sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
     for _size in sizes
         sch = greedy_schedule(_size)
         @info "testing with chunk size $_size"
@@ -145,10 +171,23 @@ function spgemm_finch_outer_measure(A, B, nt)
     C = Tensor(Coalesce(dev, Sparse(Sparse(Element(z)))))
     BT = Tensor(Dense(SparseList(Element(z))))
     BT = copyto!(BT, swizzle(B, 2, 1))
-    time = @belapsed spgemm_finch_outer_kernel($C, $A, $BT, $dev)
+    opt = 999999999
+    sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+    opt_chk = 1
+     for _size in sizes
+        sch = greedy_schedule(_size)
+        @info "testing with chunk size $_size"
+        time = @belapsed spgemm_finch_outer_kernel($C, $A, $BT, $dev, $sch)
+        @info "time: $time"
+        if time < opt
+            opt = time
+            opt_chk = _size
+        end
+    end
     C_result = Tensor(Coalesce(dev, Sparse(Sparse(Element(z)))))
-    C = spgemm_finch_outer_kernel(C_result, A, BT, dev).C
-    return (time = time, C = C)
+    sch = greedy_schedule(opt_chk)
+    C = spgemm_finch_outer_kernel(C_result, A, BT, dev, sch).C
+    return (time = opt, C = C)
 end
 
 function spgemm_finch_hypersparse_measure(A, B, nt)

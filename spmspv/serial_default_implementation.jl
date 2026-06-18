@@ -3,7 +3,7 @@ using BenchmarkTools
 
 
 function serial_default_implementation_spmspv(A, x, nt)
-        _y = Tensor(SparseDict(Element(0.0)))
+        _y = Tensor(SparseByteMap(Element(0.0)))
         _x = Tensor(SparseList(Element(0.0)), x)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         time = @belapsed begin
@@ -15,7 +15,7 @@ function serial_default_implementation_spmspv(A, x, nt)
                         end
                 end
         end
-
+        _y = Tensor(SparseByteMap(Element(0.0)))
         @finch mode = :fast begin
                 _y .= 0
                 for j = _, i = _

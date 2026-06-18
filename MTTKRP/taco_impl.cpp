@@ -11,6 +11,7 @@ using namespace taco;
 
 int main(int argc, char **argv){
     auto params = parse(argc, argv);
+    taco_set_num_threads(1);
 
     // Formats
     Format csf({Sparse,Sparse,Sparse});
@@ -23,7 +24,7 @@ int main(int argc, char **argv){
 
     // std::cout << C << std::endl;
     // std::cout << D << std::endl;
-
+    std::cout << taco_get_num_threads() << std::endl;
     int I = B.getDimension(0);
     int K = B.getDimension(1);
     int L = B.getDimension(2);
@@ -34,20 +35,19 @@ int main(int argc, char **argv){
 
     // Index notation
     IndexVar i, j, k, l;
-    A(i,j) = B(i,k,l) * D(l,j) * C(k,j);
+    A(i,j) += B(i,k,l) * D(l,j) * C(k,j);
 
     // Extract statement
     IndexStmt stmt = A.getAssignment().concretize();
 
-    stmt = stmt.parallelize(
-        i,  // parallel over rows
-        ParallelUnit::CPUThread,
-        OutputRaceStrategy::NoRaces
-    );
+   // stmt = stmt.parallelize(
+     //   i,  // parallel over rows
+       // ParallelUnit::CPUThread,
+       // OutputRaceStrategy::NoRaces
+   // );
 
     // Compile
     A.compile(stmt);
-
     // Benchmark
     auto time = benchmark(
       [&A]() {

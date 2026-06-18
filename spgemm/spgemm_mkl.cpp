@@ -8,7 +8,6 @@
 #include "../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 
 int main(int argc, char **argv) {
-    // mkl_set_num_threads(1);
 
 	auto params = parse(argc, argv);
 
