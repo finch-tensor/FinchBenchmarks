@@ -15,7 +15,7 @@ NTHREADS = [2**i for i in range(5)]
 
 METHODS = [
     "shard_impl",
-    "cv_impl", 
+    # "cv_impl", 
 ]
 
 DATASETS = {

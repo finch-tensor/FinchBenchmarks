@@ -1,177 +1,159 @@
 import json
-import os
+import re
 from collections import defaultdict
+from pathlib import Path
 
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import numpy as np
 
-from matplotlib.ticker import LogLocator, ScalarFormatter
+plt.rcParams.update({"font.size": plt.rcParams["font.size"] * 2})
 
-GRAPH_FOLDER = "graph"
-SPEEDUP_FOLDER = "speedup"
-RUNTIME_FOLDER = "runtime"
-RESULTS_FOLDER = "results"
+BASE_DIR = Path(__file__).resolve().parent
+RESULTS_FOLDER = BASE_DIR / "results"
+GRAPH_FOLDER = BASE_DIR / "graph"
+SPEEDUP_FOLDER = GRAPH_FOLDER / "speedup"
 
-NTHREADS = [2**i for i in range(5)] # Modify based on how many threads were tested
+THREADS = 16
 
-METHODS = [
-    "coalesce_impl",
-    "cv_impl",
-]
-
-DATASETS = {
-    "image": [
-        "very_highly_compressed/www.abalip.com.jpg",
-        "very_highly_compressed/www.carmelmusic.com.jpg",
-        "very_highly_compressed/www.claudiozappi.it.jpg",
-        "very_highly_compressed/www.duo-thais.com.jpg",
-        "very_highly_compressed/www.handball-riehen.ch.jpg",
-    ],
+RENAME = {
+    "coalesce_impl": "wingspan",
+    "halide_impl": "halide",
 }
 
-COLORS = ["red", "gray", "cadetblue", "saddlebrown", "navy", "orange","black"]
-
-def human_readable(n):
-    if n >= 1_000_000_000:
-        return f"{n/1_000_000_000:.0f}B"
-    elif n >= 1_000_000:
-        return f"{n/1_000_000:.0f}M"
-    elif n >= 1_000:
-        return f"{n/1_000:.0f}K"
-    else:
-        return str(n)
-
-def format_sparsity(x: float) -> str:
-    s = f"{x:.12f}".rstrip("0").rstrip(".")
-    return s
 
 def sanitize_matrix_name(matrix: str) -> str:
-    return (
-        matrix.replace("/", "-")
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", matrix).strip("_")
+
+
+def format_sparsity(x: float) -> str:
+    return f"{x:.12f}".rstrip("0").rstrip(".")
+
+def display_matrix_name(matrix: str) -> str:
+    if "/" in matrix:
+        # Remove first directory
+        matrix = matrix.split("/", 1)[1]
+
+        # Remove leading "www."
+        matrix = matrix.removeprefix("www.")
+
+        # Remove trailing ".jpg"
+        matrix = matrix.removesuffix(".jpg")
+
+    return matrix
+
+
+def load_results():
+    combined = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+
+    for path in sorted(RESULTS_FOLDER.glob("hist_*_threads.json")):
+        with path.open() as fh:
+            records = json.load(fh)
+
+        for entry in records:
+            matrix = entry["matrix"]
+            if isinstance(matrix, dict):
+                matrix = f"{matrix['size']}-{format_sparsity(matrix['sparsity'])}"
+
+            dataset = entry["dataset"]
+            method = entry["method"]
+            n_threads = entry["n_threads"]
+
+            combined[dataset][matrix][method][n_threads] = entry["time"]
+
+    return combined
+
+
+def plot_speedup(results, dataset, save_location):
+    matrices = sorted(results[dataset].keys())
+    labels = [display_matrix_name(m) for m in matrices]
+
+    methods = ["wingspan", "halide"]
+    speedups = {m: [] for m in methods}
+
+    for matrix in matrices:
+        method_times = {}
+
+        for impl, label in RENAME.items():
+            if THREADS in results[dataset][matrix].get(impl, {}):
+                method_times[label] = results[dataset][matrix][impl][THREADS]
+
+        if "halide" not in method_times:
+            continue
+
+        baseline = method_times["halide"]
+
+        for m in methods:
+            t = method_times.get(m)
+            speedups[m].append(baseline / t if t else float("nan"))
+
+    n_methods = len(methods)
+    n_matrices = len(matrices)
+
+    bar_width = 0.35
+    group_gap = 0.06
+    x = np.arange(n_matrices)
+
+    COLORS = {
+        "wingspan": "#E69F00",
+        "halide": "#999999",
+    }
+
+    fig, ax = plt.subplots(figsize=(12, 8))
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("white")
+
+    for i, meth in enumerate(methods):
+        offsets = x + (i - n_methods / 2 + 0.5) * (
+            bar_width + group_gap / n_methods
+        )
+
+        ax.bar(
+            offsets,
+            speedups[meth],
+            width=bar_width,
+            label=meth,
+            color=COLORS[meth],
+            edgecolor="white",
+            linewidth=0.5,
+            zorder=3,
+        )
+
+    ax.axhline(1.0, color="#333333", linewidth=0.9, linestyle="--", zorder=2)
+
+    ax.yaxis.set_minor_locator(ticker.AutoMinorLocator())
+    ax.set_yticks([1])
+    ax.set_yticklabels(["1"])
+    ax.yaxis.set_minor_locator(ticker.NullLocator())
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=15, ha="right")
+
+    ax.set_ylabel("Speedup")
+    ax.set_title(
+        f"Structured Histogram Speedup Results",
+        fontweight="bold",
+        pad=14,
     )
 
+    ax.grid(axis="y", which="major", color="#cccccc", linewidth=0.7, zorder=0)
+    ax.grid(axis="y", which="minor", color="#e8e8e8", linewidth=0.3, zorder=0)
 
-def load_json():
-    combine_results = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: {})))
-    for n_thread in NTHREADS:
-        results_json = json.load(
-            open(f"{RESULTS_FOLDER}/hist_{n_thread}_threads.json", "r")
-        )
-        for result in results_json:
+    ax.spines[["top", "right"]].set_visible(False)
 
-            m = result["matrix"]
+    ax.legend(framealpha=0.85, edgecolor="#cccccc")
 
-            if isinstance(m, str):
-                matrix = m
-            elif isinstance(m, dict):
-                matrix = f"{m['size']}-{format_sparsity(m['sparsity'])}"
-            else:
-                raise TypeError(f"Unknown matrix format: {type(m)}")
-
-            combine_results[result["dataset"]][matrix][result["method"]][
-                result["n_threads"]
-            ] = result["time"]
-
-    return combine_results
-
-
-# def plot_speedup_result(results, dataset, matrix, save_location):
-#     plt.figure(figsize=(10, 6))
-#     for method, color in zip(METHODS, COLORS):
-#         plt.plot(
-#             NTHREADS,
-#             [
-#                 results[dataset][matrix][DEFAULT_METHOD][n_thread]
-#                 / results[dataset][matrix][method][n_thread]
-#                 for n_thread in NTHREADS
-#             ],
-#             label=method,
-#             color=color,
-#             marker="o",
-#             linestyle="-",
-#             linewidth=1,
-#         )
-
-#     plt.title(
-#         f"Parallel Sum - Speedup for {dataset}: {matrix} (with respect to {DEFAULT_METHOD})"
-#     )
-#     # plt.yscale("log", base=10)
-#     plt.xticks(NTHREADS)
-#     plt.xlabel("Number of Threads")
-#     plt.ylabel(f"Speedup")
-
-#     plt.legend()
-#     plt.savefig(save_location)
-
-
-def plot_runtime_result(results, dataset, matrix, save_location):
-    plt.figure(figsize=(10, 6))
-    for method, color in zip(METHODS, COLORS):
-        plt.plot(
-            NTHREADS,
-            [results[dataset][matrix][method][n_thread] for n_thread in NTHREADS],
-            label=method,
-            color=color,
-            marker="o",
-            linestyle="-",
-            linewidth=1,
-        )
-
-    pretty_matrix = sanitize_matrix_name(matrix)
-
-    plt.title(f"Histogram - Runtime for {dataset}: {pretty_matrix}")
-    plt.xscale("log", base=2)
-    plt.yscale("log", base=2)
-    plt.xticks(NTHREADS)
-    plt.xlabel("Number of Threads")
-    plt.ylabel(f"Runtime (in seconds)")
-
-    plt.gca().xaxis.set_major_formatter(ScalarFormatter())
-
-    plt.legend()
-    plt.savefig(save_location)
-
-
-# def weak_scaling_plot(results, dataset, save_location):
-#     plt.figure(figsize=(10, 6))
-#     plt.plot(
-#         NTHREADS,
-#         [
-#             results[dataset][f"{4096 * n_thread}-0.1"][SHARD_METHOD][n_thread]
-#             for n_thread in NTHREADS
-#         ],
-#         label="shard_implementation",
-#         color="grey",
-#         marker="o",
-#         linestyle="-",
-#         linewidth=1,
-#     )
-
-#     plt.title(f"Parallel Sum - Weak Scaling with 10,000 x 4096 matrix per thread for {dataset}")
-#     plt.xscale("log", base=2)
-#     plt.xticks(NTHREADS)
-#     plt.xlabel("Number of Threads")
-#     plt.ylabel(f"Runtime (in seconds)")
-
-#     plt.legend()
-#     plt.savefig(save_location)
-    
+    plt.tight_layout()
+    plt.savefig(save_location, dpi=200)
+    plt.close()
 
 
 if __name__ == "__main__":
-    os.makedirs(os.path.join(GRAPH_FOLDER, SPEEDUP_FOLDER), exist_ok=True)
-    os.makedirs(os.path.join(GRAPH_FOLDER, RUNTIME_FOLDER), exist_ok=True)
+    SPEEDUP_FOLDER.mkdir(parents=True, exist_ok=True)
 
-    results = load_json()
-    for dataset, matrices in DATASETS.items():
-        for matrix in matrices:
-            pretty_matrix = sanitize_matrix_name(matrix)
-            plot_runtime_result(
-                results,
-                dataset,
-                matrix,
-                os.path.join(
-                    GRAPH_FOLDER,
-                    RUNTIME_FOLDER,
-                    f"{dataset}-{pretty_matrix}.png",
-                ),
-            )
+    results = load_results()
+
+    for dataset in sorted(results):
+        outfile = SPEEDUP_FOLDER / f"{dataset}_speedup.png"
+        plot_speedup(results, dataset, outfile)
+        print(f"Saved {outfile}")

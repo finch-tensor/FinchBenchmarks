@@ -15,6 +15,8 @@ else
     OMP_LIB   =
 endif
 
+HALIDE_DIR := $(shell python3 -c "import halide; print(halide.install_dir())" 2>/dev/null)
+
 CXXFLAGS += \
     -std=c++17 -O3 -fPIC \
     $(OMP_FLAGS) \
@@ -30,7 +32,15 @@ WITH_IPP ?= ON
 
 # IPPROOT ?= /opt/intel/oneapi/ipp/latest
 
-all: cv_kernel
+TACO_DIR      = ../deps/taco
+TACO_CLONE    = $(TACO_DIR)/.git
+TACO_LIB      = $(TACO_DIR)/build/lib/libtaco.so
+TACO_CXXFLAGS = $(CXXFLAGS) -I$(TACO_DIR)/include -I$(TACO_DIR)/src
+TACO_LDLIBS   = -L$(TACO_DIR)/build/lib -ltaco -ldl \
+                -Wl,-rpath,$(abspath $(TACO_DIR)/build/lib)
+
+
+all: cv_kernel halide_kernel
 
 OPENCV_DIR   = ../../deps/opencv
 OPENCV_CLONE = $(OPENCV_DIR)/.git
@@ -88,8 +98,54 @@ cv_kernel: cv_impl.cpp $(OPENCV_LIB)
 	    -lopencv_core \
 	    -lopencv_imgproc
 
+
+MKL_ROOT    ?= /usr
+MKL_INCLUDE  = $(MKL_ROOT)/include/mkl
+MKL_LIB      = $(MKL_ROOT)/lib/x86_64-linux-gnu
+
+MKL_FLAGS   = -I$(MKL_INCLUDE) \
+              -L$(MKL_LIB) \
+              -lmkl_rt \
+              -Wl,-rpath,$(MKL_LIB)
+
+
+$(TACO_LIB): $(TACO_CLONE)
+	cd $(TACO_DIR) && \
+	mkdir -p build && \
+	cd build && \
+	cmake -DPYTHON=false -DBUILD_SHARED_LIBS=ON -DCMAKE_BUILD_TYPE=Release -DOPENMP=ON .. && \
+	make taco -j$(NPROC_VAL)
+
+mkl_kernel: mkl_impl.cpp $(SPARSE_BENCH)
+	$(CXX) $(TACO_CXXFLAGS) $(CXXFLAGS) $< -o $@ $(TACO_LDLIBS) $(MKL_FLAGS)
+
+
+halide_kernel: halide_impl.cpp $(OPENCV_LIB)
+	@if [ -z "$(HALIDE_DIR)" ]; then echo "Error: Halide not installed."; exit 1; fi
+	@if [ ! -f "$(HALIDE_DIR)/lib64/libHalide.so" ] && [ ! -f "$(HALIDE_DIR)/lib/libHalide.so" ]; then echo "Error: libHalide not found"; exit 1; fi
+	$(CXX) \
+	    $(CXXFLAGS) \
+	    -I$(HALIDE_DIR)/include \
+	    -I$(OPENCV_DIR)/include \
+	    -I$(OPENCV_DIR)/modules/core/include \
+	    -I$(OPENCV_DIR)/modules/imgproc/include \
+	    -I$(OPENCV_DIR)/modules/ximgproc/include \
+	    -I$(OPENCV_BUILD) \
+	    $< \
+	    -o $@ \
+	    $(LDFLAGS) \
+	    -L$(HALIDE_DIR)/lib64 \
+	    -L$(HALIDE_DIR)/lib \
+	    -L$(OPENCV_INSTALL)/lib64 \
+	    -lHalide -ldl -lpthread \
+	    -lopencv_core \
+	    -lopencv_imgproc \
+	    -Wl,-rpath,$(HALIDE_DIR)/lib64 \
+	    -Wl,-rpath,$(HALIDE_DIR)/lib \
+	    -Wl,-rpath,$(OPENCV_INSTALL)/lib64
+
 clean:
-	rm -f cv_kernel
+	rm -f cv_kernel mkl_kernel halide_kernel
 
 clean-all: clean
 	rm -rf $(OPENCV_DIR)/build

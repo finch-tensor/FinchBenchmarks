@@ -15,6 +15,8 @@ else
     OMP_LIB   =
 endif
 
+HALIDE_DIR := $(shell python3 -c "import halide; print(halide.install_dir())" 2>/dev/null)
+
 CXXFLAGS += \
     -std=c++17 -O3 -fPIC \
     $(OMP_FLAGS) \
@@ -30,7 +32,7 @@ WITH_IPP ?= ON
 
 # IPPROOT ?= /opt/intel/oneapi/ipp/latest
 
-all: cv_kernel
+all: cv_kernel halide_kernel
 
 OPENCV_DIR   = ../../deps/opencv
 OPENCV_CLONE = $(OPENCV_DIR)/.git
@@ -88,8 +90,32 @@ cv_kernel: cv_impl.cpp $(OPENCV_LIB)
 	    -lopencv_core \
 	    -lopencv_imgproc
 
+halide_kernel: halide_impl.cpp $(OPENCV_LIB)
+	@if [ -z "$(HALIDE_DIR)" ]; then echo "Error: Halide not installed."; exit 1; fi
+	@if [ ! -f "$(HALIDE_DIR)/lib64/libHalide.so" ] && [ ! -f "$(HALIDE_DIR)/lib/libHalide.so" ]; then echo "Error: libHalide not found"; exit 1; fi
+	$(CXX) \
+	    $(CXXFLAGS) \
+	    -I$(HALIDE_DIR)/include \
+	    -I$(OPENCV_DIR)/include \
+	    -I$(OPENCV_DIR)/modules/core/include \
+	    -I$(OPENCV_DIR)/modules/imgproc/include \
+	    -I$(OPENCV_DIR)/modules/ximgproc/include \
+	    -I$(OPENCV_BUILD) \
+	    $< \
+	    -o $@ \
+	    $(LDFLAGS) \
+	    -L$(HALIDE_DIR)/lib64 \
+	    -L$(HALIDE_DIR)/lib \
+	    -L$(OPENCV_INSTALL)/lib64 \
+	    -lHalide -ldl -lpthread \
+	    -lopencv_core \
+	    -lopencv_imgproc \
+	    -Wl,-rpath,$(HALIDE_DIR)/lib64 \
+	    -Wl,-rpath,$(HALIDE_DIR)/lib \
+	    -Wl,-rpath,$(OPENCV_INSTALL)/lib64
+
 clean:
-	rm -f cv_kernel
+	rm -f cv_kernel halide_kernel
 
 clean-all: clean
 	rm -rf $(OPENCV_DIR)/build

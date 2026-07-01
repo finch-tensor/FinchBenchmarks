@@ -60,11 +60,15 @@ datasets = Dict(
 
 include("shard_impl.jl")
 include("cv_impl.jl")
+include("mkl_impl.jl")
+include("halide_impl.jl")
 
 
 methods = OrderedDict(
-    "shard_impl" => shard_impl,
-    "cv_impl" => add_cv_impl,
+    # "shard_impl" => shard_impl,
+    # "cv_impl" => add_cv_impl,
+    # "mkl_impl" => mkl_impl,
+    "halide_impl" => add_halide_impl,
 )
 
 if !isnothing(parsed_args["method"])

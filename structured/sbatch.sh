@@ -14,7 +14,7 @@ export OMP_NUM_THREADS=16
 cd add
 ./run.sh 16
 
-# cd ..
+cd ..
 
-# cd histogram
-# ./run.sh 16
+cd histogram
+./run.sh 16

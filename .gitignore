@@ -18,8 +18,11 @@ structured/*.err
 structured/*.out
 
 structured/add/cv_kernel
+structured/add/mkl_kernel
+structured/add/halide_kernel
 
 structured/histogram/cv_kernel
+structured/histogram/halide_kernel
 
 deps/SparseRooflineBenchmark/build
 .vscode/settings.json
