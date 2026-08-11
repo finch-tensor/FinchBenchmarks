@@ -1,0 +1,170 @@
+[
+    {
+        "time": 0.011297971,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.013464284,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.032199805000000005,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.000399465,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.000602101,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.000581542,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.030457967,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.033604185,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.074197042,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.008333466,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.007470255,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.035493324,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.005822784,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 0.005095679,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 0.018904634,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 7.814e-5,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.000221833,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.000379407,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.000531043,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.000489427,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.001631484,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.000410263,
+        "n_threads": 8,
+        "method": "shard_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    },
+    {
+        "time": 0.000568448,
+        "n_threads": 8,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    },
+    {
+        "time": 0.001597969,
+        "n_threads": 8,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    }
+]

@@ -1,5 +1,6 @@
 #include "taco.h"
 #include <chrono>
+#include <cstdlib>
 #include <sys/stat.h>
 #include <iostream>
 #include <random>
@@ -11,7 +12,9 @@ using namespace taco;
 
 int main(int argc, char **argv){
     auto params = parse(argc, argv);
-    taco_set_num_threads(1);
+    if (const char *omp_num_threads = std::getenv("OMP_NUM_THREADS")) {
+        taco_set_num_threads(std::atoi(omp_num_threads));
+    }
 
     // Formats
     Format csf({Sparse,Sparse,Sparse});
@@ -40,11 +43,11 @@ int main(int argc, char **argv){
     // Extract statement
     IndexStmt stmt = A.getAssignment().concretize();
 
-   // stmt = stmt.parallelize(
-     //   i,  // parallel over rows
-       // ParallelUnit::CPUThread,
-       // OutputRaceStrategy::NoRaces
-   // );
+   stmt = stmt.parallelize(
+       i,  // parallel over rows
+       ParallelUnit::CPUThread,
+       OutputRaceStrategy::NoRaces
+   );
 
     // Compile
     A.compile(stmt);

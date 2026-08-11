@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+
+THREADS="${1:-16}"
+
+export OMP_NUM_THREADS="$THREADS"
+export MKL_NUM_THREADS="$THREADS"
+
+IMAGE="wingspan:cgo27"
+CONTAINER_NAME="wingspan_mttkrp_dense"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
+
+docker run --name "$CONTAINER_NAME" \
+    -e OMP_NUM_THREADS \
+    -e MKL_NUM_THREADS \
+    "$IMAGE" bash -c "
+cd /repo/mttkrp
+julia -t $THREADS run_mttkrp.jl --dataset large --output results/mttkrp_results.json --ncpu $THREADS
+cd results
+poetry run python3 plot_mttkrp_results.py
+"
+
+docker cp "$CONTAINER_NAME:/repo/mttkrp/results/mttkrp_results.json" "$SCRIPT_DIR/results/mttkrp_results.json"
+docker cp "$CONTAINER_NAME:/repo/mttkrp/results/mttkrp_speedup.png" "$SCRIPT_DIR/results/mttkrp_speedup.png"
+docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1

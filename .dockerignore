@@ -8,9 +8,11 @@
 # artifacts (this repo was last built on macOS/arm64 - e.g. deps/taco/build,
 # stray CMakeCache.txt) that would silently poison a Linux/x86_64 build.
 deps/*/
+!deps/diagnostics.jl
 
-# Local build outputs / benchmark results
-**/results/
+# Local build outputs / benchmark results (keep plotting scripts, drop generated artifacts)
+**/results/*.json
+**/results/*.png
 *.o
 *.dSYM
 *.trace

@@ -8,6 +8,11 @@ kernel = sys.argv[1]
 
 input_file = f"./hadamard_{kernel}_results.json"
 output_file = f"./hadamard_{kernel}_speedup.png"
+
+ktype = ""
+if kernel == "mirror":
+    ktype = "Identity "
+
 with open(input_file) as f:
     raw = json.load(f)
 
@@ -75,7 +80,7 @@ ax.set_yscale("log")
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f"{y:g}"))
 ax.set_xticklabels(matrices, rotation=15, ha="right")
 ax.set_ylabel("Speedup")
-ax.set_title("Identity Hadamard Speedup Results", fontweight="bold", pad=14)
+ax.set_title(f"{ktype}Hadamard Speedup Results", fontweight="bold", pad=14)
 ax.grid(axis="y", which="major", color="#cccccc", linewidth=0.7, zorder=0)
 ax.grid(axis="y", which="minor", color="#e8e8e8", linewidth=0.3, zorder=0)
 ax.spines[["top", "right"]].set_visible(False)

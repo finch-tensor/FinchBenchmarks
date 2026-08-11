@@ -2,27 +2,20 @@ import json
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
-import sys
 
-kernel = sys.argv[1]
-input_file = f"./spadd_{kernel}_results.json"
-output_file = f"./spadd_{kernel}_speedup.png"
-ktype = ""
-if kernel == "mirror":
-    ktype = "Identity "
-with open(input_file) as f:
+plt.rcParams.update({"font.size": plt.rcParams["font.size"] * 2})
+
+with open("./mttkrp_results.json") as f:
     raw = json.load(f)
 
 RENAME = {
-    "shard_implementation": "wingspan",
-    "mkl_impl":             "mkl",
-    "eigen_impl":           "eigen",
-    "graphblas_impl":       "graphblas",
+    "finch_impl": "wingspan",
+    "taco_impl":  "taco",
 }
 
 data: dict = {}
 for entry in raw:
-    m = entry["matrix"].split("/")[-1]
+    m = entry["matrix"].split("/")[-1].split(".")[0]
     method = entry["method"]
     if method not in RENAME:
         continue
@@ -30,30 +23,28 @@ for entry in raw:
 
 matrices = list(data.keys())
 
-# Order: mkl is baseline at 1.0
-methods = ["wingspan", "mkl", "eigen", "graphblas"]
+# Order: taco is baseline at 1.0
+methods = ["wingspan", "taco"]
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
-    mkl_t = data[mat]["mkl"]
+    taco_t = data[mat]["taco"]
     for meth in methods:
         t = data[mat].get(meth)
-        speedups[meth].append(mkl_t / t if t else float("nan"))
+        speedups[meth].append(taco_t / t if t else float("nan"))
 
 n_matrices = len(matrices)
 n_methods  = len(methods)
-bar_width  = 0.18
+bar_width  = 0.35
 group_gap  = 0.06
 x = np.arange(n_matrices)
 
 COLORS = {
-    "wingspan": "#E69F00",
-    "mkl":      "#009E73",
-    "eigen":    "#CC79A7",
-    "graphblas": "#56B4E9",
+    "wingspan": "#E69F00",  # orange
+    "taco":     "#999999",  # grey
 }
 
-fig, ax = plt.subplots(figsize=(12, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 fig.patch.set_facecolor("white")
 ax.set_facecolor("white")
 
@@ -78,7 +69,7 @@ ax.set_yscale("log")
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f"{y:g}"))
 ax.set_xticklabels(matrices, rotation=15, ha="right")
 ax.set_ylabel("Speedup")
-ax.set_title(f"{ktype}SpAdd Speedup Results", fontweight="bold", pad=14)
+ax.set_title("Dense MTTKRP Speedup Results", fontweight="bold", pad=14)
 ax.grid(axis="y", which="major", color="#cccccc", linewidth=0.7, zorder=0)
 ax.grid(axis="y", which="minor", color="#e8e8e8", linewidth=0.3, zorder=0)
 ax.spines[["top", "right"]].set_visible(False)
@@ -86,5 +77,5 @@ ax.spines[["top", "right"]].set_visible(False)
 ax.legend(framealpha=0.85, edgecolor="#cccccc")
 
 plt.tight_layout()
-plt.savefig(output_file, dpi=200)
+plt.savefig("./mttkrp_speedup.png", dpi=200)
 print("Saved.")
