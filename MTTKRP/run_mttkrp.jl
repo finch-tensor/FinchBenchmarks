@@ -45,10 +45,10 @@ datasets = Dict(
     ],
     # need to manually download from http://frostt.io/tensors/
     "large" => [
-	"data/nell-2.tns",
-	"data/1998DARPA.tns",
-	"data/fb-m.tns",
-	"data/nell-1.tns",
+        "data/nell-2.tns",
+        "data/1998DARPA.tns",
+        "data/fb-m.tns",
+        "data/nell-1.tns",
      ],
     "sparse" => [
         "data/nell-2.tns",
@@ -59,16 +59,22 @@ datasets = Dict(
 )
 
 # Mapping from method keywords to methods
-include("finch_impl.jl")
 include("taco_impl.jl")
-include("eigen_impl.jl")
-include("mkl_impl.jl")
 
+isnothing(parsed_args["dataset"]) && error("--dataset is required")
 
-methods = OrderedDict(
-    "taco_impl" => taco_impl,
-    "finch_impl" => finch_impl,
-)
+if parsed_args["dataset"] == "sparse"
+    include("finch_impl_sparse.jl")
+    methods = OrderedDict(
+        "finch_impl" => finch_impl,
+    )
+else
+    include("finch_impl_dense.jl")
+    methods = OrderedDict(
+        "taco_impl" => taco_impl,
+        "finch_impl" => finch_impl,
+    )
+end
 
 if !isnothing(parsed_args["method"])
     method_name = parsed_args["method"]

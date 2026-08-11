@@ -9,10 +9,6 @@
 # stray CMakeCache.txt) that would silently poison a Linux/x86_64 build.
 deps/*/
 
-# Areas not touched by the root Makefile
-old/
-parallel/
-
 # Local build outputs / benchmark results
 **/results/
 *.o
