@@ -147,8 +147,8 @@ function spgemm_finch_dynamic_measure(A, B, nt)
 
     opt = 999999999
     opt_chk = 1
-    sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
-    #sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+    # sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]
+    sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
     for _size in sizes
         sch = greedy_schedule(_size)
         @info "testing with chunk size $_size"

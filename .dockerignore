@@ -1,0 +1,21 @@
+# OS/editor cruft
+.DS_Store
+**/.DS_Store
+
+# Git submodule working trees are populated fresh inside the container by
+# `git submodule update --init` (see Makefile), at the commits pinned in
+# .gitmodules/the git index. Excluding them here avoids copying host build
+# artifacts (this repo was last built on macOS/arm64 - e.g. deps/taco/build,
+# stray CMakeCache.txt) that would silently poison a Linux/x86_64 build.
+deps/*/
+
+# Areas not touched by the root Makefile
+old/
+parallel/
+structured/
+
+# Local build outputs / benchmark results
+**/results/
+*.o
+*.dSYM
+*.trace

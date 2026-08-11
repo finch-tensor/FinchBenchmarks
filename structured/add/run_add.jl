@@ -47,24 +47,14 @@ datasets = Dict(
         "very_highly_compressed/www.claudiozappi.it.jpg",
         "very_highly_compressed/www.duo-thais.com.jpg", 
         "very_highly_compressed/www.handball-riehen.ch.jpg",
-        # "../old/images_morphology/masks/Fig0220(a)(chronometer 3692x2812  2pt25 inch 1250 dpi).png",
-        # "../old/images_morphology/masks/Fig0227(a)(washington_infrared).png",
-        # "../old/images_morphology/masks/Fig1001(b)(edge_image).png",
-        # "../old/images_morphology/masks/Fig1213(e)(Mask_B1_without_numbers).png",
-        # "../old/images_morphology/masks/FigP0311.png",
     ],
-    # "uniform" => [
-    #     OrderedDict("size" => 50_000, "sparsity" => 0.0001),
-    # ],
 )
 
 include("shard_impl.jl")
-include("cv_impl.jl")
 
 
 methods = OrderedDict(
     "shard_impl" => shard_impl,
-    "cv_impl" => add_cv_impl,
 )
 
 if !isnothing(parsed_args["method"])

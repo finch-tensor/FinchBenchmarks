@@ -108,7 +108,6 @@ datasets = Dict(
 )
 
 include("spgemm_finch.jl")
-include("spgemm_taco.jl")
 include("spgemm_eigen.jl")
 include("spgemm_mkl.jl")
 include("spgemm_graphblas.jl")

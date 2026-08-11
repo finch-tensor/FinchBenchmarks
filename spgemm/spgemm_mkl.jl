@@ -8,7 +8,7 @@ function spgemm_mkl(A, B, nt)
     C_path = joinpath(tmpdir, "C.ttx")
     fwrite(A_path, Tensor(Dense(SparseList(Element(0.0))), A)) #TACO matrix market readerr can only read real-valued matrices
     fwrite(B_path, Tensor(Dense(SparseList(Element(0.0))), B)) #TACO matrix market readerr can only read real-valued matrices
-    mklvars_path = joinpath(@__DIR__, "../deps/intel/oneapi/setvars.sh")
+    mklvars_path = "/opt/intel/oneapi/setvars.sh"
     spgemm_path = joinpath(@__DIR__, "spgemm_mkl")
     withenv() do
         cmd = "source $mklvars_path; $spgemm_path -i $tmpdir -o $tmpdir"
