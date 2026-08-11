@@ -12,7 +12,6 @@ deps/*/
 # Areas not touched by the root Makefile
 old/
 parallel/
-structured/
 
 # Local build outputs / benchmark results
 **/results/

@@ -10,7 +10,7 @@ function spadd_mkl_helper(A, B, num_cpu)
         fwrite(A_path, Tensor(Dense(SparseList(Element(0.0))), A))
         fwrite(B_path, Tensor(Dense(SparseList(Element(0.0))), B))
         spadd_path = joinpath(@__DIR__, "spadd_mkl")
-        mklvars_path = joinpath(@__DIR__, "../deps/intel/oneapi/setvars.sh")
+        mklvars_path = "/opt/intel/oneapi/setvars.sh"
         taco_path = joinpath(@__DIR__, "../deps/taco/build/lib")
         withenv("DYLD_FALLBACK_LIBRARY_PATH"=>"$taco_path", "LD_LIBRARY_PATH" => "$taco_path") do
             cmd = "source $mklvars_path; $spadd_path -i $tmpdir -o $tmpdir"

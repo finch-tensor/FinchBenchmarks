@@ -14,6 +14,9 @@ using ArgParse
 using DataStructures
 using JSON
 using Images
+using Random
+
+Random.seed!(1234)
 
 # Parsing Arguments
 s = ArgParseSettings("Run Structured Add Experiments.")
@@ -53,12 +56,10 @@ datasets = Dict(
 )
 
 include("coalesce_impl.jl")
-include("cv_impl.jl")
 
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
-    "cv_impl" => hist_cv_impl,
 )
 
 if !isnothing(parsed_args["method"])

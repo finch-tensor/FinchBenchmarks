@@ -7,7 +7,7 @@ export OMP_NUM_THREADS="$THREADS"
 export MKL_NUM_THREADS="$THREADS"
 
 IMAGE="wingspan:cgo27"
-CONTAINER_NAME="finch_spgemm_zhang_large"
+CONTAINER_NAME="wingspan_spgemm_zhang_large"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true

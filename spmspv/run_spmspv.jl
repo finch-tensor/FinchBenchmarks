@@ -57,7 +57,7 @@ datasets = Dict(
     #     ("HB/bcsstk31", "bcsstk31"),
     # ],
     "snap_large" => [
-	"SNAP/wiki-topcats",
+	    "SNAP/wiki-topcats",
         "SNAP/soc-Slashdot0811",
         "SNAP/p2p-Gnutella31",
         "SNAP/cit-Patents",
@@ -68,8 +68,8 @@ datasets = Dict(
         "SNAP/ca-CondMat",
     ],
     "snap_largest" => [
-	"SNAP/com-LiveJournal",
-	"SNAP/com-Orkut",
+	    "SNAP/com-LiveJournal",
+	    "SNAP/com-Orkut",
         "SNAP/soc-LiveJournal1",
         "SNAP/sx-stackoverflow",
         "SNAP/soc-Pokec",

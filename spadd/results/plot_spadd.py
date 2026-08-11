@@ -2,8 +2,12 @@ import json
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
+import sys
 
-with open("./spadd_mirror_results.json") as f:
+kernel = sys.argv[1]
+input_file = f"./spadd_{kernel}_results.json"
+output_file = f"./spadd_{kernel}_speedup.png"
+with open(input_file) as f:
     raw = json.load(f)
 
 RENAME = {
@@ -39,12 +43,11 @@ bar_width  = 0.18
 group_gap  = 0.06
 x = np.arange(n_matrices)
 
-# Wong (2011) colorblind-safe palette — keeping same colors as original
 COLORS = {
-    "wingspan": "#E69F00",  # orange
-    "mkl":      "#009E73",  # bluish green
-    "eigen":    "#CC79A7",  # reddish purple
-    "graphblas": "#56B4E9", # sky blue
+    "wingspan": "#E69F00",
+    "mkl":      "#009E73",
+    "eigen":    "#CC79A7",
+    "graphblas": "#56B4E9",
 }
 
 fig, ax = plt.subplots(figsize=(12, 6))
@@ -80,5 +83,5 @@ ax.spines[["top", "right"]].set_visible(False)
 ax.legend(framealpha=0.85, edgecolor="#cccccc")
 
 plt.tight_layout()
-plt.savefig("./spadd_speedup.png", dpi=200)
+plt.savefig(output_file, dpi=200)
 print("Saved.")
