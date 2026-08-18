@@ -10,9 +10,9 @@ spadd/eigen_kernel
 spadd/mkl_kernel
 spadd/taco_kernel
 
-MTTKRP/eigen_kernel
-MTTKRP/mkl_kernel
-MTTKRP/taco_kernel
+mttkrp/eigen_kernel
+mttkrp/mkl_kernel
+mttkrp/taco_kernel
 
 structured/*.err
 structured/*.out
