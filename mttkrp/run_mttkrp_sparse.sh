@@ -14,7 +14,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 SIF_IMAGE="${SIF_IMAGE:-$REPO_ROOT/wingspan_cgo27.sif}"
 
-apptainer exec --cleanenv --no-home \
+apptainer exec --cleanenv --no-home --writable-tmpfs \
     --bind "$REPO_ROOT:/repo" \
     --env POETRY_VIRTUALENVS_PATH=/opt/poetry-venv \
     --env JULIA_DEPOT_PATH=/opt/julia-depot \
