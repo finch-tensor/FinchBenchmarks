@@ -1,7 +1,14 @@
 #!/bin/bash
 set -e
 
-THREADS="${1:-16}"
+FULL="${1:-0}"
+THREADS="${2:-16}"
+
+if [ "$FULL" = "0" ]; then
+    DATASET="large_short"
+else
+    DATASET="large"
+fi
 
 export OMP_NUM_THREADS="$THREADS"
 export MKL_NUM_THREADS="$THREADS"
@@ -20,7 +27,7 @@ cd /repo/mttkrp
 if [ ! -d data ] || [ -z \"\$(ls -A data 2>/dev/null)\" ]; then
     bash get_mttkrp_data.sh
 fi
-julia -t $THREADS run_mttkrp.jl --dataset large --output results/mttkrp_results.json --ncpu $THREADS
+julia -t $THREADS run_mttkrp.jl --dataset $DATASET --output results/mttkrp_results.json --ncpu $THREADS
 cd results
 poetry run python3 plot_mttkrp_results.py
 "

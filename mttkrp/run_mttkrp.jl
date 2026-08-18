@@ -50,20 +50,30 @@ datasets = Dict(
         "data/fb-m.tns",
         "data/nell-1.tns",
      ],
-    "sparse" => [
+     "large_short" => [
+        "data/nell-2.tns",
+        "data/1998DARPA.tns",
+     ],
+     "sparse" => [
         "data/nell-2.tns",
         "data/1998DARPA.tns",
         "data/fb-m.tns",
         "data/nell-1.tns",
+     ],
+    "sparse_short" => [
+        "data/nell-2.tns",
+        "data/1998DARPA.tns",
      ]
 )
+
+dataset_kind(name) = replace(name, r"_short$" => "")
 
 # Mapping from method keywords to methods
 include("taco_impl.jl")
 
 isnothing(parsed_args["dataset"]) && error("--dataset is required")
 
-if parsed_args["dataset"] == "sparse"
+if dataset_kind(parsed_args["dataset"]) == "sparse"
     include("finch_impl_sparse.jl")
     methods = OrderedDict(
         "finch_impl" => finch_impl,
@@ -85,18 +95,18 @@ if !isnothing(parsed_args["method"])
 end
 
 function calculate_results(dataset, mtxs, results)
+    kind = dataset_kind(dataset)
     for mtx in mtxs
-        # Get relevant matrix
-        if dataset == "uniform"
+        if kind == "uniform"
             B = fsprand(mtx["size"], mtx["size"], mtx["size"], mtx["sparsity"])
             C = rand(mtx["size"], 32)
             D = rand(mtx["size"], 32)
-        elseif dataset == "large"
+        elseif kind == "large"
             B = TensorMarket.tnsread(mtx)
 	        B = fsparse(B[1]..., B[2])
             C = rand(size(B)[2], 16)
             D = rand(size(B)[3], 16)
-        elseif dataset == "sparse"
+        elseif kind == "sparse"
             B = TensorMarket.tnsread(mtx)
             B = fsparse(B[1]..., B[2])
             C = sprand(size(B)[2], 16, 0.01)

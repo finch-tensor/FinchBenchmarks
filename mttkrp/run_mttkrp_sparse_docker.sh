@@ -1,7 +1,14 @@
 #!/bin/bash
 set -e
 
-MAX_THREADS="${1:-16}"
+FULL="${1:-0}"
+MAX_THREADS="${2:-16}"
+
+if [ "$FULL" = "0" ]; then
+    DATASET="sparse_short"
+else
+    DATASET="sparse"
+fi
 
 IMAGE="wingspan:cgo27"
 CONTAINER_NAME="wingspan_mttkrp_sparse"
@@ -13,6 +20,7 @@ docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
 docker run --name "$CONTAINER_NAME" \
     -e MAX_THREADS="$MAX_THREADS" \
+    -e DATASET="$DATASET" \
     -v "$SCRIPT_DIR/data:/repo/mttkrp/data" \
     "$IMAGE" bash -c '
 cd /repo/mttkrp
@@ -23,7 +31,7 @@ t=1
 while [ "$t" -le "$MAX_THREADS" ]; do
     export OMP_NUM_THREADS="$t"
     export MKL_NUM_THREADS="$t"
-    julia -t "$t" run_mttkrp.jl --dataset sparse --output "results/mttkrp_sparse_t${t}.json" --ncpu "$t"
+    julia -t "$t" run_mttkrp.jl --dataset "$DATASET" --output "results/mttkrp_sparse_t${t}.json" --ncpu "$t"
     t=$((t * 2))
 done
 cd results
