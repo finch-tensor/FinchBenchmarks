@@ -27,7 +27,10 @@ RUN wget -qO- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PR
 ENV PATH="/root/.local/bin:${PATH}"
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
+ENV POETRY_VIRTUALENVS_PATH=/opt/poetry-venv
+
 ENV JULIA_VERSION=1.12.6
+ENV JULIA_DEPOT_PATH=/opt/julia-depot
 RUN wget -qO /tmp/julia.tar.gz \
       https://julialang-s3.julialang.org/bin/linux/x64/1.12/julia-${JULIA_VERSION}-linux-x86_64.tar.gz \
     && tar -xzf /tmp/julia.tar.gz -C /opt \

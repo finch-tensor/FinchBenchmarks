@@ -19,7 +19,8 @@ SIF_IMAGE="${SIF_IMAGE:-$REPO_ROOT/wingspan_cgo27.sif}"
 
 apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
-    --env HOME=/root \
+    --env POETRY_VIRTUALENVS_PATH=/opt/poetry-venv \
+    --env JULIA_DEPOT_PATH=/opt/julia-depot \
     --env OMP_NUM_THREADS="$THREADS" \
     --env MKL_NUM_THREADS="$THREADS" \
     "$SIF_IMAGE" bash -c "

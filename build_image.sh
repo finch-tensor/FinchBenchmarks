@@ -20,7 +20,6 @@ fi
 
 apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
-    --env HOME=/root \
     "$SIF_IMAGE" bash -c '
 cd /repo
 make all
