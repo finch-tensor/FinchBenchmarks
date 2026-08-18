@@ -3,15 +3,15 @@ set -e
 
 MAX_THREADS="${1:-16}"
 
-IMAGE="wingspan:cgo27"
-CONTAINER_NAME="wingspan_spgemm_weak_scale"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
+SIF_IMAGE="${SIF_IMAGE:-$REPO_ROOT/wingspan_cgo27.sif}"
 
-docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
-
-docker run --name "$CONTAINER_NAME" \
-    -e MAX_THREADS="$MAX_THREADS" \
-    "$IMAGE" bash -c '
+apptainer exec --cleanenv --no-home \
+    --bind "$REPO_ROOT:/repo" \
+    --env HOME=/root \
+    --env MAX_THREADS="$MAX_THREADS" \
+    "$SIF_IMAGE" bash -c '
 cd /repo/spgemm
 THREADS=(1 2 4 8 16)
 DATASETS=(w1 w2 w3 w4 w5)
@@ -26,10 +26,3 @@ done
 cd results
 poetry run python3 plot_weak_scaling.py
 '
-
-for t in 1 2 4 8 16; do
-    [ "$t" -le "$MAX_THREADS" ] || break
-    docker cp "$CONTAINER_NAME:/repo/spgemm/results/weak/spgemm_scale_threads_weak_${t}.json" "$SCRIPT_DIR/results/weak/spgemm_scale_threads_weak_${t}.json"
-done
-docker cp "$CONTAINER_NAME:/repo/spgemm/results/weak_scaling.png" "$SCRIPT_DIR/results/weak_scaling.png"
-docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1
