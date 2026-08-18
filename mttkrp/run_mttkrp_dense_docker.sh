@@ -10,13 +10,19 @@ IMAGE="wingspan:cgo27"
 CONTAINER_NAME="wingspan_mttkrp_dense"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+mkdir -p "$SCRIPT_DIR/data"
+
 docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
 
 docker run --name "$CONTAINER_NAME" \
     -e OMP_NUM_THREADS \
     -e MKL_NUM_THREADS \
+    -v "$SCRIPT_DIR/data:/repo/mttkrp/data" \
     "$IMAGE" bash -c "
 cd /repo/mttkrp
+if [ ! -d data ] || [ -z \"\$(ls -A data 2>/dev/null)\" ]; then
+    bash get_mttkrp_data.sh
+fi
 julia -t $THREADS run_mttkrp.jl --dataset large --output results/mttkrp_results.json --ncpu $THREADS
 cd results
 poetry run python3 plot_mttkrp_results.py

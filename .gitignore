@@ -13,6 +13,7 @@ spadd/taco_kernel
 mttkrp/eigen_kernel
 mttkrp/mkl_kernel
 mttkrp/taco_kernel
+mttkrp/data/
 
 structured/*.err
 structured/*.out

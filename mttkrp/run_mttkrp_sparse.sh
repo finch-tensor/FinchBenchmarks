@@ -13,6 +13,9 @@ apptainer exec --cleanenv --no-home \
     --env MAX_THREADS="$MAX_THREADS" \
     "$SIF_IMAGE" bash -c '
 cd /repo/mttkrp
+if [ ! -d data ] || [ -z "$(ls -A data 2>/dev/null)" ]; then
+    bash get_mttkrp_data.sh
+fi
 t=1
 while [ "$t" -le "$MAX_THREADS" ]; do
     export OMP_NUM_THREADS="$t"

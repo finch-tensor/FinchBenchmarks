@@ -16,3 +16,7 @@ deps/*/
 *.o
 *.dSYM
 *.trace
+
+# MTTKRP tensor data is downloaded fresh inside the image by
+# mttkrp/get_data.sh (see Dockerfile) rather than copied from the host.
+mttkrp/data/

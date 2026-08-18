@@ -17,6 +17,9 @@ apptainer exec --cleanenv --no-home \
     --env MKL_NUM_THREADS="$THREADS" \
     "$SIF_IMAGE" bash -c "
 cd /repo/mttkrp
+if [ ! -d data ] || [ -z \"\$(ls -A data 2>/dev/null)\" ]; then
+    bash get_mttkrp_data.sh
+fi
 julia -t $THREADS run_mttkrp.jl --dataset large --output results/mttkrp_results.json --ncpu $THREADS
 cd results
 poetry run python3 plot_mttkrp_results.py
