@@ -9,11 +9,21 @@ sum/taco_kernel
 spadd/eigen_kernel
 spadd/mkl_kernel
 spadd/taco_kernel
+spadd/spadd_eigen
+spadd/spadd_mkl
 
 mttkrp/eigen_kernel
 mttkrp/mkl_kernel
 mttkrp/taco_kernel
+mttkrp/mttkrp_taco
 mttkrp/data/
+
+spgemm/spgemm_eigen
+spgemm/spgemm_mkl
+
+hadamard/hadamard_eigen
+
+spmspv/spmspv_eigen
 
 structured/*.err
 structured/*.out
