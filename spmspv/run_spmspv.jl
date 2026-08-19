@@ -85,7 +85,6 @@ include("coalesce_implementation.jl")
 include("spmspv_eigen.jl")
 
 methods = OrderedDict(
-    "serial_default_implementation" => serial_default_implementation_spmspv,
     "graphblas" => blas_spmspv,
     "coalesce_static" => coalesce_spmspv,
     "eigen" => spmspv_eigen,
