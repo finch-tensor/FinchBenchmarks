@@ -7,10 +7,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 SIF_IMAGE="${SIF_IMAGE:-$REPO_ROOT/wingspan_cgo27.sif}"
 
-apptainer exec --cleanenv --no-home --writable-tmpfs \
+apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
-    --env POETRY_VIRTUALENVS_PATH=/opt/poetry-venv \
-    --env JULIA_DEPOT_PATH=/opt/julia-depot \
     --env MAX_THREADS="$MAX_THREADS" \
     "$SIF_IMAGE" bash -c '
 cd /repo/structured/histogram
@@ -22,5 +20,6 @@ while [ "$t" -le "$MAX_THREADS" ]; do
     t=$((t * 2))
 done
 cd results
+poetry install --no-root
 poetry run python3 plot_hist_strong_scaling.py
 '

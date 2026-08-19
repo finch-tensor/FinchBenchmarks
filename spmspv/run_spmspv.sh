@@ -10,15 +10,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 SIF_IMAGE="${SIF_IMAGE:-$REPO_ROOT/wingspan_cgo27.sif}"
 
-apptainer exec --cleanenv --no-home --writable-tmpfs \
+apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
-    --env POETRY_VIRTUALENVS_PATH=/opt/poetry-venv \
-    --env JULIA_DEPOT_PATH=/opt/julia-depot \
     --env OMP_NUM_THREADS="$THREADS" \
     --env MKL_NUM_THREADS="$THREADS" \
     "$SIF_IMAGE" bash -c "
 cd /repo/spmspv
 julia -t $THREADS run_spmspv.jl --dataset snap_largest --output results/spmspv_results.json
 cd results
+poetry install --no-root
 poetry run python3 plot.py
 "
