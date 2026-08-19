@@ -1,6 +1,8 @@
 *.o
 *.DS_Store
 cache/*
+/.julia-depot/
+/.poetry-venv/
 
 sum/eigen_kernel
 sum/mkl_kernel
