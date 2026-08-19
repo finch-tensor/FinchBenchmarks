@@ -2,7 +2,7 @@
 # using Base: nothing_sentinel
 if abspath(PROGRAM_FILE) == @__FILE__
     using Pkg
-    Pkg.activate(dirname(@__DIR__))
+    Pkg.activate(joinpath(@__DIR__, "..", ".."))
     Pkg.instantiate()
 end
 include("../../deps/diagnostics.jl")
