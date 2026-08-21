@@ -57,7 +57,7 @@ $(TACO): $(TACO_CLONE)
 	cd $(TACO_DIR) ;\
 	mkdir -p build ;\
 	cd build ;\
-	cmake -DPYTHON=false -DCMAKE_BUILD_TYPE=Release .. ;\
+	cmake -DOPENMP=ON -DPYTHON=false -DCMAKE_BUILD_TYPE=Release .. ;\
 	make taco -j$(NPROC_VAL) ;\
 	touch hello
 
