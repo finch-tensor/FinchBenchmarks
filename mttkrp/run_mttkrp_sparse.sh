@@ -22,6 +22,7 @@ apptainer exec --cleanenv --no-home \
     --env POETRY_VIRTUALENVS_PATH=/repo/.poetry-venv \
     --env MAX_THREADS="$MAX_THREADS" \
     --env DATASET="$DATASET" \
+    --env JULIA_EXCLUSIVE=1 \
     "$SIF_IMAGE" bash -c '
 cd /repo/mttkrp
 if [ ! -d data ] || [ -z "$(ls -A data 2>/dev/null)" ]; then
