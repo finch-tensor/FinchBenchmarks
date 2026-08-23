@@ -8,6 +8,7 @@ REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 SIF_IMAGE="${SIF_IMAGE:-$REPO_ROOT/wingspan_cgo27.sif}"
 
 mkdir -p "$REPO_ROOT/.julia-depot" "$REPO_ROOT/.poetry-venv"
+mkdir "$SCRIPT_DIR/results/weak"
 
 apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
