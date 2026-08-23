@@ -5,41 +5,51 @@ using SparseArrays
 
 function finch_impl(B, C, D, num_cpu)
     dev = cpu(:t, num_cpu)
+    w = Tensor(SparseByteMap(Element(0.0)))
     _B = Tensor(SparseList(SparseList(SparseList(Element(0.0)))), B)
     _C = Tensor(Dense(SparseList(Element(0.0))), C)
     _D = Tensor(Dense(SparseList(Element(0.0))), D)
     
     _A = Tensor(Dense(Shard(dev, SparseList(Element(0.0)))))
     time = @belapsed begin
-        (_A, _B, _C, _D, dev) = $(_A, _B, _C, _D, dev)
+        (_A, _B, _C, _D, dev, w) = $(_A, _B, _C, _D, dev, w)
         @finch mode = :fast begin
             _A .= 0
            for r = parallel(_, dev)
+                w .= 0
                 for k = _
                     for j = _
                         for i = _
-                            _A[i, r] += _B[i, j, k] * _D[k, r] * _C[j, r]
+                            w[i] += _B[i, j, k] * _D[k, r] * _C[j, r]
                         end
                     end
+                end
+                for i = _
+                    _A[i, r] = w[i]
                 end
             end
         end
     end
 
-#    _A = Tensor(Dense(Shard(dev, SparseList(Element(0.0)))))
+   _A = Tensor(Dense(Shard(dev, SparseList(Element(0.0)))))
+   w = Tensor(SparseByteMap(Element(0.0)))
 
-#     @finch begin
-#         _A .= 0
-#         for r = parallel(_, dev)
-#             for k = _
-#                 for j = _
-#                     for i = _
-#                         _A[i, r] += _B[i, j, k] * _D[k, r] * _C[j, r]
-#                     end
-#                 end
-#             end
-#         end
-#     end
+    @finch begin
+        _A .= 0
+        for r = parallel(_, dev)
+            w .= 0
+            for k = _
+                for j = _
+                    for i = _
+                        w[i] += _B[i, j, k] * _D[k, r] * _C[j, r]
+                    end
+                end
+            end
+            for i = _
+                _A[i, r] = w[i]
+            end
+        end
+    end
 
     return (; time=time, A=_A)
 end
