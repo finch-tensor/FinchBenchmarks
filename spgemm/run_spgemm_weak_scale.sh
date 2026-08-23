@@ -14,6 +14,7 @@ apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
     --env JULIA_DEPOT_PATH=/repo/.julia-depot \
     --env POETRY_VIRTUALENVS_PATH=/repo/.poetry-venv \
+    --env JULIA_EXCLUSIVE=1 \
     --env MAX_THREADS="$MAX_THREADS" \
     "$SIF_IMAGE" bash -c '
 cd /repo/spgemm

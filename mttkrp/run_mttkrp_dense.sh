@@ -23,6 +23,7 @@ apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
     --env JULIA_DEPOT_PATH=/repo/.julia-depot \
     --env POETRY_VIRTUALENVS_PATH=/repo/.poetry-venv \
+    --env JULIA_EXCLUSIVE=1 \
     --env OMP_NUM_THREADS="$THREADS" \
     --env MKL_NUM_THREADS="$THREADS" \
     "$SIF_IMAGE" bash -c "
