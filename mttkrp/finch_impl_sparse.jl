@@ -11,7 +11,7 @@ function finch_impl(B, C, D, num_cpu)
     
     _A = Tensor(Dense(Shard(dev, SparseList(Element(0.0)))))
     time = @belapsed begin
-        (_A, _B, _C, _D) = $(_A, _B, _C, _D)
+        (_A, _B, _C, _D, dev) = $(_A, _B, _C, _D, dev)
         @finch mode = :fast begin
             _A .= 0
            for r = parallel(_, dev)
