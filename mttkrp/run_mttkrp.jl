@@ -55,9 +55,9 @@ datasets = Dict(
         "data/1998DARPA.tns",
      ],
      "sparse" => [
+        "data/fb-m.tns",
         "data/nell-2.tns",
         "data/1998DARPA.tns",
-        "data/fb-m.tns",
         "data/nell-1.tns",
      ],
     "sparse_short" => [
@@ -109,6 +109,9 @@ function calculate_results(dataset, mtxs, results)
         elseif kind == "sparse"
             B = TensorMarket.tnsread(mtx)
             B = fsparse(B[1]..., B[2])
+            if mtx == "data/fb-m.tns"
+                B = permutedims(B, (3, 2, 1))
+            end
             C = sprand(size(B)[2], 16, 0.01)
             D = sprand(size(B)[3], 16, 0.01)
         else
