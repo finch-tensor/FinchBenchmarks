@@ -55,9 +55,9 @@ datasets = Dict(
         "data/1998DARPA.tns",
      ],
      "sparse" => [
-        "data/fb-m.tns",
         "data/nell-2.tns",
         "data/1998DARPA.tns",
+        "data/fb-m.tns",
         "data/nell-1.tns",
      ],
     "sparse_short" => [
