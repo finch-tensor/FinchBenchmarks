@@ -34,7 +34,7 @@ function finch_impl(B, C, D, num_cpu)
             for k = _
                 for j = _
                     for i = _
-                        _A[i] += _B[i, j, k] * _D[k, r] * _C[j, r]
+                        _A[i, r] += _B[i, j, k] * _D[k, r] * _C[j, r]
                     end
                 end
             end
