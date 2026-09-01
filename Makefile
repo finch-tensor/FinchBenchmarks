@@ -31,7 +31,9 @@ MKLROOT = /opt/intel/oneapi/mkl/2025.3
 MKL_CXXFLAGS = -I$(MKLROOT)/include
 MKL_LDLIBS = -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_intel_thread -liomp5
 
-ALL_TARGETS = $(SPGEMM_EIGEN) spadd/spadd_eigen hadamard/hadamard_eigen mttkrp/mttkrp_taco spmspv/spmspv_eigen
+LLVM_DIR = deps/llvm-project
+LLVM_CLONE = $(LLVM_DIR)/.git
+LLVM_BUILD ?= $(LLVM_DIR)/build
 
 ifeq ($(shell uname -m), x86_64)
 	ALL_TARGETS += $(SPGEMM_MKL) spadd/spadd_mkl
@@ -63,6 +65,16 @@ $(TACO): $(TACO_CLONE)
 
 $(EIGEN_CLONE):
 	git submodule update --init $(EIGEN_DIR)
+
+$(LLVM_CLONE):
+	git submodule update --init $(LLVM_DIR)
+
+$(MLIR): $(LLVM_CLONE)
+	cmake -S $(LLVM_DIR)/llvm -B $(LLVM_BUILD) \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DLLVM_ENABLE_PROJECTS=mlir \
+          -DLLVM_TARGETS_TO_BUILD=Native
+	cmake --build $(LLVM_BUILD) -j$(NPROC_VAL)
 
 spgemm/spgemm_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spgemm/spgemm_eigen.cpp
 	$(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) -o $@ spgemm/spgemm_eigen.cpp
