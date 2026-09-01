@@ -19,3 +19,7 @@
 [submodule "deps/opencv"]
 	path = deps/opencv
 	url = https://github.com/opencv/opencv.git
+[submodule "deps/llvm-project"]
+	path = deps/llvm-project
+	url = https://github.com/llvm/llvm-project.git
+	shallow = true
