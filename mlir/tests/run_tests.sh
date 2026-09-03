@@ -2,7 +2,7 @@
 
 LLVM_BUILD="/opt/homebrew/opt/llvm"
 
-"$LLVM_BUILD/bin/mlir-opt" read_mtx.mlir \
+"$LLVM_BUILD/bin/mlir-opt" test_load_mtx.mlir \
     --sparsifier="enable-runtime-library=true" \
 | "$LLVM_BUILD/bin/mlir-runner" \
     -e main \
