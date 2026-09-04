@@ -10,6 +10,7 @@ module {
     %out = linalg.matvec
       ins(%A, %b : tensor<?x?xf64, #CSR>, tensor<?xf64, #DenseVector>)
       outs(%x_t : tensor<?xf64>) -> tensor<?xf64>
+    bufferization.materialize_in_destination %out in restrict writable %x : (tensor<?xf64>, memref<?xf64>) -> ()
     return
   }
 }
