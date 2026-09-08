@@ -9,7 +9,7 @@ template <typename T, int N> struct MemRefDescriptor {
   intptr_t strides[N];
 };
 
-extern "C" void _mlir_ciface_spmv(void *A, void *b,
-                                  MemRefDescriptor<double, 1> *x);
 extern "C" void *load_csr_mtx(const char *path);
 extern "C" void *load_dense_vec_mtx(const char *path);
+extern "C" void print_csr(void *A);
+extern "C" void output_csr(void *A, const char *path);

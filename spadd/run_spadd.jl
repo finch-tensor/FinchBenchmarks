@@ -68,6 +68,7 @@ include("shard_implementation.jl")
 include("eigen_impl.jl")
 include("mkl_impl.jl")
 include("graphBLAS_impl.jl")
+include("mlir_impl.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_add,
@@ -75,6 +76,7 @@ methods = OrderedDict(
     "mkl_impl" => mkl_impl,
     "shard_implementation" => shard_add,
     "eigen_impl" => eigen_impl,
+    "mlir_impl" => mlir_impl,
 )
 
 if !isnothing(parsed_args["method"])

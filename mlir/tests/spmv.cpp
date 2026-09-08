@@ -15,11 +15,22 @@ int main() {
 
   auto time = benchmark([&] { memset(xd, 0, m * sizeof(double)); },
                         [&] { _mlir_ciface_spmv(A, b, &x); });
-  std::cout << "time: " << time << std::endl;
 
+  std::cout << "time: " << time << std::endl;
   std::cout << "x:" << std::endl;
   for (size_t i = 0; i < m; i++)
     std::cout << *(xd + i) << std::endl;
+
+  void *A_ = load_csr_mtx("data/wide.mtx");
+  void *b_ = load_dense_vec_mtx("data/wide_vec.mtx");
+  auto time_ = benchmark([&] { memset(xd, 0, m * sizeof(double)); },
+                        [&] { _mlir_ciface_spmv(A_, b_, &x); });
+
+  std::cout << "time: " << time_ << std::endl;
+  std::cout << "x:" << std::endl;
+  for (size_t i = 0; i < m; i++)
+    std::cout << *(xd + i) << std::endl;
+
 
   free(xd);
   return 0;
