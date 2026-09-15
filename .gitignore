@@ -46,6 +46,8 @@ graphs/pyvenv.cfg
 images/output/*
 */Manifest.toml
 old/*
+/Finch-wingspan.jl/
+/Finch-desc.jl/
 morphology/output/*
 */manifest.toml
 opencv/*
