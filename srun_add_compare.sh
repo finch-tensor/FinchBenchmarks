@@ -14,9 +14,6 @@
 
 set -e
 
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-
 cd "$SLURM_SUBMIT_DIR"
-./add/run_struct_add.sh 16
-./histogram/run_hist.sh 16
+./run_add_compare.sh
 

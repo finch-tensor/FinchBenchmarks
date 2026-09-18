@@ -15,8 +15,7 @@
 set -e
 
 REPO_ROOT="$(git rev-parse --show-toplevel)"
+"$REPO_ROOT/build_image.sh"
 
-cd "$SLURM_SUBMIT_DIR"
-./add/run_struct_add.sh 16
-./histogram/run_hist.sh 16
+"$REPO_ROOT/envs/setup.sh"
 
