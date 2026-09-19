@@ -16,6 +16,6 @@ apptainer exec --cleanenv --no-home \
     --env JULIA_EXCLUSIVE=1 \
     --env MAX_THREADS="$MAX_THREADS" \
     "$SIF_IMAGE" bash -c '
-cd "$REPO_ROOT:/repo"
+cd "/repo"
 julia --project=. spadd/run_spadd_compare.jl -m shard_implementation -d sparse --ncpu 8 -o spadd/results/spadd_compare.json
 '

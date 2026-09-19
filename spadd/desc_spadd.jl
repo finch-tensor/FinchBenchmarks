@@ -3,12 +3,12 @@ using BenchmarkTools
 using Base.Threads
 
 
-function shard_add(A, B, num_cpu)
+function desc_spadd(A, B, num_cpu)
     _A = Tensor(Dense(SparseList(Element(0.0))), A)
     _B = Tensor(Dense(SparseList(Element(0.0))), B)
 
     cpu_dev = cpu(:id, num_cpu)
-    _C = Tensor(Dense(Shard(cpu_dev, SparseList(Element(0.0)))))
+    _C = Tensor(Dense(Coalesce(cpu_dev, SparseList(Element(0.0)), mode=:fast)))
 
     time = @belapsed begin
         (_A, _B, _C, cpu_dev) = $(_A, _B, _C, cpu_dev)
