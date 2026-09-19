@@ -14,6 +14,6 @@
 
 set -e
 
-cd "$SLURM_SUBMIT_DIR"
-./run_add_compare.sh
+cd "$(git -C "$SLURM_SUBMIT_DIR" rev-parse --show-toplevel)"
+./spadd/run_add_compare.sh
 

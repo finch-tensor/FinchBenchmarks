@@ -31,13 +31,14 @@ parsed_args = parse_args(ARGS, s)
 repo_root = dirname(@__DIR__)
 worker = joinpath(@__DIR__, "_run_spadd_worker.jl")
 
+# version => (env, default method)
 versions = [
-    "wingspan" => joinpath(repo_root, "envs", "wingspan"),
-    "desc" => joinpath(repo_root, "envs", "desc"),
+    "wingspan" => (joinpath(repo_root, "envs", "wingspan"), "wingspan_spadd"),
+    "desc" => (joinpath(repo_root, "envs", "desc"), "desc_spadd"),
 ]
 
 forwarded = String[]
-for (flag, key) in ("--ncpu" => "ncpu", "--dataset" => "dataset", "--method" => "method")
+for (flag, key) in ("--ncpu" => "ncpu", "--dataset" => "dataset")
     if !isnothing(parsed_args[key])
         push!(forwarded, flag, string(parsed_args[key]))
     end
@@ -46,9 +47,10 @@ parsed_args["accuracy-check"] && push!(forwarded, "--accuracy-check")
 
 results = []
 mktempdir() do tmp
-    for (version, env) in versions
+    for (version, (env, default_method)) in versions
         out = joinpath(tmp, "$version.json")
-        cmd = `julia --project=$env $worker $forwarded -o $out`
+        method = something(parsed_args["method"], default_method)
+        cmd = `julia --project=$env -t $(parsed_args["ncpu"]) $worker $forwarded --method $method -o $out`
         @info "Running SpAdd with Finch=$version" cmd
         run(cmd)
         for row in JSON.parsefile(out)

@@ -65,6 +65,7 @@ datasets = Dict(
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 include("wingspan_spadd.jl")
+include("desc_spadd.jl")
 include("eigen_impl.jl")
 include("mkl_impl.jl")
 include("graphBLAS_impl.jl")
