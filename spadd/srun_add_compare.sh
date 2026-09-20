@@ -9,8 +9,8 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=psum3@gatech.edu
 #SBATCH -C graniterapids
-#SBATCH -o struc.out
-#SBATCH -e struc.err
+#SBATCH -o spadd.out
+#SBATCH -e spadd.err
 
 set -e
 
