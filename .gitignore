@@ -3,6 +3,8 @@
 cache/*
 /.julia-depot/
 /.poetry-venv/
+/.nacho-env/
+/.micromamba/
 
 sum/eigen_kernel
 sum/mkl_kernel

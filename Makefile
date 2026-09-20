@@ -26,7 +26,10 @@ TACO_LDLIBS = -L$(TACO_DIR)/build/lib -ltaco -ldl
 NACHO_DIR = deps/nacho
 NACHO_CLONE = $(NACHO_DIR)/.git
 NACHO = $(NACHO_DIR)/build/hello
-NACHO_PYTHON ?= python3
+NACHO_ENV = $(CURDIR)/.nacho-env
+NACHO_PYTHON = $(NACHO_ENV)/bin/python
+MICROMAMBA_ROOT = $(CURDIR)/.micromamba
+MICROMAMBA = $(MICROMAMBA_ROOT)/micromamba
 
 EIGEN_DIR = deps/eigen
 EIGEN_CLONE = $(EIGEN_DIR)/.git
@@ -69,13 +72,24 @@ $(TACO): $(TACO_CLONE)
 $(NACHO_CLONE):
 	git submodule update --init $(NACHO_DIR)
 
-$(NACHO): $(NACHO_CLONE)
+$(MICROMAMBA):
+	mkdir -p $(MICROMAMBA_ROOT) && \
+	curl -fsSL -o $@ https://github.com/mamba-org/micromamba-releases/releases/latest/download/micromamba-linux-64 && \
+	chmod +x $@
+
+$(NACHO_PYTHON): $(MICROMAMBA)
+	MAMBA_ROOT_PREFIX=$(MICROMAMBA_ROOT) $(MICROMAMBA) create -y -p $(NACHO_ENV) \
+		-c nvidia -c conda-forge python=3.12 tbb-devel cmake nvidia::cuda-toolkit=12.6 texlive-core ghostscript
+
+$(NACHO): $(NACHO_CLONE) $(NACHO_PYTHON)
 	cd $(NACHO_DIR) && \
-	$(NACHO_PYTHON) -m pip install -r requirements.txt && \
-	$(NACHO_PYTHON) -m cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && \
-	$(NACHO_PYTHON) -m cmake --build build -j$(NPROC_VAL) && \
+	export PATH=$(NACHO_ENV)/bin:$$PATH CMAKE_PREFIX_PATH=$(NACHO_ENV) && \
+	python -m pip install -r requirements.txt && \
+	python -m pip install torch --index-url https://download.pytorch.org/whl/cpu && \
+	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && \
+	cmake --build build -j$(NPROC_VAL) && \
 	./build/compiler && \
-	$(NACHO_PYTHON) -m pip install --no-build-isolation -ve . && \
+	python -m pip install --no-build-isolation -ve . && \
 	touch build/hello
 
 $(EIGEN_CLONE):
