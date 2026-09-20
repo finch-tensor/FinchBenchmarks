@@ -19,3 +19,6 @@
 [submodule "deps/opencv"]
 	path = deps/opencv
 	url = https://github.com/opencv/opencv.git
+[submodule "deps/nacho"]
+	path = deps/nacho
+	url = https://github.com/rootjalex/nacho

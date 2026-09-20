@@ -23,6 +23,11 @@ TACO = $(TACO_DIR)/build/hello
 TACO_CXXFLAGS = -fopenmp -I$(TACO_DIR)/include -I$(TACO_DIR)/src
 TACO_LDLIBS = -L$(TACO_DIR)/build/lib -ltaco -ldl
 
+NACHO_DIR = deps/nacho
+NACHO_CLONE = $(NACHO_DIR)/.git
+NACHO = $(NACHO_DIR)/build/hello
+NACHO_PYTHON ?= python3
+
 EIGEN_DIR = deps/eigen
 EIGEN_CLONE = $(EIGEN_DIR)/.git
 EIGEN_CXXFLAGS = -I$(EIGEN_DIR) -fopenmp
@@ -31,7 +36,7 @@ MKLROOT = /opt/intel/oneapi/mkl/2025.3
 MKL_CXXFLAGS = -I$(MKLROOT)/include
 MKL_LDLIBS = -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_intel_thread -liomp5
 
-ALL_TARGETS = $(SPGEMM_EIGEN) spadd/spadd_eigen hadamard/hadamard_eigen mttkrp/mttkrp_taco spmspv/spmspv_eigen
+ALL_TARGETS = $(SPGEMM_EIGEN) spadd/spadd_eigen hadamard/hadamard_eigen mttkrp/mttkrp_taco spmspv/spmspv_eigen $(NACHO)
 
 ifeq ($(shell uname -m), x86_64)
 	ALL_TARGETS += $(SPGEMM_MKL) spadd/spadd_mkl
@@ -60,6 +65,18 @@ $(TACO): $(TACO_CLONE)
 	cmake -DOPENMP=ON -DPYTHON=false -DCMAKE_BUILD_TYPE=Release .. ;\
 	make taco -j$(NPROC_VAL) ;\
 	touch hello
+
+$(NACHO_CLONE):
+	git submodule update --init $(NACHO_DIR)
+
+$(NACHO): $(NACHO_CLONE)
+	cd $(NACHO_DIR) && \
+	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && \
+	cmake --build build -j$(NPROC_VAL) && \
+	./build/compiler && \
+	$(NACHO_PYTHON) -m pip install -r requirements.txt && \
+	$(NACHO_PYTHON) -m pip install --no-build-isolation -ve . && \
+	touch build/hello
 
 $(EIGEN_CLONE):
 	git submodule update --init $(EIGEN_DIR)
