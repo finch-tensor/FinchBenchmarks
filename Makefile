@@ -71,10 +71,10 @@ $(NACHO_CLONE):
 
 $(NACHO): $(NACHO_CLONE)
 	cd $(NACHO_DIR) && \
-	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && \
-	cmake --build build -j$(NPROC_VAL) && \
-	./build/compiler && \
 	$(NACHO_PYTHON) -m pip install -r requirements.txt && \
+	$(NACHO_PYTHON) -m cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && \
+	$(NACHO_PYTHON) -m cmake --build build -j$(NPROC_VAL) && \
+	./build/compiler && \
 	$(NACHO_PYTHON) -m pip install --no-build-isolation -ve . && \
 	touch build/hello
 
