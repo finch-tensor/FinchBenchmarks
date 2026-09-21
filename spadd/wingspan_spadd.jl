@@ -9,7 +9,6 @@ function wingspan_spadd(A, B, num_cpu)
 
     cpu_dev = cpu(:id, num_cpu)
     _C = Tensor(Dense(Shard(cpu_dev, SparseList(Element(0.0)))))
-
     time = @belapsed begin
         (_A, _B, _C, cpu_dev) = $(_A, _B, _C, cpu_dev)
 

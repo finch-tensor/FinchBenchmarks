@@ -8,7 +8,7 @@ function desc_spadd(A, B, num_cpu)
     _B = Tensor(Dense(SparseList(Element(0.0))), B)
 
     cpu_dev = cpu(:id, num_cpu)
-    _C = Tensor(Coalesce(cpu_dev, Dense(SparseList(Element(0.0))); mode=:fast))
+    _C = Tensor(Coalesce(cpu_dev, SparseList(SparseList(Element(0.0))); mode=:fast))
     time = @belapsed begin
         (_A, _B, _C, cpu_dev) = $(_A, _B, _C, cpu_dev)
 

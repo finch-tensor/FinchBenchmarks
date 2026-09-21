@@ -21,7 +21,9 @@ apptainer exec --cleanenv --no-home \
     --env MKL_NUM_THREADS="$THREADS" \
     "$SIF_IMAGE" bash -c "
 cd /repo/spadd
-julia -t $THREADS run_spadd.jl --dataset mirror --output results/spadd_mirror_results.json --ncpu $THREADS
+# everything but desc
+julia -t $THREADS run_spadd.jl --dataset mirror --output results/spadd_mirror_results.json --ncpu $THREADS \\
+    -m serial_default_implementation -m graphblas_impl -m mkl_impl -m wingspan_spadd -m eigen_impl
 cd results
 poetry install --no-root
 poetry run python3 plot_spadd.py mirror
