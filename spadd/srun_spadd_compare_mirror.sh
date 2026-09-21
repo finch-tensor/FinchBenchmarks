@@ -1,7 +1,6 @@
 #!/bin/bash
-#SBATCH -J struc
+#SBATCH -J spadd_compare
 #SBATCH -A gts-wahrens6
-#SBATCH -q embers
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=1
 #SBATCH -c 16
@@ -9,11 +8,11 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=psum3@gatech.edu
 #SBATCH -C graniterapids
-#SBATCH -o spadd.out
-#SBATCH -e spadd.err
+#SBATCH -o spadd_compare.out
+#SBATCH -e spadd_compare.err
 
 set -e
 
 cd "$(git -C "$SLURM_SUBMIT_DIR" rev-parse --show-toplevel)"
-./spadd/run_add_compare.sh
+./spadd/run_spadd_compare_mirror.sh
 
