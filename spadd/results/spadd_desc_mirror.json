@@ -1,130 +1,58 @@
 [
     {
-        "time": 0.004491193,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/roadNet-CA",
-        "version": "wingspan"
-    },
-    {
-        "time": 0.000216949,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/p2p-Gnutella31",
-        "version": "wingspan"
-    },
-    {
-        "time": 0.016305415,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/cit-Patents",
-        "version": "wingspan"
-    },
-    {
-        "time": 0.003602065,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/web-Google",
-        "version": "wingspan"
-    },
-    {
-        "time": 0.002469057,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/amazon0312",
-        "version": "wingspan"
-    },
-    {
-        "time": 9.1048e-5,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/wiki-Vote",
-        "version": "wingspan"
-    },
-    {
-        "time": 0.000702428,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/email-Enron",
-        "version": "wingspan"
-    },
-    {
-        "time": 0.000184591,
-        "n_threads": 16,
-        "method": "wingspan_spadd",
-        "dataset": "mirror",
-        "matrix": "SNAP/ca-CondMat",
-        "version": "wingspan"
-    },
-    {
-        "time": 0.020638585,
+        "time": 0.007241163,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/roadNet-CA",
-        "version": "desc"
+        "matrix": "SNAP/roadNet-CA"
     },
     {
-        "time": 0.000679569,
+        "time": 0.00039869,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/p2p-Gnutella31",
-        "version": "desc"
+        "matrix": "SNAP/p2p-Gnutella31"
     },
     {
-        "time": 0.050763266,
+        "time": 0.023875171,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/cit-Patents",
-        "version": "desc"
+        "matrix": "SNAP/cit-Patents"
     },
     {
-        "time": 0.011264601,
+        "time": 0.00617232,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/web-Google",
-        "version": "desc"
+        "matrix": "SNAP/web-Google"
     },
     {
-        "time": 0.007514239,
+        "time": 0.004497151,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/amazon0312",
-        "version": "desc"
+        "matrix": "SNAP/amazon0312"
     },
     {
-        "time": 0.000252088,
+        "time": 0.000294142,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/wiki-Vote",
-        "version": "desc"
+        "matrix": "SNAP/wiki-Vote"
     },
     {
-        "time": 0.001215648,
+        "time": 0.001186881,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/email-Enron",
-        "version": "desc"
+        "matrix": "SNAP/email-Enron"
     },
     {
-        "time": 0.000488307,
+        "time": 0.000494713,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
-        "matrix": "SNAP/ca-CondMat",
-        "version": "desc"
+        "matrix": "SNAP/ca-CondMat"
     }
 ]

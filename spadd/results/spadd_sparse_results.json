@@ -1,0 +1,282 @@
+[
+    {
+        "time": 0.077979904,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.031774865,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.064318525,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.007279306,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.111754027,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/roadNet-CA"
+    },
+    {
+        "time": 0.002639749,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.003606984,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.001045181,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.000407977,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.0020152570000000003,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/p2p-Gnutella31"
+    },
+    {
+        "time": 0.218937063,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.123617347,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.18885380100000002,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.026224372,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.389852576,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/cit-Patents"
+    },
+    {
+        "time": 0.06925472,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.037923987,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.04729781,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.006411875,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.12242757500000001,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/web-Google"
+    },
+    {
+        "time": 0.039482843,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 0.023893579,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 0.016672422000000003,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 0.00446946,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 0.052889572,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/amazon0312"
+    },
+    {
+        "time": 0.000655313,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.001275765,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.00047183200000000005,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.000153067,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.001042044,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/wiki-Vote"
+    },
+    {
+        "time": 0.003047748,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.002143626,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.0023413080000000003,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.000747394,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.004296174000000001,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/email-Enron"
+    },
+    {
+        "time": 0.002502808,
+        "n_threads": 16,
+        "method": "serial_default_implementation",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    },
+    {
+        "time": 0.002941637,
+        "n_threads": 16,
+        "method": "graphblas_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    },
+    {
+        "time": 0.0011614260000000001,
+        "n_threads": 16,
+        "method": "mkl_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    },
+    {
+        "time": 0.000439217,
+        "n_threads": 16,
+        "method": "wingspan_spadd",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    },
+    {
+        "time": 0.0030440460000000003,
+        "n_threads": 16,
+        "method": "eigen_impl",
+        "dataset": "sparse",
+        "matrix": "SNAP/ca-CondMat"
+    }
+]
