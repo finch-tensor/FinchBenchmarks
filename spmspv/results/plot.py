@@ -2,9 +2,19 @@ import json
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
+import sys
 
-with open("./spmspv_results.json") as f:
+input_file = sys.argv[1] if len(sys.argv) > 1 else "./spmspv_results.json"
+desc_file = sys.argv[2] if len(sys.argv) > 2 else "./spmspv_desc.json"
+with open(input_file) as f:
     raw = json.load(f)
+
+try:
+    with open(desc_file) as f:
+        desc_rows = json.load(f)
+except FileNotFoundError:
+    print(f"warning: {desc_file} not found, plotting without desc")
+    desc_rows = []
 
 WINGSPAN_METHODS = {"coalesce_static", "coalesce_dynamic"}
 
@@ -19,10 +29,20 @@ for entry in raw:
     else:
         data.setdefault(m, {})[method] = t
 
+for entry in desc_rows:
+    if entry["method"] not in WINGSPAN_METHODS:
+        continue
+    m = entry["matrix"].split("/")[-1]
+    current = data.setdefault(m, {}).get("desc")
+    t = entry["time"]
+    data[m]["desc"] = t if current is None else min(current, t)
+
 matrices = list(data.keys())
 
 # Order: graphblas is baseline at 1.0
-methods = ["wingspan", "graphblas", "eigen"]
+methods = ["wingspan", "desc", "graphblas", "eigen"]
+if not desc_rows:
+    methods.remove("desc")
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
@@ -39,6 +59,7 @@ x = np.arange(n_matrices)
 
 COLORS = {
     "wingspan":  "#E69F00", 
+    "desc":      "#D55E00",
     "graphblas":       "#56B4E9", 
     "eigen":           "#CC79A7",
 }

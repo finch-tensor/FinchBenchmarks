@@ -22,7 +22,4 @@ apptainer exec --cleanenv --no-home \
     "$SIF_IMAGE" bash -c "
 cd /repo/spmspv
 julia -t $THREADS run_spmspv.jl --dataset snap_largest --output results/spmspv_results.json
-cd results
-poetry install --no-root
-poetry run python3 plot.py
 "
