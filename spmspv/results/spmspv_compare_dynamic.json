@@ -1,0 +1,130 @@
+[
+    {
+        "time": 0.060001236,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-LiveJournal",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.113221014,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-Orkut",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.066130258,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-LiveJournal1",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.030874202,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/sx-stackoverflow",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.026830139,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-Pokec",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.025650391,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/wiki-topcats",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.019224415,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/as-Skitter",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.033130537,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/cit-Patents",
+        "version": "wingspan"
+    },
+    {
+        "time": 0.049601659,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-LiveJournal",
+        "version": "desc"
+    },
+    {
+        "time": 0.077387403,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-Orkut",
+        "version": "desc"
+    },
+    {
+        "time": 0.056395577,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-LiveJournal1",
+        "version": "desc"
+    },
+    {
+        "time": 0.026141882,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/sx-stackoverflow",
+        "version": "desc"
+    },
+    {
+        "time": 0.019522636,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-Pokec",
+        "version": "desc"
+    },
+    {
+        "time": 0.020867208,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/wiki-topcats",
+        "version": "desc"
+    },
+    {
+        "time": 0.01624802,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/as-Skitter",
+        "version": "desc"
+    },
+    {
+        "time": 0.032548257,
+        "n_threads": 16,
+        "method": "coalesce_dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/cit-Patents",
+        "version": "desc"
+    }
+]

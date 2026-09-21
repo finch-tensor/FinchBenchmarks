@@ -18,5 +18,5 @@ apptainer exec --cleanenv --no-home \
     --env MKL_NUM_THREADS="$MAX_THREADS" \
     "$SIF_IMAGE" bash -c "
 cd /repo
-julia --project=. spmspv/run_spmspv_compare.jl -m coalesce_static -d snap_largest --threads $MAX_THREADS -o spmspv/results/spmspv_compare.json
+julia --project=. spmspv/run_spmspv_compare.jl -m coalesce_static -d snap_largest --threads $MAX_THREADS -o spmspv/results/spmspv_compare_static.json
 "
