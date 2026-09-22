@@ -4,11 +4,11 @@ using Base.Threads
 
 
 function wingspan_spadd(A, B, num_cpu)
-    _A = Tensor(Dense(SparseList(Element(0.0))), A)
-    _B = Tensor(Dense(SparseList(Element(0.0))), B)
+    _A = Tensor(SparseList(SparseList(Element(0.0))), A)
+    _B = Tensor(SparseList(SparseList(Element(0.0))), B)
 
     cpu_dev = cpu(:id, num_cpu)
-    _C = Tensor(Dense(Shard(cpu_dev, SparseList(Element(0.0)))))
+    _C = Tensor(Coalesce(cpu_dev, SparseList(SparseList(Element(0.0)))))
     time = @belapsed begin
         (_A, _B, _C, cpu_dev) = $(_A, _B, _C, cpu_dev)
 

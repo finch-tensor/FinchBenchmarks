@@ -1,55 +1,55 @@
 [
     {
-        "time": 0.007241163,
+        "time": 0.006974087,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/roadNet-CA"
     },
     {
-        "time": 0.00039869,
+        "time": 0.000448546,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/p2p-Gnutella31"
     },
     {
-        "time": 0.023875171,
+        "time": 0.023579054,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/cit-Patents"
     },
     {
-        "time": 0.00617232,
+        "time": 0.005870061,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/web-Google"
     },
     {
-        "time": 0.004497151,
+        "time": 0.004473406,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/amazon0312"
     },
     {
-        "time": 0.000294142,
+        "time": 0.000471476,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/wiki-Vote"
     },
     {
-        "time": 0.001186881,
+        "time": 0.001366898,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/email-Enron"
     },
     {
-        "time": 0.000494713,
+        "time": 0.000635108,
         "n_threads": 16,
         "method": "desc_spadd",
         "dataset": "mirror",

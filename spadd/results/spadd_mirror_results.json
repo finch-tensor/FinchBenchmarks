@@ -1,279 +1,279 @@
 [
     {
-        "time": 0.038143,
+        "time": 0.059900348,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/roadNet-CA"
     },
     {
-        "time": 0.012904739,
+        "time": 0.020420181,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/roadNet-CA"
     },
     {
-        "time": 0.030723747000000003,
+        "time": 0.030610502,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/roadNet-CA"
     },
     {
-        "time": 0.004329865,
+        "time": 0.062551019,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/roadNet-CA"
     },
     {
-        "time": 0.045481548000000004,
+        "time": 0.045232601000000004,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",
         "matrix": "SNAP/roadNet-CA"
     },
     {
-        "time": 0.001236857,
+        "time": 0.001319164,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/p2p-Gnutella31"
     },
     {
-        "time": 0.002788623,
+        "time": 0.003107162,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/p2p-Gnutella31"
     },
     {
-        "time": 0.000771119,
+        "time": 0.0007983030000000001,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/p2p-Gnutella31"
     },
     {
-        "time": 0.000232449,
+        "time": 0.002622557,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/p2p-Gnutella31"
     },
     {
-        "time": 0.0009742170000000001,
+        "time": 0.000960628,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",
         "matrix": "SNAP/p2p-Gnutella31"
     },
     {
-        "time": 0.099550033,
+        "time": 0.099965267,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/cit-Patents"
     },
     {
-        "time": 0.058846012,
+        "time": 0.082018371,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/cit-Patents"
     },
     {
-        "time": 0.167432287,
+        "time": 0.171385699,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/cit-Patents"
     },
     {
-        "time": 0.015380517,
+        "time": 0.264889397,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/cit-Patents"
     },
     {
-        "time": 0.164400711,
+        "time": 0.166128606,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",
         "matrix": "SNAP/cit-Patents"
     },
     {
-        "time": 0.030030213,
+        "time": 0.032863183,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/web-Google"
     },
     {
-        "time": 0.022486313,
+        "time": 0.066510183,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/web-Google"
     },
     {
-        "time": 0.026766129000000003,
+        "time": 0.026532386,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/web-Google"
     },
     {
-        "time": 0.003592977,
+        "time": 0.043148495,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/web-Google"
     },
     {
-        "time": 0.040274112,
+        "time": 0.040320295,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",
         "matrix": "SNAP/web-Google"
     },
     {
-        "time": 0.013484642,
+        "time": 0.014331806,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/amazon0312"
     },
     {
-        "time": 0.010350783,
+        "time": 0.014552256,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/amazon0312"
     },
     {
-        "time": 0.00941367,
+        "time": 0.009898752,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/amazon0312"
     },
     {
-        "time": 0.002365031,
+        "time": 0.030022445,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/amazon0312"
     },
     {
-        "time": 0.015448764,
+        "time": 0.015541931,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",
         "matrix": "SNAP/amazon0312"
     },
     {
-        "time": 0.000294543,
+        "time": 0.000291395,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/wiki-Vote"
     },
     {
-        "time": 0.000751421,
+        "time": 0.000851391,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/wiki-Vote"
     },
     {
-        "time": 0.00038132000000000004,
+        "time": 0.000372432,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/wiki-Vote"
     },
     {
-        "time": 0.000122064,
+        "time": 0.00342848,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/wiki-Vote"
     },
     {
-        "time": 0.00047233800000000004,
+        "time": 0.000507955,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",
         "matrix": "SNAP/wiki-Vote"
     },
     {
-        "time": 0.001281008,
+        "time": 0.001356831,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/email-Enron"
     },
     {
-        "time": 0.002067891,
+        "time": 0.00312589,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/email-Enron"
     },
     {
-        "time": 0.0017711290000000002,
+        "time": 0.0018119700000000002,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/email-Enron"
     },
     {
-        "time": 0.00064495,
+        "time": 0.00663676,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/email-Enron"
     },
     {
-        "time": 0.001932672,
+        "time": 0.001988965,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",
         "matrix": "SNAP/email-Enron"
     },
     {
-        "time": 0.00072091,
+        "time": 0.000790918,
         "n_threads": 16,
         "method": "serial_default_implementation",
         "dataset": "mirror",
         "matrix": "SNAP/ca-CondMat"
     },
     {
-        "time": 0.002126762,
+        "time": 0.00258114,
         "n_threads": 16,
         "method": "graphblas_impl",
         "dataset": "mirror",
         "matrix": "SNAP/ca-CondMat"
     },
     {
-        "time": 0.000737965,
+        "time": 0.000742557,
         "n_threads": 16,
         "method": "mkl_impl",
         "dataset": "mirror",
         "matrix": "SNAP/ca-CondMat"
     },
     {
-        "time": 0.000190665,
+        "time": 0.002121228,
         "n_threads": 16,
         "method": "wingspan_spadd",
         "dataset": "mirror",
         "matrix": "SNAP/ca-CondMat"
     },
     {
-        "time": 0.001072435,
+        "time": 0.0010663270000000002,
         "n_threads": 16,
         "method": "eigen_impl",
         "dataset": "mirror",

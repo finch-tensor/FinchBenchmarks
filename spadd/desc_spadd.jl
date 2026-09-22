@@ -4,8 +4,8 @@ using Base.Threads
 
 
 function desc_spadd(A, B, num_cpu)
-    _A = Tensor(Dense(SparseList(Element(0.0))), A)
-    _B = Tensor(Dense(SparseList(Element(0.0))), B)
+    _A = Tensor(SparseList(SparseList(Element(0.0))), A)
+    _B = Tensor(SparseList(SparseList(Element(0.0))), B)
 
     cpu_dev = cpu(:id, num_cpu)
     _C = Tensor(Coalesce(cpu_dev, SparseList(SparseList(Element(0.0))); mode=:fast))
