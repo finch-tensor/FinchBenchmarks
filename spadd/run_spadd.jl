@@ -70,6 +70,7 @@ include("desc_spadd.jl")
 include("eigen_impl.jl")
 include("mkl_impl.jl")
 include("graphBLAS_impl.jl")
+include("nacho_impl.jl")
 
 methods = OrderedDict(
     "serial_default_implementation" => serial_default_implementation_add,
@@ -78,6 +79,7 @@ methods = OrderedDict(
     "wingspan_spadd" => wingspan_spadd,
     "desc_spadd" => desc_spadd,
     "eigen_impl" => eigen_impl,
+    "nacho_dcsr" => nacho_dcsr_impl,
 )
 
 selected = something(parsed_args["method"], String[])

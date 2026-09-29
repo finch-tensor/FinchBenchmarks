@@ -4,10 +4,11 @@ import matplotlib.ticker as ticker
 import numpy as np
 import sys
 
-# usage: plot_spadd.py <kernel> [results.json] [desc_results.json]
+# usage: plot_spadd.py <kernel> [results.json] [desc_results.json] [nacho_results.json]
 kernel = sys.argv[1]
 input_file = sys.argv[2] if len(sys.argv) > 2 else f"./spadd_{kernel}_results.json"
 desc_file = sys.argv[3] if len(sys.argv) > 3 else f"./spadd_desc_{kernel}.json"
+nacho_file = sys.argv[4] if len(sys.argv) > 4 else f"./spadd_nacho_{kernel}.json"
 output_file = f"./spadd_{kernel}_speedup.png"
 ktype = ""
 if kernel == "mirror":
@@ -22,6 +23,14 @@ try:
 except FileNotFoundError:
     print(f"warning: {desc_file} not found, plotting without desc")
     desc_rows = []
+
+# nacho is run by its own script (run_spadd_nacho.sh)
+try:
+    with open(nacho_file) as f:
+        nacho_rows = [e for e in json.load(f) if e["method"] == "nacho_dcsr"]
+except FileNotFoundError:
+    print(f"warning: {nacho_file} not found, plotting without nacho")
+    nacho_rows = []
 
 RENAME = {
     "wingspan_spadd": "wingspan",
@@ -40,30 +49,36 @@ for entry in raw:
 for entry in desc_rows:
     m = entry["matrix"].split("/")[-1]
     data.setdefault(m, {})["desc"] = entry["time"]
+for entry in nacho_rows:
+    m = entry["matrix"].split("/")[-1]
+    data.setdefault(m, {})["nacho"] = entry["time"]
 
 matrices = list(data.keys())
 
 # Order: mkl is baseline at 1.0
-methods = ["wingspan", "desc", "mkl", "eigen", "graphblas"]
+methods = ["wingspan", "desc", "nacho", "mkl", "eigen", "graphblas"]
 if not desc_rows:
     methods.remove("desc")
+if not nacho_rows:
+    methods.remove("nacho")
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
-    mkl_t = data[mat]["mkl"]
+    mkl_t = data[mat].get("mkl", float("nan"))
     for meth in methods:
         t = data[mat].get(meth)
         speedups[meth].append(mkl_t / t if t else float("nan"))
 
 n_matrices = len(matrices)
 n_methods  = len(methods)
-bar_width  = 0.16
+bar_width  = 0.8 / n_methods
 group_gap  = 0.06
 x = np.arange(n_matrices)
 
 COLORS = {
     "wingspan": "#E69F00",
     "desc":     "#D55E00",
+    "nacho":    "#0072B2",
     "mkl":      "#009E73",
     "eigen":    "#CC79A7",
     "graphblas": "#56B4E9",

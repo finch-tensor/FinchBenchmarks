@@ -35,11 +35,14 @@ EIGEN_DIR = deps/eigen
 EIGEN_CLONE = $(EIGEN_DIR)/.git
 EIGEN_CXXFLAGS = -I$(EIGEN_DIR) -fopenmp
 
+NACHO_CXXFLAGS = -std=c++20 -I$(NACHO_DIR)/generated -I$(NACHO_DIR)/runtime -I$(NACHO_ENV)/include
+NACHO_LDLIBS = -L$(NACHO_ENV)/lib -ltbb -Wl,-rpath,$(NACHO_ENV)/lib
+
 MKLROOT = /opt/intel/oneapi/mkl/2025.3
 MKL_CXXFLAGS = -I$(MKLROOT)/include
 MKL_LDLIBS = -L$(MKLROOT)/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_intel_thread -liomp5
 
-ALL_TARGETS = $(SPGEMM_EIGEN) spadd/spadd_eigen hadamard/hadamard_eigen mttkrp/mttkrp_taco spmspv/spmspv_eigen $(NACHO)
+ALL_TARGETS = $(SPGEMM_EIGEN) spadd/spadd_eigen spadd/spadd_nacho hadamard/hadamard_eigen mttkrp/mttkrp_taco spmspv/spmspv_eigen $(NACHO)
 
 ifeq ($(shell uname -m), x86_64)
 	ALL_TARGETS += $(SPGEMM_MKL) spadd/spadd_mkl
@@ -106,6 +109,11 @@ spadd/spadd_mkl: spadd/mkl_impl.cpp
 
 spadd/spadd_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spadd/eigen_impl.cpp
 	$(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) -o $@ spadd/eigen_impl.cpp
+
+$(NACHO_DCSR_ADD): $(NACHO)
+
+spadd/spadd_nacho: $(SPARSE_BENCH) $(EIGEN_CLONE) $(NACHO) $(NACHO_DCSR_ADD) spadd/nacho_impl.cpp
+	$(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) $(NACHO_CXXFLAGS) -o $@ spadd/nacho_impl.cpp $(NACHO_DIR)/generated/dcsr_add_cpu.cpp $(LDLIBS) $(NACHO_LDLIBS)
 
 hadamard/hadamard_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) hadamard/eigen_impl.cpp
 	$(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) -o $@ hadamard/eigen_impl.cpp
