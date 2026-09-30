@@ -1,121 +1,63 @@
-CC  ?= clang
-CXX ?= clang++
+CXX ?= g++
 
-UNAME_S := $(shell uname -s)
+REPO_ROOT := $(abspath ../..)
 
-ifeq ($(UNAME_S),Darwin)
-    OMP_FLAGS = -Xpreprocessor -fopenmp
-    OMP_LIBS  = -lomp
-    OMP_INC   = $(shell brew --prefix libomp)/include
-    OMP_LIB   = $(shell brew --prefix libomp)/lib
-else
-    OMP_FLAGS = -fopenmp
-    OMP_LIBS  = -fopenmp
-    OMP_INC   =
-    OMP_LIB   =
-endif
+HALIDE_DIR ?= $(shell cd $(REPO_ROOT) && poetry run python3 -c "import halide; print(halide.install_dir())" 2>/dev/null)
+HALIDE_LIB := $(firstword $(wildcard $(HALIDE_DIR)/lib*/libHalide.so $(HALIDE_DIR)/lib*/libHalide.so.*))
 
-HALIDE_DIR := $(shell python3 -c "import halide; print(halide.install_dir())" 2>/dev/null)
-
-CXXFLAGS += \
-    -std=c++17 -O3 -fPIC \
-    $(OMP_FLAGS) \
-    $(if $(OMP_INC),-I$(OMP_INC))
-
-LDFLAGS += \
-    $(OMP_LIBS) \
-    $(if $(OMP_LIB),-L$(OMP_LIB))
+CXXFLAGS += -std=c++17 -O3 -fPIC
 
 NPROC_VAL ?= 4
 
-WITH_IPP ?= ON
+all: halide_kernel
 
-# IPPROOT ?= /opt/intel/oneapi/ipp/latest
-
-all: cv_kernel halide_kernel
-
-OPENCV_DIR   = ../../deps/opencv
-OPENCV_CLONE = $(OPENCV_DIR)/.git
-OPENCV_BUILD = $(OPENCV_DIR)/build
-OPENCV_LIB   = $(OPENCV_BUILD)/lib/libopencv_core*
-OPENCV_INSTALL = $(OPENCV_BUILD)/install
-
-
-SPARSE_BENCH_DIR = ../../deps/SparseRooflineBenchmark
-SPARSE_BENCH_CLONE = $(SPARSE_BENCH_DIR)/.git
-SPARSE_BENCH = ../../deps/SparseRooflineBenchmark/build/hello
-
-$(SPARSE_BENCH_CLONE):
-	git submodule update --init $(SPARSE_BENCH_DIR)
-
-$(SPARSE_BENCH): $(SPARSE_BENCH_CLONE)
-	mkdir -p $(SPARSE_BENCH) ;\
-	touch $(SPARSE_BENCH)
-
+OPENCV_DIR     = ../../deps/opencv
+OPENCV_CLONE   = $(OPENCV_DIR)/.git
+OPENCV_BUILD   = $(OPENCV_DIR)/build
+OPENCV_INSTALL = $(abspath $(OPENCV_BUILD)/install)
+OPENCV_STAMP   = $(OPENCV_INSTALL)/.built
 
 $(OPENCV_CLONE):
 	git submodule update --init $(OPENCV_DIR)
 
-$(OPENCV_LIB): $(OPENCV_CLONE)
+$(OPENCV_STAMP): $(OPENCV_CLONE)
 	cd $(OPENCV_DIR) && \
 	rm -rf build && \
 	mkdir -p build && \
 	cd build && \
 	cmake \
 	    -DCMAKE_BUILD_TYPE=Release \
-		-DCMAKE_C_COMPILER=$(CC) \
-		-DCMAKE_CXX_COMPILER=$(CXX) \
-		-DBUILD_LIST=core,imgproc,ximgproc \
-		-DCMAKE_INSTALL_PREFIX=$(PWD)/$(OPENCV_BUILD)/install \
-		-DWITH_OPENMP=ON \
-		-DWITH_IPP=$(WITH_IPP) \
-		$(if $(IPPROOT),-DIPPROOT=$(IPPROOT)) \
-		.. && \
-	make -j$(NPROC_VAL) && \
-	make install
+	    -DCMAKE_CXX_COMPILER=$(CXX) \
+	    -DBUILD_LIST=core \
+	    -DCMAKE_INSTALL_PREFIX=$(OPENCV_INSTALL) \
+	    -DWITH_IPP=OFF \
+	    -DWITH_OPENMP=OFF \
+	    .. && \
+	make -j$(NPROC_VAL) install
+	touch $@
 
-cv_kernel: cv_impl.cpp $(OPENCV_LIB)
-	$(CXX) \
-	    $(CXXFLAGS) \
-	    -I$(OPENCV_DIR)/include \
-	    -I$(OPENCV_DIR)/modules/core/include \
-	    -I$(OPENCV_DIR)/modules/imgproc/include \
-	    -I$(OPENCV_DIR)/modules/ximgproc/include \
-	    -I$(OPENCV_BUILD) \
-	    $< \
-	    -o $@ \
-	    -L$(OPENCV_INSTALL)/lib64 \
-		-Wl,-rpath,$(OPENCV_INSTALL)/lib64 \
-	    $(LDFLAGS) \
-	    -lopencv_core \
-	    -lopencv_imgproc
-
-halide_kernel: halide_impl.cpp $(OPENCV_LIB)
-	@if [ -z "$(HALIDE_DIR)" ]; then echo "Error: Halide not installed."; exit 1; fi
-	@if [ ! -f "$(HALIDE_DIR)/lib64/libHalide.so" ] && [ ! -f "$(HALIDE_DIR)/lib/libHalide.so" ]; then echo "Error: libHalide not found"; exit 1; fi
+halide_kernel: halide_impl.cpp $(OPENCV_STAMP)
+	@if [ -z "$(HALIDE_DIR)" ]; then echo "Error: Halide not installed (poetry install --no-root in $(REPO_ROOT))."; exit 1; fi
+	@if [ -z "$(HALIDE_LIB)" ]; then echo "Error: libHalide not found under $(HALIDE_DIR)"; exit 1; fi
 	$(CXX) \
 	    $(CXXFLAGS) \
 	    -I$(HALIDE_DIR)/include \
-	    -I$(OPENCV_DIR)/include \
-	    -I$(OPENCV_DIR)/modules/core/include \
-	    -I$(OPENCV_DIR)/modules/imgproc/include \
-	    -I$(OPENCV_DIR)/modules/ximgproc/include \
-	    -I$(OPENCV_BUILD) \
+	    -I$(OPENCV_INSTALL)/include/opencv4 \
 	    $< \
 	    -o $@ \
 	    $(LDFLAGS) \
-	    -L$(HALIDE_DIR)/lib64 \
-	    -L$(HALIDE_DIR)/lib \
+	    $(HALIDE_LIB) \
+	    -L$(OPENCV_INSTALL)/lib \
 	    -L$(OPENCV_INSTALL)/lib64 \
-	    -lHalide -ldl -lpthread \
-	    -lopencv_core \
-	    -lopencv_imgproc \
-	    -Wl,-rpath,$(HALIDE_DIR)/lib64 \
-	    -Wl,-rpath,$(HALIDE_DIR)/lib \
+	    -lopencv_core -ldl -lpthread \
+	    -Wl,-rpath,$(dir $(HALIDE_LIB)) \
+	    -Wl,-rpath,$(OPENCV_INSTALL)/lib \
 	    -Wl,-rpath,$(OPENCV_INSTALL)/lib64
 
 clean:
-	rm -f cv_kernel halide_kernel
+	rm -f halide_kernel
 
 clean-all: clean
-	rm -rf $(OPENCV_DIR)/build
+	rm -rf $(OPENCV_BUILD)
+
+.PHONY: all clean clean-all

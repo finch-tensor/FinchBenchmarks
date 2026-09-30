@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <vector>
 #include <fstream>
-#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
 #include "../../deps/SparseRooflineBenchmark/src/benchmark.hpp"
 
 using namespace Halide;
@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
     histogram(bin, c, temp) = 0;
 
     RDom r(0, input.dim(0).extent(), 0, input.dim(1).extent());
-    Expr val = input(r.x, r.y, c);
+    Expr val = cast<int>(input(r.x, r.y, c));
     histogram(val, c, 0) += 1;
 
 

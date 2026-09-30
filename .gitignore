@@ -35,6 +35,7 @@ structured/*.out
 structured/add/cv_kernel
 
 structured/histogram/cv_kernel
+structured/histogram/halide_kernel
 
 deps/SparseRooflineBenchmark/build
 .vscode/settings.json

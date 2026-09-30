@@ -12,6 +12,7 @@ scipy = "^1.12.0"
 matplotlib = "^3.8.3"
 packaging = "^24.0"
 decorator = "^5.1.1"
+halide = "^19.0.0"
 
 
 [build-system]

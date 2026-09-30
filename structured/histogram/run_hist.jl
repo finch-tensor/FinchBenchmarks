@@ -54,6 +54,7 @@ datasets = Dict(
 include("coalesce_impl.jl")
 include("wingspan_hist.jl")
 include("desc_hist.jl")
+include("halide_impl.jl")
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
@@ -62,6 +63,7 @@ methods = OrderedDict(
     "coalesce_impl_gray" => coalesce_impl_gray,
     "wingspan_hist_gray" => wingspan_hist_gray,
     "desc_hist_gray" => desc_hist_gray,
+    "halide_hist" => hist_halide_impl,
 )
 
 selected = something(parsed_args["method"], String[])
