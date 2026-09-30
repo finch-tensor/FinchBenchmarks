@@ -21,10 +21,7 @@ t=1
 while [ "$t" -le "$MAX_THREADS" ]; do
     export OMP_NUM_THREADS="$t"
     export MKL_NUM_THREADS="$t"
-    julia -t "$t" run_hist.jl -m wingspan_hist --dataset image --ncpu "$t" --output "results/hist_${t}_threads.json"
+    julia --project=/repo/envs/desc -t "$t" run_hist_desc.jl -m desc_hist --dataset image --ncpu "$t" --output "results/desc_hist_${t}_threads.json"
     t=$((t * 2))
 done
-cd results
-poetry install --no-root
-poetry run python3 plot_hist_strong_scaling.py
 '

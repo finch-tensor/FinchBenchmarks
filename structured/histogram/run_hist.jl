@@ -32,7 +32,8 @@ s = ArgParseSettings("Run Structured Add Experiments.")
     help = "dataset keyword"
     "--method", "-m"
     arg_type = String
-    help = "method keyword"
+    action = :append_arg
+    help = "method keyword (repeat -m to run several; default: all)"
     "--accuracy-check", "-a"
     action = :store_true
     help = "check method accuracy"
@@ -56,17 +57,22 @@ datasets = Dict(
 )
 
 include("coalesce_impl.jl")
-
+include("wingspan_hist.jl")
+include("desc_hist.jl")
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
+    "wingspan_hist" => wingspan_hist,
+    "desc_hist" => desc_hist,
 )
 
-if !isnothing(parsed_args["method"])
-    method_name = parsed_args["method"]
-    @assert haskey(methods, method_name) "Unrecognize method for $method_name"
+selected = something(parsed_args["method"], String[])
+if !isempty(selected)
+    for method_name in selected
+        @assert haskey(methods, method_name) "Unrecognize method for $method_name"
+    end
     methods = OrderedDict(
-        method_name => methods[method_name]
+        method_name => methods[method_name] for method_name in selected
     )
 end
 
