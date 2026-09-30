@@ -59,6 +59,9 @@ methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
     "wingspan_hist" => wingspan_hist,
     "desc_hist" => desc_hist,
+    "coalesce_impl_gray" => coalesce_impl_gray,
+    "wingspan_hist_gray" => wingspan_hist_gray,
+    "desc_hist_gray" => desc_hist_gray,
 )
 
 selected = something(parsed_args["method"], String[])
@@ -78,12 +81,19 @@ function calculate_results(dataset, mtxs, results)
             A_orig = load("../" * mtx)
             m, n = size(A_orig)
             A = fill((UInt8(0), UInt8(0), UInt8(0)), m, n)
+            A_gray = fill(UInt8(0), m, n)
 
             for i in 1:m
                 for j in 1:n
                     c = A_orig[i, j]
 
                     A[i,j] = (UInt8(c.r * 255), UInt8(c.g * 255), UInt8(c.b * 255))
+                    try
+                        A_gray[i, j] = round(UInt8, (c.r * 0.299 + c.g * 0.587 + c.b * 0.114) * 255)
+                    catch
+                        # Grayscale or other single-channel format
+                        A_gray[i, j] = round(UInt8, float(c) * 255)
+                    end
                 end
             end
         elseif dataset == "uniform"
@@ -96,6 +106,7 @@ function calculate_results(dataset, mtxs, results)
                     A[i, j] = (R[i, j], G[i, j], B[i, j])
                 end
             end
+            A_gray = fsprand(UInt8, mtx["size"], mtx["size"], mtx["sparsity"])
 
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
@@ -103,15 +114,15 @@ function calculate_results(dataset, mtxs, results)
 
         for (key, method) in methods
             ncpu = parsed_args["ncpu"]
-            result = method(A, ncpu)
+            gray = endswith(key, "_gray")
+            input = gray ? A_gray : A
+            result = method(input, ncpu)
 
             if parsed_args["accuracy-check"]
                 # Check the result of the hist
-                coalesce_impl_result = coalesce_impl(A, ncpu)
-
-                m, n, p = size(coalesce_impl_result.hist)
-                expected = coalesce_impl_result.hist
-                for i in 1:m
+                reference = gray ? coalesce_impl_gray : coalesce_impl
+                expected = reference(input, ncpu).hist
+                for i in 1:size(expected, 1)
                     @assert isapprox(result.hist[i], expected[i]) "Incorrect result for $key at ($i): got $(result.hist[i]), expected $(expected[i])"
                 end
             end
