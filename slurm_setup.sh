@@ -17,5 +17,3 @@ set -e
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 "$REPO_ROOT/build_image.sh"
 
-"$REPO_ROOT/envs/setup.sh"
-
