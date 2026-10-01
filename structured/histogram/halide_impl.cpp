@@ -135,10 +135,14 @@ int main(int argc, char **argv) {
         histogram.update(0)
             .split(px.y, yo, yi, Expr(split_factor), TailStrategy::GuardWithIf);
 
+        // shard accross threads
         Func local_hist = histogram.update(0).rfactor(yo, u);
         local_hist.compute_root().parallel(u);
         local_hist.update(0).parallel(u);
-        histogram.update(0).serial(yo);
+
+        // merge
+        histogram.parallel(b);
+        histogram.update(0).reorder(r, yo, g, b).parallel(b);
     } catch (const Halide::CompileError &e) {
         std::cerr << "Halide compile error during scheduling: " << e.what() << std::endl;
         return 1;
