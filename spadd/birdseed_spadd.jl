@@ -3,7 +3,7 @@ using BenchmarkTools
 using Base.Threads
 
 
-function desc_spadd(A, B, num_cpu)
+function birdseed_spadd(A, B, num_cpu)
     _A = Tensor(SparseList(SparseList(Element(0.0))), A)
     _B = Tensor(SparseList(SparseList(Element(0.0))), B)
 

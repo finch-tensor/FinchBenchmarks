@@ -16,6 +16,6 @@ set -e
 cd "$(git -C "$SLURM_SUBMIT_DIR" rev-parse --show-toplevel)"
 ./spadd/run_spadd_mirror.sh
 ./spadd/run_spadd_sparse.sh
-./spadd/run_spadd_desc_mirror.sh
-./spadd/run_spadd_desc_sparse.sh
+./spadd/run_spadd_birdseed_mirror.sh
+./spadd/run_spadd_birdseed_sparse.sh
 ./spadd/run_spadd_nacho.sh

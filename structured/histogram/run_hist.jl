@@ -53,16 +53,16 @@ datasets = Dict(
 
 include("coalesce_impl.jl")
 include("wingspan_hist.jl")
-include("desc_hist.jl")
+include("birdseed_hist.jl")
 include("halide_impl.jl")
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
     "wingspan_hist" => wingspan_hist,
-    "desc_hist" => desc_hist,
+    "birdseed_hist" => birdseed_hist,
     "coalesce_impl_gray" => coalesce_impl_gray,
     "wingspan_hist_gray" => wingspan_hist_gray,
-    "desc_hist_gray" => desc_hist_gray,
+    "birdseed_hist_gray" => birdseed_hist_gray,
     "halide_hist" => hist_halide_impl,
 )
 

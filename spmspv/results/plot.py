@@ -5,16 +5,16 @@ import numpy as np
 import sys
 
 input_file = sys.argv[1] if len(sys.argv) > 1 else "./spmspv_results.json"
-desc_file = sys.argv[2] if len(sys.argv) > 2 else "./spmspv_desc.json"
+birdseed_file = sys.argv[2] if len(sys.argv) > 2 else "./spmspv_birdseed.json"
 with open(input_file) as f:
     raw = json.load(f)
 
 try:
-    with open(desc_file) as f:
-        desc_rows = json.load(f)
+    with open(birdseed_file) as f:
+        birdseed_rows = json.load(f)
 except FileNotFoundError:
-    print(f"warning: {desc_file} not found, plotting without desc")
-    desc_rows = []
+    print(f"warning: {birdseed_file} not found, plotting without birdseed")
+    birdseed_rows = []
 
 WINGSPAN_METHODS = {"coalesce_static", "coalesce_dynamic"}
 
@@ -29,20 +29,20 @@ for entry in raw:
     else:
         data.setdefault(m, {})[method] = t
 
-for entry in desc_rows:
+for entry in birdseed_rows:
     if entry["method"] not in WINGSPAN_METHODS:
         continue
     m = entry["matrix"].split("/")[-1]
-    current = data.setdefault(m, {}).get("desc")
+    current = data.setdefault(m, {}).get("birdseed")
     t = entry["time"]
-    data[m]["desc"] = t if current is None else min(current, t)
+    data[m]["birdseed"] = t if current is None else min(current, t)
 
 matrices = list(data.keys())
 
 # Order: graphblas is baseline at 1.0
-methods = ["wingspan", "desc", "graphblas", "eigen"]
-if not desc_rows:
-    methods.remove("desc")
+methods = ["wingspan", "birdseed", "graphblas", "eigen"]
+if not birdseed_rows:
+    methods.remove("birdseed")
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
@@ -59,7 +59,7 @@ x = np.arange(n_matrices)
 
 COLORS = {
     "wingspan":  "#E69F00", 
-    "desc":      "#D55E00",
+    "birdseed":      "#D55E00",
     "graphblas":       "#56B4E9", 
     "eigen":           "#CC79A7",
 }

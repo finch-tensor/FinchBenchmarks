@@ -18,5 +18,5 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 
 cd "$SLURM_SUBMIT_DIR"
 ./histogram/run_hist_wingspan.sh 16
-./histogram/run_hist_desc.sh 16
+./histogram/run_hist_birdseed.sh 16
 

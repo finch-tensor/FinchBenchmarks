@@ -14,9 +14,8 @@ apptainer exec --cleanenv --no-home \
     --env JULIA_DEPOT_PATH=/repo/.julia-depot \
     --env POETRY_VIRTUALENVS_PATH=/repo/.poetry-venv \
     --env JULIA_EXCLUSIVE=1 \
-    --env OMP_NUM_THREADS="$MAX_THREADS" \
-    --env MKL_NUM_THREADS="$MAX_THREADS" \
+    --env MAX_THREADS="$MAX_THREADS" \
     "$SIF_IMAGE" bash -c "
 cd /repo
-julia --project=envs/desc -t $MAX_THREADS spmspv/run_spmspv_desc.jl -m coalesce_static -m coalesce_dynamic -d snap_largest -o spmspv/results/spmspv_desc.json
+julia --project=envs/birdseed -t $MAX_THREADS spadd/run_spadd_birdseed.jl -m birdseed_spadd -d sparse --ncpu $MAX_THREADS -o spadd/results/spadd_birdseed_sparse.json
 "

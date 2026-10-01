@@ -3,7 +3,7 @@ using BenchmarkTools
 using SparseArrays
 
 
-function desc_hist(A, num_cpu)
+function birdseed_hist(A, num_cpu)
     dev = cpu(:t, num_cpu)
     _A = Tensor(Dense(SparseRunList(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
     _hist = Tensor(Coalesce(dev, SparseDict(SparseDict(SparseDict(Element(0))))))
@@ -32,7 +32,7 @@ function desc_hist(A, num_cpu)
     return (; time=time, hist = _hist)
 end
 
-function desc_hist_gray(A, num_cpu)
+function birdseed_hist_gray(A, num_cpu)
     dev = cpu(:t, num_cpu)
     _A = Tensor(Dense(SparseRunList(Element(UInt8(0)))), A)
     _hist = Tensor(Coalesce(dev, SparseDict(Element(0))))

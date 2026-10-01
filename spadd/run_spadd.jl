@@ -66,7 +66,7 @@ datasets = Dict(
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 include("wingspan_spadd.jl")
-include("desc_spadd.jl")
+include("birdseed_spadd.jl")
 include("eigen_impl.jl")
 include("mkl_impl.jl")
 include("graphBLAS_impl.jl")
@@ -77,7 +77,7 @@ methods = OrderedDict(
     "graphblas_impl" => graphblas_impl,
     "mkl_impl" => mkl_impl,
     "wingspan_spadd" => wingspan_spadd,
-    "desc_spadd" => desc_spadd,
+    "birdseed_spadd" => birdseed_spadd,
     "eigen_impl" => eigen_impl,
     "nacho_dcsr" => nacho_dcsr_impl,
 )

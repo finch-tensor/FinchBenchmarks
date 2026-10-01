@@ -4,10 +4,10 @@ import matplotlib.ticker as ticker
 import numpy as np
 import sys
 
-# usage: plot_spadd.py <kernel> [results.json] [desc_results.json] [nacho_results.json]
+# usage: plot_spadd.py <kernel> [results.json] [birdseed_results.json] [nacho_results.json]
 kernel = sys.argv[1]
 input_file = sys.argv[2] if len(sys.argv) > 2 else f"./spadd_{kernel}_results.json"
-desc_file = sys.argv[3] if len(sys.argv) > 3 else f"./spadd_desc_{kernel}.json"
+birdseed_file = sys.argv[3] if len(sys.argv) > 3 else f"./spadd_birdseed_{kernel}.json"
 nacho_file = sys.argv[4] if len(sys.argv) > 4 else f"./spadd_nacho_{kernel}.json"
 output_file = f"./spadd_{kernel}_speedup.png"
 ktype = ""
@@ -16,13 +16,13 @@ if kernel == "mirror":
 with open(input_file) as f:
     raw = json.load(f)
 
-# desc is run with diff julia env
+# birdseed is run with diff julia env
 try:
-    with open(desc_file) as f:
-        desc_rows = [e for e in json.load(f) if e["method"] == "desc_spadd"]
+    with open(birdseed_file) as f:
+        birdseed_rows = [e for e in json.load(f) if e["method"] == "birdseed_spadd"]
 except FileNotFoundError:
-    print(f"warning: {desc_file} not found, plotting without desc")
-    desc_rows = []
+    print(f"warning: {birdseed_file} not found, plotting without birdseed")
+    birdseed_rows = []
 
 # nacho is run by its own script (run_spadd_nacho.sh)
 try:
@@ -46,9 +46,9 @@ for entry in raw:
     if method not in RENAME:
         continue
     data.setdefault(m, {})[RENAME[method]] = entry["time"]
-for entry in desc_rows:
+for entry in birdseed_rows:
     m = entry["matrix"].split("/")[-1]
-    data.setdefault(m, {})["desc"] = entry["time"]
+    data.setdefault(m, {})["birdseed"] = entry["time"]
 for entry in nacho_rows:
     m = entry["matrix"].split("/")[-1]
     data.setdefault(m, {})["nacho"] = entry["time"]
@@ -56,9 +56,9 @@ for entry in nacho_rows:
 matrices = list(data.keys())
 
 # Order: mkl is baseline at 1.0
-methods = ["wingspan", "desc", "nacho", "mkl", "eigen", "graphblas"]
-if not desc_rows:
-    methods.remove("desc")
+methods = ["wingspan", "birdseed", "nacho", "mkl", "eigen", "graphblas"]
+if not birdseed_rows:
+    methods.remove("birdseed")
 if not nacho_rows:
     methods.remove("nacho")
 
@@ -77,7 +77,7 @@ x = np.arange(n_matrices)
 
 COLORS = {
     "wingspan": "#E69F00",
-    "desc":     "#D55E00",
+    "birdseed":     "#D55E00",
     "nacho":    "#0072B2",
     "mkl":      "#009E73",
     "eigen":    "#CC79A7",

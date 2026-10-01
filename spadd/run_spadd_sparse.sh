@@ -21,7 +21,7 @@ apptainer exec --cleanenv --no-home \
     --env MKL_NUM_THREADS="$THREADS" \
     "$SIF_IMAGE" bash -c "
 cd /repo/spadd
-# everything but desc
+# everything but birdseed
 julia -t $THREADS run_spadd.jl --dataset sparse --output results/spadd_sparse_results.json --ncpu $THREADS \\
     -m serial_default_implementation -m graphblas_impl -m mkl_impl -m wingspan_spadd -m eigen_impl
 "

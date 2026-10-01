@@ -12,4 +12,4 @@ SuiteSparseGraphBLAS = "c2e53296-7b14-11e9-1210-bddfa8111e1d"
 TensorMarket = "8b7d4fe7-0b45-4d0d-9dd8-5cc9b23b4b77"
 
 [sources]
-Finch = {path = "../../Finch-desc.jl"}
+Finch = {path = "../../Finch-birdseed.jl"}

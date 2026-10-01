@@ -15,5 +15,5 @@ set -e
 
 cd "$(git -C "$SLURM_SUBMIT_DIR" rev-parse --show-toplevel)"
 ./spmspv/run_spmspv.sh
-./spmspv/run_spmspv_desc.sh
+./spmspv/run_spmspv_birdseed.sh
 ./spmspv/plot_spmspv.sh

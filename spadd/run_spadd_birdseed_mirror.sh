@@ -17,5 +17,5 @@ apptainer exec --cleanenv --no-home \
     --env MAX_THREADS="$MAX_THREADS" \
     "$SIF_IMAGE" bash -c "
 cd /repo
-julia --project=envs/desc -t $MAX_THREADS spadd/run_spadd_desc.jl -m desc_spadd -d mirror --ncpu $MAX_THREADS -o spadd/results/spadd_desc_mirror.json
+julia --project=envs/birdseed -t $MAX_THREADS spadd/run_spadd_birdseed.jl -m birdseed_spadd -d mirror --ncpu $MAX_THREADS -o spadd/results/spadd_birdseed_mirror.json
 "

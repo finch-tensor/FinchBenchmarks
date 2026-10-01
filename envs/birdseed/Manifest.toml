@@ -500,7 +500,7 @@ weakdeps = ["PDMats", "SparseArrays", "StaticArrays", "Statistics"]
 
 [[deps.Finch]]
 deps = ["AbstractTrees", "AcceleratedKernels", "AutoHashEquals", "Compat", "DataStructures", "Distributions", "IterTools", "JSON", "LinearAlgebra", "PrecompileTools", "Preferences", "Random", "Requires", "RewriteTools", "Statistics", "SyntaxInterface", "TOML", "UUIDs", "UnsafeAtomics"]
-path = "../../Finch-desc.jl"
+path = "../../Finch-birdseed.jl"
 uuid = "9177782c-1635-4eb9-9bfb-d9dfa25e6bce"
 version = "1.3.0"
 
