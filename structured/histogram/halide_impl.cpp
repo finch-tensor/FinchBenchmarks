@@ -114,27 +114,30 @@ int main(int argc, char **argv) {
     }
 
     ImageParam input(UInt(8), 3, "input");
-    Var bin("bin"), c("c"), temp("temp");
+    Var r("r"), g("g"), b("b");
     Func histogram("histogram");
 
-    histogram(bin, c, temp) = 0;
+    histogram(r, g, b) = 0;
 
-    RDom r(0, input.dim(0).extent(), 0, input.dim(1).extent());
-    Expr val = cast<int>(input(r.x, r.y, c));
-    histogram(val, c, 0) += 1;
-
+    RDom px(0, input.dim(0).extent(), 0, input.dim(1).extent());
+    Expr r_val = cast<int>(input(px.x, px.y, 0));
+    Expr g_val = cast<int>(input(px.x, px.y, 1));
+    Expr b_val = cast<int>(input(px.x, px.y, 2));
+    histogram(r_val, g_val, b_val) += 1;
 
     RVar yo("yo"), yi("yi");
     Var u("u");
-    int split_factor = n_threads;
+    int split_factor = (height + n_threads - 1) / n_threads;
     if (split_factor <= 0) split_factor = 1;
     if (split_factor > height) split_factor = height > 0 ? height : 1;
 
     try {
-        histogram.update(0).split(r.y, yo, yi, Expr(split_factor), TailStrategy::GuardWithIf);
+        histogram.update(0)
+            .split(px.y, yo, yi, Expr(split_factor), TailStrategy::GuardWithIf);
 
-        Func local_hist = histogram.update(0).rfactor({{yo, u}});
+        Func local_hist = histogram.update(0).rfactor(yo, u);
         local_hist.compute_root().parallel(u);
+        local_hist.update(0).parallel(u);
         histogram.update(0).serial(yo);
     } catch (const Halide::CompileError &e) {
         std::cerr << "Halide compile error during scheduling: " << e.what() << std::endl;
@@ -145,10 +148,9 @@ int main(int argc, char **argv) {
     }
     
 
-    // local_hist.update(0).vectorize(local_hist.args()[0], 8);
 
     input.set(input_buf);
-    Buffer<int32_t> output_hist(256, 3, 1);
+    Buffer<int32_t> output_hist(256, 256, 256);
 
     auto time = benchmark(
         [&]() {

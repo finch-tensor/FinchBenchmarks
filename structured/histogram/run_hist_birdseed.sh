@@ -22,7 +22,6 @@ while [ "$t" -le "$MAX_THREADS" ]; do
     export OMP_NUM_THREADS="$t"
     export MKL_NUM_THREADS="$t"
     julia --project=/repo/envs/birdseed -t "$t" run_hist_birdseed.jl -m birdseed_hist --dataset image --ncpu "$t" --output "results/birdseed_hist_${t}_threads.json"
-    julia --project=/repo/envs/birdseed -t "$t" run_hist_birdseed.jl -m birdseed_hist_gray --dataset image --ncpu "$t" --output "results/birdseed_hist_gray_${t}_threads.json"
     t=$((t * 2))
 done
 '
