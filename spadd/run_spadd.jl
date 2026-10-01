@@ -62,11 +62,32 @@ datasets = Dict(
         "SNAP/email-Enron",
         "SNAP/ca-CondMat",
     ],
+    # spmspv's snap_largest matrices
+    "mirror_largest" => [
+        "SNAP/com-LiveJournal",
+        "SNAP/com-Orkut",
+        "SNAP/soc-LiveJournal1",
+        "SNAP/sx-stackoverflow",
+        "SNAP/soc-Pokec",
+        "SNAP/wiki-topcats",
+        "SNAP/as-Skitter",
+        "SNAP/cit-Patents",
+    ],
+    "sparse_largest" => [
+        "SNAP/com-LiveJournal",
+        "SNAP/com-Orkut",
+        "SNAP/soc-LiveJournal1",
+        "SNAP/sx-stackoverflow",
+        "SNAP/soc-Pokec",
+        "SNAP/wiki-topcats",
+        "SNAP/as-Skitter",
+        "SNAP/cit-Patents",
+    ],
 )
 # Mapping from method keywords to methods
 include("serial_default_implementation.jl")
 include("wingspan_spadd.jl")
-include("desc_spadd.jl")
+include("birdseed_spadd.jl")
 include("eigen_impl.jl")
 include("mkl_impl.jl")
 include("graphBLAS_impl.jl")
@@ -77,7 +98,7 @@ methods = OrderedDict(
     "graphblas_impl" => graphblas_impl,
     "mkl_impl" => mkl_impl,
     "wingspan_spadd" => wingspan_spadd,
-    "desc_spadd" => desc_spadd,
+    "birdseed_spadd" => birdseed_spadd,
     "eigen_impl" => eigen_impl,
     "nacho_dcsr" => nacho_dcsr_impl,
 )
@@ -95,10 +116,10 @@ end
 function calculate_results(dataset, mtxs, results)
     for mtx in mtxs
         # Get relevant matrix
-	    if dataset == "mirror"
+	    if startswith(dataset, "mirror")
             A = SparseMatrixCSC(matrixdepot(mtx))
 	        B = SparseMatrixCSC(matrixdepot(mtx))
-        elseif dataset == "sparse"
+        elseif startswith(dataset, "sparse")
             A = SparseMatrixCSC(matrixdepot(mtx))
 	        row_permutation = randperm(size(A, 1))
             col_permutation = randperm(size(A, 2))

@@ -4,67 +4,65 @@ import matplotlib.ticker as ticker
 import numpy as np
 import sys
 
-input_file = sys.argv[1] if len(sys.argv) > 1 else "./spmspv_results.json"
-desc_file = sys.argv[2] if len(sys.argv) > 2 else "./spmspv_desc.json"
+input_file = sys.argv[1] if len(sys.argv) > 1 else "./spmspv_wingspan.json"
+birdseed_file = sys.argv[2] if len(sys.argv) > 2 else "./spmspv_birdseed.json"
 with open(input_file) as f:
     raw = json.load(f)
 
 try:
-    with open(desc_file) as f:
-        desc_rows = json.load(f)
+    with open(birdseed_file) as f:
+        raw += json.load(f)
 except FileNotFoundError:
-    print(f"warning: {desc_file} not found, plotting without desc")
-    desc_rows = []
+    print(f"warning: {birdseed_file} not found, plotting without birdseed")
 
-WINGSPAN_METHODS = {"coalesce_static", "coalesce_dynamic"}
+# "<series>-static" and "<series>-dynamic" fold into one series, keeping the faster.
+def series(method):
+    for suffix in ("-static", "-dynamic"):
+        if method.endswith(suffix):
+            return method[: -len(suffix)]
+    return method
 
 data: dict = {}
 for entry in raw:
     m = entry["matrix"].split("/")[-1]
-    method = entry["method"]
+    meth = series(entry["method"])
     t = entry["time"]
-    if method in WINGSPAN_METHODS:
-        current = data.setdefault(m, {}).get("wingspan")
-        data[m]["wingspan"] = t if current is None else min(current, t)
-    else:
-        data.setdefault(m, {})[method] = t
-
-for entry in desc_rows:
-    if entry["method"] not in WINGSPAN_METHODS:
-        continue
-    m = entry["matrix"].split("/")[-1]
-    current = data.setdefault(m, {}).get("desc")
-    t = entry["time"]
-    data[m]["desc"] = t if current is None else min(current, t)
+    current = data.setdefault(m, {}).get(meth)
+    data[m][meth] = t if current is None else min(current, t)
 
 matrices = list(data.keys())
 
-# Order: graphblas is baseline at 1.0
-methods = ["wingspan", "desc", "graphblas", "eigen"]
-if not desc_rows:
-    methods.remove("desc")
+# eigen is the baseline at 1.0; drop series with no results at all
+methods = [
+    "wingspan-bytemap", "wingspan-hash",
+    "birdseed-bytemap", "birdseed-hash",
+    "graphblas", "eigen",
+]
+methods = [meth for meth in methods if any(meth in data[mat] for mat in matrices)]
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
-    graphblas_t = data[mat]["eigen"]
+    eigen_t = data[mat]["eigen"]
     for meth in methods:
         t = data[mat].get(meth)
-        speedups[meth].append(graphblas_t / t if t else float("nan"))
+        speedups[meth].append(eigen_t / t if t else float("nan"))
 
 n_matrices = len(matrices)
 n_methods  = len(methods)
-bar_width  = 0.18
+bar_width  = 0.8 / n_methods
 group_gap  = 0.06
 x = np.arange(n_matrices)
 
 COLORS = {
-    "wingspan":  "#E69F00", 
-    "desc":      "#D55E00",
-    "graphblas":       "#56B4E9", 
-    "eigen":           "#CC79A7",
+    "wingspan-bytemap":  "#E69F00",
+    "wingspan-hash":     "#F0E442",
+    "birdseed-bytemap":  "#D55E00",
+    "birdseed-hash":     "#009E73",
+    "graphblas":         "#56B4E9",
+    "eigen":             "#CC79A7",
 }
 
-fig, ax = plt.subplots(figsize=(12, 6))
+fig, ax = plt.subplots(figsize=(14, 6))
 fig.patch.set_facecolor("white")
 ax.set_facecolor("white")
 

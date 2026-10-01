@@ -1,7 +1,12 @@
 #!/bin/bash
 set -e
 
+# usage: run_spadd_sparse.sh [threads] [dataset] [methods]
 THREADS="${1:-16}"
+DATASET="${2:-sparse}"
+METHODS="${3:-serial_default_implementation graphblas_impl mkl_impl wingspan_spadd eigen_impl}"
+METHOD_FLAGS=""
+for m in $METHODS; do METHOD_FLAGS="$METHOD_FLAGS -m $m"; done
 
 export OMP_NUM_THREADS="$THREADS"
 export MKL_NUM_THREADS="$THREADS"
@@ -20,8 +25,7 @@ apptainer exec --cleanenv --no-home \
     --env OMP_NUM_THREADS="$THREADS" \
     --env MKL_NUM_THREADS="$THREADS" \
     "$SIF_IMAGE" bash -c "
-cd /repo/spadd
-# everything but desc
-julia -t $THREADS run_spadd.jl --dataset sparse --output results/spadd_sparse_results.json --ncpu $THREADS \\
-    -m serial_default_implementation -m graphblas_impl -m mkl_impl -m wingspan_spadd -m eigen_impl
+cd /repo
+# everything but birdseed; -t N,0: no interactive thread
+julia --project=envs/wingspan -t $THREADS,0 spadd/run_spadd_wingspan.jl --dataset $DATASET --output spadd/results/spadd_${DATASET}_results.json --ncpu $THREADS $METHOD_FLAGS
 "

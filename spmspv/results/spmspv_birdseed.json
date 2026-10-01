@@ -1,0 +1,135 @@
+[
+    {
+        "time": 0.061432891,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-LiveJournal"
+    },
+    {
+        "time": 0.036305245,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-LiveJournal"
+    },
+    {
+        "time": 0.027588082,
+        "n_threads": 16,
+        "method": "birdseed-hash-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-LiveJournal"
+    },
+    {
+        "time": 0.023400354,
+        "n_threads": 16,
+        "method": "birdseed-hash-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-LiveJournal"
+    },
+    {
+        "time": 0.036377089,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-Orkut"
+    },
+    {
+        "time": 0.041473105,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-Orkut"
+    },
+    {
+        "time": 0.090618713,
+        "n_threads": 16,
+        "method": "birdseed-hash-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-Orkut"
+    },
+    {
+        "time": 0.067305021,
+        "n_threads": 16,
+        "method": "birdseed-hash-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/com-Orkut"
+    },
+    {
+        "time": 0.042400396,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-LiveJournal1"
+    },
+    {
+        "time": 0.040545049,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-LiveJournal1"
+    },
+    {
+        "time": 0.033585565,
+        "n_threads": 16,
+        "method": "birdseed-hash-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-LiveJournal1"
+    },
+    {
+        "time": 0.021683336,
+        "n_threads": 16,
+        "method": "birdseed-hash-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-LiveJournal1"
+    },
+    {
+        "time": 0.02468699,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/sx-stackoverflow"
+    },
+    {
+        "time": 0.021675272,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/sx-stackoverflow"
+    },
+    {
+        "time": 0.012217383,
+        "n_threads": 16,
+        "method": "birdseed-hash-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/sx-stackoverflow"
+    },
+    {
+        "time": 0.009252512,
+        "n_threads": 16,
+        "method": "birdseed-hash-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/sx-stackoverflow"
+    },
+    {
+        "time": 0.014901117,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-Pokec"
+    },
+    {
+        "time": 0.013625679,
+        "n_threads": 16,
+        "method": "birdseed-bytemap-dynamic",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-Pokec"
+    },
+    {
+        "time": 0.017324534,
+        "n_threads": 16,
+        "method": "birdseed-hash-static",
+        "dataset": "snap_largest",
+        "matrix": "SNAP/soc-Pokec"
+    }
+]

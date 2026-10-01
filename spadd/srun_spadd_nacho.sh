@@ -5,8 +5,9 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH -c 16
 #SBATCH -t 3:00:00
+#SBATCH --exclusive
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --mail-user=psum3@gatech.edu
+#SBATCH --mail-user=agushin3@gatech.edu
 #SBATCH -C graniterapids
 #SBATCH -o spadd_nacho.out
 #SBATCH -e spadd_nacho.err
@@ -14,4 +15,4 @@
 set -e
 
 cd "$(git -C "$SLURM_SUBMIT_DIR" rev-parse --show-toplevel)"
-./spadd/run_spadd_nacho.sh "$SLURM_CPUS_PER_TASK"
+numactl --cpunodebind=0 --membind=0 ./spadd/run_spadd_nacho.sh "$SLURM_CPUS_PER_TASK"

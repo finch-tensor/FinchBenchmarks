@@ -2,9 +2,15 @@ using Finch
 using SuiteSparseGraphBLAS
 using BenchmarkTools
 
-function coalesce_spmspv(A, x, nt)
+# Output vector formats for _y. SparseHash only exists in the birdseed Finch,
+# but it's only resolved when called, so this file still loads under wingspan.
+bytemap_fmt() = SparseByteMap(Element(0.0))
+dict_fmt() = SparseDict(Element(0.0))
+hash_fmt() = SparseHash(Element(0.0))
+
+function coalesce_spmspv(A, x, nt; fmt=bytemap_fmt)
         dev = cpu(:t, nt)
-        _y = Tensor(Coalesce(dev, SparseByteMap(Element(0.0))))
+        _y = Tensor(Coalesce(dev, fmt()))
         _x = Tensor(SparseList(Element(0.0)), x)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
         time = @belapsed begin
@@ -16,8 +22,8 @@ function coalesce_spmspv(A, x, nt)
                         end
                 end
         end
-	
-	_y = Tensor(Coalesce(dev, SparseByteMap(Element(0.0))))
+
+	_y = Tensor(Coalesce(dev, fmt()))
 	@finch mode = :fast begin
             _y .= 0
             for j = parallel(_, dev), i = _
@@ -28,9 +34,9 @@ function coalesce_spmspv(A, x, nt)
 end
 
 
-function coalesce_spmspv_dynamic(A, x, nt)
+function coalesce_spmspv_dynamic(A, x, nt; fmt=bytemap_fmt)
         dev = cpu(:t, nt)
-        _y = Tensor(Coalesce(dev, SparseByteMap(Element(0.0))))
+        _y = Tensor(Coalesce(dev, fmt()))
         _x = Tensor(SparseList(Element(0.0)), x)
         _A = Tensor(Dense(SparseList(Element(0.0))), A)
 
@@ -55,7 +61,7 @@ function coalesce_spmspv_dynamic(A, x, nt)
 			ch_opt = size
                 end
         end
-	_y = Tensor(Coalesce(dev, SparseByteMap(Element(0.0))))
+	_y = Tensor(Coalesce(dev, fmt()))
 	sch = greedy_schedule(ch_opt)
 	@finch mode = :fast begin
            _y .= 0

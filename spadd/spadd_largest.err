@@ -1,0 +1,64 @@
+WARNING: Imported binding Base.nothing_sentinel was undeclared at import time during import to Main.
+[ Info: verify download of index files...
+[ Info: reading database
+[ Info: adding metadata...
+[ Info: adding svd data...
+[ Info: writing database
+[ Info: used remote sites are sparse.tamu.edu with MAT index and math.nist.gov with HTML index
+┌ Info: result for mkl_impl on SNAP/com-LiveJournal
+└   time = 1.9854923510000002
+┌ Info: result for wingspan_spadd on SNAP/com-LiveJournal
+└   time = 2.481256949
+┌ Info: result for mkl_impl on SNAP/com-Orkut
+└   time = 5.622764299
+┌ Info: result for wingspan_spadd on SNAP/com-Orkut
+└   time = 5.163584539
+┌ Info: result for mkl_impl on SNAP/soc-LiveJournal1
+└   time = 2.024135971
+┌ Info: result for wingspan_spadd on SNAP/soc-LiveJournal1
+└   time = 2.471357572
+┌ Info: result for mkl_impl on SNAP/sx-stackoverflow
+└   time = 1.203959472
+┌ Info: result for wingspan_spadd on SNAP/sx-stackoverflow
+└   time = 1.369319957
+┌ Info: result for mkl_impl on SNAP/soc-Pokec
+└   time = 0.9976223190000001
+┌ Info: result for wingspan_spadd on SNAP/soc-Pokec
+└   time = 1.327276324
+┌ Info: result for mkl_impl on SNAP/wiki-topcats
+└   time = 0.7971505240000001
+┌ Info: result for wingspan_spadd on SNAP/wiki-topcats
+└   time = 1.20791298
+┌ Info: result for mkl_impl on SNAP/as-Skitter
+└   time = 0.778836454
+┌ Info: result for wingspan_spadd on SNAP/as-Skitter
+└   time = 1.085845864
+┌ Info: result for mkl_impl on SNAP/cit-Patents
+└   time = 0.662858798
+┌ Info: result for wingspan_spadd on SNAP/cit-Patents
+└   time = 1.030461545
+WARNING: Imported binding Base.nothing_sentinel was undeclared at import time during import to Main.
+[ Info: verify download of index files...
+[ Info: reading database
+[ Info: adding metadata...
+[ Info: adding svd data...
+[ Info: writing database
+[ Info: used remote sites are sparse.tamu.edu with MAT index and math.nist.gov with HTML index
+┌ Info: result for birdseed_spadd on SNAP/com-LiveJournal
+└   time = 0.182665363
+┌ Info: result for birdseed_spadd on SNAP/com-Orkut
+└   time = 0.487917756
+┌ Info: result for birdseed_spadd on SNAP/soc-LiveJournal1
+└   time = 0.193549429
+┌ Info: result for birdseed_spadd on SNAP/sx-stackoverflow
+└   time = 0.091763411
+┌ Info: result for birdseed_spadd on SNAP/soc-Pokec
+└   time = 0.062403608
+┌ Info: result for birdseed_spadd on SNAP/wiki-topcats
+└   time = 0.050943081
+┌ Info: result for birdseed_spadd on SNAP/as-Skitter
+└   time = 0.059839052
+┌ Info: result for birdseed_spadd on SNAP/cit-Patents
+└   time = 0.036080249
+WARNING: Imported binding Base.nothing_sentinel was undeclared at import time during import to Main.
+[2026-10-01T15:13:43.856] error: *** JOB 13786726 ON atl1-1-03-018-34-0 CANCELLED AT 2026-10-01T15:13:43 DUE to SIGNAL Terminated ***

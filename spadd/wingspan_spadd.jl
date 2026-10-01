@@ -2,13 +2,15 @@ using Finch
 using BenchmarkTools
 using Base.Threads
 
+# Int32 indices / Float32 values, matching nacho's i32/f32 kernel.
+wingspan_fmt() = SparseList{Int32}(SparseList{Int32}(Element{0.0f0,Float32,Int32}()))
 
 function wingspan_spadd(A, B, num_cpu)
-    _A = Tensor(SparseList(SparseList(Element(0.0))), A)
-    _B = Tensor(SparseList(SparseList(Element(0.0))), B)
+    _A = Tensor(wingspan_fmt(), A)
+    _B = Tensor(wingspan_fmt(), B)
 
     cpu_dev = cpu(:id, num_cpu)
-    _C = Tensor(Coalesce(cpu_dev, SparseList(SparseList(Element(0.0)))))
+    _C = Tensor(Coalesce(cpu_dev, wingspan_fmt()))
     time = @belapsed begin
         (_A, _B, _C, cpu_dev) = $(_A, _B, _C, cpu_dev)
 

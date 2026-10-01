@@ -85,11 +85,21 @@ include("serial_default_implementation.jl")
 include("coalesce_implementation.jl")
 include("spmspv_eigen.jl")
 
+# The wingspan-*/birdseed-* prefix names which Finch checkout the method is
+# meant to run under; that's picked by --project (see run_spmspv_wingspan.jl and
+# run_spmspv_birdseed.jl), not here. The -static/-dynamic variants are folded
+# into one series (best of the two) by results/plot.py.
 methods = OrderedDict(
     "graphblas" => blas_spmspv,
-    "coalesce_static" => coalesce_spmspv,
     "eigen" => spmspv_eigen,
-    "coalesce_dynamic" => coalesce_spmspv_dynamic,
+    "wingspan-bytemap-static" => (A, x, nt) -> coalesce_spmspv(A, x, nt; fmt=bytemap_fmt),
+    "wingspan-bytemap-dynamic" => (A, x, nt) -> coalesce_spmspv_dynamic(A, x, nt; fmt=bytemap_fmt),
+    "wingspan-hash-static" => (A, x, nt) -> coalesce_spmspv(A, x, nt; fmt=dict_fmt),
+    "wingspan-hash-dynamic" => (A, x, nt) -> coalesce_spmspv_dynamic(A, x, nt; fmt=dict_fmt),
+    "birdseed-bytemap-static" => (A, x, nt) -> coalesce_spmspv(A, x, nt; fmt=bytemap_fmt),
+    "birdseed-bytemap-dynamic" => (A, x, nt) -> coalesce_spmspv_dynamic(A, x, nt; fmt=bytemap_fmt),
+    "birdseed-hash-static" => (A, x, nt) -> coalesce_spmspv(A, x, nt; fmt=hash_fmt),
+    "birdseed-hash-dynamic" => (A, x, nt) -> coalesce_spmspv_dynamic(A, x, nt; fmt=hash_fmt),
 )
 
 selected = something(parsed_args["method"], String[])
@@ -116,7 +126,9 @@ function calculate_results(dataset, mtxs, results)
             if m < 1000 || n < 1000
                 continue
             end
-            x = sprand(n, 0.1)
+#	    target = 300
+#	    density = target / n
+            x = sprand(n, 0.01)
 	    @info "x loaded"
         else
             throw(ArgumentError("Cannot recognize dataset: $dataset"))

@@ -1,0 +1,9 @@
+[
+    {
+        "time": 0.068068406,
+        "n_threads": 16,
+        "method": "nacho_dcsr",
+        "dataset": "sparse_largest",
+        "matrix": "SNAP/com-LiveJournal"
+    }
+]

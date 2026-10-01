@@ -5,6 +5,8 @@ cache/*
 /.poetry-venv/
 /.nacho-env/
 /.micromamba/
+Finch*
+wingspan_cgo27.sif
 
 sum/eigen_kernel
 sum/mkl_kernel

@@ -4,8 +4,8 @@
 # only fires when it detects itself as the top-level script). `include`ing it
 # here keeps that check false, so the caller's --project stays active.
 #
-# Used for the desc baseline: desc lives in its own Finch checkout (envs/desc),
+# Used for the birdseed baseline: birdseed lives in its own Finch checkout (envs/birdseed),
 # which is the same "Finch" package/UUID as the main env, so it has to run in
 # its own process. Invoke as
-#   julia --project=envs/desc -t N spadd/run_spadd_desc.jl -m desc_spadd ...
+#   julia --project=envs/birdseed -t N spadd/run_spadd_birdseed.jl -m birdseed_spadd ...
 include(joinpath(@__DIR__, "run_spadd.jl"))

@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J spadd_desc
+#SBATCH -J spmspv_birdseed
 #SBATCH -A gts-wahrens6
 #SBATCH -N 1
 #SBATCH --ntasks-per-node=1
@@ -8,11 +8,11 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=psum3@gatech.edu
 #SBATCH -C graniterapids
-#SBATCH -o spadd_desc.out
-#SBATCH -e spadd_desc.err
+#SBATCH -o spmspv_birdseed.out
+#SBATCH -e spmspv_birdseed.err
 
 set -e
 
 cd "$(git -C "$SLURM_SUBMIT_DIR" rev-parse --show-toplevel)"
-./spadd/run_spadd_desc_mirror.sh
+./spmspv/run_spmspv_birdseed.sh
 

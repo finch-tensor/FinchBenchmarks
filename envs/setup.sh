@@ -3,10 +3,21 @@
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-git -C Finch.jl fetch origin --tags desc
+[ -d Finch.jl ] || git clone https://github.com/finch-tensor/Finch.jl Finch.jl
+git -C Finch.jl fetch origin --tags wma/upgrade-coalesce
 
 [ -d Finch-wingspan.jl ] || git -C Finch.jl worktree add ../Finch-wingspan.jl wingspan-arxiv-v0
-[ -d Finch-desc.jl ] || git -C Finch.jl worktree add ../Finch-desc.jl origin/desc
+[ -d Finch-birdseed.jl ] || git -C Finch.jl worktree add ../Finch-birdseed.jl origin/wma/upgrade-coalesce
 
-julia --project=envs/wingspan -e 'using Pkg; Pkg.instantiate()'
-julia --project=envs/desc -e 'using Pkg; Pkg.instantiate()'
+SIF_IMAGE="${SIF_IMAGE:-$PWD/wingspan_cgo27.sif}"
+mkdir -p .julia-depot
+rm -f envs/*/Manifest.toml  # regenerate under the container's Julia
+
+apptainer exec --cleanenv --no-home \
+    --bind "$PWD:/repo" \
+    --env JULIA_DEPOT_PATH=/repo/.julia-depot \
+    "$SIF_IMAGE" bash -c '
+cd /repo
+for e in wingspan birdseed; do
+  julia --project=envs/$e -e "using Pkg; Pkg.instantiate(); Pkg.precompile()"
+done'
