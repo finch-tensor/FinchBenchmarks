@@ -126,23 +126,17 @@ int main(int argc, char **argv) {
     histogram(r_val, g_val, b_val) += 1;
 
     RVar yo("yo"), yi("yi");
-    Var u("u");
     int split_factor = (height + n_threads - 1) / n_threads;
     if (split_factor <= 0) split_factor = 1;
     if (split_factor > height) split_factor = height > 0 ? height : 1;
 
     try {
+        histogram.vectorize(r, 16).parallel(b);
+
         histogram.update(0)
-            .split(px.y, yo, yi, Expr(split_factor), TailStrategy::GuardWithIf);
-
-        // shard accross threads
-        Func local_hist = histogram.update(0).rfactor(yo, u);
-        local_hist.compute_root().parallel(u);
-        local_hist.update(0).parallel(u);
-
-        // merge
-        histogram.parallel(b);
-        histogram.update(0).reorder(r, yo, g, b).parallel(b);
+            .split(px.y, yo, yi, Expr(split_factor), TailStrategy::GuardWithIf)
+            .atomic()
+            .parallel(yo);
     } catch (const Halide::CompileError &e) {
         std::cerr << "Halide compile error during scheduling: " << e.what() << std::endl;
         return 1;
@@ -150,11 +144,13 @@ int main(int argc, char **argv) {
         std::cerr << "Error during scheduling: " << e.what() << std::endl;
         return 1;
     }
-    
+
 
 
     input.set(input_buf);
     Buffer<int32_t> output_hist(256, 256, 256);
+
+    histogram.compile_jit();
 
     auto time = benchmark(
         [&]() {
