@@ -18,11 +18,24 @@ if [ ! -f "$SIF_IMAGE" ]; then
     apptainer pull "$SIF_IMAGE" "$DOCKER_REF"
 fi
 
+FINCH_URL=https://github.com/finch-tensor/Finch.jl.git
+[ -d "$REPO_ROOT/Finch-wingspan.jl" ] || git clone --branch wingspan-arxiv-v0 "$FINCH_URL" "$REPO_ROOT/Finch-wingspan.jl"
+[ -d "$REPO_ROOT/Finch-birdseed.jl" ] || git clone --branch wma/hash-coalesce "$FINCH_URL" "$REPO_ROOT/Finch-birdseed.jl"
+
+mkdir -p "$REPO_ROOT/.julia-depot" "$REPO_ROOT/.poetry-venv"
+
 apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
+    --env JULIA_DEPOT_PATH=/repo/.julia-depot \
+    --env POETRY_VIRTUALENVS_PATH=/repo/.poetry-venv \
     "$SIF_IMAGE" bash -c '
+set -e
 cd /repo
 make all
+for p in . envs/wingspan envs/birdseed; do
+    julia --project=$p -e "using Pkg; Pkg.instantiate(); Pkg.precompile()"
+done
+poetry install --no-root
 '
 
 echo "Done."

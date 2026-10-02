@@ -5,7 +5,6 @@ import numpy as np
 import sys
 
 # usage: plot_spadd.py <kernel> [results.json] [birdseed_results.json] [nacho_results.json]
-# <kernel> is the dataset name: mirror, sparse, mirror_largest, sparse_largest, ...
 kernel = sys.argv[1]
 input_file = sys.argv[2] if len(sys.argv) > 2 else f"./spadd_{kernel}_results.json"
 birdseed_file = sys.argv[3] if len(sys.argv) > 3 else f"./spadd_birdseed_{kernel}.json"
@@ -58,8 +57,10 @@ matrices = list(data.keys())
 
 # Order: mkl is baseline at 1.0
 methods = ["wingspan", "birdseed", "nacho", "mkl", "eigen", "graphblas"]
-# skip methods that weren't run for this dataset
-methods = [m for m in methods if any(m in d for d in data.values())]
+if not birdseed_rows:
+    methods.remove("birdseed")
+if not nacho_rows:
+    methods.remove("nacho")
 
 speedups: dict = {m: [] for m in methods}
 for mat in matrices:
@@ -76,7 +77,7 @@ x = np.arange(n_matrices)
 
 COLORS = {
     "wingspan": "#E69F00",
-    "birdseed": "#D55E00",
+    "birdseed":     "#D55E00",
     "nacho":    "#0072B2",
     "mkl":      "#009E73",
     "eigen":    "#CC79A7",

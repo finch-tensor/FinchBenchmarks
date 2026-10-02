@@ -52,7 +52,7 @@ images/output/*
 */Manifest.toml
 old/*
 /Finch-wingspan.jl/
-/Finch-desc.jl/
+/Finch-birdseed.jl/
 morphology/output/*
 */manifest.toml
 opencv/*

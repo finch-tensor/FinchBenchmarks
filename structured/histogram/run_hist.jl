@@ -53,16 +53,16 @@ datasets = Dict(
 
 include("coalesce_impl.jl")
 include("wingspan_hist.jl")
-include("desc_hist.jl")
+include("birdseed_hist.jl")
 include("halide_impl.jl")
 
 methods = OrderedDict(
     "coalesce_impl" => coalesce_impl,
     "wingspan_hist" => wingspan_hist,
-    "desc_hist" => desc_hist,
+    "birdseed_hist" => birdseed_hist,
     "coalesce_impl_gray" => coalesce_impl_gray,
     "wingspan_hist_gray" => wingspan_hist_gray,
-    "desc_hist_gray" => desc_hist_gray,
+    "birdseed_hist_gray" => birdseed_hist_gray,
     "halide_hist" => hist_halide_impl,
 )
 
@@ -74,6 +74,40 @@ if !isempty(selected)
     methods = OrderedDict(
         method_name => methods[method_name] for method_name in selected
     )
+end
+
+# Ground truth: count of each raw pixel value (0-based), keyed by Int or (r, g, b)
+function hist_counts(input)
+    counts = Dict{Any,Int}()
+    for px in input
+        k = px isa Tuple ? Int.(px) : Int(px)
+        counts[k] = get(counts, k, 0) + 1
+    end
+    return counts
+end
+
+function check_hist(key, hist, expected, npixels)
+    @assert sum(values(expected)) == npixels
+    if startswith(key, "halide")
+        nz = ffindnz(hist)
+        got = Dict{Any,Int}()
+        for p in eachindex(nz[end])
+            c = ntuple(d -> Int(nz[d][p]) - 1, length(nz) - 1)
+            got[length(c) == 1 ? c[1] : c] = Int(nz[end][p])
+        end
+        for (k, v) in expected
+            @assert get(got, k, 0) == v "Incorrect result for $key at $k: got $(get(got, k, 0)), expected $v"
+        end
+        println("correct 1")
+        @assert sum(values(got)) == npixels "Incorrect total for $key: got $(sum(values(got))), expected $npixels"
+        println("correct 2")
+    else
+        off = startswith(key, "birdseed") ? 1 : 0
+        for (k, v) in expected
+            got = hist[(k .+ offset) ...]
+            @assert got == v "Incorrect result for $key at $k: got $got, expected $v"
+        end
+    end
 end
 
 function calculate_results(dataset, mtxs, results)
@@ -121,12 +155,7 @@ function calculate_results(dataset, mtxs, results)
             result = method(input, ncpu)
 
             if parsed_args["accuracy-check"]
-                # Check the result of the hist
-                reference = gray ? coalesce_impl_gray : coalesce_impl
-                expected = reference(input, ncpu).hist
-                for i in 1:size(expected, 1)
-                    @assert isapprox(result.hist[i], expected[i]) "Incorrect result for $key at ($i): got $(result.hist[i]), expected $(expected[i])"
-                end
+                check_hist(key, result.hist, hist_counts(input), length(input))
             end
 
             # Write result

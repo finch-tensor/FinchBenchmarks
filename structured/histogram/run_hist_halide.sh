@@ -24,7 +24,7 @@ t=1
 while [ "$t" -le "$MAX_THREADS" ]; do
     export OMP_NUM_THREADS="$t"
     export MKL_NUM_THREADS="$t"
-    julia --project=/repo/envs/wingspan -t "$t" run_hist.jl -m halide_hist --dataset image --ncpu "$t" --output "results/halide_hist_${t}_threads.json"
+    julia --project=/repo/envs/wingspan -t "$t" run_hist.jl -a -m halide_hist --dataset image --ncpu "$t" --output "results/halide_hist_${t}_threads.json"
     t=$((t * 2))
 done
 '

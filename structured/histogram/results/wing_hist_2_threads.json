@@ -1,0 +1,37 @@
+[
+    {
+        "time": 0.009061699,
+        "n_threads": 2,
+        "method": "wingspan_hist",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.abalip.com.jpg"
+    },
+    {
+        "time": 0.006479982,
+        "n_threads": 2,
+        "method": "wingspan_hist",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.carmelmusic.com.jpg"
+    },
+    {
+        "time": 0.014410275,
+        "n_threads": 2,
+        "method": "wingspan_hist",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.claudiozappi.it.jpg"
+    },
+    {
+        "time": 0.004984162,
+        "n_threads": 2,
+        "method": "wingspan_hist",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.duo-thais.com.jpg"
+    },
+    {
+        "time": 0.00463798,
+        "n_threads": 2,
+        "method": "wingspan_hist",
+        "dataset": "image",
+        "matrix": "very_highly_compressed/www.handball-riehen.ch.jpg"
+    }
+]
