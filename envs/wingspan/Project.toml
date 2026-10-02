@@ -8,6 +8,8 @@ MatrixDepot = "b51810bb-c9f3-55da-ae3c-350fc1fbce05"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 SuiteSparseGraphBLAS = "c2e53296-7b14-11e9-1210-bddfa8111e1d"
 TensorMarket = "8b7d4fe7-0b45-4d0d-9dd8-5cc9b23b4b77"
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
 
 [sources]
 Finch = {path = "../../Finch-wingspan.jl"}
