@@ -1,34 +1,34 @@
 [
     {
-        "time": 0.010667073,
+        "time": 0.009376046,
         "n_threads": 1,
         "method": "wingspan_hist",
         "dataset": "image",
         "matrix": "very_highly_compressed/www.abalip.com.jpg"
     },
     {
-        "time": 0.006954336,
+        "time": 0.007108701,
         "n_threads": 1,
         "method": "wingspan_hist",
         "dataset": "image",
         "matrix": "very_highly_compressed/www.carmelmusic.com.jpg"
     },
     {
-        "time": 0.015361936,
+        "time": 0.016351204,
         "n_threads": 1,
         "method": "wingspan_hist",
         "dataset": "image",
         "matrix": "very_highly_compressed/www.claudiozappi.it.jpg"
     },
     {
-        "time": 0.005945346,
+        "time": 0.005994588,
         "n_threads": 1,
         "method": "wingspan_hist",
         "dataset": "image",
         "matrix": "very_highly_compressed/www.duo-thais.com.jpg"
     },
     {
-        "time": 0.006166972,
+        "time": 0.0060601,
         "n_threads": 1,
         "method": "wingspan_hist",
         "dataset": "image",
