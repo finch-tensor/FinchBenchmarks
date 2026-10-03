@@ -24,6 +24,8 @@ THREADS_ONLY_SCRIPTS=(
     "spgemm/run_spgemm_zhang_small.sh"
     "spadd/run_spadd_mirror.sh"
     "spadd/run_spadd_sparse.sh"
+    "outer/run_outer.sh"
+    "outer/run_outer_birdseed.sh"
     "hadamard/run_hadamard_mirror.sh"
     "hadamard/run_hadamard_sparse.sh"
     "spmspv/run_spmspv.sh"

@@ -26,6 +26,9 @@ mttkrp/data/
 
 spgemm/spgemm_eigen
 spgemm/spgemm_mkl
+outer/outer_mkl
+outer/data/
+outer/experiment_*/
 
 hadamard/hadamard_eigen
 
