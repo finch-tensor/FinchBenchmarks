@@ -2,12 +2,15 @@ using Finch
 using BenchmarkTools
 
 # C[i,j] = sum_k A[i,k] * B[j,k]  (A, B both M x K, column-major)
+# In the birdseed Finch, Sparse is SparseDict, which Coalesce can't lower (no sample_dims),
+# so the kernel is only defined in the wingspan Finch (which has no SparseHash).
+if !isdefined(Finch, :SparseHash)
 let
     z0 = 0.0
     dev = cpu(:t)
     sch = greedy_schedule()
-    A = Tensor(Sparse(Sparse(Element(z0))))
-    BT = Tensor(Sparse(Sparse(Element(z0))))
+    A = Tensor(Dense(SparseList(Element(z0))))
+    BT = Tensor(Dense(SparseList(Element(z0))))
     C = Tensor(Coalesce(dev, Sparse(Sparse(Element(z0)))))
     eval(@finch_kernel function wingspan_outer_kernel(C, A, BT, dev, sch)
         C .= 0
@@ -16,6 +19,7 @@ let
         end
         return C
     end)
+end
 end
 
 function wingspan_outer(A, B, nt)

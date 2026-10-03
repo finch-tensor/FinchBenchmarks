@@ -1,0 +1,14 @@
+[
+    {
+        "time": 0.0048716820000000004,
+        "n_threads": 16,
+        "method": "mkl",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.002409863,
+        "n_threads": 16,
+        "method": "birdseed_outer",
+        "dataset": "outer"
+    }
+]

@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-# usage: run_outer_birdseed.sh [threads]
-THREADS="${1:-16}"
+# Strong scaling sweep: threads = 1, 2, 4, ... up to MAX_THREADS.
+# usage: run_outer_birdseed.sh [max_threads]
+MAX_THREADS="${1:-16}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
@@ -15,12 +16,17 @@ apptainer exec --cleanenv --no-home \
     --env JULIA_DEPOT_PATH=/repo/.julia-depot \
     --env POETRY_VIRTUALENVS_PATH=/repo/.poetry-venv \
     --env JULIA_EXCLUSIVE=1 \
-    --env OMP_NUM_THREADS="$THREADS" \
-    --env MKL_NUM_THREADS="$THREADS" \
-    "$SIF_IMAGE" bash -c "
+    --env MAX_THREADS="$MAX_THREADS" \
+    "$SIF_IMAGE" bash -c '
 cd /repo
 # generate the dataset once
 [ -f outer/data/outer_A.ttx ] || (cd outer && julia --project=../envs/birdseed make_outer_data.jl)
-# -t N,0: no interactive thread
-julia --project=envs/birdseed -t $THREADS,0 outer/run_outer_birdseed.jl --ncpu $THREADS -o outer/results/outer_birdseed.json -m birdseed_outer
-"
+t=1
+while [ "$t" -le "$MAX_THREADS" ]; do
+    export OMP_NUM_THREADS="$t"
+    export MKL_NUM_THREADS="$t"
+    # -t N,0: no interactive thread
+    julia --project=envs/birdseed -t "$t",0 outer/run_outer_birdseed.jl --ncpu "$t" -o "outer/results/outer_birdseed_threads_${t}.json" -m mkl -m birdseed_outer
+    t=$((t * 2))
+done
+'

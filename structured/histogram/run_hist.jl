@@ -102,9 +102,15 @@ function check_hist(key, hist, expected, npixels)
         @assert sum(values(got)) == npixels "Incorrect total for $key: got $(sum(values(got))), expected $npixels"
         println("correct 2")
     else
-        off = startswith(key, "birdseed") ? 1 : 0
         for (k, v) in expected
-            got = hist[(k .+ offset) ...]
+            if k isa Tuple && (startswith(key, "birdseed") || startswith(key, "wingspan"))
+                # (r, g, b) packed into one 1-based key: (r << 16) | (g << 8) | b
+                got = hist[((k[1] << 16) | (k[2] << 8) | k[3]) + 1]
+            elseif startswith(key, "birdseed")
+                got = hist[k + 1]
+            else
+                got = hist[k...]
+            end
             @assert got == v "Incorrect result for $key at $k: got $got, expected $v"
         end
     end

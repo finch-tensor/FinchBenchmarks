@@ -9,8 +9,8 @@ let
     z0 = 0.0
     dev = cpu(:t)
     sch = greedy_schedule()
-    A = Tensor(SparseHash(SparseHash(Element(z0))))
-    BT = Tensor(SparseHash(SparseHash(Element(z0))))
+    A = Tensor(Dense(SparseList(Element(z0))))
+    BT = Tensor(Dense(SparseList(Element(z0))))
     C = Tensor(Coalesce(dev, SparseHash(SparseHash(Element(z0)))))
     eval(@finch_kernel function birdseed_outer_kernel(C, A, BT, dev, sch)
         C .= 0
@@ -23,8 +23,8 @@ end
 end
 
 function birdseed_outer(A, B, nt)
-    _A = Tensor(A)
-    _B = Tensor(B)
+    _A = Tensor(Dense(SparseList(Element(0.0))), A)
+    _B = Tensor(Dense(SparseList(Element(0.0))), B)
     z = default(_A) * default(_B) + false
     dev = cpu(:t, nt)
     C = Tensor(Coalesce(dev, SparseHash(SparseHash(Element(z)))))
