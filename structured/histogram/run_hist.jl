@@ -114,6 +114,11 @@ function check_hist(key, hist, expected, npixels)
             end
             @assert got == v "Incorrect result for $key at $k: got $got, expected $v"
         end
+        if startswith(key, "birdseed") || startswith(key, "wingspan")
+            # total over every bin, so counts landing in unexpected bins are caught
+            total = sum(hist)
+            @assert total == npixels "Incorrect total for $key: got $total, expected $npixels"
+        end
     end
 end
 
