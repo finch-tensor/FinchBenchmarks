@@ -9,7 +9,7 @@ CXXFLAGS += -std=c++17 -O3 -fPIC
 
 NPROC_VAL ?= 4
 
-all: halide_kernel
+all: halide_kernel halide_rfactor_kernel
 
 OPENCV_DIR     = ../../deps/opencv
 OPENCV_CLONE   = $(OPENCV_DIR)/.git
@@ -36,7 +36,11 @@ $(OPENCV_STAMP): $(OPENCV_CLONE)
 	make -j$(NPROC_VAL) install
 	touch $@
 
+# halide-atomics: halide_impl.cpp, halide-rfactor: halide_rfactor_impl.cpp
 halide_kernel: halide_impl.cpp $(OPENCV_STAMP)
+halide_rfactor_kernel: halide_rfactor_impl.cpp $(OPENCV_STAMP)
+
+halide_kernel halide_rfactor_kernel:
 	@if [ -z "$(HALIDE_DIR)" ]; then echo "Error: Halide not installed (poetry install --no-root in $(REPO_ROOT))."; exit 1; fi
 	@if [ -z "$(HALIDE_LIB)" ]; then echo "Error: libHalide not found under $(HALIDE_DIR)"; exit 1; fi
 	$(CXX) \
@@ -55,7 +59,7 @@ halide_kernel: halide_impl.cpp $(OPENCV_STAMP)
 	    -Wl,-rpath,$(OPENCV_INSTALL)/lib64
 
 clean:
-	rm -f halide_kernel
+	rm -f halide_kernel halide_rfactor_kernel
 
 clean-all: clean
 	rm -rf $(OPENCV_BUILD)

@@ -19,6 +19,5 @@ cd /repo/structured/histogram
 t="$THREADS"
 export OMP_NUM_THREADS="$t"
 export MKL_NUM_THREADS="$t"
-julia --project=/repo/envs/wingspan -t "$t" run_hist.jl -m wingspan_hist --dataset image --ncpu "$t" --output "results/wing_hist_${t}_threads.json"
-cd results
+julia --project=/repo/envs/birdseed -t "$t" run_hist_birdseed.jl -m birdseed_hist --dataset image --ncpu "$t" --output "test.json" -a
 '

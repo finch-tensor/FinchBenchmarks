@@ -3,7 +3,7 @@ using JSON
 using TensorMarket
 
 
-function hist_halide_helper(num_cpu, A)
+function hist_halide_helper(num_cpu, A, kernel)
     mktempdir(prefix="input_") do tmpdir
         R_path = joinpath(tmpdir, "R.ttx")
         G_path = joinpath(tmpdir, "G.ttx")
@@ -26,7 +26,7 @@ function hist_halide_helper(num_cpu, A)
         fwrite(B_path, B)
         hist_path = joinpath(tmpdir, "hist.ttx")
 
-        halide_path = joinpath(@__DIR__, "halide_kernel")
+        halide_path = joinpath(@__DIR__, kernel)
         cmd = `$halide_path -i $tmpdir -o $tmpdir -- -t $num_cpu`
         run(cmd)
 
@@ -36,4 +36,9 @@ function hist_halide_helper(num_cpu, A)
     end
 end
 
-hist_halide_impl(A, num_cpu) = hist_halide_helper(num_cpu, A)
+# halide-atomics: rows split into one chunk per thread, all chunks update a
+# shared histogram with atomic increments (halide_impl.cpp)
+hist_halide_impl(A, num_cpu) = hist_halide_helper(num_cpu, A, "halide_kernel")
+# halide-rfactor: rows split into one chunk per thread, each chunk fills a
+# private histogram via rfactor, then slices are summed (halide_rfactor_impl.cpp)
+hist_halide_rfactor_impl(A, num_cpu) = hist_halide_helper(num_cpu, A, "halide_rfactor_kernel")

@@ -63,7 +63,8 @@ methods = OrderedDict(
     "coalesce_impl_gray" => coalesce_impl_gray,
     "wingspan_hist_gray" => wingspan_hist_gray,
     "birdseed_hist_gray" => birdseed_hist_gray,
-    "halide_hist" => hist_halide_impl,
+    "halide_hist" => hist_halide_impl,                  # halide-atomics
+    "halide_rfactor_hist" => hist_halide_rfactor_impl,  # halide-rfactor
 )
 
 selected = something(parsed_args["method"], String[])
@@ -161,6 +162,7 @@ function calculate_results(dataset, mtxs, results)
             result = method(input, ncpu)
 
             if parsed_args["accuracy-check"]
+		@info "checking accuracy"
                 check_hist(key, result.hist, hist_counts(input), length(input))
             end
 

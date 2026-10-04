@@ -130,16 +130,26 @@ int main(int argc, char **argv) {
     if (split_factor <= 0) split_factor = 1;
     if (split_factor > height) split_factor = height > 0 ? height : 1;
 
-    // halide-atomics strategy: split the rows into one chunk per thread and
-    // update the single shared histogram in parallel with atomic increments.
-    // See halide_rfactor_impl.cpp for the halide-rfactor strategy.
+    // rfactor strategy (Halide tutorial lesson 18): split the rows into one
+    // chunk per thread and factor the reduction over the chunk index, so each
+    // thread fills a private histogram slice intm(r, g, b, u). The slices are
+    // then summed into the output in parallel over b. See halide_impl.cpp for
+    // the halide-atomics strategy.
+    Var u("u");
     try {
         histogram.vectorize(r, 16).parallel(b);
 
-        histogram.update(0)
+        Func intm = histogram.update(0)
             .split(px.y, yo, yi, Expr(split_factor), TailStrategy::GuardWithIf)
-            .atomic()
-            .parallel(yo);
+            .rfactor(yo, u);
+        intm.compute_root();
+        intm.vectorize(r, 16).parallel(u);
+        intm.update(0).parallel(u);
+
+        histogram.update(0)
+            .reorder(r, g, yo, b)
+            .vectorize(r, 16)
+            .parallel(b);
     } catch (const Halide::CompileError &e) {
         std::cerr << "Halide compile error during scheduling: " << e.what() << std::endl;
         return 1;
