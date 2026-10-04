@@ -130,11 +130,6 @@ int main(int argc, char **argv) {
     if (split_factor <= 0) split_factor = 1;
     if (split_factor > height) split_factor = height > 0 ? height : 1;
 
-    // rfactor strategy (Halide tutorial lesson 18): split the rows into one
-    // chunk per thread and factor the reduction over the chunk index, so each
-    // thread fills a private histogram slice intm(r, g, b, u). The slices are
-    // then summed into the output in parallel over b. See halide_impl.cpp for
-    // the halide-atomics strategy.
     Var u("u");
     try {
         histogram.vectorize(r, 16).parallel(b);

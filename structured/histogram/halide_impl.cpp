@@ -130,9 +130,6 @@ int main(int argc, char **argv) {
     if (split_factor <= 0) split_factor = 1;
     if (split_factor > height) split_factor = height > 0 ? height : 1;
 
-    // halide-atomics strategy: split the rows into one chunk per thread and
-    // update the single shared histogram in parallel with atomic increments.
-    // See halide_rfactor_impl.cpp for the halide-rfactor strategy.
     try {
         histogram.vectorize(r, 16).parallel(b);
 
