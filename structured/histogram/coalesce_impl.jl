@@ -5,7 +5,7 @@ using SparseArrays
 
 function coalesce_impl(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
+    _A = Tensor(Dense(Dense(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
     _hist = Tensor(Coalesce(dev, SparseDict(SparseDict(SparseDict(Element(0))))))
 
     time = @belapsed begin
@@ -34,7 +34,7 @@ end
 
 function coalesce_impl_ddd(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
+    _A = Tensor(Dense(Dense(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
     _hist = Tensor(Coalesce(dev, Dense(Dense(Dense(Element(0), 256), 256), 256)))
 
     time = @belapsed begin
@@ -63,7 +63,7 @@ end
 
 function coalesce_impl_gray(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element(UInt8(0)))), A)
+    _A = Tensor(Dense(Dense(Element(UInt8(0)))), A)
     _hist = Tensor(Coalesce(dev, SparseDict(Element(0))))
 
     time = @belapsed begin

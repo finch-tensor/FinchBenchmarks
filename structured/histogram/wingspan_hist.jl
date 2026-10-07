@@ -7,7 +7,7 @@ using SparseArrays
 if !isdefined(Finch, :SparseHash)
 let
     dev = cpu(:t)
-    _A = Tensor(Dense(SparseRunList(Element((UInt8(0), UInt8(0), UInt8(0))))))
+    _A = Tensor(Dense(Dense(Element((UInt8(0), UInt8(0), UInt8(0))))))
     # (r, g, b) is packed into a single Int64 key: (r << 16) | (g << 8) | b, 1-based.
     _hist = Tensor(Coalesce(dev, SparseDict(Element(0))))
     eval(@finch_kernel mode = :fast function wingspan_hist_kernel(_hist, _A, dev)
@@ -20,7 +20,7 @@ let
         return _hist
     end)
 
-    _A_gray = Tensor(Dense(SparseRunList(Element(UInt8(0)))))
+    _A_gray = Tensor(Dense(Dense(Element(UInt8(0)))))
     _hist_gray = Tensor(Coalesce(dev, SparseDict(Element(0))))
     eval(@finch_kernel mode = :fast function wingspan_hist_gray_kernel(_hist_gray, _A_gray, dev)
         _hist_gray .= 0
@@ -34,7 +34,7 @@ end
 
 function wingspan_hist(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
+    _A = Tensor(Dense(Dense(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
     _hist = Tensor(Coalesce(dev, SparseDict(Element(0))))
 
     time = @belapsed wingspan_hist_kernel($_hist, $_A, $dev)
@@ -45,7 +45,7 @@ end
 
 function wingspan_hist_gray(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element(UInt8(0)))), A)
+    _A = Tensor(Dense(Dense(Element(UInt8(0)))), A)
     _hist = Tensor(Coalesce(dev, SparseDict(Element(0))))
 
     time = @belapsed wingspan_hist_gray_kernel($_hist, $_A, $dev)

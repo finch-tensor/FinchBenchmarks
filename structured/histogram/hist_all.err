@@ -1,345 +1,50 @@
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU name (from build time).
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +cldemote.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512fp16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512ifma.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +tsxldtrk.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +ptwrite.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx10.1-512.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vpopcntdq.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-int8.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx10.1-256.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avxvnni.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +hreset.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +movdiri.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +serialize.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +uintr.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-tile.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +gfni.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-fp16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-bf16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512bf16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +sha.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +movdir64b.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +wbnoinvd.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +enqcmd.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +pconfig.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512bitalg.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vbmi2.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +prefetchi.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +rdpid.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vbmi.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +shstk.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +vaes.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +waitpkg.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +sgx.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+[ Info: checking accuracy
 ┌ Info: result for halide_hist on very_highly_compressed/www.abalip.com.jpg
-└   time = 0.023847709
+└   time = 0.022439156000000002
+[ Info: checking accuracy
 ┌ Info: result for halide_hist on very_highly_compressed/www.carmelmusic.com.jpg
-└   time = 0.020707223
+└   time = 0.021070943
+[ Info: checking accuracy
 ┌ Info: result for halide_hist on very_highly_compressed/www.claudiozappi.it.jpg
-└   time = 0.025260734
+└   time = 0.022325349
+[ Info: checking accuracy
 ┌ Info: result for halide_hist on very_highly_compressed/www.duo-thais.com.jpg
-└   time = 0.023807624000000003
+└   time = 0.021561692
+[ Info: checking accuracy
 ┌ Info: result for halide_hist on very_highly_compressed/www.handball-riehen.ch.jpg
-└   time = 0.023194586000000003
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU name (from build time).
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +cldemote.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512fp16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512ifma.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +tsxldtrk.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +ptwrite.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx10.1-512.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vpopcntdq.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-int8.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx10.1-256.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avxvnni.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +hreset.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +movdiri.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +serialize.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +uintr.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-tile.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +gfni.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-fp16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-bf16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512bf16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +sha.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +movdir64b.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +wbnoinvd.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +enqcmd.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +pconfig.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512bitalg.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vbmi2.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +prefetchi.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +rdpid.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vbmi.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +shstk.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +vaes.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +waitpkg.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +sgx.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+└   time = 0.023030403
+[ Info: checking accuracy
+┌ Info: result for halide_rfactor_hist on very_highly_compressed/www.abalip.com.jpg
+└   time = 0.023904906
+[ Info: checking accuracy
+┌ Info: result for halide_rfactor_hist on very_highly_compressed/www.carmelmusic.com.jpg
+└   time = 0.023833437000000002
+[ Info: checking accuracy
+┌ Info: result for halide_rfactor_hist on very_highly_compressed/www.claudiozappi.it.jpg
+└   time = 0.023906888
+[ Info: checking accuracy
+┌ Info: result for halide_rfactor_hist on very_highly_compressed/www.duo-thais.com.jpg
+└   time = 0.023905560000000003
+[ Info: checking accuracy
+┌ Info: result for halide_rfactor_hist on very_highly_compressed/www.handball-riehen.ch.jpg
+└   time = 0.023915600000000002
 ┌ Info: result for wingspan_hist on very_highly_compressed/www.abalip.com.jpg
-└   time = 0.003414248
+└   time = 0.003146548
 ┌ Info: result for wingspan_hist on very_highly_compressed/www.carmelmusic.com.jpg
-└   time = 0.002593305
+└   time = 0.002587628
 ┌ Info: result for wingspan_hist on very_highly_compressed/www.claudiozappi.it.jpg
-└   time = 0.006534055
+└   time = 0.005842121
 ┌ Info: result for wingspan_hist on very_highly_compressed/www.duo-thais.com.jpg
-└   time = 0.002729565
+└   time = 0.002715276
 ┌ Info: result for wingspan_hist on very_highly_compressed/www.handball-riehen.ch.jpg
-└   time = 0.001623612
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU name (from build time).
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:71
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +cldemote.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512fp16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512ifma.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +tsxldtrk.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +ptwrite.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx10.1-512.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vpopcntdq.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-int8.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx10.1-256.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avxvnni.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +hreset.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +movdiri.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +serialize.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +vpclmulqdq.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +uintr.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-tile.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +gfni.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-fp16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +amx-bf16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512bf16.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +sha.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +movdir64b.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +wbnoinvd.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +enqcmd.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +pconfig.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512bitalg.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vbmi2.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +prefetchi.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +rdpid.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +avx512vbmi.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +shstk.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +vaes.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +waitpkg.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
-┌ Warning: Runtime invalidation was disabled, but the CPU info is out-of-date.
-│ Will continue with incorrect CPU feature flag: +sgx.
-└ @ HostCPUFeatures /repo/.julia-depot/packages/HostCPUFeatures/ZTXz4/src/cpu_info.jl:56
+└   time = 0.001589569
 ┌ Info: result for birdseed_hist on very_highly_compressed/www.abalip.com.jpg
-└   time = 0.001351148
+└   time = 0.00132811
 ┌ Info: result for birdseed_hist on very_highly_compressed/www.carmelmusic.com.jpg
-└   time = 0.00125294
+└   time = 0.001232737
 ┌ Info: result for birdseed_hist on very_highly_compressed/www.claudiozappi.it.jpg
-└   time = 0.002337654
+└   time = 0.002361948
 ┌ Info: result for birdseed_hist on very_highly_compressed/www.duo-thais.com.jpg
-└   time = 0.001015238
+└   time = 0.001046414
 ┌ Info: result for birdseed_hist on very_highly_compressed/www.handball-riehen.ch.jpg
-└   time = 0.0007083
+└   time = 0.000741317

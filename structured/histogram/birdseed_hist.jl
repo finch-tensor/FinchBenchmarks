@@ -5,7 +5,7 @@ using SparseArrays
 
 function birdseed_hist(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
+    _A = Tensor(Dense(Dense(Element((UInt8(0), UInt8(0), UInt8(0))))), A)
     # (r, g, b) is packed into a single Int64 key: (r << 16) | (g << 8) | b, 1-based.
     _hist = Tensor(Coalesce(dev, SparseHash(Element(0), 1 << 24)))
 
@@ -35,7 +35,7 @@ end
 
 function birdseed_hist_gray(A, num_cpu)
     dev = cpu(:t, num_cpu)
-    _A = Tensor(Dense(SparseRunList(Element(UInt8(0)))), A)
+    _A = Tensor(Dense(Dense(Element(UInt8(0)))), A)
     _hist = Tensor(Coalesce(dev, SparseHash(Element(0), 256)))
 
     time = @belapsed begin
