@@ -1,0 +1,56 @@
+[
+    {
+        "time": 0.040201527,
+        "n_threads": 1,
+        "method": "mkl_0",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.094701938,
+        "n_threads": 1,
+        "method": "mkl_1",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.06718560800000001,
+        "n_threads": 1,
+        "method": "mkl_2",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.130425227,
+        "n_threads": 1,
+        "method": "mkl_3",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.048414570000000004,
+        "n_threads": 1,
+        "method": "mkl_4",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.10294022700000001,
+        "n_threads": 1,
+        "method": "mkl_5",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.075821076,
+        "n_threads": 1,
+        "method": "mkl_6",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.137704543,
+        "n_threads": 1,
+        "method": "mkl_7",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.022124739,
+        "n_threads": 1,
+        "method": "birdseed_outer",
+        "dataset": "outer"
+    }
+]

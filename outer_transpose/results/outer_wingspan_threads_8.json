@@ -1,0 +1,14 @@
+[
+    {
+        "time": 0.008944909000000001,
+        "n_threads": 8,
+        "method": "mkl_0",
+        "dataset": "outer"
+    },
+    {
+        "time": 0.059688508,
+        "n_threads": 8,
+        "method": "wingspan_outer",
+        "dataset": "outer"
+    }
+]

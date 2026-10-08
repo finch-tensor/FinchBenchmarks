@@ -1,0 +1,456 @@
+  Activating project at `/repo/envs/birdseed`
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.040201527
+┌ Info: testing
+└   key = "mkl_1"
+┌ Info: results
+│   key = "mkl_1"
+└   res.time = 0.094701938
+┌ Info: testing
+└   key = "mkl_2"
+┌ Info: results
+│   key = "mkl_2"
+└   res.time = 0.06718560800000001
+┌ Info: testing
+└   key = "mkl_3"
+┌ Info: results
+│   key = "mkl_3"
+└   res.time = 0.130425227
+┌ Info: testing
+└   key = "mkl_4"
+┌ Info: results
+│   key = "mkl_4"
+└   res.time = 0.048414570000000004
+┌ Info: testing
+└   key = "mkl_5"
+┌ Info: results
+│   key = "mkl_5"
+└   res.time = 0.10294022700000001
+┌ Info: testing
+└   key = "mkl_6"
+┌ Info: results
+│   key = "mkl_6"
+└   res.time = 0.075821076
+┌ Info: testing
+└   key = "mkl_7"
+┌ Info: results
+│   key = "mkl_7"
+└   res.time = 0.137704543
+┌ Info: testing
+└   key = "birdseed_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.022941283
+[ Info: testing with chunk size 2
+[ Info: time: 0.022655966
+[ Info: testing with chunk size 4
+[ Info: time: 0.022482386
+[ Info: testing with chunk size 8
+[ Info: time: 0.022393637
+[ Info: testing with chunk size 16
+[ Info: time: 0.022283136
+[ Info: testing with chunk size 32
+[ Info: time: 0.022223494
+[ Info: testing with chunk size 64
+[ Info: time: 0.022164662
+[ Info: testing with chunk size 128
+[ Info: time: 0.022142045
+[ Info: testing with chunk size 256
+[ Info: time: 0.022124739
+┌ Info: results
+│   key = "birdseed_outer"
+└   res.time = 0.022124739
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.020208296
+┌ Info: testing
+└   key = "mkl_1"
+┌ Info: results
+│   key = "mkl_1"
+└   res.time = 0.06621505
+┌ Info: testing
+└   key = "mkl_2"
+┌ Info: results
+│   key = "mkl_2"
+└   res.time = 0.042891403
+┌ Info: testing
+└   key = "mkl_3"
+┌ Info: results
+│   key = "mkl_3"
+└   res.time = 0.092200001
+┌ Info: testing
+└   key = "mkl_4"
+┌ Info: results
+│   key = "mkl_4"
+└   res.time = 0.031285757000000004
+┌ Info: testing
+└   key = "mkl_5"
+┌ Info: results
+│   key = "mkl_5"
+└   res.time = 0.077811748
+┌ Info: testing
+└   key = "mkl_6"
+┌ Info: results
+│   key = "mkl_6"
+└   res.time = 0.056554028000000006
+┌ Info: testing
+└   key = "mkl_7"
+┌ Info: results
+│   key = "mkl_7"
+└   res.time = 0.106508955
+┌ Info: testing
+└   key = "birdseed_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.01590676
+[ Info: testing with chunk size 2
+[ Info: time: 0.01432712
+[ Info: testing with chunk size 4
+[ Info: time: 0.013196025
+[ Info: testing with chunk size 8
+[ Info: time: 0.012353087
+[ Info: testing with chunk size 16
+[ Info: time: 0.011898093
+[ Info: testing with chunk size 32
+[ Info: time: 0.011685257
+[ Info: testing with chunk size 64
+[ Info: time: 0.01170851
+[ Info: testing with chunk size 128
+[ Info: time: 0.01179189
+[ Info: testing with chunk size 256
+[ Info: time: 0.011770175
+┌ Info: results
+│   key = "birdseed_outer"
+└   res.time = 0.011685257
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.01367347
+┌ Info: testing
+└   key = "mkl_1"
+┌ Info: results
+│   key = "mkl_1"
+└   res.time = 0.061530679000000005
+┌ Info: testing
+└   key = "mkl_2"
+┌ Info: results
+│   key = "mkl_2"
+└   res.time = 0.03140888
+┌ Info: testing
+└   key = "mkl_3"
+┌ Info: results
+│   key = "mkl_3"
+└   res.time = 0.081932828
+┌ Info: testing
+└   key = "mkl_4"
+┌ Info: results
+│   key = "mkl_4"
+└   res.time = 0.02493147
+┌ Info: testing
+└   key = "mkl_5"
+┌ Info: results
+│   key = "mkl_5"
+└   res.time = 0.069848067
+┌ Info: testing
+└   key = "mkl_6"
+┌ Info: results
+│   key = "mkl_6"
+└   res.time = 0.046945471
+┌ Info: testing
+└   key = "mkl_7"
+┌ Info: results
+│   key = "mkl_7"
+└   res.time = 0.09488307800000001
+┌ Info: testing
+└   key = "birdseed_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.009441512
+[ Info: testing with chunk size 2
+[ Info: time: 0.007331305
+[ Info: testing with chunk size 4
+[ Info: time: 0.006548675
+[ Info: testing with chunk size 8
+[ Info: time: 0.005986239
+[ Info: testing with chunk size 16
+[ Info: time: 0.005800628
+[ Info: testing with chunk size 32
+[ Info: time: 0.005720838
+[ Info: testing with chunk size 64
+[ Info: time: 0.005686119
+[ Info: testing with chunk size 128
+[ Info: time: 0.005682374
+[ Info: testing with chunk size 256
+[ Info: time: 0.005632007
+┌ Info: results
+│   key = "birdseed_outer"
+└   res.time = 0.005632007
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.00984434
+┌ Info: testing
+└   key = "mkl_1"
+┌ Info: results
+│   key = "mkl_1"
+└   res.time = 0.060778620000000005
+┌ Info: testing
+└   key = "mkl_2"
+┌ Info: results
+│   key = "mkl_2"
+└   res.time = 0.026284696000000003
+┌ Info: testing
+└   key = "mkl_3"
+┌ Info: results
+│   key = "mkl_3"
+└   res.time = 0.086130599
+┌ Info: testing
+└   key = "mkl_4"
+┌ Info: results
+│   key = "mkl_4"
+└   res.time = 0.029451395000000002
+┌ Info: testing
+└   key = "mkl_5"
+┌ Info: results
+│   key = "mkl_5"
+└   res.time = 0.085703871
+┌ Info: testing
+└   key = "mkl_6"
+┌ Info: results
+│   key = "mkl_6"
+└   res.time = 0.048445712
+┌ Info: testing
+└   key = "mkl_7"
+┌ Info: results
+│   key = "mkl_7"
+└   res.time = 0.10514419900000001
+┌ Info: testing
+└   key = "birdseed_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.007438609
+[ Info: testing with chunk size 2
+[ Info: time: 0.004946687
+[ Info: testing with chunk size 4
+[ Info: time: 0.003507848
+[ Info: testing with chunk size 8
+[ Info: time: 0.003158081
+[ Info: testing with chunk size 16
+[ Info: time: 0.002967995
+[ Info: testing with chunk size 32
+[ Info: time: 0.002866364
+[ Info: testing with chunk size 64
+[ Info: time: 0.002823329
+[ Info: testing with chunk size 128
+[ Info: time: 0.00280082
+[ Info: testing with chunk size 256
+[ Info: time: 0.00283447
+┌ Info: results
+│   key = "birdseed_outer"
+└   res.time = 0.00280082
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.007735034000000001
+┌ Info: testing
+└   key = "mkl_1"
+┌ Info: results
+│   key = "mkl_1"
+└   res.time = 0.08407402
+┌ Info: testing
+└   key = "mkl_2"
+┌ Info: results
+│   key = "mkl_2"
+└   res.time = 0.024948102000000003
+┌ Info: testing
+└   key = "mkl_3"
+┌ Info: results
+│   key = "mkl_3"
+└   res.time = 0.10487475900000001
+┌ Info: testing
+└   key = "mkl_4"
+┌ Info: results
+│   key = "mkl_4"
+└   res.time = 0.039018281
+┌ Info: testing
+└   key = "mkl_5"
+┌ Info: results
+│   key = "mkl_5"
+└   res.time = 0.113049013
+┌ Info: testing
+└   key = "mkl_6"
+┌ Info: results
+│   key = "mkl_6"
+└   res.time = 0.05996817200000001
+┌ Info: testing
+└   key = "mkl_7"
+┌ Info: results
+│   key = "mkl_7"
+└   res.time = 0.135328851
+┌ Info: testing
+└   key = "birdseed_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.008622296
+[ Info: testing with chunk size 2
+[ Info: time: 0.005113857
+[ Info: testing with chunk size 4
+[ Info: time: 0.002912322
+[ Info: testing with chunk size 8
+[ Info: time: 0.002023023
+[ Info: testing with chunk size 16
+[ Info: time: 0.00185393
+[ Info: testing with chunk size 32
+[ Info: time: 0.001779678
+[ Info: testing with chunk size 64
+[ Info: time: 0.001750678
+[ Info: testing with chunk size 128
+[ Info: time: 0.00174378
+[ Info: testing with chunk size 256
+[ Info: time: 0.001700126
+┌ Info: results
+│   key = "birdseed_outer"
+└   res.time = 0.001700126
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.040199248
+┌ Info: testing
+└   key = "wingspan_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.110845287
+[ Info: testing with chunk size 2
+[ Info: time: 0.110238426
+[ Info: testing with chunk size 4
+[ Info: time: 0.110034693
+[ Info: testing with chunk size 8
+[ Info: time: 0.109785924
+[ Info: testing with chunk size 16
+[ Info: time: 0.110101738
+[ Info: testing with chunk size 32
+[ Info: time: 0.110052223
+[ Info: testing with chunk size 64
+[ Info: time: 0.110066057
+[ Info: testing with chunk size 128
+[ Info: time: 0.110100095
+[ Info: testing with chunk size 256
+[ Info: time: 0.109693216
+┌ Info: results
+│   key = "wingspan_outer"
+└   res.time = 0.109693216
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.021586015
+┌ Info: testing
+└   key = "wingspan_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.151064521
+[ Info: testing with chunk size 2
+[ Info: time: 0.150196183
+[ Info: testing with chunk size 4
+[ Info: time: 0.150003846
+[ Info: testing with chunk size 8
+[ Info: time: 0.146280145
+[ Info: testing with chunk size 16
+[ Info: time: 0.148349018
+[ Info: testing with chunk size 32
+[ Info: time: 0.147860827
+[ Info: testing with chunk size 64
+[ Info: time: 0.149251501
+[ Info: testing with chunk size 128
+[ Info: time: 0.147614251
+[ Info: testing with chunk size 256
+[ Info: time: 0.148504139
+┌ Info: results
+│   key = "wingspan_outer"
+└   res.time = 0.146280145
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.012933783
+┌ Info: testing
+└   key = "wingspan_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.069304178
+[ Info: testing with chunk size 2
+[ Info: time: 0.067410512
+[ Info: testing with chunk size 4
+[ Info: time: 0.068148381
+[ Info: testing with chunk size 8
+[ Info: time: 0.068074163
+[ Info: testing with chunk size 16
+[ Info: time: 0.06803087
+[ Info: testing with chunk size 32
+[ Info: time: 0.067620501
+[ Info: testing with chunk size 64
+[ Info: time: 0.067473
+[ Info: testing with chunk size 128
+[ Info: time: 0.067370839
+[ Info: testing with chunk size 256
+[ Info: time: 0.066847046
+┌ Info: results
+│   key = "wingspan_outer"
+└   res.time = 0.066847046
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.008944909000000001
+┌ Info: testing
+└   key = "wingspan_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.066231201
+[ Info: testing with chunk size 2
+[ Info: time: 0.065747134
+[ Info: testing with chunk size 4
+[ Info: time: 0.065789559
+[ Info: testing with chunk size 8
+[ Info: time: 0.064865551
+[ Info: testing with chunk size 16
+[ Info: time: 0.065625894
+[ Info: testing with chunk size 32
+[ Info: time: 0.059860629
+[ Info: testing with chunk size 64
+[ Info: time: 0.064902872
+[ Info: testing with chunk size 128
+[ Info: time: 0.059688508
+[ Info: testing with chunk size 256
+[ Info: time: 0.063961409
+┌ Info: results
+│   key = "wingspan_outer"
+└   res.time = 0.059688508
+┌ Info: testing
+└   key = "mkl_0"
+┌ Info: results
+│   key = "mkl_0"
+└   res.time = 0.007789946000000001
+┌ Info: testing
+└   key = "wingspan_outer"
+[ Info: testing with chunk size 1
+[ Info: time: 0.042976511
+[ Info: testing with chunk size 2
+[ Info: time: 0.04456024
+[ Info: testing with chunk size 4
+[ Info: time: 0.042575969
+[ Info: testing with chunk size 8
+[ Info: time: 0.042889526
+[ Info: testing with chunk size 16
+[ Info: time: 0.04515251
+[ Info: testing with chunk size 32
+[ Info: time: 0.042349301
+[ Info: testing with chunk size 64
+[ Info: time: 0.042415876
+[ Info: testing with chunk size 128
+[ Info: time: 0.042486917
+[ Info: testing with chunk size 256
+[ Info: time: 0.04218004
+┌ Info: results
+│   key = "wingspan_outer"
+└   res.time = 0.04218004
