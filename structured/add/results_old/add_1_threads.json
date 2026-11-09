@@ -1,69 +1,69 @@
 [
     {
-        "time": 0.000998612,
+        "time": 0.015229395,
         "n_threads": 1,
         "method": "shard_impl",
         "dataset": "image",
         "matrix": "www.abalip.com.jpg"
     },
     {
-        "time": 0.001031995,
+        "time": 0.001031343,
         "n_threads": 1,
         "method": "cv_impl",
         "dataset": "image",
         "matrix": "www.abalip.com.jpg"
     },
     {
-        "time": 0.000547705,
+        "time": 0.2838782,
         "n_threads": 1,
         "method": "shard_impl",
         "dataset": "image",
         "matrix": "www.carmelmusic.com.jpg"
     },
     {
-        "time": 0.0010323650000000001,
+        "time": 0.001032357,
         "n_threads": 1,
         "method": "cv_impl",
         "dataset": "image",
         "matrix": "www.carmelmusic.com.jpg"
     },
     {
-        "time": 0.001410291,
+        "time": 0.307738732,
         "n_threads": 1,
         "method": "shard_impl",
         "dataset": "image",
         "matrix": "www.claudiozappi.it.jpg"
     },
     {
-        "time": 0.001031934,
+        "time": 0.001032692,
         "n_threads": 1,
         "method": "cv_impl",
         "dataset": "image",
         "matrix": "www.claudiozappi.it.jpg"
     },
     {
-        "time": 0.000631495,
+        "time": 0.313166908,
         "n_threads": 1,
         "method": "shard_impl",
         "dataset": "image",
         "matrix": "www.duo-thais.com.jpg"
     },
     {
-        "time": 0.00103236,
+        "time": 0.001032598,
         "n_threads": 1,
         "method": "cv_impl",
         "dataset": "image",
         "matrix": "www.duo-thais.com.jpg"
     },
     {
-        "time": 0.001676933,
+        "time": 0.308983194,
         "n_threads": 1,
         "method": "shard_impl",
         "dataset": "image",
         "matrix": "www.handball-riehen.ch.jpg"
     },
     {
-        "time": 0.001031934,
+        "time": 0.001032324,
         "n_threads": 1,
         "method": "cv_impl",
         "dataset": "image",
