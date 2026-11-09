@@ -15,6 +15,8 @@ using DataStructures
 using JSON
 using Images
 using Random
+using SparseArrays
+using LinearAlgebra
 
 Random.seed!(1234)
 
@@ -33,9 +35,6 @@ s = ArgParseSettings("Run Structured Add Experiments.")
     "--method", "-m"
     arg_type = String
     help = "method keyword"
-    "--accuracy-check", "-a"
-    action = :store_true
-    help = "check method accuracy"
 end
 parsed_args = parse_args(ARGS, s)
 
@@ -101,22 +100,13 @@ function calculate_results(dataset, mtxs, results)
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
+        ref = nothing
         for (key, method) in methods
             ncpu = parsed_args["ncpu"]
             result = method(A, B, ncpu)
 
-            if parsed_args["accuracy-check"]
-                # Check the result of the add
-                shard_impl_result = shard_impl(A, B, ncpu)
-
-                m, n = size(shard_impl_result.C)
-                expected = shard_impl_result.C
-                for i in 1:m
-                    for j in 1:n
-                        @assert isapprox(result.C[i,j], expected[i,j]; rtol=1e-5, atol=1e-8) "Incorrect result for $key at ($i,$j): got $(result.C[i,j]), expected $(expected[i,j])"
-                    end
-                end
-            end
+            ref = something(ref, SparseMatrixCSC(result.C))
+            norm(ref - SparseMatrixCSC(result.C))/norm(ref) < 0.01 || error("incorrect result for $key on $matrix_label via norm")
 
             # Write result
             time = result.time

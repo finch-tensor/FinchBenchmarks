@@ -11,7 +11,8 @@ mkdir -p "$REPO_ROOT/.julia-depot" "$REPO_ROOT/.poetry-venv"
 
 apptainer exec --cleanenv --no-home \
     --bind "$REPO_ROOT:/repo" \
-    --env JULIA_DEPOT_PATH=/repo/.julia-depot \
+    --env JULIA_DEPOT_PATH=/repo/.julia-depot:/opt/julia-depot: \
+    --env MATRIXDEPOT_DATA=/repo/.julia-depot/scratchspaces/b51810bb-c9f3-55da-ae3c-350fc1fbce05/data \
     --env POETRY_VIRTUALENVS_PATH=/repo/.poetry-venv \
     --env JULIA_EXCLUSIVE=1 \
     --env MAX_THREADS="$MAX_THREADS" \

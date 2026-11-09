@@ -24,7 +24,10 @@ RUN wget -qO- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PR
     && apt-get install -y --no-install-recommends intel-oneapi-mkl-devel=2025.3.0-461 \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PATH="/root/.local/bin:${PATH}"
+# Install tools/depots under /opt, not /root: Apptainer runs as the unprivileged
+# host user, who cannot read Docker's /root.
+ENV POETRY_HOME=/opt/poetry
+ENV PATH="/opt/poetry/bin:${PATH}"
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 ENV JULIA_VERSION=1.12.6
@@ -39,6 +42,10 @@ COPY . .
 
 RUN make all
 
-RUN bash instantiate_environments.sh
+# Pre-installed, read-only depot. Run scripts stack a writable depot in front:
+#   JULIA_DEPOT_PATH=/repo/.julia-depot:/opt/julia-depot:
+# The trailing ":" keeps Julia's bundled depot (stdlib caches) on the path.
+ENV JULIA_DEPOT_PATH=/opt/julia-depot:
+RUN bash instantiate_environments.sh && chmod -R a+rX /opt/julia-depot /opt/poetry
 
 CMD ["/bin/bash"]

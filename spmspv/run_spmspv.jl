@@ -32,9 +32,6 @@ s = ArgParseSettings("Run Parallel SpMSpV Experiments.")
     "--method", "-m"
     arg_type = String
     help = "method keyword"
-    "--accuracy-check", "-a"
-    action = :store_true
-    help = "check method accuracy"
 end
 parsed_args = parse_args(ARGS, s)
 
@@ -84,12 +81,15 @@ include("serial_default_implementation.jl")
 include("coalesce_implementation.jl")
 include("spmspv_eigen.jl")
 
+# vendor libraries first (mkl, eigen, graphblas): the first method is the error-check reference
 methods = OrderedDict(
+    "eigen" => spmspv_eigen,
     "graphblas" => blas_spmspv,
     "coalesce_static" => coalesce_spmspv,
-    "eigen" => spmspv_eigen,
     "coalesce_dynamic" => coalesce_spmspv_dynamic,
 )
+
+ref_key, ref_method = first(methods)
 
 if !isnothing(parsed_args["method"])
     method_name = parsed_args["method"]
@@ -119,15 +119,12 @@ function calculate_results(dataset, mtxs, results)
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
+        ref = haskey(methods, ref_key) ? nothing : SparseVector(ref_method(A, x, Threads.nthreads()).y)
         for (key, method) in methods
             result = method(A, x, Threads.nthreads())
 
-            if parsed_args["accuracy-check"]
-                # Check the result of the multiplication
-                ref = serial_default_implementation_spmspv(A, x, 0)
-                @info "checking accuracy"
-                norm(SparseVector(ref.y) - SparseVector(result.y))/norm(SparseVector(ref.y)) < 0.01 || @warn("incorrect result via norm")
-            end
+            ref = something(ref, SparseVector(result.y))
+            norm(ref - SparseVector(result.y))/norm(ref) < 0.01 || error("incorrect result for $key on $mtx via norm")
 
             # Write result
             time = result.time

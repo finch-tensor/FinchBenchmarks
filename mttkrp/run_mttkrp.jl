@@ -14,6 +14,7 @@ using DataStructures
 using JSON
 using Random
 using SparseArrays
+using LinearAlgebra
 
 Random.seed!(1234)
 
@@ -32,9 +33,6 @@ s = ArgParseSettings("Run Parallel MTTKRP Experiments.")
     "--method", "-m"
     arg_type = String
     help = "method keyword"
-    "--accuracy-check", "-a"
-    action = :store_true
-    help = "check method accuracy"
 end
 parsed_args = parse_args(ARGS, s)
 
@@ -115,25 +113,14 @@ function calculate_results(dataset, mtxs, results)
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
+        ref = nothing
         for (key, method) in methods
             ncpu = parsed_args["ncpu"]
 	    @info "starting test on $key"
             result = method(B, C, D, ncpu)
 
-            if parsed_args["accuracy-check"]
-                # Check the result of the sum
-                finch_impl_result = finch_impl(B, C, D, ncpu)
-
-                rtol = 1e-5
-                for i in 1:size(result.A)[1]
-                    for j in 1:size(result.A)[2]
-                        @assert isapprox(result.A[i, j], finch_impl_result.A[i, j], rtol=rtol) """
-                        Incorrect result for $key at index ($i, $j): got $(result.A[i, j]), expected $(finch_impl_result.A[i, j])
-                        relative error = $(abs(result.A[i, j] - finch_impl_result.A[i, j]) / abs(finch_impl_result.A[i, j]))
-                        """
-                    end
-                end
-            end
+            ref = something(ref, SparseMatrixCSC(result.A))
+            norm(ref - SparseMatrixCSC(result.A))/norm(ref) < 0.01 || error("incorrect result for $key on $mtx via norm")
 
             # Write result
             time = result.time

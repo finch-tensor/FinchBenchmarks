@@ -7,15 +7,3 @@
 [submodule "deps/eigen"]
 	path = deps/eigen
 	url = https://gitlab.com/libeigen/eigen.git
-[submodule "deps/cora"]
-	path = deps/cora
-	url = https://github.com/pratikfegade/cora.git
-[submodule "deps/LAGraph"]
-	path = deps/LAGraph
-	url = https://github.com/GraphBLAS/LAGraph
-[submodule "deps/GraphBLAS"]
-	path = deps/GraphBLAS
-	url = https://github.com/DrTimothyAldenDavis/GraphBLAS.git
-[submodule "deps/opencv"]
-	path = deps/opencv
-	url = https://github.com/opencv/opencv.git

@@ -67,10 +67,10 @@ $(EIGEN_CLONE):
 spgemm/spgemm_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spgemm/spgemm_eigen.cpp
 	$(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) -o $@ spgemm/spgemm_eigen.cpp
 
-spgemm/spgemm_mkl: $(SPARSE_BENCH) spgemm/spgemm_mkl.cpp
+spgemm/spgemm_mkl: $(SPARSE_BENCH) $(EIGEN_CLONE) spgemm/spgemm_mkl.cpp
 	bash -c 'source /opt/intel/oneapi/setvars.sh; $(CXX) $(CXXFLAGS) $(EIGEN_CXXFLAGS) $(MKL_CXXFLAGS) -o $@ spgemm/spgemm_mkl.cpp $(LDLIBS) $(MKL_LDLIBS)'
 
-spadd/spadd_mkl: spadd/mkl_impl.cpp
+spadd/spadd_mkl: $(SPARSE_BENCH) $(TACO) spadd/mkl_impl.cpp
 	bash -c 'source /opt/intel/oneapi/setvars.sh; $(CXX) $(CXXFLAGS) $(TACO_CXXFLAGS) $(EIGEN_CXXFLAGS) $(MKL_CXXFLAGS) -o $@ spadd/mkl_impl.cpp $(LDLIBS) $(MKL_LDLIBS) $(TACO_LDLIBS)'
 
 spadd/spadd_eigen: $(SPARSE_BENCH) $(EIGEN_CLONE) spadd/eigen_impl.cpp

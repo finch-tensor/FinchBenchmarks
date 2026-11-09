@@ -44,7 +44,7 @@ s = ArgParseSettings("Run spgemm experiments.")
     "--kernels"
     arg_type = String
     help = "set of kernels to run"
-    default = "gustavson"
+    default = "fast"
 end
 
 parsed_args = parse_args(ARGS, s)
@@ -112,23 +112,24 @@ include("spgemm_eigen.jl")
 include("spgemm_mkl.jl")
 include("spgemm_graphblas.jl")
 
+# vendor libraries first: the first method's output is the reference for the error check
 methods = Dict(
     "fast" => [
-        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
         (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        "spgemm_graphblas" => graphblas_impl,
         "spgemm_finch_gustavson_dynamic" => spgemm_finch_dynamic,
         "spgemm_finch_gustavson_static" => spgemm_finch_gustavson,
-        "spgemm_graphblas" => graphblas_impl,
     ],
     "full" => [
-        "spgemm_finch_outer" => spgemm_finch_outer,
-        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
         (has_mkl() ? ["spgemm_mkl" => spgemm_mkl] : [])...,
+        (has_eigen() ? ["spgemm_eigen" => spgemm_eigen] : [])...,
+        "spgemm_graphblas" => graphblas_impl,
+        "spgemm_finch_outer" => spgemm_finch_outer,
         "spgemm_finch_inner" => spgemm_finch_inner,
         "spgemm_finch_gustavson_static" => spgemm_finch_gustavson,
         "spgemm_finch_gustavson_dynamic" => spgemm_finch_dynamic,
         "spgemm_finch_nested" => spgemm_finch_nested,
-        "spgemm_graphblas" => graphblas_impl,
     ],
 )
 
@@ -157,7 +158,7 @@ for mtx in batch
         @info "testing" key mtx
         res = method(A, B, nt)
         C_ref = something(C_ref, SparseMatrixCSC(res.C))
-        norm(C_ref - SparseMatrixCSC(res.C))/norm(C_ref) < 0.01 || @warn("incorrect result via norm")
+        norm(C_ref - SparseMatrixCSC(res.C))/norm(C_ref) < 0.01 || error("incorrect result for $key on $mtx via norm")
         @info "results" res.time
         push!(results, OrderedDict(
             "time" => res.time,

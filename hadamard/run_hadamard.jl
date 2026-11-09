@@ -15,6 +15,7 @@ using DataStructures
 using JSON
 using Random
 using SparseArrays
+using LinearAlgebra
 
 Random.seed!(1234)
 
@@ -33,9 +34,6 @@ s = ArgParseSettings("Run Parallel SpAdd Experiments.")
     "--method", "-m"
     arg_type = String
     help = "method keyword"
-    "--accuracy-check", "-a"
-    action = :store_true
-    help = "check method accuracy"
 end
 parsed_args = parse_args(ARGS, s)
 
@@ -78,11 +76,14 @@ include("shard_implementation.jl")
 include("eigen_impl.jl")
 include("graphBLAS_impl.jl")
 
+# vendor libraries first (mkl, eigen, graphblas): the first method is the error-check reference
 methods = OrderedDict(
-    "shard_implementation" => shard_impl,
-    "graphblas_impl" => graphblas_impl,
     "eigen_impl" => eigen_impl,
+    "graphblas_impl" => graphblas_impl,
+    "shard_implementation" => shard_impl,
 )
+
+ref_key, ref_method = first(methods)
 
 if !isnothing(parsed_args["method"])
     method_name = parsed_args["method"]
@@ -104,21 +105,14 @@ function calculate_results(dataset, mtxs, results)
             throw(ArgumentError("Cannot recognize dataset: $dataset"))
         end
 
+        ref = haskey(methods, ref_key) ? nothing : SparseMatrixCSC(ref_method(A, B, parsed_args["ncpu"]).C)
         for (key, method) in methods
                 ncpu = parsed_args["ncpu"]
                 m, n = size(A)
                 result = method(A, B, ncpu)
 
-                if parsed_args["accuracy-check"]
-                    serial_default_implementation_result = serial_default_implementation_add(A, B, ncpu)
-                    expected = serial_default_implementation_result.C
-                    m, n = size(expected)
-                    for i in 1:m
-                        for j in 1:n
-                            @assert isapprox(result.C[i,j], expected[i,j]) "Incorrect result for $key at ($i,$j): got $(result.C[i,j]), expected $(expected[i,j])"
-                        end
-                    end
-                end
+                ref = something(ref, SparseMatrixCSC(result.C))
+                norm(ref - SparseMatrixCSC(result.C))/norm(ref) < 0.01 || error("incorrect result for $key on $mtx via norm")
 
                 # Write result
                 time = result.time
